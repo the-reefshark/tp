@@ -4,7 +4,6 @@ title: Developer Guide
 ---
 * Table of Contents
 {:toc}
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -217,7 +216,6 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -264,14 +262,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `Kanbug Tracker` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Delete a bug**
 
 **MSS**
 
-1.  User requests to list Bugs
-2.  Kanbug tracker shows the list of Bugs
+1.  User requests to list bugs
+2.  Kanbug Tracker shows the list of bug
 3.  User requests to delete a specific bug in the list
-4.  Kanbug tracker deletes the person
+4.  Kanbug Tracker deletes the bug
 
     Use case ends.
 
@@ -283,7 +281,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. Kanbug tracker shows an error message.
+    * 3a1. Kanbug Tracker shows an error message.
 
       Use case resumes at step 2.
 
@@ -291,7 +289,80 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.
+1. User requests to add bug
+
+2. KanBug Tracker adds the new bug and displays the updated list of bugs
+
+   to the user
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. The bug format is invalid
+
+  - 1a1. Kanbug Tracker shows an error message.
+
+    Use case resumes at step 1.
+
+**Use case: Edit a bug**
+
+**MSS**
+
+1. User requests to list bugs
+
+2. KanBug Tracker shows the list of bugs
+
+3. User requests to edit a specific bug in the list
+
+4. KanBug Tracker edits the bug
+
+   Use case ends.
+
+**Extensions**
+
+- 2a. The list is empty.
+
+  Use case ends.
+
+- 3a. The given index is invalid.
+
+  - 3a1. KanBug Tracker shows an error message.
+
+    Use case resumes at 2.
+
+- 3b. The user enters an invalid edit format
+
+  - 3b1. KanBug Tracker shows an error message. 
+
+    Use case resumes at 2.
+
+**Use case: Move a bug**
+
+**MSS** 
+
+1. User requests to list bugs
+2. KanBug Tracker shows the list of bugs
+3. User requests to move a specific bug to another state
+4. KanBug Tracker moves the bug
+
+**Extensions**
+
+- 2a. The list is empty.
+
+  Use case ends.
+
+- 3a. The given index is invalid.
+
+  - 3a1. KanBug Tracker shows an error message.
+
+    Use case resumes at 2.
+
+- 3b. The user enters an invalid edit format.
+
+  - 3b1. KanBug Tracker shows an error message.
+
+    Use case resumes at 2.
 
 *{More to be added}*
 
