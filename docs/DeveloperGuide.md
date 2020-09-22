@@ -234,13 +234,13 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of bugs
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: providing a command line interface for software engineering students to manage and track the bug fixing process faster than a typical mouse/GUI driven app
 
 
 ### User stories
@@ -376,7 +376,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Private bug fixing progress detail**: A bug fixing progress detail that is not meant to be shared with others
 
 --------------------------------------------------------------------------------------------------------------------
 
