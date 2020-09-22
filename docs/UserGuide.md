@@ -29,7 +29,16 @@ KanBug Tracker is a **desktop app for managing the tracking of bugs you encounte
 [comment]: <> "To be completed by Phong"
 
 ### Listing all bugs : `list`
-[comment]: <> "To be completed by Duy"
+Lists all bugs in the tracker or bugs in a particular state
+
+Format: `list [s/STATE]`
+* Shows a list of bugs in the specified state or all bugs in the tracker system
+* The state field is optional
+* State can be either **backlog,todo,ongoing** or **done**
+
+Examples:
+* `list`, displays all the bugs in the tracker. 
+* `list s/done`, displays a list of bugs in 'Done' state
 
 ### Adding a bug : `add`
 Adds a bug to the list
@@ -39,16 +48,17 @@ Format: `add n/NAME d/DESCRIPTION s/STATE`
 * **All** of the fields are needed
 
 Examples:
-* `add n/Print bug d/prints the wrong message s/todo`, Adds a bug with name “Print Bug”, Description of “prints the wrong message” and state of “To do”.
-* `add n/move bug d/moves bug to wrong column s/backlog`, Adds a bug with name “move bug”, Description of “moves bug to wrong column” and state of “Backlog”.
+* `add n/Print bug d/prints the wrong message s/todo`, adds a bug with name “Print Bug”, Description of “prints the wrong message” and state of “To do”.
+* `add n/move bug d/moves bug to wrong column s/backlog`, adds a bug with name “move bug”, Description of “moves bug to wrong column” and state of “Backlog”.
 
 ### Deleting a bug : `delete`
 Deletes a bug from the list
 
 Format: `delete INDEX`
-  * Deletes the bug at the specified index
+  * Deletes the bug at the specified index  
+
 Example:
-  * `delete 1`, Deletes the bug at index one of the bug list.
+  * `delete 1`, deletes the bug at index one of the bug list.
 
 
 ### Editing a bug : `edit`
@@ -73,13 +83,13 @@ Format: `move INDEX s/STATE`
 
 * Moves the bug at the specified `INDEX`. The index refers to the index number shown in the displayed list of bugs. The Index **must be a positive integer** 1,2,3…
 * The state field is **mandatory** and must be provided.
-* State can either be `**backlog, todo, ongoing**` or `**done**`.
+* State can either be **backlog, todo, ongoing** or **done**.
 * Existing state will be updated to the new state.
 
 Examples:
 
 * `move 1 s/todo`, moves the 1st bug from its initial state to the “To Do” state.
-* `move 3 s/completed`, moves the 3rd bug from its initial state to the “Completed” state.
+* `move 3 s/done`, moves the 3rd bug from its initial state to the “Done” state.
 
 ### Exiting the program :  `exit`
 [comment]: <> "To be completed by Phong"
