@@ -26,14 +26,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Roles: Team Lead
 * Responsibilities: Deliverables and Deadlines
 
-### Johnny Doe
+### Rishabh Paliwal
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/the-reefshark.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](https://github.com/the-reefshark)] [[portfolio](team/the-reefshark.md)] [[Linkedin](https://www.linkedin.com/in/rishabh-paliwal-44b865190/)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Documentation
 
 ### Jean Doe
 
