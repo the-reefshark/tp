@@ -26,7 +26,11 @@ KanBug Tracker is a **desktop app for managing the tracking of bugs you encounte
 - Items in `[...]` are optional
 
 ### Viewing help : `help`
-[comment]: <> "To be completed by Phong"
+Gets a list of all commands that can be used.
+
+Format: `help`
+* Gets all commands’ syntax and usage.
+
 
 ### Listing all bugs : `list`
 Lists all bugs in the tracker or bugs in a particular state
@@ -92,10 +96,13 @@ Examples:
 * `move 3 s/done`, moves the 3rd bug from its initial state to the “Done” state.
 
 ### Exiting the program :  `exit`
-[comment]: <> "To be completed by Phong"
+End and close the app.
 
-### Saving the data
-[comment]: <> "To be completed by Phong"
+Format: `exit`
+* Saves all of the local data and exit.
+
+### Saving the data : automatically
+Data is saved into the hard disk everytime a change is made.
 
 ---
 
