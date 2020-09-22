@@ -5,7 +5,7 @@ KanBug Tracker is a **desktop app for managing the tracking of bugs you encounte
 
 [![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/AY2021S1-CS2103T-W17-1/tp/actions)
 
-[comment]: <> (![Ui](docs/images/Ui.png)
+[comment]: <> "![Ui](docs/images/Ui.png"
 
 * [Features](#features)
   * [Viewing help : **`help`**](#viewing-help--help)
@@ -22,17 +22,16 @@ KanBug Tracker is a **desktop app for managing the tracking of bugs you encounte
 
 ## Features
 
-- Words in `UPPER_CASE` are parameters to be sipplied by the user
+- Words in `UPPER_CASE` are parameters to be supplied by the user
 - Items in `[...]` are optional
 
 ### Viewing help : `help`
-[comment]: <> (To be completed by Phong)
+[comment]: <> "To be completed by Phong"
 
 ### Listing all bugs : `list`
-[comment]: <> (To be completed by Duy)
+[comment]: <> "To be completed by Duy"
 
 ### Adding a bug : `add`
-
 Adds a bug to the list
 
 Format: `add n/NAME d/DESCRIPTION s/STATE`
@@ -53,7 +52,18 @@ Example:
 
 
 ### Editing a bug : `edit`
-[comment]: <> (To be completed by Kishen)
+Edits an existing bug in the tracker
+
+Format: `edit INDEX [n/NEW_NAME] [d/NEW_DESCRIPTION]`
+
+- Edits the bug at the specified `INDEX`. The index refers to the index number shown in the displayed list of bugs. The Index **must be a positive integer** 1,2,3...
+- At least one of the optional fields must be provided.
+- Existing values will be updated to the input values.
+
+Examples:
+
+- `edit 1 n/Wrong list numbers when displaying list d/List column printed as all 1's`, edits the name and description of the 1st bug to be "Wrong list numbers when displaying list" and "List column printed as all 1's" respectively.
+- `edit 2 d/When listing items, duplicates are printed`, edits the description of the 2nd bug to be "When listing items, duplicated are printed".
 
 ### Moving a bug : `move`
 
@@ -72,10 +82,10 @@ Examples:
 * `move 3 s/completed`, moves the 3rd bug from its initial state to the “Completed” state.
 
 ### Exiting the program :  `exit`
-[comment]: <> (To be completed by Phong)
+[comment]: <> "To be completed by Phong"
 
 ### Saving the data
-[comment]: <> (To be completed by Phong)
+[comment]: <> "To be completed by Phong"
 
 ---
 
