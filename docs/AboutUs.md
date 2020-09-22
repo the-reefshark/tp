@@ -35,14 +35,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Documentation
 
-### Jean Doe
+### Tran Gia Phong
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/phongtran98.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](https://github.com/PhongTran98)] [[portfolio](team/phongtran98.md)] [[Linkedin](https://www.linkedin.com/in/gia-phong-tran-1b30b519b/)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Testing + Integration
 
 ### James Doe
 
