@@ -32,10 +32,25 @@ KanBug Tracker is a **desktop app for managing the tracking of bugs you encounte
 [comment]: <> (To be completed by Duy)
 
 ### Adding a bug : `add`
-[comment]: <> (To be completed by Roger)
+
+Adds a bug to the list
+
+Format: `add n/NAME d/DESCRIPTION s/STATE`
+* Add a bug with the specified name, description and state to the bottom of the list.
+* **All** of the fields are needed
+
+Examples:
+* `add n/Print bug d/prints the wrong message s/todo`, Adds a bug with name “Print Bug”, Description of “prints the wrong message” and state of “To do”.
+* `add n/move bug d/moves bug to wrong column s/backlog`, Adds a bug with name “move bug”, Description of “moves bug to wrong column” and state of “Backlog”.
 
 ### Deleting a bug : `delete`
-[comment]: <> (To be completed by Roger)
+Deletes a bug from the list
+
+Format: `delete INDEX`
+  * Deletes the bug at the specified index
+Example:
+  * `delete 1`, Deletes the bug at index one of the bug list.
+
 
 ### Editing a bug : `edit`
 [comment]: <> (To be completed by Kishen)
