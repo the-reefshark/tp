@@ -1,6 +1,6 @@
 ---
 layout: page
-title: John Doe's Project Portfolio Page
+title: Nguyen Khanh Duy's Project Portfolio Page
 ---
 
 ## Project: KanBug Tracker
@@ -26,6 +26,3 @@ Given below are my contributions to the project.
 * **Community**:
   
 * **Tools**:
-  
-  
-
