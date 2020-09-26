@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.bug.exceptions.DuplicateBugException;
 import seedu.address.model.bug.exceptions.BugNotFoundException;
+import seedu.address.model.bug.exceptions.DuplicateBugException;
 import seedu.address.testutil.BugBuilder;
 
 public class UniqueBugListTest {

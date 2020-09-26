@@ -25,9 +25,9 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.NameContainsKeywordsPredicate;
-import seedu.address.testutil.EditBugDescriptorBuilder;
 import seedu.address.testutil.BugBuilder;
 import seedu.address.testutil.BugUtil;
+import seedu.address.testutil.EditBugDescriptorBuilder;
 
 public class KanBugTrackerParserTest {
 
