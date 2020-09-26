@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -22,34 +22,34 @@ import seedu.address.model.bug.Bug;
 public class TypicalPersons {
 
     public static final Bug ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+            .withDescription("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withTags("friends").build();
     public static final Bug BENSON = new PersonBuilder().withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25")
+            .withDescription("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com")
             .withTags("owesMoney", "friends").build();
     public static final Bug CARL = new PersonBuilder().withName("Carl Kurz")
-            .withEmail("heinz@example.com").withAddress("wall street").build();
+            .withEmail("heinz@example.com").withDescription("wall street").build();
     public static final Bug DANIEL = new PersonBuilder().withName("Daniel Meier")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
+            .withEmail("cornelia@example.com").withDescription("10th street").withTags("friends").build();
     public static final Bug ELLE = new PersonBuilder().withName("Elle Meyer")
-            .withEmail("werner@example.com").withAddress("michegan ave").build();
+            .withEmail("werner@example.com").withDescription("michegan ave").build();
     public static final Bug FIONA = new PersonBuilder().withName("Fiona Kunz")
-            .withEmail("lydia@example.com").withAddress("little tokyo").build();
+            .withEmail("lydia@example.com").withDescription("little tokyo").build();
     public static final Bug GEORGE = new PersonBuilder().withName("George Best")
-            .withEmail("anna@example.com").withAddress("4th street").build();
+            .withEmail("anna@example.com").withDescription("4th street").build();
 
     // Manually added
     public static final Bug HOON = new PersonBuilder().withName("Hoon Meier")
-            .withEmail("stefan@example.com").withAddress("little india").build();
+            .withEmail("stefan@example.com").withDescription("little india").build();
     public static final Bug IDA = new PersonBuilder().withName("Ida Mueller")
-            .withEmail("hans@example.com").withAddress("chicago ave").build();
+            .withEmail("hans@example.com").withDescription("chicago ave").build();
 
     // Manually added - Bug's details found in {@code CommandTestUtil}
     public static final Bug AMY = new PersonBuilder().withName(VALID_NAME_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+            .withEmail(VALID_EMAIL_AMY).withDescription(VALID_DESCRIPTION_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Bug BOB = new PersonBuilder().withName(VALID_NAME_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withEmail(VALID_EMAIL_BOB).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

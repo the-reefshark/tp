@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.bug.Address;
+import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Email;
 import seedu.address.model.bug.Name;
 import seedu.address.model.bug.Bug;
@@ -33,7 +33,7 @@ public class EditPersonDescriptorBuilder {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(bug.getName());
         descriptor.setEmail(bug.getEmail());
-        descriptor.setAddress(bug.getAddress());
+        descriptor.setDescription(bug.getDescription());
         descriptor.setTags(bug.getTags());
     }
 
@@ -54,10 +54,10 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Description} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditPersonDescriptorBuilder withDescription(String address) {
+        descriptor.setDescription(new Description(address));
         return this;
     }
 

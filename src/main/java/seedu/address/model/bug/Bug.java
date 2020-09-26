@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Bug in the address book.
+ * Represents a Bug in the description book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Bug {
@@ -20,17 +20,17 @@ public class Bug {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final Description description;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Bug(Name name, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, email, address, tags);
+    public Bug(Name name, Email email, Description description, Set<Tag> tags) {
+        requireAllNonNull(name, email, description, tags);
         this.name = name;
         this.email = email;
-        this.address = address;
+        this.description = description;
         this.tags.addAll(tags);
     }
 
@@ -42,8 +42,8 @@ public class Bug {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Description getDescription() {
+        return description;
     }
 
     /**
@@ -85,14 +85,14 @@ public class Bug {
         Bug otherBug = (Bug) other;
         return otherBug.getName().equals(getName())
                 && otherBug.getEmail().equals(getEmail())
-                && otherBug.getAddress().equals(getAddress())
+                && otherBug.getDescription().equals(getDescription())
                 && otherBug.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, email, address, tags);
+        return Objects.hash(name, email, description, tags);
     }
 
     @Override
@@ -101,8 +101,8 @@ public class Bug {
         builder.append(getName())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Description: ")
+                .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
