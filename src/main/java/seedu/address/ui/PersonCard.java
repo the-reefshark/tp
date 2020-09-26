@@ -49,7 +49,6 @@ public class PersonCard extends UiPart<Region> {
         this.bug = bug;
         id.setText(displayedIndex + ". ");
         name.setText(bug.getName().fullName);
-        phone.setText(bug.getPhone().value);
         address.setText(bug.getAddress().value);
         email.setText(bug.getEmail().value);
         bug.getTags().stream()

@@ -17,7 +17,6 @@ public class Bug {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
     private final Email email;
 
     // Data fields
@@ -27,10 +26,9 @@ public class Bug {
     /**
      * Every field must be present and not null.
      */
-    public Bug(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Bug(Name name, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, email, address, tags);
         this.name = name;
-        this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
@@ -38,10 +36,6 @@ public class Bug {
 
     public Name getName() {
         return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
     }
 
     public Email getEmail() {
@@ -71,7 +65,7 @@ public class Bug {
 
         return otherBug != null
                 && otherBug.getName().equals(getName())
-                && (otherBug.getPhone().equals(getPhone()) || otherBug.getEmail().equals(getEmail()));
+                && otherBug.getEmail().equals(getEmail());
     }
 
     /**
@@ -90,7 +84,6 @@ public class Bug {
 
         Bug otherBug = (Bug) other;
         return otherBug.getName().equals(getName())
-                && otherBug.getPhone().equals(getPhone())
                 && otherBug.getEmail().equals(getEmail())
                 && otherBug.getAddress().equals(getAddress())
                 && otherBug.getTags().equals(getTags());
@@ -99,15 +92,13 @@ public class Bug {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")

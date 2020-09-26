@@ -91,12 +91,11 @@ public class EditCommand extends Command {
         assert bugToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(bugToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(bugToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(bugToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(bugToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(bugToEdit.getTags());
 
-        return new Bug(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Bug(updatedName, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -123,7 +122,6 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
-        private Phone phone;
         private Email email;
         private Address address;
         private Set<Tag> tags;
@@ -136,7 +134,6 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
@@ -146,7 +143,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, email, address, tags);
         }
 
         public void setName(Name name) {
@@ -155,14 +152,6 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
         }
 
         public void setEmail(Email email) {
@@ -214,7 +203,6 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
