@@ -6,8 +6,11 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.KanBugTracker;
 import seedu.address.model.ReadOnlyKanBugTracker;
-import seedu.address.model.bug.*;
+import seedu.address.model.bug.Address;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.Email;
+import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Phone;
 import seedu.address.model.tag.Tag;
 
 /**

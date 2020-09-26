@@ -10,8 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.bug.*;
+import seedu.address.model.bug.Address;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.Email;
+import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Phone;
 import seedu.address.model.tag.Tag;
 
 /**

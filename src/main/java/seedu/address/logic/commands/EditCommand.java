@@ -19,8 +19,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.bug.*;
+import seedu.address.model.bug.Address;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.Email;
+import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
