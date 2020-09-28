@@ -90,12 +90,12 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredBugList().remove(0));
     }
 
     @Test
     public void equals() {
-        KanBugTracker kanBugTracker = new KanBugTrackerBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        KanBugTracker kanBugTracker = new KanBugTrackerBuilder().withBug(ALICE).withBug(BENSON).build();
         KanBugTracker differentKanBugTracker = new KanBugTracker();
         UserPrefs userPrefs = new UserPrefs();
 

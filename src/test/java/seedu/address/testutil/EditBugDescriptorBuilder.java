@@ -5,11 +5,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.model.bug.Address;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Email;
 import seedu.address.model.bug.Name;
-import seedu.address.model.bug.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,14 +27,13 @@ public class EditBugDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code bug}'s details
      */
     public EditBugDescriptorBuilder(Bug bug) {
         descriptor = new EditCommand.EditBugDescriptor();
         descriptor.setName(bug.getName());
-        descriptor.setPhone(bug.getPhone());
         descriptor.setEmail(bug.getEmail());
-        descriptor.setAddress(bug.getAddress());
+        descriptor.setDescription(bug.getDescription());
         descriptor.setTags(bug.getTags());
     }
 
@@ -48,14 +46,6 @@ public class EditBugDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
-     */
-    public EditBugDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
-        return this;
-    }
-
-    /**
      * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditBugDescriptorBuilder withEmail(String email) {
@@ -64,10 +54,10 @@ public class EditBugDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Description} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditBugDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditBugDescriptorBuilder withDescription(String address) {
+        descriptor.setDescription(new Description(address));
         return this;
     }
 

@@ -19,7 +19,7 @@ import seedu.address.model.bug.Bug;
 @JsonRootName(value = "addressbook")
 class JsonSerializableKanBugTracker {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate bug(s).";
 
     private final List<JsonAdaptedBug> persons = new ArrayList<>();
 

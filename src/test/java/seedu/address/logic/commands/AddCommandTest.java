@@ -70,7 +70,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different bug -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -139,7 +139,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Bug> getFilteredPersonList() {
+        public ObservableList<Bug> getFilteredBugList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -150,7 +150,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single bug.
      */
     private class ModelStubWithBug extends ModelStub {
         private final Bug bug;
@@ -168,7 +168,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the bug being added.
      */
     private class ModelStubAcceptingBugAdded extends ModelStub {
         final ArrayList<Bug> personsAdded = new ArrayList<>();

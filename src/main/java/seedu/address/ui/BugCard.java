@@ -10,7 +10,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.bug.Bug;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Bug}.
  */
 public class BugCard extends UiPart<Region> {
 
@@ -35,22 +35,21 @@ public class BugCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label address;
+    private Label description;
     @FXML
     private Label email;
     @FXML
     private FlowPane tags;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code PersonCode} with the given {@code Bug} and index to display.
      */
     public BugCard(Bug bug, int displayedIndex) {
         super(FXML);
         this.bug = bug;
         id.setText(displayedIndex + ". ");
         name.setText(bug.getName().fullName);
-        phone.setText(bug.getPhone().value);
-        address.setText(bug.getAddress().value);
+        description.setText(bug.getDescription().value);
         email.setText(bug.getEmail().value);
         bug.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

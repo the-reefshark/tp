@@ -112,14 +112,14 @@ public class ModelManager implements Model {
         kanBugTracker.setBug(target, editedBug);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Bug List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Bug} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Bug> getFilteredPersonList() {
+    public ObservableList<Bug> getFilteredBugList() {
         return filteredBugs;
     }
 

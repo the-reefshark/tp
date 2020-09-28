@@ -53,34 +53,34 @@ public interface Model {
     ReadOnlyKanBugTracker getKanBugTracker();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a bug with the same identity as {@code bug} exists in the address book.
      */
     boolean hasBug(Bug bug);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given bug.
+     * The bug must exist in the address book.
      */
     void deleteBug(Bug target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given bug.
+     * {@code bug} must not already exist in the address book.
      */
     void addBug(Bug bug);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given bug {@code target} with {@code editedBug}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The bug identity of {@code editedBug} must not be the same as another existing bug in the address book.
      */
     void setBug(Bug target, Bug editedBug);
 
     /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Bug> getFilteredPersonList();
+    ObservableList<Bug> getFilteredBugList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered bug list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBugList(Predicate<Bug> predicate);
