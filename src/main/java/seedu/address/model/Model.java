@@ -12,7 +12,7 @@ import seedu.address.model.bug.Bug;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Bug> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Bug> PREDICATE_SHOW_ALL_BUGS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -37,51 +37,51 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getKanBugTrackerFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setKanBugTrackerFilePath(Path kanBugTrackerFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setKanBugTracker(ReadOnlyKanBugTracker kanBugTracker);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyKanBugTracker getKanBugTracker();
 
     /**
      * Returns true if a bug with the same identity as {@code bug} exists in the address book.
      */
-    boolean hasPerson(Bug bug);
+    boolean hasBug(Bug bug);
 
     /**
      * Deletes the given bug.
      * The bug must exist in the address book.
      */
-    void deletePerson(Bug target);
+    void deleteBug(Bug target);
 
     /**
      * Adds the given bug.
      * {@code bug} must not already exist in the address book.
      */
-    void addPerson(Bug bug);
+    void addBug(Bug bug);
 
     /**
      * Replaces the given bug {@code target} with {@code editedBug}.
      * {@code target} must exist in the address book.
      * The bug identity of {@code editedBug} must not be the same as another existing bug in the address book.
      */
-    void setPerson(Bug target, Bug editedBug);
+    void setBug(Bug target, Bug editedBug);
 
-    /** Returns an unmodifiable view of the filtered bug list */
-    ObservableList<Bug> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<Bug> getFilteredBugList();
 
     /**
      * Updates the filter of the filtered bug list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Bug> predicate);
+    void updateFilteredBugList(Predicate<Bug> predicate);
 }

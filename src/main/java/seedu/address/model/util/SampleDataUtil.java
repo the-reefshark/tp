@@ -4,10 +4,12 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.bug.*;
+import seedu.address.model.KanBugTracker;
+import seedu.address.model.ReadOnlyKanBugTracker;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.Description;
+import seedu.address.model.bug.Email;
+import seedu.address.model.bug.Name;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -37,10 +39,10 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyKanBugTracker getSampleAddressBook() {
+        KanBugTracker sampleAb = new KanBugTracker();
         for (Bug sampleBug : getSamplePersons()) {
-            sampleAb.addPerson(sampleBug);
+            sampleAb.addBug(sampleBug);
         }
         return sampleAb;
     }

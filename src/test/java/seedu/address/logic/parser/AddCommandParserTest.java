@@ -22,23 +22,25 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalBugs.AMY;
+import static seedu.address.testutil.TypicalBugs.BOB;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.bug.*;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.Description;
+import seedu.address.model.bug.Email;
+import seedu.address.model.bug.Name;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.BugBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Bug expectedBug = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Bug expectedBug = new BugBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + EMAIL_DESC_BOB
@@ -61,7 +63,7 @@ public class AddCommandParserTest {
                 + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBug));
 
         // multiple tags - all accepted
-        Bug expectedBugMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Bug expectedBugMultipleTags = new BugBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + DESCRIPTION_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedBugMultipleTags));
@@ -70,7 +72,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Bug expectedBug = new PersonBuilder(AMY).withTags().build();
+        Bug expectedBug = new BugBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY,
                 new AddCommand(expectedBug));
     }

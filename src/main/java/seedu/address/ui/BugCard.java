@@ -12,9 +12,9 @@ import seedu.address.model.bug.Bug;
 /**
  * An UI component that displays information of a {@code Bug}.
  */
-public class PersonCard extends UiPart<Region> {
+public class BugCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "BugListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -44,7 +44,7 @@ public class PersonCard extends UiPart<Region> {
     /**
      * Creates a {@code PersonCode} with the given {@code Bug} and index to display.
      */
-    public PersonCard(Bug bug, int displayedIndex) {
+    public BugCard(Bug bug, int displayedIndex) {
         super(FXML);
         this.bug = bug;
         id.setText(displayedIndex + ". ");
@@ -64,12 +64,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof BugCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        BugCard card = (BugCard) other;
         return id.getText().equals(card.id.getText())
                 && bug.equals(card.bug);
     }

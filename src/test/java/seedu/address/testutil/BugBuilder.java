@@ -3,15 +3,17 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.bug.*;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.Description;
+import seedu.address.model.bug.Email;
+import seedu.address.model.bug.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Bug objects.
  */
-public class PersonBuilder {
+public class BugBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
@@ -25,7 +27,7 @@ public class PersonBuilder {
     /**
      * Creates a {@code PersonBuilder} with the default details.
      */
-    public PersonBuilder() {
+    public BugBuilder() {
         name = new Name(DEFAULT_NAME);
         email = new Email(DEFAULT_EMAIL);
         description = new Description(DEFAULT_DESCRIPTION);
@@ -35,7 +37,7 @@ public class PersonBuilder {
     /**
      * Initializes the PersonBuilder with the data of {@code bugToCopy}.
      */
-    public PersonBuilder(Bug bugToCopy) {
+    public BugBuilder(Bug bugToCopy) {
         name = bugToCopy.getName();
         email = bugToCopy.getEmail();
         description = bugToCopy.getDescription();
@@ -45,7 +47,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Name} of the {@code Bug} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public BugBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
@@ -53,7 +55,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Bug} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public BugBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -61,7 +63,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Description} of the {@code Bug} that we are building.
      */
-    public PersonBuilder withDescription(String address) {
+    public BugBuilder withDescription(String address) {
         this.description = new Description(address);
         return this;
     }
@@ -69,7 +71,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Email} of the {@code Bug} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public BugBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }

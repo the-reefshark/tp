@@ -58,7 +58,7 @@ public class ParserUtil {
     public static Description parseDescription(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (! Description.isValidDescription(trimmedAddress)) {
+        if (!Description.isValidDescription(trimmedAddress)) {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
         return new Description(trimmedAddress);

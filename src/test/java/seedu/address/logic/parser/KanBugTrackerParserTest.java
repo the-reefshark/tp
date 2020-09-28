@@ -17,7 +17,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditBugDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -25,18 +25,18 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.NameContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.BugBuilder;
+import seedu.address.testutil.BugUtil;
+import seedu.address.testutil.EditBugDescriptorBuilder;
 
-public class AddressBookParserTest {
+public class KanBugTrackerParserTest {
 
     private final AddressBookParser parser = new AddressBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {
-        Bug bug = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(bug));
+        Bug bug = new BugBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(BugUtil.getAddCommand(bug));
         assertEquals(new AddCommand(bug), command);
     }
 
@@ -55,10 +55,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Bug bug = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(bug).build();
+        Bug bug = new BugBuilder().build();
+        EditBugDescriptor descriptor = new EditBugDescriptorBuilder(bug).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + INDEX_FIRST_PERSON.getOneBased() + " " + BugUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 

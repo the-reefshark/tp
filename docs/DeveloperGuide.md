@@ -150,11 +150,19 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
+<<<<<<< HEAD
 Step 2. The user executes `delete 5` command to delete the 5th bug in the description book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the description book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted description book state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
 Step 3. The user executes `add n/David …​` to add a new bug. The `add` command also calls `Model#commitAddressBook()`, causing another modified description book state to be saved into the `addressBookStateList`.
+=======
+Step 2. The user executes `delete 5` command to delete the 5th bug in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+
+![UndoRedoState1](images/UndoRedoState1.png)
+
+Step 3. The user executes `add n/David …​` to add a new bug. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+>>>>>>> 33b37e54cbc184873b939ea9b3a713905b4e8d13
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
@@ -162,7 +170,11 @@ Step 3. The user executes `add n/David …​` to add a new bug. The `add` comma
 
 </div>
 
+<<<<<<< HEAD
 Step 4. The user now decides that adding the bug was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous description book state, and restores the description book to that state.
+=======
+Step 4. The user now decides that adding the bug was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+>>>>>>> 33b37e54cbc184873b939ea9b3a713905b4e8d13
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 

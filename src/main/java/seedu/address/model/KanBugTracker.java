@@ -6,15 +6,15 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.bug.Bug;
-import seedu.address.model.bug.UniquePersonList;
+import seedu.address.model.bug.UniqueBugList;
 
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class KanBugTracker implements ReadOnlyKanBugTracker {
 
-    private final UniquePersonList persons;
+    private final UniqueBugList bugs;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,15 +24,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        bugs = new UniqueBugList();
     }
 
-    public AddressBook() {}
+    public KanBugTracker() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an KanBugTracker using the Bugs in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public KanBugTracker(ReadOnlyKanBugTracker toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -43,78 +43,78 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the bug list with {@code bugs}.
      * {@code bugs} must not contain duplicate bugs.
      */
-    public void setPersons(List<Bug> bugs) {
-        this.persons.setPersons(bugs);
+    public void setBugs(List<Bug> bugs) {
+        this.bugs.setBugs(bugs);
     }
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyKanBugTracker newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setBugs(newData.getBugList());
     }
 
-    //// bug-level operations
+    //// person-level operations
 
     /**
      * Returns true if a bug with the same identity as {@code bug} exists in the address book.
      */
-    public boolean hasPerson(Bug bug) {
+    public boolean hasBug(Bug bug) {
         requireNonNull(bug);
-        return persons.contains(bug);
+        return bugs.contains(bug);
     }
 
     /**
-     * Adds a bug to the address book.
-     * The bug must not already exist in the address book.
+     * Adds a bug to the KanBug Tracker.
+     * The bug must not already exist in the KanBug Tracker.
      */
-    public void addPerson(Bug p) {
-        persons.add(p);
+    public void addBug(Bug p) {
+        bugs.add(p);
     }
 
     /**
      * Replaces the given bug {@code target} in the list with {@code editedBug}.
-     * {@code target} must exist in the address book.
-     * The bug identity of {@code editedBug} must not be the same as another existing bug in the address book.
+     * {@code target} must exist in the KanBug Tracker.
+     * The bug identity of {@code editedPerson} must not be the same as another existing bug in the KanBug Tracker.
      */
-    public void setPerson(Bug target, Bug editedBug) {
+    public void setBug(Bug target, Bug editedBug) {
         requireNonNull(editedBug);
 
-        persons.setPerson(target, editedBug);
+        bugs.setPerson(target, editedBug);
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code KanBugTracker}.
+     * {@code key} must exist in the KanBug Tracker.
      */
-    public void removePerson(Bug key) {
-        persons.remove(key);
+    public void removeBug(Bug key) {
+        bugs.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return bugs.asUnmodifiableObservableList().size() + " bugs";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Bug> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Bug> getBugList() {
+        return bugs.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof KanBugTracker // instanceof handles nulls
+                && bugs.equals(((KanBugTracker) other).bugs));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return bugs.hashCode();
     }
 }

@@ -28,7 +28,11 @@ package seedu.description.logic.commands;
 import seedu.description.model.Model;
 
 /**
+<<<<<<< HEAD
  * Changes the remark of an existing bug in the description book.
+=======
+ * Changes the remark of an existing bug in the address book.
+>>>>>>> 33b37e54cbc184873b939ea9b3a713905b4e8d13
  */
 public class RemarkCommand extends Command {
 
@@ -226,7 +230,11 @@ Now that we have all the information that we need, let’s lay the groundwork fo
 
 ### Add a new `Remark` class
 
+<<<<<<< HEAD
 Create a new `Remark` in `seedu.description.model.bug`. Since a `Remark` is a field that is similar to `Address`, we can reuse a significant bit of code.
+=======
+Create a new `Remark` in `seedu.address.model.bug`. Since a `Remark` is a field that is similar to `Address`, we can reuse a significant bit of code.
+>>>>>>> 33b37e54cbc184873b939ea9b3a713905b4e8d13
 
 A copy-paste and search-replace later, you should have something like [this](https://github.com/se-edu/addressbook-level3/commit/4516e099699baa9e2d51801bd26f016d812dedcc#diff-af2f075d24dfcd333876f0fbce321f25). Note how `Remark` has no constrains and thus does not require input
 validation.
@@ -239,7 +247,11 @@ Let’s change `RemarkCommand` and `RemarkCommandParser` to use the new `Remark`
 
 Without getting too deep into `fxml`, let’s go on a 5 minute adventure to get some placeholder text to show up for each bug.
 
+<<<<<<< HEAD
 Simply add the following to [`seedu.description.ui.PersonCard`](https://github.com/se-edu/addressbook-level3/commit/850b78879582f38accb05dd20c245963c65ea599#diff-0c6b6abcfac8c205e075294f25e851fe).
+=======
+Simply add the following to [`seedu.address.ui.BugCard`](https://github.com/se-edu/addressbook-level3/commit/850b78879582f38accb05dd20c245963c65ea599#diff-0c6b6abcfac8c205e075294f25e851fe).
+>>>>>>> 33b37e54cbc184873b939ea9b3a713905b4e8d13
 
 **`PersonCard.java`:**
 

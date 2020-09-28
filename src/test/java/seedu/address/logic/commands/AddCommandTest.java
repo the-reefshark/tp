@@ -16,12 +16,12 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.KanBugTracker;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyKanBugTracker;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.bug.Bug;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.BugBuilder;
 
 public class AddCommandTest {
 
@@ -32,8 +32,8 @@ public class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Bug validBug = new PersonBuilder().build();
+        ModelStubAcceptingBugAdded modelStub = new ModelStubAcceptingBugAdded();
+        Bug validBug = new BugBuilder().build();
 
         CommandResult commandResult = new AddCommand(validBug).execute(modelStub);
 
@@ -43,17 +43,17 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Bug validBug = new PersonBuilder().build();
+        Bug validBug = new BugBuilder().build();
         AddCommand addCommand = new AddCommand(validBug);
-        ModelStub modelStub = new ModelStubWithPerson(validBug);
+        ModelStub modelStub = new ModelStubWithBug(validBug);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Bug alice = new PersonBuilder().withName("Alice").build();
-        Bug bob = new PersonBuilder().withName("Bob").build();
+        Bug alice = new BugBuilder().withName("Alice").build();
+        Bug bob = new BugBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -99,52 +99,52 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getKanBugTrackerFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setKanBugTrackerFilePath(Path kanBugTrackerFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(Bug bug) {
+        public void addBug(Bug bug) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setKanBugTracker(ReadOnlyKanBugTracker newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyKanBugTracker getKanBugTracker() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Bug bug) {
+        public boolean hasBug(Bug bug) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Bug target) {
+        public void deleteBug(Bug target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Bug target, Bug editedBug) {
+        public void setBug(Bug target, Bug editedBug) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Bug> getFilteredPersonList() {
+        public ObservableList<Bug> getFilteredBugList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Bug> predicate) {
+        public void updateFilteredBugList(Predicate<Bug> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -152,16 +152,16 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single bug.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithBug extends ModelStub {
         private final Bug bug;
 
-        ModelStubWithPerson(Bug bug) {
+        ModelStubWithBug(Bug bug) {
             requireNonNull(bug);
             this.bug = bug;
         }
 
         @Override
-        public boolean hasPerson(Bug bug) {
+        public boolean hasBug(Bug bug) {
             requireNonNull(bug);
             return this.bug.isSamePerson(bug);
         }
@@ -170,24 +170,24 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the bug being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
+    private class ModelStubAcceptingBugAdded extends ModelStub {
         final ArrayList<Bug> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Bug bug) {
+        public boolean hasBug(Bug bug) {
             requireNonNull(bug);
             return personsAdded.stream().anyMatch(bug::isSamePerson);
         }
 
         @Override
-        public void addPerson(Bug bug) {
+        public void addBug(Bug bug) {
             requireNonNull(bug);
             personsAdded.add(bug);
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyKanBugTracker getKanBugTracker() {
+            return new KanBugTracker();
         }
     }
 

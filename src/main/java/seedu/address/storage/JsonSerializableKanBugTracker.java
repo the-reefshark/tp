@@ -9,25 +9,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.KanBugTracker;
+import seedu.address.model.ReadOnlyKanBugTracker;
 import seedu.address.model.bug.Bug;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+class JsonSerializableKanBugTracker {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate bug(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedBug> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableKanBugTracker(@JsonProperty("persons") List<JsonAdaptedBug> persons) {
         this.persons.addAll(persons);
     }
 
@@ -36,8 +36,8 @@ class JsonSerializableAddressBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+    public JsonSerializableKanBugTracker(ReadOnlyKanBugTracker source) {
+        persons.addAll(source.getBugList().stream().map(JsonAdaptedBug::new).collect(Collectors.toList()));
     }
 
     /**
@@ -45,16 +45,16 @@ class JsonSerializableAddressBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Bug bug = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(bug)) {
+    public KanBugTracker toModelType() throws IllegalValueException {
+        KanBugTracker kanBugTracker = new KanBugTracker();
+        for (JsonAdaptedBug jsonAdaptedBug : persons) {
+            Bug bug = jsonAdaptedBug.toModelType();
+            if (kanBugTracker.hasBug(bug)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(bug);
+            kanBugTracker.addBug(bug);
         }
-        return addressBook;
+        return kanBugTracker;
     }
 
 }

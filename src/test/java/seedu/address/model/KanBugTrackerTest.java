@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBugs.ALICE;
+import static seedu.address.testutil.TypicalBugs.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,82 +19,82 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.bug.Bug;
-import seedu.address.model.bug.exceptions.DuplicatePersonException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.bug.exceptions.DuplicateBugException;
+import seedu.address.testutil.BugBuilder;
 
-public class AddressBookTest {
+public class KanBugTrackerTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final KanBugTracker kanBugTracker = new KanBugTracker();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), kanBugTracker.getBugList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> kanBugTracker.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        KanBugTracker newData = getTypicalAddressBook();
+        kanBugTracker.resetData(newData);
+        assertEquals(newData, kanBugTracker);
     }
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two bugs with the same identity fields
-        Bug editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        // Two persons with the same identity fields
+        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Bug> newBugs = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newBugs);
+        KanBugTrackerStub newData = new KanBugTrackerStub(newBugs);
 
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateBugException.class, () -> kanBugTracker.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> kanBugTracker.hasBug(null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(kanBugTracker.hasBug(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        kanBugTracker.addBug(ALICE);
+        assertTrue(kanBugTracker.hasBug(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Bug editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        kanBugTracker.addBug(ALICE);
+        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(kanBugTracker.hasBug(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> kanBugTracker.getBugList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose bugs list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class KanBugTrackerStub implements ReadOnlyKanBugTracker {
         private final ObservableList<Bug> bugs = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Bug> bugs) {
+        KanBugTrackerStub(Collection<Bug> bugs) {
             this.bugs.setAll(bugs);
         }
 
         @Override
-        public ObservableList<Bug> getPersonList() {
+        public ObservableList<Bug> getBugList() {
             return bugs;
         }
     }

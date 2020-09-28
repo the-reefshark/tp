@@ -4,33 +4,33 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Email;
 import seedu.address.model.bug.Name;
-import seedu.address.model.bug.Bug;
 import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
  */
-public class EditPersonDescriptorBuilder {
+public class EditBugDescriptorBuilder {
 
-    private EditPersonDescriptor descriptor;
+    private EditCommand.EditBugDescriptor descriptor;
 
-    public EditPersonDescriptorBuilder() {
-        descriptor = new EditPersonDescriptor();
+    public EditBugDescriptorBuilder() {
+        descriptor = new EditCommand.EditBugDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(EditPersonDescriptor descriptor) {
-        this.descriptor = new EditPersonDescriptor(descriptor);
+    public EditBugDescriptorBuilder(EditCommand.EditBugDescriptor descriptor) {
+        this.descriptor = new EditCommand.EditBugDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditPersonDescriptor} with fields containing {@code bug}'s details
      */
-    public EditPersonDescriptorBuilder(Bug bug) {
-        descriptor = new EditPersonDescriptor();
+    public EditBugDescriptorBuilder(Bug bug) {
+        descriptor = new EditCommand.EditBugDescriptor();
         descriptor.setName(bug.getName());
         descriptor.setEmail(bug.getEmail());
         descriptor.setDescription(bug.getDescription());
@@ -40,7 +40,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withName(String name) {
+    public EditBugDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }
@@ -48,7 +48,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withEmail(String email) {
+    public EditBugDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(new Email(email));
         return this;
     }
@@ -56,7 +56,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Description} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withDescription(String address) {
+    public EditBugDescriptorBuilder withDescription(String address) {
         descriptor.setDescription(new Description(address));
         return this;
     }
@@ -65,13 +65,13 @@ public class EditPersonDescriptorBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
+    public EditBugDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
         return this;
     }
 
-    public EditPersonDescriptor build() {
+    public EditCommand.EditBugDescriptor build() {
         return descriptor;
     }
 }

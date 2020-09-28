@@ -14,11 +14,11 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.KanBugTracker;
 import seedu.address.model.Model;
-import seedu.address.model.bug.NameContainsKeywordsPredicate;
 import seedu.address.model.bug.Bug;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.model.bug.NameContainsKeywordsPredicate;
+import seedu.address.testutil.EditBugDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -45,20 +45,20 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION; // empty string not allowed for addresses
+    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION; // descriptions cannot be empty
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditBugDescriptor DESC_AMY;
+    public static final EditCommand.EditBugDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        DESC_AMY = new EditBugDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withEmail(VALID_EMAIL_AMY).withDescription(VALID_DESCRIPTION_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        DESC_BOB = new EditBugDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withEmail(VALID_EMAIL_BOB).withDescription(VALID_DESCRIPTION_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
@@ -98,25 +98,25 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Bug> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        KanBugTracker expectedKanBugTracker = new KanBugTracker(actualModel.getKanBugTracker());
+        List<Bug> expectedFilteredList = new ArrayList<>(actualModel.getFilteredBugList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedKanBugTracker, actualModel.getKanBugTracker());
+        assertEquals(expectedFilteredList, actualModel.getFilteredBugList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the bug at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBugList().size());
 
-        Bug bug = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Bug bug = model.getFilteredBugList().get(targetIndex.getZeroBased());
         final String[] splitName = bug.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredBugList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredBugList().size());
     }
 
 }

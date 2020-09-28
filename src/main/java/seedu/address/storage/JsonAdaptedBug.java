@@ -10,14 +10,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.bug.*;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.Description;
+import seedu.address.model.bug.Email;
+import seedu.address.model.bug.Name;
 import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Bug}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedBug {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Bug's %s field is missing!";
 
@@ -30,7 +32,7 @@ class JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPerson} with the given bug details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name,
+    public JsonAdaptedBug(@JsonProperty("name") String name,
             @JsonProperty("email") String email, @JsonProperty("description") String description,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
@@ -44,7 +46,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Bug} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Bug source) {
+    public JsonAdaptedBug(Bug source) {
         name = source.getName().fullName;
         email = source.getEmail().value;
         description = source.getDescription().value;
@@ -81,7 +83,8 @@ class JsonAdaptedPerson {
         final Email modelEmail = new Email(email);
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);

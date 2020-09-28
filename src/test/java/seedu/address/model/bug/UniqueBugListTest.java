@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalBugs.ALICE;
+import static seedu.address.testutil.TypicalBugs.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,9 +15,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.bug.exceptions.DuplicatePersonException;
+import seedu.address.model.bug.exceptions.DuplicateBugException;
 import seedu.address.model.bug.exceptions.PersonNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.BugBuilder;
 
 public class UniqueBugListTest {
 
@@ -42,7 +42,7 @@ public class UniqueBugListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniquePersonList.add(ALICE);
-        Bug editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniquePersonList.contains(editedAlice));
     }
@@ -55,7 +55,7 @@ public class UniqueBugListTest {
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniquePersonList.add(ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.add(ALICE));
+        assertThrows(DuplicateBugException.class, () -> uniquePersonList.add(ALICE));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class UniqueBugListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniquePersonList.add(ALICE);
-        Bug editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniquePersonList.setPerson(ALICE, editedAlice);
         UniquePersonList expectedUniquePersonList = new UniquePersonList();
@@ -106,7 +106,7 @@ public class UniqueBugListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniquePersonList.add(ALICE);
         uniquePersonList.add(BOB);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPerson(ALICE, BOB));
+        assertThrows(DuplicateBugException.class, () -> uniquePersonList.setPerson(ALICE, BOB));
     }
 
     @Test
@@ -159,7 +159,7 @@ public class UniqueBugListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Bug> listWithDuplicateBugs = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicateBugs));
+        assertThrows(DuplicateBugException.class, () -> uniquePersonList.setPersons(listWithDuplicateBugs));
     }
 
     @Test

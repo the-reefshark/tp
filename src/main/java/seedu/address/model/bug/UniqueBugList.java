@@ -8,28 +8,28 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.bug.exceptions.BugNotFoundException;
 import seedu.address.model.bug.exceptions.DuplicateBugException;
-import seedu.address.model.bug.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A bug is considered unique by comparing using {@code Bug#isSamePerson(Bug)}. As such, adding and updating of
- * persons uses Bug#isSamePerson(Bug) for equality so as to ensure that the bug being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a bug uses Bug#equals(Object) so
- * as to ensure that the bug with exactly the same fields will be removed.
+ * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
+ * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
+ * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
+ * as to ensure that the person with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
  * @see Bug#isSamePerson(Bug)
  */
-public class UniquePersonList implements Iterable<Bug> {
+public class UniqueBugList implements Iterable<Bug> {
 
     private final ObservableList<Bug> internalList = FXCollections.observableArrayList();
     private final ObservableList<Bug> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent bug as the given argument.
+     * Returns true if the list contains an equivalent person as the given argument.
      */
     public boolean contains(Bug toCheck) {
         requireNonNull(toCheck);
@@ -37,8 +37,8 @@ public class UniquePersonList implements Iterable<Bug> {
     }
 
     /**
-     * Adds a bug to the list.
-     * The bug must not already exist in the list.
+     * Adds a person to the list.
+     * The person must not already exist in the list.
      */
     public void add(Bug toAdd) {
         requireNonNull(toAdd);
@@ -49,16 +49,16 @@ public class UniquePersonList implements Iterable<Bug> {
     }
 
     /**
-     * Replaces the bug {@code target} in the list with {@code editedBug}.
+     * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
-     * The bug identity of {@code editedBug} must not be the same as another existing bug in the list.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
     public void setPerson(Bug target, Bug editedBug) {
         requireAllNonNull(target, editedBug);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new BugNotFoundException();
         }
 
         if (!target.isSamePerson(editedBug) && contains(editedBug)) {
@@ -69,26 +69,26 @@ public class UniquePersonList implements Iterable<Bug> {
     }
 
     /**
-     * Removes the equivalent bug from the list.
-     * The bug must exist in the list.
+     * Removes the equivalent person from the list.
+     * The person must exist in the list.
      */
     public void remove(Bug toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new BugNotFoundException();
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setBugs(UniqueBugList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code bugs}.
-     * {@code bugs} must not contain duplicate bugs.
+     * Replaces the contents of this list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Bug> bugs) {
+    public void setBugs(List<Bug> bugs) {
         requireAllNonNull(bugs);
         if (!personsAreUnique(bugs)) {
             throw new DuplicateBugException();
@@ -112,8 +112,8 @@ public class UniquePersonList implements Iterable<Bug> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueBugList // instanceof handles nulls
+                        && internalList.equals(((UniqueBugList) other).internalList));
     }
 
     @Override
@@ -122,7 +122,7 @@ public class UniquePersonList implements Iterable<Bug> {
     }
 
     /**
-     * Returns true if {@code bugs} contains only unique bugs.
+     * Returns true if {@code persons} contains only unique persons.
      */
     private boolean personsAreUnique(List<Bug> bugs) {
         for (int i = 0; i < bugs.size() - 1; i++) {

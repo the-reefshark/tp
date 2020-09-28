@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,8 +18,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.bug.*;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.Description;
+import seedu.address.model.bug.Email;
+import seedu.address.model.bug.Name;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -45,38 +47,38 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This bug already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditBugDescriptor editBugDescriptor;
 
     /**
-     * @param index of the bug in the filtered bug list to edit
-     * @param editPersonDescriptor details to edit the bug with
+     * @param index of the person in the filtered person list to edit
+     * @param editBugDescriptor details to edit the person with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditBugDescriptor editBugDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editBugDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editBugDescriptor = new EditBugDescriptor(editBugDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Bug> lastShownList = model.getFilteredPersonList();
+        List<Bug> lastShownList = model.getFilteredBugList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Bug bugToEdit = lastShownList.get(index.getZeroBased());
-        Bug editedBug = createEditedPerson(bugToEdit, editPersonDescriptor);
+        Bug editedBug = createEditedPerson(bugToEdit, editBugDescriptor);
 
-        if (! bugToEdit.isSamePerson(editedBug) && model.hasPerson(editedBug)) {
+        if (!bugToEdit.isSamePerson(editedBug) && model.hasBug(editedBug)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(bugToEdit, editedBug);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setBug(bugToEdit, editedBug);
+        model.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedBug));
     }
 
@@ -84,13 +86,13 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Bug} with the details of {@code bugToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Bug createEditedPerson(Bug bugToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Bug createEditedPerson(Bug bugToEdit, EditBugDescriptor editBugDescriptor) {
         assert bugToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(bugToEdit.getName());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(bugToEdit.getEmail());
-        Description updatedDescription = editPersonDescriptor.getDescription().orElse(bugToEdit.getDescription());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(bugToEdit.getTags());
+        Name updatedName = editBugDescriptor.getName().orElse(bugToEdit.getName());
+        Email updatedEmail = editBugDescriptor.getEmail().orElse(bugToEdit.getEmail());
+        Description updatedDescription = editBugDescriptor.getDescription().orElse(bugToEdit.getDescription());
+        Set<Tag> updatedTags = editBugDescriptor.getTags().orElse(bugToEdit.getTags());
 
         return new Bug(updatedName, updatedEmail, updatedDescription, updatedTags);
     }
@@ -110,26 +112,26 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editBugDescriptor.equals(e.editBugDescriptor);
     }
 
     /**
      * Stores the details to edit the bug with. Each non-empty field value will replace the
      * corresponding field value of the bug.
      */
-    public static class EditPersonDescriptor {
+    public static class EditBugDescriptor {
         private Name name;
         private Email email;
         private Description description;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditBugDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditBugDescriptor(EditBugDescriptor toCopy) {
             setName(toCopy.name);
             setEmail(toCopy.email);
             setDescription(toCopy.description);
@@ -192,12 +194,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditBugDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditBugDescriptor e = (EditBugDescriptor) other;
 
             return getName().equals(e.getName())
                     && getEmail().equals(e.getEmail())
