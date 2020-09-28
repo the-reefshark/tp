@@ -5,14 +5,14 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.bug.Bug;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Bug> PREDICATE_SHOW_ALL_BUGS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -37,51 +37,51 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getKanBugTrackerFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setKanBugTrackerFilePath(Path kanBugTrackerFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setKanBugTracker(ReadOnlyKanBugTracker kanBugTracker);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyKanBugTracker getKanBugTracker();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a bug with the same identity as {@code bug} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasBug(Bug bug);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given bug.
+     * The bug must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteBug(Bug target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given bug.
+     * {@code bug} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addBug(Bug bug);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given bug {@code target} with {@code editedBug}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The bug identity of {@code editedBug} must not be the same as another existing bug in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setBug(Bug target, Bug editedBug);
 
     /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Bug> getFilteredBugList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered bug list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredBugList(Predicate<Bug> predicate);
 }
