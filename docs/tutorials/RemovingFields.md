@@ -79,7 +79,7 @@ private Label description;
 ...
 <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
 <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
-<Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+<Label fx:id="state" styleClass="cell_small_label" text="\$state" />
 ...
 ```
 
@@ -98,7 +98,7 @@ In `src/test/data/`, data meant for testing purposes are stored. While keeping t
   "bugs": [ {
     "name": "Person with invalid name field: Ha!ns Mu@ster",
     "phone": "9482424",
-    "email": "hans@example.com",
+    "state": "hans@example.com",
     "description": "4th street"
   } ]
 }

@@ -17,7 +17,7 @@ public class Bug {
 
     // Identity fields
     private final Name name;
-    private final Email email;
+    private final State state;
 
     // Data fields
     private final Description description;
@@ -26,10 +26,10 @@ public class Bug {
     /**
      * Every field must be present and not null.
      */
-    public Bug(Name name, Email email, Description description, Set<Tag> tags) {
-        requireAllNonNull(name, email, description, tags);
+    public Bug(Name name, State state, Description description, Set<Tag> tags) {
+        requireAllNonNull(name, state, description, tags);
         this.name = name;
-        this.email = email;
+        this.state = state;
         this.description = description;
         this.tags.addAll(tags);
     }
@@ -38,8 +38,8 @@ public class Bug {
         return name;
     }
 
-    public Email getEmail() {
-        return email;
+    public State getState() {
+        return state;
     }
 
     public Description getDescription() {
@@ -65,7 +65,7 @@ public class Bug {
 
         return otherBug != null
                 && otherBug.getName().equals(getName())
-                && otherBug.getEmail().equals(getEmail());
+                && otherBug.getState().equals(getState());
     }
 
     /**
@@ -84,7 +84,7 @@ public class Bug {
 
         Bug otherBug = (Bug) other;
         return otherBug.getName().equals(getName())
-                && otherBug.getEmail().equals(getEmail())
+                && otherBug.getState().equals(getState())
                 && otherBug.getDescription().equals(getDescription())
                 && otherBug.getTags().equals(getTags());
     }
@@ -92,15 +92,15 @@ public class Bug {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, email, description, tags);
+        return Objects.hash(name, state, description, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" State: ")
+                .append(getState())
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Tags: ");

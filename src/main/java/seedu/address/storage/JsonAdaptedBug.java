@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
-import seedu.address.model.bug.Email;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -48,7 +48,7 @@ class JsonAdaptedBug {
      */
     public JsonAdaptedBug(Bug source) {
         name = source.getName().fullName;
-        email = source.getEmail().value;
+        email = source.getState().value;
         description = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -75,12 +75,12 @@ class JsonAdaptedBug {
         final Name modelName = new Name(name);
 
         if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, State.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        if (!State.isValidEmail(email)) {
+            throw new IllegalValueException(State.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final State modelState = new State(email);
 
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -92,7 +92,7 @@ class JsonAdaptedBug {
         final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Bug(modelName, modelEmail, modelDescription, modelTags);
+        return new Bug(modelName, modelState, modelDescription, modelTags);
     }
 
 }

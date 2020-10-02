@@ -13,8 +13,8 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
-import seedu.address.model.bug.Email;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -37,11 +37,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        State state = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Bug bug = new Bug(name, email, description, tagList);
+        Bug bug = new Bug(name, state, description, tagList);
 
         return new AddCommand(bug);
     }

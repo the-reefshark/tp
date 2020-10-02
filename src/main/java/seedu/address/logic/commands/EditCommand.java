@@ -20,9 +20,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
-import seedu.address.model.bug.Email;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Edits the details of an existing bug in the address book.
@@ -90,11 +91,11 @@ public class EditCommand extends Command {
         assert bugToEdit != null;
 
         Name updatedName = editBugDescriptor.getName().orElse(bugToEdit.getName());
-        Email updatedEmail = editBugDescriptor.getEmail().orElse(bugToEdit.getEmail());
+        State updatedState = editBugDescriptor.getState().orElse(bugToEdit.getState());
         Description updatedDescription = editBugDescriptor.getDescription().orElse(bugToEdit.getDescription());
         Set<Tag> updatedTags = editBugDescriptor.getTags().orElse(bugToEdit.getTags());
 
-        return new Bug(updatedName, updatedEmail, updatedDescription, updatedTags);
+        return new Bug(updatedName, updatedState, updatedDescription, updatedTags);
     }
 
     @Override
@@ -121,7 +122,7 @@ public class EditCommand extends Command {
      */
     public static class EditBugDescriptor {
         private Name name;
-        private Email email;
+        private State state;
         private Description description;
         private Set<Tag> tags;
 
@@ -133,7 +134,7 @@ public class EditCommand extends Command {
          */
         public EditBugDescriptor(EditBugDescriptor toCopy) {
             setName(toCopy.name);
-            setEmail(toCopy.email);
+            setState(toCopy.state);
             setDescription(toCopy.description);
             setTags(toCopy.tags);
         }
@@ -142,7 +143,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, email, description, tags);
+            return CollectionUtil.isAnyNonNull(name, state, description, tags);
         }
 
         public void setName(Name name) {
@@ -153,12 +154,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setState(State state) {
+            this.state = state;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<State> getState() {
+            return Optional.ofNullable(state);
         }
 
         public void setDescription(Description description) {
@@ -202,7 +203,7 @@ public class EditCommand extends Command {
             EditBugDescriptor e = (EditBugDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getEmail().equals(e.getEmail())
+                    && getState().equals(e.getState())
                     && getDescription().equals(e.getDescription())
                     && getTags().equals(e.getTags());
         }

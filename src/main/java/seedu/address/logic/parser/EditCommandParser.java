@@ -46,7 +46,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editBugDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editBugDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+            editBugDescriptor.setState(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editBugDescriptor.setDescription(ParserUtil.parseDescription(argMultimap
