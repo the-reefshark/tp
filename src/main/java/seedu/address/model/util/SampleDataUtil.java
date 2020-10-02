@@ -8,8 +8,8 @@ import seedu.address.model.KanBugTracker;
 import seedu.address.model.ReadOnlyKanBugTracker;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
-import seedu.address.model.bug.State;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
 /**
