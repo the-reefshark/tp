@@ -22,12 +22,12 @@ import seedu.address.model.tag.Tag;
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_DESCRIPTION = " ";
-    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_State = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_DESCRIPTION = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_STATE = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -100,26 +100,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+    public void parseState_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseState((String) null));
     }
 
     @Test
-    public void parseEmail_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+    public void parseState_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseState(INVALID_State));
     }
 
     @Test
-    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        State expectedState = new State(VALID_EMAIL);
-        assertEquals(expectedState, ParserUtil.parseEmail(VALID_EMAIL));
+    public void parseState_validValueWithoutWhitespace_returnsState() throws Exception {
+        State expectedState = new State(VALID_STATE);
+        assertEquals(expectedState, ParserUtil.parseState(VALID_STATE));
     }
 
     @Test
-    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        State expectedState = new State(VALID_EMAIL);
-        assertEquals(expectedState, ParserUtil.parseEmail(emailWithWhitespace));
+    public void parseState_validValueWithWhitespace_returnsTrimmedState() throws Exception {
+        String stateWithWhitespace = WHITESPACE + VALID_STATE + WHITESPACE;
+        State expectedState = new State(VALID_STATE);
+        assertEquals(expectedState, ParserUtil.parseState(stateWithWhitespace));
     }
 
     @Test

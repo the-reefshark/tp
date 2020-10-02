@@ -37,7 +37,7 @@ public class BugCard extends UiPart<Region> {
     @FXML
     private Label description;
     @FXML
-    private Label email;
+    private Label state;
     @FXML
     private FlowPane tags;
 
@@ -50,7 +50,7 @@ public class BugCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(bug.getName().fullName);
         description.setText(bug.getDescription().value);
-        email.setText(bug.getState().value);
+        state.setText(bug.getState().value);
         bug.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
