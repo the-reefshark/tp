@@ -5,7 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
-import seedu.address.model.bug.Email;
+import seedu.address.model.bug.State;
 import seedu.address.model.bug.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -20,7 +20,7 @@ public class BugBuilder {
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
-    private Email email;
+    private State state;
     private Description description;
     private Set<Tag> tags;
 
@@ -29,7 +29,7 @@ public class BugBuilder {
      */
     public BugBuilder() {
         name = new Name(DEFAULT_NAME);
-        email = new Email(DEFAULT_EMAIL);
+        state = new State(DEFAULT_EMAIL);
         description = new Description(DEFAULT_DESCRIPTION);
         tags = new HashSet<>();
     }
@@ -39,7 +39,7 @@ public class BugBuilder {
      */
     public BugBuilder(Bug bugToCopy) {
         name = bugToCopy.getName();
-        email = bugToCopy.getEmail();
+        state = bugToCopy.getState();
         description = bugToCopy.getDescription();
         tags = new HashSet<>(bugToCopy.getTags());
     }
@@ -69,15 +69,15 @@ public class BugBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Bug} that we are building.
+     * Sets the {@code State} of the {@code Bug} that we are building.
      */
     public BugBuilder withEmail(String email) {
-        this.email = new Email(email);
+        this.state = new State(email);
         return this;
     }
 
     public Bug build() {
-        return new Bug(name, email, description, tags);
+        return new Bug(name, state, description, tags);
     }
 
 }
