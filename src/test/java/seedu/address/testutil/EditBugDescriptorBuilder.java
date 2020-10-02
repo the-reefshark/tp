@@ -48,8 +48,8 @@ public class EditBugDescriptorBuilder {
     /**
      * Sets the {@code State} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditBugDescriptorBuilder withEmail(String email) {
-        descriptor.setState(new State(email));
+    public EditBugDescriptorBuilder withState(String state) {
+        descriptor.setState(new State(state));
         return this;
     }
 

@@ -65,18 +65,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code State}.
+     * Parses a {@code String state} into an {@code State}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static State parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!State.isValidEmail(trimmedEmail)) {
+    public static State parseState(String state) throws ParseException {
+        requireNonNull(state);
+        String trimmedState = state.trim();
+        if (!State.isValidState(trimmedState)) {
             throw new ParseException(State.MESSAGE_CONSTRAINTS);
         }
-        return new State(trimmedEmail);
+        return new State(trimmedState);
     }
 
     /**

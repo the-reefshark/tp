@@ -16,7 +16,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class BugBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_STATE = "alice@gmail.com";
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
@@ -29,7 +29,7 @@ public class BugBuilder {
      */
     public BugBuilder() {
         name = new Name(DEFAULT_NAME);
-        state = new State(DEFAULT_EMAIL);
+        state = new State(DEFAULT_STATE);
         description = new Description(DEFAULT_DESCRIPTION);
         tags = new HashSet<>();
     }
@@ -71,8 +71,8 @@ public class BugBuilder {
     /**
      * Sets the {@code State} of the {@code Bug} that we are building.
      */
-    public BugBuilder withEmail(String email) {
-        this.state = new State(email);
+    public BugBuilder withState(String state) {
+        this.state = new State(state);
         return this;
     }
 
