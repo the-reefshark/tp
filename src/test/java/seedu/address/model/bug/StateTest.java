@@ -1,7 +1,6 @@
 package seedu.address.model.bug;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -29,33 +28,91 @@ public class StateTest {
         assertFalse(State.isValidState(" ")); // spaces only
 
         // missing parts
-        assertFalse(State.isValidState("@example.com")); // missing local part
-        assertFalse(State.isValidState("peterjackexample.com")); // missing '@' symbol
-        assertFalse(State.isValidState("peterjack@")); // missing domain name
+        assertFalse(State.isValidState("backlo")); // incomplete word
+        assertFalse(State.isValidState("don")); // incomplete word
+        assertFalse(State.isValidState("ongoin")); // incomplete word
+        assertFalse(State.isValidState("tod")); // incomplete word
 
-        // invalid parts
-        assertFalse(State.isValidState("peterjack@-")); // invalid domain name
-        assertFalse(State.isValidState("peterjack@exam_ple.com")); // underscore in domain name
-        assertFalse(State.isValidState("peter jack@example.com")); // spaces in local part
-        assertFalse(State.isValidState("peterjack@exam ple.com")); // spaces in domain name
-        assertFalse(State.isValidState(" peterjack@example.com")); // leading space
-        assertFalse(State.isValidState("peterjack@example.com ")); // trailing space
-        assertFalse(State.isValidState("peterjack@@example.com")); // double '@' symbol
-        assertFalse(State.isValidState("peter@jack@example.com")); // '@' symbol in local part
-        assertFalse(State.isValidState("peterjack@example@com")); // '@' symbol in domain name
-        assertFalse(State.isValidState("peterjack@.example.com")); // domain name starts with a period
-        assertFalse(State.isValidState("peterjack@example.com.")); // domain name ends with a period
-        assertFalse(State.isValidState("peterjack@-example.com")); // domain name starts with a hyphen
-        assertFalse(State.isValidState("peterjack@example.com-")); // domain name ends with a hyphen
+        // invalid inputs
+        assertFalse(State.isValidState("backlog todo")); // multiple valid words should be invalid
+        assertFalse(State.isValidState("backlog done")); // multiple valid words should be invalid
+        assertFalse(State.isValidState("backlog ongoing")); // multiple valid words should be invalid
+        assertFalse(State.isValidState("todo done")); // multiple valid words should be invalid
+        assertFalse(State.isValidState("todo backlog")); // multiple valid words should be invalid
+        assertFalse(State.isValidState("todo ongoing")); // multiple valid words should be invalid
+        assertFalse(State.isValidState("done backlog")); // multiple valid words should be invalid
+        assertFalse(State.isValidState("done todo")); // multiple valid words should be invalid
+        assertFalse(State.isValidState("done ongoing")); // multiple valid words should be invalid
+        assertFalse(State.isValidState("ongoing todo")); // multiple valid words should be invalid
+        assertFalse(State.isValidState("ongoing done")); // multiple valid words should be invalid
+        assertFalse(State.isValidState("ongoing backlog")); // multiple valid words should be invalid
+        assertFalse(State.isValidState(" backlog")); //leading space
+        assertFalse(State.isValidState("backlog ")); //trailing space
+        assertFalse(State.isValidState(" backlog ")); //leading and trailing space
+        assertFalse(State.isValidState("fillertextbacklog")); //leading filler text
+        assertFalse(State.isValidState("backlogfillertext")); //trailing filler text
+        assertFalse(State.isValidState("fillertextbacklogfillertext")); //sandwiched valid word
+        assertFalse(State.isValidState("backlogtododoneongoing")); //valid words in invalid string
+
 
         // valid state
-        assertTrue(State.isValidState("PeterJack_1190@example.com"));
-        assertTrue(State.isValidState("a@bc")); // minimal
-        assertTrue(State.isValidState("test@localhost")); // alphabets only
-        assertTrue(State.isValidState("!#$%&'*+/=?`{|}~^.-@example.org")); // special characters local part
-        assertTrue(State.isValidState("123@145")); // numeric local part and domain name
-        assertTrue(State.isValidState("a1+be!@example1.com")); // mixture of alphanumeric and special characters
-        assertTrue(State.isValidState("peter_jack@very-very-very-long-example.com")); // long domain name
-        assertTrue(State.isValidState("if.you.dream.it_you.can.do.it@example.com")); // long local part
+        assertTrue(State.isValidState("backlog")); // minimal valid word
+        assertTrue(State.isValidState("todo")); // minimal valid word
+        assertTrue(State.isValidState("ongoing")); // minimal valid word
+        assertTrue(State.isValidState("done")); // minimal valid word
+        assertTrue(State.isValidState("Backlog")); // valid word with upper case character
+        assertTrue(State.isValidState("toDo")); // valid word with upper case character
+        assertTrue(State.isValidState("onGoinG")); // valid word with upper case character
+        assertTrue(State.isValidState("DonE")); // valid word with upper case character
+    }
+
+    @Test
+    public void isEqualState() {
+        State s1 = new State("backlog");
+        State s2 = new State("backlog");
+        State s3 = new State("todo");
+        State s4 = new State("todo");
+        State s5 = new State("ongoing");
+        State s6 = new State("ongoing");
+        State s7 = new State("done");
+        State s8 = new State("done");
+        assertEquals(s1, s1); // same object
+        assertEquals(s1, s2); // same value
+        assertEquals(s3, s3); // same object
+        assertEquals(s3, s4); // same value
+        assertEquals(s5, s5); // same object
+        assertEquals(s5, s6); // same value
+        assertEquals(s7, s7); // same object
+        assertEquals(s7, s8); // same value
+    }
+
+    @Test
+    public void isNotEqualState() {
+        State s1 = new State("backlog");
+        State s2 = new State("backlog");
+        State s3 = new State("todo");
+        State s4 = new State("todo");
+        State s5 = new State("ongoing");
+        State s6 = new State("ongoing");
+        State s7 = new State("done");
+        State s8 = new State("done");
+        assertNotEquals(s1, s3); // different object
+        assertNotEquals(s1, s6); // different object
+        assertNotEquals(s1, s8); // different object
+        assertNotEquals(s3, s8); // different object
+        assertNotEquals(s3, s2); // different object
+        assertNotEquals(s3, s5); // different object
+        assertNotEquals(s5, s1); // different object
+        assertNotEquals(s5, s4); // different object
+        assertNotEquals(s5, s8); // different object
+    }
+
+    @Test
+    public void isCorrectStateValue() {
+        State testState = new State("backlog"); // just to give me access to the method used below
+        assertEquals(State.Value.BACKLOG, testState.getValueOfState("backlog"));
+        assertEquals(State.Value.TODO, testState.getValueOfState("todo"));
+        assertEquals(State.Value.ONGOING, testState.getValueOfState("ongoing"));
+        assertEquals(State.Value.DONE, testState.getValueOfState("done"));
     }
 }

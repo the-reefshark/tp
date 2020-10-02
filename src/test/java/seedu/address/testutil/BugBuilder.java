@@ -16,7 +16,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class BugBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_STATE = "alice@gmail.com";
+    public static final String DEFAULT_STATE = "backlog";
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
 
     private Name name;

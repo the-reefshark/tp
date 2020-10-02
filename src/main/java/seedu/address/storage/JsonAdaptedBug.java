@@ -48,7 +48,7 @@ class JsonAdaptedBug {
      */
     public JsonAdaptedBug(Bug source) {
         name = source.getName().fullName;
-        state = source.getState().value;
+        state = source.getState().toString();
         description = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)

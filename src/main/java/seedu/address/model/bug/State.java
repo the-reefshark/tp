@@ -9,25 +9,27 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class State {
 
-    private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
-    public static final String MESSAGE_CONSTRAINTS = "States should be of the format local-part@domain "
-            + "and adhere to the following constraints:\n"
-            + "1. The local-part should only contain alphanumeric characters and these special characters, excluding "
-            + "the parentheses, (" + SPECIAL_CHARACTERS + ") .\n"
-            + "2. This is followed by a '@' and then a domain name. "
-            + "The domain name must:\n"
-            + "    - be at least 2 characters long\n"
-            + "    - start and end with alphanumeric characters\n"
-            + "    - consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.";
-    // alphanumeric and special characters
-    private static final String LOCAL_PART_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]+";
-    private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
-    private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric, period and hyphen
-    private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
-    public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
-            + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
+    public enum Value {
+        BACKLOG,
+        TODO,
+        ONGOING,
+        DONE
+    }
 
-    public final String value;
+    public static final String MESSAGE_CONSTRAINTS = "States should be of the four allowed states:\n"
+            + "1. backlog\n"
+            + "2. todo\n"
+            + "3. ongoing\n"
+            + "4. done\n";
+
+    private static final String BACKLOG_REGEX = "((?i)\\bbacklog\\b)";
+    private static final String TODO_REGEX = "((?i)\\btodo\\b)";
+    private static final String ONGOING_REGEX = "((?i)\\bongoing\\b)";
+    private static final String DONE_REGEX = "((?i)\\bdone\\b)";
+    public static final String VALIDATION_REGEX =
+            BACKLOG_REGEX + "|" + TODO_REGEX + "|" + ONGOING_REGEX + "|" + DONE_REGEX;
+
+    public final Value value;
 
     /**
      * Constructs an {@code State}.
@@ -37,7 +39,7 @@ public class State {
     public State(String state) {
         requireNonNull(state);
         checkArgument(isValidState(state), MESSAGE_CONSTRAINTS);
-        value = state;
+        value = getValueOfState(state.toLowerCase());
     }
 
     /**
@@ -47,9 +49,39 @@ public class State {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public Value getValueOfState(String state) {
+        switch (state) {
+        case "backlog" :
+            return Value.BACKLOG;
+        case "todo":
+            return Value.TODO;
+        case "ongoing":
+            return Value.ONGOING;
+        case "done":
+            return Value.DONE;
+        default:
+            throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    public String getStringOfValue() {
+        switch (value) {
+        case BACKLOG:
+            return "backlog";
+        case TODO:
+            return "todo";
+        case ONGOING:
+            return "ongoing";
+        case DONE:
+            return "done";
+        default:
+            throw new IllegalArgumentException("Illegal state object!");
+        }
+    }
+
     @Override
     public String toString() {
-        return value;
+        return getStringOfValue();
     }
 
     @Override
