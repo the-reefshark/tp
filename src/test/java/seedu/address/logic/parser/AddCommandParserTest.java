@@ -58,7 +58,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BOB + STATE_DESC_AMY + STATE_DESC_BOB
                 + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBug));
 
-        // multiple addresses - last address accepted
+        // multiple descriptions - last description accepted
         assertParseSuccess(parser, NAME_DESC_BOB + STATE_DESC_BOB + DESCRIPTION_DESC_AMY
                 + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBug));
 
@@ -85,11 +85,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, VALID_NAME_BOB + STATE_DESC_BOB + DESCRIPTION_DESC_BOB,
                 expectedMessage);
 
-        // missing state prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_STATE_BOB + DESCRIPTION_DESC_BOB,
-                expectedMessage);
-
-        // missing address prefix
+        // missing description prefix
         assertParseFailure(parser, NAME_DESC_BOB + STATE_DESC_BOB + VALID_DESCRIPTION_BOB,
                 expectedMessage);
 
@@ -108,7 +104,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_STATE_DESC + DESCRIPTION_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, State.MESSAGE_CONSTRAINTS);
 
-        // invalid address
+        // invalid description
         assertParseFailure(parser, NAME_DESC_BOB + STATE_DESC_BOB + INVALID_DESCRIPTION_DESC
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Description.MESSAGE_CONSTRAINTS);
 
