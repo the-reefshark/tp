@@ -3,12 +3,14 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_IDA;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_STATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_IDA;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_AMY;
@@ -24,6 +26,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalBugs.AMY;
 import static seedu.address.testutil.TypicalBugs.BOB;
+import static seedu.address.testutil.TypicalBugs.IDA;
 
 import org.junit.jupiter.api.Test;
 
@@ -69,12 +72,25 @@ public class AddCommandParserTest {
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedBugMultipleTags));
     }
 
+    public static void main(String[] args) {
+        AddCommandParser parser = new AddCommandParser();
+        System.out.println(NAME_DESC_IDA + DESCRIPTION_DESC_IDA);
+        System.out.println(NAME_DESC_AMY + STATE_DESC_AMY + DESCRIPTION_DESC_AMY);
+        System.out.println(new BugBuilder(IDA).withTags().build());
+        Bug expectedBug = new BugBuilder(AMY).withTags().build();
+    }
+
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Bug expectedBug = new BugBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + STATE_DESC_AMY + DESCRIPTION_DESC_AMY,
                 new AddCommand(expectedBug));
+
+
+        Bug bug = new BugBuilder(IDA).withTags().build();
+        assertParseSuccess(parser, NAME_DESC_IDA + DESCRIPTION_DESC_IDA,
+                new AddCommand(bug));
     }
 
     @Test
