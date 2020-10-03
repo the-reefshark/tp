@@ -43,7 +43,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         State state;
 
-        if(arePrefixesPresent(argMultimap, PREFIX_STATE)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_STATE)) {
             state = ParserUtil.parseState(argMultimap.getValue(PREFIX_STATE).get());
         } else {
             state = DEFAULT_STATE;
