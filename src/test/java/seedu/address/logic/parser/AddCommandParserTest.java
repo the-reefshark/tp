@@ -72,14 +72,6 @@ public class AddCommandParserTest {
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedBugMultipleTags));
     }
 
-    public static void main(String[] args) {
-        AddCommandParser parser = new AddCommandParser();
-        System.out.println(NAME_DESC_IDA + DESCRIPTION_DESC_IDA);
-        System.out.println(NAME_DESC_AMY + STATE_DESC_AMY + DESCRIPTION_DESC_AMY);
-        System.out.println(new BugBuilder(IDA).withTags().build());
-        Bug expectedBug = new BugBuilder(AMY).withTags().build();
-    }
-
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
