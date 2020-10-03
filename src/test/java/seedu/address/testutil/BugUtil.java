@@ -30,7 +30,7 @@ public class BugUtil {
     public static String getPersonDetails(Bug bug) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + bug.getName().fullName + " ");
-        sb.append(PREFIX_STATE + bug.getState().value + " ");
+        sb.append(PREFIX_STATE + bug.getState().toString() + " ");
         sb.append(PREFIX_DESCRIPTION + bug.getDescription().value + " ");
         bug.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")

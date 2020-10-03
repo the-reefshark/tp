@@ -22,28 +22,28 @@ import seedu.address.model.bug.Bug;
 public class TypicalBugs {
 
     public static final Bug ALICE = new BugBuilder().withName("Alice Pauline")
-            .withDescription("123, Jurong West Ave 6, #08-111").withState("alice@example.com")
+            .withDescription("123, Jurong West Ave 6, #08-111").withState("todo")
             .withTags("friends").build();
     public static final Bug BENSON = new BugBuilder().withName("Benson Meier")
             .withDescription("311, Clementi Ave 2, #02-25")
-            .withState("johnd@example.com")
+            .withState("todo")
             .withTags("owesMoney", "friends").build();
     public static final Bug CARL = new BugBuilder().withName("Carl Kurz")
-            .withState("heinz@example.com").withDescription("wall street").build();
+            .withState("done").withDescription("wall street").build();
     public static final Bug DANIEL = new BugBuilder().withName("Daniel Meier")
-            .withState("cornelia@example.com").withDescription("10th street").withTags("friends").build();
+            .withState("ongoing").withDescription("10th street").withTags("friends").build();
     public static final Bug ELLE = new BugBuilder().withName("Elle Meyer")
-            .withState("werner@example.com").withDescription("michegan ave").build();
+            .withState("done").withDescription("michegan ave").build();
     public static final Bug FIONA = new BugBuilder().withName("Fiona Kunz")
-            .withState("lydia@example.com").withDescription("little tokyo").build();
+            .withState("ongoing").withDescription("little tokyo").build();
     public static final Bug GEORGE = new BugBuilder().withName("George Best")
-            .withState("anna@example.com").withDescription("4th street").build();
+            .withState("backlog").withDescription("4th street").build();
 
     // Manually added
     public static final Bug HOON = new BugBuilder().withName("Hoon Meier")
-            .withState("stefan@example.com").withDescription("little india").build();
+            .withState("backlog").withDescription("little india").build();
     public static final Bug IDA = new BugBuilder().withName("Ida Mueller")
-            .withState("hans@example.com").withDescription("chicago ave").build();
+            .withState("backlog").withDescription("chicago ave").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Bug AMY = new BugBuilder().withName(VALID_NAME_AMY)
