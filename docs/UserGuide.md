@@ -1,17 +1,15 @@
----
-layout: page
-title: User Guide
----
+# User Guide
+Team Name: AY2021S1-CS2103T-W17-1
 
 KanBug Tracker is a **desktop app for managing the tracking of bugs you encounter, optimized for use via a Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, KanBug Tracker can get your bug management tasks done faster than traditional GUI apps.
 
 [![CI Status](https://github.com/AY2021S1-CS2103T-W17-1/tP/workflows/Java%20CI/badge.svg)](https://github.com/AY2021S1-CS2103T-W17-1/tp/actions)
 
 Main View
-![Ui](images/Ui.png)
+![Ui](images/KanBugUi.png)
 
 ToDo View
-![Ui](images/Ui2.png)
+![Ui](images/KanBugUi2.png)
 
 * [Features](#features)
   * [Viewing help : **`help`**](#viewing-help--help)
