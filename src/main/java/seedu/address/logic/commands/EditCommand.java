@@ -43,16 +43,16 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_STATE + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Bug: %1$s";
+    public static final String MESSAGE_EDIT_BUG_SUCCESS = "Edited Bug: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This bug already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_BUG = "This bug already exists in the KanBug Tracker.";
 
     private final Index index;
     private final EditBugDescriptor editBugDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editBugDescriptor details to edit the person with
+     * @param index of the bug in the filtered bug list to edit
+     * @param editBugDescriptor details to edit the bug with
      */
     public EditCommand(Index index, EditBugDescriptor editBugDescriptor) {
         requireNonNull(index);
@@ -72,22 +72,22 @@ public class EditCommand extends Command {
         }
 
         Bug bugToEdit = lastShownList.get(index.getZeroBased());
-        Bug editedBug = createEditedPerson(bugToEdit, editBugDescriptor);
+        Bug editedBug = createEditedBug(bugToEdit, editBugDescriptor);
 
         if (!bugToEdit.isSamePerson(editedBug) && model.hasBug(editedBug)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_BUG);
         }
 
         model.setBug(bugToEdit, editedBug);
         model.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedBug));
+        return new CommandResult(String.format(MESSAGE_EDIT_BUG_SUCCESS, editedBug));
     }
 
     /**
      * Creates and returns a {@code Bug} with the details of {@code bugToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Bug createEditedPerson(Bug bugToEdit, EditBugDescriptor editBugDescriptor) {
+    private static Bug createEditedBug(Bug bugToEdit, EditBugDescriptor editBugDescriptor) {
         assert bugToEdit != null;
 
         Name updatedName = editBugDescriptor.getName().orElse(bugToEdit.getName());
