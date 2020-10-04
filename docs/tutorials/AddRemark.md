@@ -5,7 +5,7 @@ title: "Tutorial: Adding a command"
 
 Let's walk you through the implementation of a new command — `remark`.
 
-This command allows users of the AddressBook application to add optional remarks to people in their address book and edit it if required. The command should have the following format:
+This command allows users of the AddressBook application to add optional remarks to people in their description book and edit it if required. The command should have the following format:
 
 `remark INDEX r/REMARK` (e.g., `remark 2 r/Likes baseball`)
 
@@ -16,19 +16,23 @@ We’ll assume that you have already set up the development environment as outli
 
 Looking in the `logic.command` package, you will notice that each existing command have their own class. All the commands inherit from the abstract class `Command` which means that they must override `execute()`. Each `Command` returns an instance of `CommandResult` upon success and `CommandResult#feedbackToUser` is printed to the `ResultDisplay`.
 
-Let’s start by creating a new `RemarkCommand` class in the `src/main/java/seedu/address/logic/command` directory.
+Let’s start by creating a new `RemarkCommand` class in the `src/main/java/seedu/description/logic/command` directory.
 
 For now, let’s keep `RemarkCommand` as simple as possible and print some output. We accomplish that by returning a `CommandResult` with an accompanying message.
 
 **`RemarkCommand.java`:**
 
 ``` java
-package seedu.address.logic.commands;
+package seedu.description.logic.commands;
 
-import seedu.address.model.Model;
+import seedu.description.model.Model;
 
 /**
- * Changes the remark of an existing person in the address book.
+<<<<<<< HEAD
+ * Changes the remark of an existing bug in the description book.
+=======
+ * Changes the remark of an existing bug in the address book.
+>>>>>>> 33b37e54cbc184873b939ea9b3a713905b4e8d13
  */
 public class RemarkCommand extends Command {
 
@@ -64,8 +68,8 @@ Following the convention in other commands, we add relevant messages as constant
 **`RemarkCommand.java`:**
 
 ``` java
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the remark of the person identified "
-            + "by the index number used in the last person listing. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the remark of the bug identified "
+            + "by the index number used in the last bug listing. "
             + "Existing remark will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "r/ [REMARK]\n"
@@ -89,7 +93,7 @@ Let’s change `RemarkCommand` to parse input from the user.
 We start by modifying the constructor of `RemarkCommand` to accept an `Index` and a `String`. While we are at it, let’s change the error message to echo the values. While this is not a replacement for tests, it is an obvious way to tell if our code is functioning as intended.
 
 ``` java
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.description.commons.util.CollectionUtil.requireAllNonNull;
 //...
 public class RemarkCommand extends Command {
     //...
@@ -99,8 +103,8 @@ public class RemarkCommand extends Command {
     private final String remark;
 
     /**
-     * @param index of the person in the filtered person list to edit the remark
-     * @param remark of the person to be updated to
+     * @param index of the bug in the filtered bug list to edit the remark
+     * @param remark of the bug to be updated to
      */
     public RemarkCommand(Index index, String remark) {
         requireAllNonNull(index, remark);
@@ -139,7 +143,7 @@ Your code should look something like [this](https://github.com/se-edu/addressboo
 
 Now let’s move on to writing a parser that will extract the index and remark from the input provided by the user.
 
-Create a `RemarkCommandParser` class in the `seedu.address.logic.parser` package. The class must extend the `Parser` interface.
+Create a `RemarkCommandParser` class in the `seedu.description.logic.parser` package. The class must extend the `Parser` interface.
 
 ![The relationship between Parser and RemarkCommandParser](../images/add-remark/ParserInterface.png)
 
@@ -222,11 +226,15 @@ If you are stuck, check out the sample
 
 ## Add `Remark` to the model
 
-Now that we have all the information that we need, let’s lay the groundwork for propagating the remarks added into the in-memory storage of person data. We achieve that by working with the `Person` model. Each field in a Person is implemented as a separate class (e.g. a `Name` object represents the person’s name). That means we should add a `Remark` class so that we can use a `Remark` object to represent a remark given to a person.
+Now that we have all the information that we need, let’s lay the groundwork for propagating the remarks added into the in-memory storage of bug data. We achieve that by working with the `Person` model. Each field in a Person is implemented as a separate class (e.g. a `Name` object represents the bug’s name). That means we should add a `Remark` class so that we can use a `Remark` object to represent a remark given to a bug.
 
 ### Add a new `Remark` class
 
-Create a new `Remark` in `seedu.address.model.person`. Since a `Remark` is a field that is similar to `Address`, we can reuse a significant bit of code.
+<<<<<<< HEAD
+Create a new `Remark` in `seedu.description.model.bug`. Since a `Remark` is a field that is similar to `Address`, we can reuse a significant bit of code.
+=======
+Create a new `Remark` in `seedu.address.model.bug`. Since a `Remark` is a field that is similar to `Address`, we can reuse a significant bit of code.
+>>>>>>> 33b37e54cbc184873b939ea9b3a713905b4e8d13
 
 A copy-paste and search-replace later, you should have something like [this](https://github.com/se-edu/addressbook-level3/commit/4516e099699baa9e2d51801bd26f016d812dedcc#diff-af2f075d24dfcd333876f0fbce321f25). Note how `Remark` has no constrains and thus does not require input
 validation.
@@ -237,9 +245,13 @@ Let’s change `RemarkCommand` and `RemarkCommandParser` to use the new `Remark`
 
 ## Add a placeholder element for remark to the UI
 
-Without getting too deep into `fxml`, let’s go on a 5 minute adventure to get some placeholder text to show up for each person.
+Without getting too deep into `fxml`, let’s go on a 5 minute adventure to get some placeholder text to show up for each bug.
 
-Simply add the following to [`seedu.address.ui.PersonCard`](https://github.com/se-edu/addressbook-level3/commit/850b78879582f38accb05dd20c245963c65ea599#diff-0c6b6abcfac8c205e075294f25e851fe).
+<<<<<<< HEAD
+Simply add the following to [`seedu.description.ui.PersonCard`](https://github.com/se-edu/addressbook-level3/commit/850b78879582f38accb05dd20c245963c65ea599#diff-0c6b6abcfac8c205e075294f25e851fe).
+=======
+Simply add the following to [`seedu.address.ui.BugCard`](https://github.com/se-edu/addressbook-level3/commit/850b78879582f38accb05dd20c245963c65ea599#diff-0c6b6abcfac8c205e075294f25e851fe).
+>>>>>>> 33b37e54cbc184873b939ea9b3a713905b4e8d13
 
 **`PersonCard.java`:**
 
@@ -292,7 +304,7 @@ While the changes to code may be minimal, the test data will have to be updated 
 
 <div markdown="span" class="alert alert-warning">
 
-:exclamation: You must delete AddressBook’s storage file located at `/data/addressbook.json` before running it! Not doing so will cause AddressBook to default to an empty address book!
+:exclamation: You must delete AddressBook’s storage file located at `/data/addressbook.json` before running it! Not doing so will cause AddressBook to default to an empty description book!
 
 </div>
 
@@ -308,9 +320,9 @@ Just add [this one line of code!](https://github.com/se-edu/addressbook-level3/c
 **`PersonCard.java`:**
 
 ``` java
-public PersonCard(Person person, int displayedIndex) {
+public PersonCard(Person bug, int displayedIndex) {
     //...
-    remark.setText(person.getRemark().value);
+    remark.setText(bug.getRemark().value);
 }
 ```
 
@@ -340,23 +352,23 @@ save it with `Model#setPerson()`.
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), remark, personToEdit.getTags());
+        Person bugToEdit = lastShownList.get(index.getZeroBased());
+        Person editedBug = new Person(bugToEdit.getName(), bugToEdit.getPhone(), bugToEdit.getEmail(),
+                bugToEdit.getAddress(), remark, bugToEdit.getTags());
 
-        model.setPerson(personToEdit, editedPerson);
+        model.setPerson(bugToEdit, editedBug);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(generateSuccessMessage(editedPerson));
+        return new CommandResult(generateSuccessMessage(editedBug));
     }
 
     /**
      * Generates a command execution success message based on whether the remark is added to or removed from
-     * {@code personToEdit}.
+     * {@code bugToEdit}.
      */
-    private String generateSuccessMessage(Person personToEdit) {
+    private String generateSuccessMessage(Person bugToEdit) {
         String message = !remark.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
-        return String.format(message, personToEdit);
+        return String.format(message, bugToEdit);
     }
 ```
 
