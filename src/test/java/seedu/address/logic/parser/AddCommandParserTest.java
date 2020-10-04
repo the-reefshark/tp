@@ -3,12 +3,14 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_IDA;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_STATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_IDA;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_AMY;
@@ -24,6 +26,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalBugs.AMY;
 import static seedu.address.testutil.TypicalBugs.BOB;
+import static seedu.address.testutil.TypicalBugs.IDA;
 
 import org.junit.jupiter.api.Test;
 
@@ -58,7 +61,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BOB + STATE_DESC_AMY + STATE_DESC_BOB
                 + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBug));
 
-        // multiple addresses - last address accepted
+        // multiple descriptions - last description accepted
         assertParseSuccess(parser, NAME_DESC_BOB + STATE_DESC_BOB + DESCRIPTION_DESC_AMY
                 + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBug));
 
@@ -75,6 +78,11 @@ public class AddCommandParserTest {
         Bug expectedBug = new BugBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + STATE_DESC_AMY + DESCRIPTION_DESC_AMY,
                 new AddCommand(expectedBug));
+
+
+        Bug bug = new BugBuilder(IDA).withTags().build();
+        assertParseSuccess(parser, NAME_DESC_IDA + DESCRIPTION_DESC_IDA,
+                new AddCommand(bug));
     }
 
     @Test
@@ -85,11 +93,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, VALID_NAME_BOB + STATE_DESC_BOB + DESCRIPTION_DESC_BOB,
                 expectedMessage);
 
-        // missing state prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_STATE_BOB + DESCRIPTION_DESC_BOB,
-                expectedMessage);
-
-        // missing address prefix
+        // missing description prefix
         assertParseFailure(parser, NAME_DESC_BOB + STATE_DESC_BOB + VALID_DESCRIPTION_BOB,
                 expectedMessage);
 
@@ -108,7 +112,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_STATE_DESC + DESCRIPTION_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, State.MESSAGE_CONSTRAINTS);
 
-        // invalid address
+        // invalid description
         assertParseFailure(parser, NAME_DESC_BOB + STATE_DESC_BOB + INVALID_DESCRIPTION_DESC
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Description.MESSAGE_CONSTRAINTS);
 

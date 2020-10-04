@@ -20,15 +20,15 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a bug to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_STATE + "STATE "
+            + "[" + PREFIX_STATE + "STATE] "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_STATE + "johnd@example.com "
+            + PREFIX_NAME + "Array size error "
+            + PREFIX_STATE + "backlog "
             + PREFIX_DESCRIPTION + "ArrayStoreException due to array being too small "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "Array "
+            + PREFIX_TAG + "Size ";
 
     public static final String MESSAGE_SUCCESS = "New bug added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This bug already exists in the address book";
