@@ -31,7 +31,7 @@ import seedu.address.testutil.EditBugDescriptorBuilder;
 
 public class KanBugTrackerParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final KanBugTrackerParser parser = new KanBugTrackerParser();
 
     @Test
     public void parseCommand_add() throws Exception {

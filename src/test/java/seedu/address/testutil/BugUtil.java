@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -30,7 +30,7 @@ public class BugUtil {
     public static String getPersonDetails(Bug bug) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + bug.getName().fullName + " ");
-        sb.append(PREFIX_EMAIL + bug.getEmail().value + " ");
+        sb.append(PREFIX_STATE + bug.getState().toString() + " ");
         sb.append(PREFIX_DESCRIPTION + bug.getDescription().value + " ");
         bug.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
@@ -44,7 +44,7 @@ public class BugUtil {
     public static String getEditPersonDescriptorDetails(EditBugDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
+        descriptor.getState().ifPresent(state -> sb.append(PREFIX_STATE).append(state.value).append(" "));
         descriptor.getDescription().ifPresent(address -> sb.append(PREFIX_DESCRIPTION)
                                                                  .append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {

@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,15 +20,15 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a bug to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_EMAIL + "EMAIL "
+            + "[" + PREFIX_STATE + "STATE] "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_EMAIL + "johnd@example.com "
+            + PREFIX_NAME + "Array size error "
+            + PREFIX_STATE + "backlog "
             + PREFIX_DESCRIPTION + "ArrayStoreException due to array being too small "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "Array "
+            + PREFIX_TAG + "Size ";
 
     public static final String MESSAGE_SUCCESS = "New bug added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This bug already exists in the address book";

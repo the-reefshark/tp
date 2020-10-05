@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
@@ -20,9 +20,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
-import seedu.address.model.bug.Email;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Edits the details of an existing bug in the address book.
@@ -36,22 +37,22 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_STATE + "STATE] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_STATE + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Bug: %1$s";
+    public static final String MESSAGE_EDIT_BUG_SUCCESS = "Edited Bug: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This bug already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_BUG = "This bug already exists in the KanBug Tracker.";
 
     private final Index index;
     private final EditBugDescriptor editBugDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editBugDescriptor details to edit the person with
+     * @param index of the bug in the filtered bug list to edit
+     * @param editBugDescriptor details to edit the bug with
      */
     public EditCommand(Index index, EditBugDescriptor editBugDescriptor) {
         requireNonNull(index);
@@ -71,30 +72,30 @@ public class EditCommand extends Command {
         }
 
         Bug bugToEdit = lastShownList.get(index.getZeroBased());
-        Bug editedBug = createEditedPerson(bugToEdit, editBugDescriptor);
+        Bug editedBug = createEditedBug(bugToEdit, editBugDescriptor);
 
         if (!bugToEdit.isSamePerson(editedBug) && model.hasBug(editedBug)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_BUG);
         }
 
         model.setBug(bugToEdit, editedBug);
         model.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedBug));
+        return new CommandResult(String.format(MESSAGE_EDIT_BUG_SUCCESS, editedBug));
     }
 
     /**
      * Creates and returns a {@code Bug} with the details of {@code bugToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Bug createEditedPerson(Bug bugToEdit, EditBugDescriptor editBugDescriptor) {
+    private static Bug createEditedBug(Bug bugToEdit, EditBugDescriptor editBugDescriptor) {
         assert bugToEdit != null;
 
         Name updatedName = editBugDescriptor.getName().orElse(bugToEdit.getName());
-        Email updatedEmail = editBugDescriptor.getEmail().orElse(bugToEdit.getEmail());
+        State updatedState = editBugDescriptor.getState().orElse(bugToEdit.getState());
         Description updatedDescription = editBugDescriptor.getDescription().orElse(bugToEdit.getDescription());
         Set<Tag> updatedTags = editBugDescriptor.getTags().orElse(bugToEdit.getTags());
 
-        return new Bug(updatedName, updatedEmail, updatedDescription, updatedTags);
+        return new Bug(updatedName, updatedState, updatedDescription, updatedTags);
     }
 
     @Override
@@ -121,7 +122,7 @@ public class EditCommand extends Command {
      */
     public static class EditBugDescriptor {
         private Name name;
-        private Email email;
+        private State state;
         private Description description;
         private Set<Tag> tags;
 
@@ -133,7 +134,7 @@ public class EditCommand extends Command {
          */
         public EditBugDescriptor(EditBugDescriptor toCopy) {
             setName(toCopy.name);
-            setEmail(toCopy.email);
+            setState(toCopy.state);
             setDescription(toCopy.description);
             setTags(toCopy.tags);
         }
@@ -142,7 +143,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, email, description, tags);
+            return CollectionUtil.isAnyNonNull(name, state, description, tags);
         }
 
         public void setName(Name name) {
@@ -153,12 +154,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setState(State state) {
+            this.state = state;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<State> getState() {
+            return Optional.ofNullable(state);
         }
 
         public void setDescription(Description description) {
@@ -202,7 +203,7 @@ public class EditCommand extends Command {
             EditBugDescriptor e = (EditBugDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getEmail().equals(e.getEmail())
+                    && getState().equals(e.getState())
                     && getDescription().equals(e.getDescription())
                     && getTags().equals(e.getTags());
         }

@@ -7,8 +7,8 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
-import seedu.address.model.bug.Email;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,7 +32,7 @@ public class EditBugDescriptorBuilder {
     public EditBugDescriptorBuilder(Bug bug) {
         descriptor = new EditCommand.EditBugDescriptor();
         descriptor.setName(bug.getName());
-        descriptor.setEmail(bug.getEmail());
+        descriptor.setState(bug.getState());
         descriptor.setDescription(bug.getDescription());
         descriptor.setTags(bug.getTags());
     }
@@ -46,10 +46,10 @@ public class EditBugDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code State} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditBugDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+    public EditBugDescriptorBuilder withState(String state) {
+        descriptor.setState(new State(state));
         return this;
     }
 
