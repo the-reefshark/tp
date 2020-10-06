@@ -53,13 +53,16 @@ Examples:
 ### Adding a bug : `add`
 Adds a bug to the list
 
-Format: `add n/NAME d/DESCRIPTION s/STATE`
+Format: `add n/NAME d/DESCRIPTION [s/STATE]`
 * Add a bug with the specified name, description and state to the bottom of the list.
-* **All** of the fields are needed
+* The state field is optional, all other fields are needed.
+* If state is not specified, a default state of backlog will be assigned.
 
 Examples:
 * `add n/Print bug d/prints the wrong message s/todo`, adds a bug with name “Print Bug”, Description of “prints the wrong message” and state of “To do”.
 * `add n/move bug d/moves bug to wrong column s/backlog`, adds a bug with name “move bug”, Description of “moves bug to wrong column” and state of “Backlog”.
+* `add n/move bug d/UI`, adds a bug with name “move bug”, Description of “UI” and state of “Backlog”.
+
 
 ### Deleting a bug : `delete`
 Deletes a bug from the list
