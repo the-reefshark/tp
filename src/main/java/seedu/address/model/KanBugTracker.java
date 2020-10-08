@@ -48,7 +48,7 @@ public class KanBugTracker implements ReadOnlyKanBugTracker {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code KanBugTracker} with {@code newData}.
      */
     public void resetData(ReadOnlyKanBugTracker newData) {
         requireNonNull(newData);

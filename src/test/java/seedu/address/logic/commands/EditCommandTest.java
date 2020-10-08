@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBugAtIndex;
-import static seedu.address.testutil.TypicalBugs.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 
@@ -31,7 +31,7 @@ import seedu.address.testutil.EditBugDescriptorBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {

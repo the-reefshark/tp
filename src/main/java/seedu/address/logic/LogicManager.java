@@ -46,7 +46,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getKanBugTracker());
+            storage.saveKanBugTracker(model.getKanBugTracker());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -55,7 +55,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyKanBugTracker getAddressBook() {
+    public ReadOnlyKanBugTracker getKanBugTracker() {
         return model.getKanBugTracker();
     }
 
@@ -65,7 +65,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getKanBugTrackerFilePath() {
         return model.getKanBugTrackerFilePath();
     }
 

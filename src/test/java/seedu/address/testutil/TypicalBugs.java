@@ -57,9 +57,9 @@ public class TypicalBugs {
     private TypicalBugs() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical bugs.
+     * Returns an {@code KanBugTracker} with all the typical bugs.
      */
-    public static KanBugTracker getTypicalAddressBook() {
+    public static KanBugTracker getTypicalKanBugTracker() {
         KanBugTracker ab = new KanBugTracker();
         for (Bug bug : getTypicalBugs()) {
             ab.addBug(bug);

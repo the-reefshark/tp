@@ -14,7 +14,7 @@ import seedu.address.model.ReadOnlyKanBugTracker;
 import seedu.address.model.bug.Bug;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable KanBugTracker that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
 class JsonSerializableKanBugTracker {
@@ -24,7 +24,7 @@ class JsonSerializableKanBugTracker {
     private final List<JsonAdaptedBug> persons = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given bugs.
+     * Constructs a {@code JsonSerializableKanBugTracker} with the given bugs.
      */
     @JsonCreator
     public JsonSerializableKanBugTracker(@JsonProperty("persons") List<JsonAdaptedBug> persons) {
@@ -32,16 +32,16 @@ class JsonSerializableKanBugTracker {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyKanBugTracker} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableKanBugTracker}.
      */
     public JsonSerializableKanBugTracker(ReadOnlyKanBugTracker source) {
         persons.addAll(source.getBugList().stream().map(JsonAdaptedBug::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this KanBug tracker into the model's {@code KanBugTracker} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

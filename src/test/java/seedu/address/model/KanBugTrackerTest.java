@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBugs.ALICE;
-import static seedu.address.testutil.TypicalBugs.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,8 +37,8 @@ public class KanBugTrackerTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        KanBugTracker newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyKanBugTracker_replacesData() {
+        KanBugTracker newData = getTypicalKanBugTracker();
         kanBugTracker.resetData(newData);
         assertEquals(newData, kanBugTracker);
     }
@@ -60,18 +60,18 @@ public class KanBugTrackerTest {
     }
 
     @Test
-    public void hasBug_bugNotInAddressBook_returnsFalse() {
+    public void hasBug_bugNotInKanBugTracker_returnsFalse() {
         assertFalse(kanBugTracker.hasBug(ALICE));
     }
 
     @Test
-    public void hasBug_bugInAddressBook_returnsTrue() {
+    public void hasBug_bugInKanBugTracker_returnsTrue() {
         kanBugTracker.addBug(ALICE);
         assertTrue(kanBugTracker.hasBug(ALICE));
     }
 
     @Test
-    public void hasBug_bugWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasBug_bugWithSameIdentityFieldsInKanBugTracker_returnsTrue() {
         kanBugTracker.addBug(ALICE);
         Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -84,7 +84,7 @@ public class KanBugTrackerTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose bugs list can violate interface constraints.
+     * A stub ReadOnlyKanBugTracker whose bugs list can violate interface constraints.
      */
     private static class KanBugTrackerStub implements ReadOnlyKanBugTracker {
         private final ObservableList<Bug> bugs = FXCollections.observableArrayList();

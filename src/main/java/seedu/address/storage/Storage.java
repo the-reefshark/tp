@@ -21,12 +21,12 @@ public interface Storage extends KanBugTrackerStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getKanBugTrackerFilePath();
 
     @Override
-    Optional<ReadOnlyKanBugTracker> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyKanBugTracker> readKanBugTracker() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyKanBugTracker addressBook) throws IOException;
+    void saveKanBugTracker(ReadOnlyKanBugTracker kanBugTracker) throws IOException;
 
 }

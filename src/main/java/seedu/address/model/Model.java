@@ -45,11 +45,11 @@ public interface Model {
     void setKanBugTrackerFilePath(Path kanBugTrackerFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code kanBugTracker}.
      */
     void setKanBugTracker(ReadOnlyKanBugTracker kanBugTracker);
 
-    /** Returns the AddressBook */
+    /** Returns the KanBugTracker */
     ReadOnlyKanBugTracker getKanBugTracker();
 
     /**

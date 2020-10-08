@@ -24,11 +24,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the KanBugTracker.
      *
      * @see seedu.address.model.Model#getKanBugTracker()
      */
-    ReadOnlyKanBugTracker getAddressBook();
+    ReadOnlyKanBugTracker getKanBugTracker();
 
     /** Returns an unmodifiable view of the filtered list of bugs */
     ObservableList<Bug> getFilteredBugList();
@@ -36,7 +36,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getKanBugTrackerFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

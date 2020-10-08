@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Bug values as in TypicalPersons#getTypicalAddressBook()",
+  "_comment": "KanBugTracker save file which contains the same Bug values as in TypicalPersons#getTypicalKanBugTracker()",
   "persons" : [ {
     "name" : "Alice Pauline",
     "state" : "todo",

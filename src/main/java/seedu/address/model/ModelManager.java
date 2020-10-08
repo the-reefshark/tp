@@ -24,15 +24,15 @@ public class ModelManager implements Model {
     private final FilteredList<Bug> filteredBugs;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given kanBugTracker and userPrefs.
      */
-    public ModelManager(ReadOnlyKanBugTracker addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyKanBugTracker kanBugTracker, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(kanBugTracker, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + kanBugTracker + " and user prefs " + userPrefs);
 
-        this.kanBugTracker = new KanBugTracker(addressBook);
+        this.kanBugTracker = new KanBugTracker(kanBugTracker);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBugs = new FilteredList<>(this.kanBugTracker.getBugList());
     }
@@ -67,16 +67,16 @@ public class ModelManager implements Model {
 
     @Override
     public Path getKanBugTrackerFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getKanBugTrackerFilePath();
     }
 
     @Override
     public void setKanBugTrackerFilePath(Path kanBugTrackerFilePath) {
         requireNonNull(kanBugTrackerFilePath);
-        userPrefs.setAddressBookFilePath(kanBugTrackerFilePath);
+        userPrefs.setKanBugTrackerFilePath(kanBugTrackerFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== KanBugTracker ================================================================================
 
     @Override
     public void setKanBugTracker(ReadOnlyKanBugTracker kanBugTracker) {
@@ -116,7 +116,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Bug} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedKanBugTracker}
      */
     @Override
     public ObservableList<Bug> getFilteredBugList() {

@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBugAtIndex;
-import static seedu.address.testutil.TypicalBugs.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
         expectedModel = new ModelManager(model.getKanBugTracker(), new UserPrefs());
     }
 

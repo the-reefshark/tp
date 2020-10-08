@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBugAtIndex;
-import static seedu.address.testutil.TypicalBugs.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 
@@ -24,7 +24,7 @@ import seedu.address.model.bug.Bug;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

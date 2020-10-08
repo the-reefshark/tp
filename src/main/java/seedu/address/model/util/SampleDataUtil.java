@@ -13,7 +13,7 @@ import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code KanBugTracker} with sample data.
  */
 public class SampleDataUtil {
     public static Bug[] getSampleBugs() {
@@ -39,7 +39,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyKanBugTracker getSampleAddressBook() {
+    public static ReadOnlyKanBugTracker getSampleKanBugTracker() {
         KanBugTracker sampleAb = new KanBugTracker();
         for (Bug sampleBug : getSampleBugs()) {
             sampleAb.addBug(sampleBug);

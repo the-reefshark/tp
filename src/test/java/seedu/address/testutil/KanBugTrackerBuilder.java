@@ -4,9 +4,9 @@ import seedu.address.model.KanBugTracker;
 import seedu.address.model.bug.Bug;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building KanBugTracker objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new KanBugTrackerBuilder().withBug("John", "Doe").build();}
+ *     {@code KanBugTracker ab = new KanBugTrackerBuilder().withBug("John", "Doe").build();}
  */
 public class KanBugTrackerBuilder {
 
@@ -21,7 +21,7 @@ public class KanBugTrackerBuilder {
     }
 
     /**
-     * Adds a new {@code Bug} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Bug} to the {@code KanBugTracker} that we are building.
      */
     public KanBugTrackerBuilder withBug(Bug bug) {
         kanBugTracker.addBug(bug);

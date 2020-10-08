@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBugs.ALICE;
 import static seedu.address.testutil.TypicalBugs.HOON;
 import static seedu.address.testutil.TypicalBugs.IDA;
-import static seedu.address.testutil.TypicalBugs.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,12 +26,12 @@ public class JsonKanBugTrackerStorageTest {
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readKanBugTracker_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readKanBugTracker(null));
     }
 
-    private java.util.Optional<ReadOnlyKanBugTracker> readAddressBook(String filePath) throws Exception {
-        return new JsonKanBugTrackerStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyKanBugTracker> readKanBugTracker(String filePath) throws Exception {
+        return new JsonKanBugTrackerStorage(Paths.get(filePath)).readKanBugTracker(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -42,69 +42,69 @@ public class JsonKanBugTrackerStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readKanBugTracker("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readKanBugTracker("notJsonFormatAddressBook.json"));
     }
 
     @Test
-    public void readAddressBook_invalidBugAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidPersonAddressBook.json"));
+    public void readKanBugTracker_invalidBugKanBugTracker_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readKanBugTracker("invalidPersonAddressBook.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidBugAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
+    public void readKanBugTracker_invalidAndValidBugKanBugTracker_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readKanBugTracker("invalidAndValidPersonAddressBook.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveKanBugTracker_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        KanBugTracker original = getTypicalAddressBook();
-        JsonKanBugTrackerStorage jsonAddressBookStorage = new JsonKanBugTrackerStorage(filePath);
+        KanBugTracker original = getTypicalKanBugTracker();
+        JsonKanBugTrackerStorage jsonKanBugTrackerStorage = new JsonKanBugTrackerStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyKanBugTracker readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonKanBugTrackerStorage.saveKanBugTracker(original, filePath);
+        ReadOnlyKanBugTracker readBack = jsonKanBugTrackerStorage.readKanBugTracker(filePath).get();
         assertEquals(original, new KanBugTracker(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addBug(HOON);
         original.removeBug(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonKanBugTrackerStorage.saveKanBugTracker(original, filePath);
+        readBack = jsonKanBugTrackerStorage.readKanBugTracker(filePath).get();
         assertEquals(original, new KanBugTracker(readBack));
 
         // Save and read without specifying file path
         original.addBug(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        jsonKanBugTrackerStorage.saveKanBugTracker(original); // file path not specified
+        readBack = jsonKanBugTrackerStorage.readKanBugTracker().get(); // file path not specified
         assertEquals(original, new KanBugTracker(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveKanBugTracker_nullKanBugTracker_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveKanBugTracker(null, "SomeFile.json"));
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code kanBugTracker} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyKanBugTracker addressBook, String filePath) {
+    private void saveKanBugTracker(ReadOnlyKanBugTracker kanBugTracker, String filePath) {
         try {
             new JsonKanBugTrackerStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveKanBugTracker(kanBugTracker, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new KanBugTracker(), null));
+    public void saveKanBugTracker_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveKanBugTracker(new KanBugTracker(), null));
     }
 }

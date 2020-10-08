@@ -25,7 +25,7 @@ public class JsonSerializableKanBugTrackerTest {
         JsonSerializableKanBugTracker dataFromFile = JsonUtil.readJsonFile(TYPICAL_BUGS_FILE,
                 JsonSerializableKanBugTracker.class).get();
         KanBugTracker kanBugTrackerFromFile = dataFromFile.toModelType();
-        KanBugTracker typicalBugsKanBugTracker = TypicalBugs.getTypicalAddressBook();
+        KanBugTracker typicalBugsKanBugTracker = TypicalBugs.getTypicalKanBugTracker();
         assertEquals(kanBugTrackerFromFile, typicalBugsKanBugTracker);
     }
 
