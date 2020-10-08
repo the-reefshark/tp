@@ -1,5 +1,5 @@
 {
-  "persons": [ {
+  "bugs": [ {
     "name": "Hans Muster",
     "state": "invalid@email!3e",
     "description": "4th street"

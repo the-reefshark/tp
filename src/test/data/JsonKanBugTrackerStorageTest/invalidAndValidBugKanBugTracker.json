@@ -1,10 +1,10 @@
 {
-  "persons": [ {
-    "name": "Valid Person",
+  "bugs": [ {
+    "name": "Valid Bug",
     "email": "hans@example.com",
     "description": "4th street"
   }, {
-    "name": "Person With Invalid Email Field",
+    "name": "Bug With Invalid Email Field",
     "email": "hans@example!com",
     "description": "4th street"
   } ]

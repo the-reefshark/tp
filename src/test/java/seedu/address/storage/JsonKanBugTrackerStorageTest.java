@@ -20,7 +20,8 @@ import seedu.address.model.KanBugTracker;
 import seedu.address.model.ReadOnlyKanBugTracker;
 
 public class JsonKanBugTrackerStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonKanBugTrackerStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "JsonKanBugTrackerStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -31,7 +32,8 @@ public class JsonKanBugTrackerStorageTest {
     }
 
     private java.util.Optional<ReadOnlyKanBugTracker> readKanBugTracker(String filePath) throws Exception {
-        return new JsonKanBugTrackerStorage(Paths.get(filePath)).readKanBugTracker(addToTestDataPathIfNotNull(filePath));
+        return new JsonKanBugTrackerStorage(Paths.get(filePath))
+                .readKanBugTracker(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {

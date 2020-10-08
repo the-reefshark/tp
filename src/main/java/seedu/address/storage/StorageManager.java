@@ -60,7 +60,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyKanBugTracker> readKanBugTracker(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyKanBugTracker> readKanBugTracker(Path filePath)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return kanBugTrackerStorage.readKanBugTracker(filePath);
     }
