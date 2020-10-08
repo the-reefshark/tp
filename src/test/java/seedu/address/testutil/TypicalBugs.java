@@ -45,7 +45,7 @@ public class TypicalBugs {
     public static final Bug IDA = new BugBuilder().withName("Ida Mueller")
             .withState("backlog").withDescription("chicago ave").build();
 
-    // Manually added - Person's details found in {@code CommandTestUtil}
+    // Manually added - Bug's details found in {@code CommandTestUtil}
     public static final Bug AMY = new BugBuilder().withName(VALID_NAME_AMY)
             .withState(VALID_STATE_AMY).withDescription(VALID_DESCRIPTION_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Bug BOB = new BugBuilder().withName(VALID_NAME_BOB)
@@ -57,17 +57,17 @@ public class TypicalBugs {
     private TypicalBugs() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code KanBugTracker} with all the typical bugs.
      */
-    public static KanBugTracker getTypicalAddressBook() {
+    public static KanBugTracker getTypicalKanBugTracker() {
         KanBugTracker ab = new KanBugTracker();
-        for (Bug bug : getTypicalPersons()) {
+        for (Bug bug : getTypicalBugs()) {
             ab.addBug(bug);
         }
         return ab;
     }
 
-    public static List<Bug> getTypicalPersons() {
+    public static List<Bug> getTypicalBugs() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

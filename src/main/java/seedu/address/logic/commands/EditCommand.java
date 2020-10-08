@@ -26,7 +26,7 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Edits the details of an existing bug in the address book.
+ * Edits the details of an existing bug in the bug tracker.
  */
 public class EditCommand extends Command {
 
@@ -74,7 +74,7 @@ public class EditCommand extends Command {
         Bug bugToEdit = lastShownList.get(index.getZeroBased());
         Bug editedBug = createEditedBug(bugToEdit, editBugDescriptor);
 
-        if (!bugToEdit.isSamePerson(editedBug) && model.hasBug(editedBug)) {
+        if (!bugToEdit.isSameBug(editedBug) && model.hasBug(editedBug)) {
             throw new CommandException(MESSAGE_DUPLICATE_BUG);
         }
 
@@ -85,7 +85,7 @@ public class EditCommand extends Command {
 
     /**
      * Creates and returns a {@code Bug} with the details of {@code bugToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editBugDescriptor}.
      */
     private static Bug createEditedBug(Bug bugToEdit, EditBugDescriptor editBugDescriptor) {
         assert bugToEdit != null;

@@ -25,7 +25,7 @@ public class BugBuilder {
     private Set<Tag> tags;
 
     /**
-     * Creates a {@code PersonBuilder} with the default details.
+     * Creates a {@code BugBuilder} with the default details.
      */
     public BugBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -35,7 +35,7 @@ public class BugBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code bugToCopy}.
+     * Initializes the BugBuilder with the data of {@code bugToCopy}.
      */
     public BugBuilder(Bug bugToCopy) {
         name = bugToCopy.getName();

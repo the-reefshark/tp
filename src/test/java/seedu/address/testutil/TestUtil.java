@@ -49,7 +49,7 @@ public class TestUtil {
     /**
      * Returns the bug in the {@code model}'s bug list at {@code index}.
      */
-    public static Bug getPerson(Model model, Index index) {
+    public static Bug getBug(Model model, Index index) {
         return model.getFilteredBugList().get(index.getZeroBased());
     }
 }

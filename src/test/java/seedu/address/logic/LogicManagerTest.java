@@ -42,10 +42,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonKanBugTrackerStorage addressBookStorage =
-                new JsonKanBugTrackerStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonKanBugTrackerStorage kanBugTrackerStorage =
+                new JsonKanBugTrackerStorage(temporaryFolder.resolve("kanbugtracker.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(kanBugTrackerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -69,12 +69,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonKanBugTrackerStorage addressBookStorage =
-                new JsonKanBugTrackerIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonKanBugTrackerIoExceptionThrowingStub
+        JsonKanBugTrackerStorage kanBugTrackerStorage =
+                new JsonKanBugTrackerIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionKanBugTracker.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(kanBugTrackerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -88,8 +88,8 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    public void getFilteredBugList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredBugList().remove(0));
     }
 
     /**
@@ -154,7 +154,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyKanBugTracker addressBook, Path filePath) throws IOException {
+        public void saveKanBugTracker(ReadOnlyKanBugTracker kanBugTracker, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

@@ -11,26 +11,26 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.bug.Bug;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of bugs.
  */
 public class BugListPanel extends UiPart<Region> {
     private static final String FXML = "BugListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(BugListPanel.class);
 
     @FXML
-    private ListView<Bug> personListView;
+    private ListView<Bug> bugListView;
 
     /**
-     * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
+     * Creates a {@code BugListPanel} with the given {@code ObservableList}.
      */
     public BugListPanel(ObservableList<Bug> bugList) {
         super(FXML);
-        personListView.setItems(bugList);
-        personListView.setCellFactory(listView -> new BugListViewCell());
+        bugListView.setItems(bugList);
+        bugListView.setCellFactory(listView -> new BugListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Bug} using a {@code BugCard}.
      */
     class BugListViewCell extends ListCell<Bug> {
         @Override

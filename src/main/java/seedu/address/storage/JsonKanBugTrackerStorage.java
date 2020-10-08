@@ -15,7 +15,7 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyKanBugTracker;
 
 /**
- * A class to access AddressBook data stored as a json file on the hard disk.
+ * A class to access KanBugTracker data stored as a json file on the hard disk.
  */
 public class JsonKanBugTrackerStorage implements KanBugTrackerStorage {
 
@@ -27,32 +27,32 @@ public class JsonKanBugTrackerStorage implements KanBugTrackerStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getKanBugTrackerFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyKanBugTracker> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyKanBugTracker> readKanBugTracker() throws DataConversionException {
+        return readKanBugTracker(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readKanBugTracker()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyKanBugTracker> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyKanBugTracker> readKanBugTracker(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableKanBugTracker> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableKanBugTracker> jsonKanBugTracker = JsonUtil.readJsonFile(
                 filePath, JsonSerializableKanBugTracker.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonKanBugTracker.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonKanBugTracker.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,21 +60,21 @@ public class JsonKanBugTrackerStorage implements KanBugTrackerStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyKanBugTracker addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveKanBugTracker(ReadOnlyKanBugTracker kanBugTracker) throws IOException {
+        saveKanBugTracker(kanBugTracker, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyKanBugTracker)}.
+     * Similar to {@link #saveKanBugTracker(ReadOnlyKanBugTracker)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyKanBugTracker addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveKanBugTracker(ReadOnlyKanBugTracker kanBugTracker, Path filePath) throws IOException {
+        requireNonNull(kanBugTracker);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableKanBugTracker(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableKanBugTracker(kanBugTracker), filePath);
     }
 
 }
