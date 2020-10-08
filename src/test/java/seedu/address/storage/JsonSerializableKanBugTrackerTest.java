@@ -40,7 +40,7 @@ public class JsonSerializableKanBugTrackerTest {
     public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
         JsonSerializableKanBugTracker dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
                 JsonSerializableKanBugTracker.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableKanBugTracker.MESSAGE_DUPLICATE_PERSON,
+        assertThrows(IllegalValueException.class, JsonSerializableKanBugTracker.MESSAGE_DUPLICATE_BUG,
                 dataFromFile::toModelType);
     }
 

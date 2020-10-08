@@ -47,7 +47,7 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validBug);
         ModelStub modelStub = new ModelStubWithBug(validBug);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_BUG, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -163,7 +163,7 @@ public class AddCommandTest {
         @Override
         public boolean hasBug(Bug bug) {
             requireNonNull(bug);
-            return this.bug.isSamePerson(bug);
+            return this.bug.isSameBug(bug);
         }
     }
 
@@ -176,7 +176,7 @@ public class AddCommandTest {
         @Override
         public boolean hasBug(Bug bug) {
             requireNonNull(bug);
-            return personsAdded.stream().anyMatch(bug::isSamePerson);
+            return personsAdded.stream().anyMatch(bug::isSameBug);
         }
 
         @Override

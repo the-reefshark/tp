@@ -39,7 +39,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Bug bugInList = model.getKanBugTracker().getBugList().get(0);
-        assertCommandFailure(new AddCommand(bugInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddCommand(bugInList), model, AddCommand.MESSAGE_DUPLICATE_BUG);
     }
 
 }

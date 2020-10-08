@@ -30,8 +30,8 @@ public interface Logic {
      */
     ReadOnlyKanBugTracker getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Bug> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of bugs */
+    ObservableList<Bug> getFilteredBugList();
 
     /**
      * Returns the user prefs' address book file path.

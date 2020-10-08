@@ -10,7 +10,7 @@ import seedu.address.model.bug.UniqueBugList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameBug comparison)
  */
 public class KanBugTracker implements ReadOnlyKanBugTracker {
 
@@ -56,7 +56,7 @@ public class KanBugTracker implements ReadOnlyKanBugTracker {
         setBugs(newData.getBugList());
     }
 
-    //// person-level operations
+    //// bug-level operations
 
     /**
      * Returns true if a bug with the same identity as {@code bug} exists in the address book.
@@ -77,12 +77,12 @@ public class KanBugTracker implements ReadOnlyKanBugTracker {
     /**
      * Replaces the given bug {@code target} in the list with {@code editedBug}.
      * {@code target} must exist in the KanBug Tracker.
-     * The bug identity of {@code editedPerson} must not be the same as another existing bug in the KanBug Tracker.
+     * The bug identity of {@code editedBug} must not be the same as another existing bug in the KanBug Tracker.
      */
     public void setBug(Bug target, Bug editedBug) {
         requireNonNull(editedBug);
 
-        bugs.setPerson(target, editedBug);
+        bugs.setBug(target, editedBug);
     }
 
     /**

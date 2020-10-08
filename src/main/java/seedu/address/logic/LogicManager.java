@@ -60,7 +60,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Bug> getFilteredPersonList() {
+    public ObservableList<Bug> getFilteredBugList() {
         return model.getFilteredBugList();
     }
 

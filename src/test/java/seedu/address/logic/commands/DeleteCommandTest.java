@@ -31,7 +31,7 @@ public class DeleteCommandTest {
         Bug bugToDelete = model.getFilteredBugList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, bugToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_BUG_SUCCESS, bugToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getKanBugTracker(), new UserPrefs());
         expectedModel.deleteBug(bugToDelete);
@@ -54,7 +54,7 @@ public class DeleteCommandTest {
         Bug bugToDelete = model.getFilteredBugList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, bugToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_BUG_SUCCESS, bugToDelete);
 
         Model expectedModel = new ModelManager(model.getKanBugTracker(), new UserPrefs());
         expectedModel.deleteBug(bugToDelete);

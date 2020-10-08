@@ -76,7 +76,7 @@ public interface Model {
      */
     void setBug(Bug target, Bug editedBug);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered bug list */
     ObservableList<Bug> getFilteredBugList();
 
     /**

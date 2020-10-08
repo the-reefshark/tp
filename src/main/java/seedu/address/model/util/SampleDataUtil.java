@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Bug[] getSamplePersons() {
+    public static Bug[] getSampleBugs() {
         return new Bug[] {
             new Bug(new Name("Alex Yeoh"), new State("alexyeoh@example.com"),
                 new Description("Blk 30 Geylang Street 29, #06-40"),
@@ -41,7 +41,7 @@ public class SampleDataUtil {
 
     public static ReadOnlyKanBugTracker getSampleAddressBook() {
         KanBugTracker sampleAb = new KanBugTracker();
-        for (Bug sampleBug : getSamplePersons()) {
+        for (Bug sampleBug : getSampleBugs()) {
             sampleAb.addBug(sampleBug);
         }
         return sampleAb;
