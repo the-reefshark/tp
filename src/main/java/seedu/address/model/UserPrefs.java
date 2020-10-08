@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path kanBugTrackerFilePath = Paths.get("data" , "addressbook.json");
+    private Path kanBugTrackerFilePath = Paths.get("data" , "kanbugtracker.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -51,9 +51,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return kanBugTrackerFilePath;
     }
 
-    public void setKanBugTrackerFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.kanBugTrackerFilePath = addressBookFilePath;
+    public void setKanBugTrackerFilePath(Path kanBugTrackerFilePath) {
+        requireNonNull(kanBugTrackerFilePath);
+        this.kanBugTrackerFilePath = kanBugTrackerFilePath;
     }
 
     @Override

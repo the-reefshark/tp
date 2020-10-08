@@ -43,7 +43,7 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonKanBugTrackerStorage kanBugTrackerStorage =
-                new JsonKanBugTrackerStorage(temporaryFolder.resolve("addressBook.json"));
+                new JsonKanBugTrackerStorage(temporaryFolder.resolve("kanbugtracker.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(kanBugTrackerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -69,9 +69,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
+        // Setup LogicManager with JsonKanBugTrackerIoExceptionThrowingStub
         JsonKanBugTrackerStorage kanBugTrackerStorage =
-                new JsonKanBugTrackerIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+                new JsonKanBugTrackerIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionKanBugTracker.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(kanBugTrackerStorage, userPrefsStorage);

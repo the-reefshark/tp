@@ -15,10 +15,10 @@ import seedu.address.testutil.TypicalBugs;
 
 public class JsonSerializableKanBugTrackerTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
-    private static final Path TYPICAL_BUGS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.json");
-    private static final Path INVALID_BUG_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.json");
-    private static final Path DUPLICATE_BUG_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.json");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableKanBugTrackerTest");
+    private static final Path TYPICAL_BUGS_FILE = TEST_DATA_FOLDER.resolve("typicalBugsKanBugTracker.json");
+    private static final Path INVALID_BUG_FILE = TEST_DATA_FOLDER.resolve("invalidBugKanBugTracker.json");
+    private static final Path DUPLICATE_BUG_FILE = TEST_DATA_FOLDER.resolve("duplicateBugKanBugTracker.json");
 
     @Test
     public void toModelType_typicalBugsFile_success() throws Exception {

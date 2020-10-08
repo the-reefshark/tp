@@ -20,7 +20,7 @@ import seedu.address.model.KanBugTracker;
 import seedu.address.model.ReadOnlyKanBugTracker;
 
 public class JsonKanBugTrackerStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonKanBugTrackerStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -47,22 +47,22 @@ public class JsonKanBugTrackerStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readKanBugTracker("notJsonFormatAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readKanBugTracker("notJsonFormatKanBugTracker.json"));
     }
 
     @Test
     public void readKanBugTracker_invalidBugKanBugTracker_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readKanBugTracker("invalidPersonAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readKanBugTracker("invalidBugKanBugTracker.json"));
     }
 
     @Test
     public void readKanBugTracker_invalidAndValidBugKanBugTracker_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readKanBugTracker("invalidAndValidPersonAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readKanBugTracker("invalidAndValidBugKanBugTracker.json"));
     }
 
     @Test
     public void readAndSaveKanBugTracker_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
+        Path filePath = testFolder.resolve("TempKanBugTracker.json");
         KanBugTracker original = getTypicalKanBugTracker();
         JsonKanBugTrackerStorage jsonKanBugTrackerStorage = new JsonKanBugTrackerStorage(filePath);
 
