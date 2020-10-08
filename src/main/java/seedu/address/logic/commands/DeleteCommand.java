@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
         List<Bug> lastShownList = model.getFilteredBugList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
         }
 
         Bug bugToDelete = lastShownList.get(targetIndex.getZeroBased());

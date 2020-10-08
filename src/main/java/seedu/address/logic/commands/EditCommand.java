@@ -68,7 +68,7 @@ public class EditCommand extends Command {
         List<Bug> lastShownList = model.getFilteredBugList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
         }
 
         Bug bugToEdit = lastShownList.get(index.getZeroBased());
