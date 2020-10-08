@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
 import java.util.List;
 
@@ -23,7 +24,6 @@ public class MoveCommand extends Command {
             + PREFIX_STATE + "done";
 
     public static final String MESSAGE_MOVE_BUG_SUCCESS = "Moved Bug: %1$s";
-    public static final String MESSAGE_NOT_MOVE = "Sufficient fields to move the bug must be provided.";
 
     private final Index index;
     private final State state;
@@ -49,9 +49,17 @@ public class MoveCommand extends Command {
         }
 
         Bug bugToMove = lastShownList.get(index.getZeroBased());
+        Bug movedBug = createMovedBug(bugToMove, state);
 
+        model.setBug(bugToMove, movedBug);
+        model.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);
 
-        return new CommandResult("Hello from move");
+        return new CommandResult(String.format(MESSAGE_MOVE_BUG_SUCCESS, movedBug));
+    }
+
+    private static Bug createMovedBug(Bug bugToMove, State destination) {
+        assert bugToMove != null;
+        return new Bug(bugToMove.getName(), destination, bugToMove.getDescription(), bugToMove.getTags());
     }
 
     @Override

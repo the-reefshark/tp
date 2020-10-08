@@ -27,7 +27,7 @@ public class MoveCommandParser implements Parser<MoveCommand> {
     public MoveCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_STATE, PREFIX_DESCRIPTION, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_STATE);
 
         Index index;
 
@@ -37,11 +37,12 @@ public class MoveCommandParser implements Parser<MoveCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MoveCommand.MESSAGE_USAGE), pe);
         }
 
+        if (!arePrefixesPresent(argMultimap, PREFIX_STATE)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MoveCommand.MESSAGE_USAGE));
+        }
+
         State state = ParserUtil.parseState(argMultimap.getValue(PREFIX_STATE).get());
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_STATE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
         return new MoveCommand(index, state);
     }
 
