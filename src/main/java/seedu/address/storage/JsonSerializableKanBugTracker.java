@@ -16,7 +16,7 @@ import seedu.address.model.bug.Bug;
 /**
  * An Immutable KanBugTracker that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "kanbugtracker")
 class JsonSerializableKanBugTracker {
 
     public static final String MESSAGE_DUPLICATE_BUG = "Bugs list contains duplicate bug(s).";
