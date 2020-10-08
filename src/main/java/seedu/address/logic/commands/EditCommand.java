@@ -26,7 +26,7 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Edits the details of an existing bug in the address book.
+ * Edits the details of an existing bug in the bug tracker.
  */
 public class EditCommand extends Command {
 

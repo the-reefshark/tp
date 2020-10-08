@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.bug.Bug;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an bug tracker
  */
 public interface ReadOnlyKanBugTracker {
 

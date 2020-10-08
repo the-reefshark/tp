@@ -59,7 +59,7 @@ public class KanBugTracker implements ReadOnlyKanBugTracker {
     //// bug-level operations
 
     /**
-     * Returns true if a bug with the same identity as {@code bug} exists in the address book.
+     * Returns true if a bug with the same identity as {@code bug} exists in the bug tracker.
      */
     public boolean hasBug(Bug bug) {
         requireNonNull(bug);

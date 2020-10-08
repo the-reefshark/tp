@@ -14,7 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.bug.Bug;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the bug tracker data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -30,7 +30,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(kanBugTracker, userPrefs);
 
-        logger.fine("Initializing with address book: " + kanBugTracker + " and user prefs " + userPrefs);
+        logger.fine("Initializing with bug tracker: " + kanBugTracker + " and user prefs " + userPrefs);
 
         this.kanBugTracker = new KanBugTracker(kanBugTracker);
         this.userPrefs = new UserPrefs(userPrefs);

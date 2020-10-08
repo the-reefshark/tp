@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 import seedu.address.model.Model;
 
 /**
- * Lists all bugs in the address book to the user.
+ * Lists all bugs in the bug tracker to the user.
  */
 public class ListCommand extends Command {
 

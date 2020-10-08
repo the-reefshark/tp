@@ -68,7 +68,7 @@ public class DeleteCommandTest {
         showBugAtIndex(model, INDEX_FIRST_BUG);
 
         Index outOfBoundIndex = INDEX_SECOND_BUG;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of bug tracker list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getKanBugTracker().getBugList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);

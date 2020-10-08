@@ -34,7 +34,7 @@ public interface Logic {
     ObservableList<Bug> getFilteredBugList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' bug tracker file path.
      */
     Path getKanBugTrackerFilePath();
 

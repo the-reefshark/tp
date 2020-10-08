@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.bug.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all bugs in address book whose name contains any of the argument keywords.
+ * Finds and lists all bugs in bug tracker whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
