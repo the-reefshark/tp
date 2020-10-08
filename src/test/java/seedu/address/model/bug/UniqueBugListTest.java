@@ -25,23 +25,23 @@ public class UniqueBugListTest {
     private final UniqueBugList uniqueBugList = new UniqueBugList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullBug_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueBugList.contains(null));
     }
 
     @Test
-    public void contains_personNotInList_returnsFalse() {
+    public void contains_bugNotInList_returnsFalse() {
         assertFalse(uniqueBugList.contains(ALICE));
     }
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_bugInList_returnsTrue() {
         uniqueBugList.add(ALICE);
         assertTrue(uniqueBugList.contains(ALICE));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_bugWithSameIdentityFieldsInList_returnsTrue() {
         uniqueBugList.add(ALICE);
         Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -49,42 +49,42 @@ public class UniqueBugListTest {
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void add_nullBug_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueBugList.add(null));
     }
 
     @Test
-    public void add_duplicatePerson_throwsDuplicatePersonException() {
+    public void add_duplicateBug_throwsDuplicateBugException() {
         uniqueBugList.add(ALICE);
         assertThrows(DuplicateBugException.class, () -> uniqueBugList.add(ALICE));
     }
 
     @Test
-    public void setPerson_nullTargetPerson_throwsNullPointerException() {
+    public void setBug_nullTargetBug_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueBugList.setBug(null, ALICE));
     }
 
     @Test
-    public void setPerson_nullEditedPerson_throwsNullPointerException() {
+    public void setBug_nullEditedBug_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueBugList.setBug(ALICE, null));
     }
 
     @Test
-    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
+    public void setBug_targetBugNotInList_throwsBugNotFoundException() {
         assertThrows(BugNotFoundException.class, () -> uniqueBugList.setBug(ALICE, ALICE));
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setBug_editedBugIsSameBug_success() {
         uniqueBugList.add(ALICE);
         uniqueBugList.setBug(ALICE, ALICE);
-        UniqueBugList expectedUniquePersonList = new UniqueBugList();
-        expectedUniquePersonList.add(ALICE);
-        assertEquals(expectedUniquePersonList, uniqueBugList);
+        UniqueBugList expectedUniqueBugList = new UniqueBugList();
+        expectedUniqueBugList.add(ALICE);
+        assertEquals(expectedUniqueBugList, uniqueBugList);
     }
 
     @Test
-    public void setPerson_editedPersonHasSameIdentity_success() {
+    public void setBug_editedBugHasSameIdentity_success() {
         uniqueBugList.add(ALICE);
         Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -95,7 +95,7 @@ public class UniqueBugListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasDifferentIdentity_success() {
+    public void setBug_editedBugHasDifferentIdentity_success() {
         uniqueBugList.add(ALICE);
         uniqueBugList.setBug(ALICE, BOB);
         UniqueBugList expectedUniqueBugList = new UniqueBugList();
@@ -104,24 +104,24 @@ public class UniqueBugListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
+    public void setBug_editedBugHasNonUniqueIdentity_throwsDuplicateBugException() {
         uniqueBugList.add(ALICE);
         uniqueBugList.add(BOB);
         assertThrows(DuplicateBugException.class, () -> uniqueBugList.setBug(ALICE, BOB));
     }
 
     @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullBug_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueBugList.remove(null));
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
+    public void remove_bugDoesNotExist_throwsBugNotFoundException() {
         assertThrows(BugNotFoundException.class, () -> uniqueBugList.remove(ALICE));
     }
 
     @Test
-    public void remove_existingPerson_removesPerson() {
+    public void remove_existingBug_removesBug() {
         uniqueBugList.add(ALICE);
         uniqueBugList.remove(ALICE);
         UniqueBugList expectedUniqueBugList = new UniqueBugList();
@@ -129,12 +129,12 @@ public class UniqueBugListTest {
     }
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
+    public void setBugs_nullUniqueBugList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueBugList.setBugs((UniqueBugList) null));
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setBugs_uniqueBugList_replacesOwnListWithProvidedUniqueBugList() {
         uniqueBugList.add(ALICE);
         UniqueBugList expectedUniqueBugList = new UniqueBugList();
         expectedUniqueBugList.add(BOB);
@@ -143,12 +143,12 @@ public class UniqueBugListTest {
     }
 
     @Test
-    public void setPersons_nullList_throwsNullPointerException() {
+    public void setBugs_nullList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueBugList.setBugs((List<Bug>) null));
     }
 
     @Test
-    public void setPersons_list_replacesOwnListWithProvidedList() {
+    public void setBugs_list_replacesOwnListWithProvidedList() {
         uniqueBugList.add(ALICE);
         List<Bug> bugList = Collections.singletonList(BOB);
         uniqueBugList.setBugs(bugList);
@@ -158,7 +158,7 @@ public class UniqueBugListTest {
     }
 
     @Test
-    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
+    public void setBugs_listWithDuplicateBugs_throwsDuplicateBugException() {
         List<Bug> listWithDuplicateBugs = Arrays.asList(ALICE, ALICE);
         assertThrows(DuplicateBugException.class, () -> uniqueBugList.setBugs(listWithDuplicateBugs));
     }

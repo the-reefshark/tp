@@ -21,7 +21,7 @@ public class KanBugTrackerBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Bug} to the {@code AddressBook} that we are building.
      */
     public KanBugTrackerBuilder withBug(Bug bug) {
         kanBugTracker.addBug(bug);

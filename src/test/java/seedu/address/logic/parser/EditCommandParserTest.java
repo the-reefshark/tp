@@ -22,9 +22,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_BUG;
 
 import org.junit.jupiter.api.Test;
 
@@ -93,7 +93,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND_BUG;
         String userInput = targetIndex.getOneBased() + TAG_DESC_HUSBAND
                 + STATE_DESC_AMY + DESCRIPTION_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
@@ -107,7 +107,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_BUG;
         String userInput = targetIndex.getOneBased() + STATE_DESC_AMY;
 
         EditCommand.EditBugDescriptor descriptor = new EditBugDescriptorBuilder()
@@ -120,7 +120,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_BUG;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
         EditCommand.EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -148,7 +148,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_BUG;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_AMY + STATE_DESC_AMY
                 + TAG_DESC_FRIEND + DESCRIPTION_DESC_AMY + STATE_DESC_AMY + TAG_DESC_FRIEND
                 + DESCRIPTION_DESC_BOB + STATE_DESC_BOB + TAG_DESC_HUSBAND;
@@ -164,7 +164,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_validValue_success() {
         // other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_BUG;
         String userInput = targetIndex.getOneBased() + STATE_DESC_BOB + DESCRIPTION_DESC_BOB;
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withState(VALID_STATE_BOB)
                 .withDescription(VALID_DESCRIPTION_BOB).build();
@@ -174,7 +174,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_BUG;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withTags().build();

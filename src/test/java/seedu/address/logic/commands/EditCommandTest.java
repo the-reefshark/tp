@@ -8,10 +8,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.showBugAtIndex;
 import static seedu.address.testutil.TypicalBugs.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +37,7 @@ public class EditCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Bug editedBug = new BugBuilder().build();
         EditCommand.EditBugDescriptor descriptor = new EditBugDescriptorBuilder(editedBug).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_BUG, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BUG_SUCCESS, editedBug);
 
@@ -49,16 +49,16 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredBugList().size());
-        Bug lastBug = model.getFilteredBugList().get(indexLastPerson.getZeroBased());
+        Index indexLastBug = Index.fromOneBased(model.getFilteredBugList().size());
+        Bug lastBug = model.getFilteredBugList().get(indexLastBug.getZeroBased());
 
-        BugBuilder personInList = new BugBuilder(lastBug);
-        Bug editedBug = personInList.withName(VALID_NAME_BOB)
+        BugBuilder bugInList = new BugBuilder(lastBug);
+        Bug editedBug = bugInList.withName(VALID_NAME_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+        EditCommand editCommand = new EditCommand(indexLastBug, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BUG_SUCCESS, editedBug);
 
@@ -70,8 +70,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditBugDescriptor());
-        Bug editedBug = model.getFilteredBugList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_BUG, new EditBugDescriptor());
+        Bug editedBug = model.getFilteredBugList().get(INDEX_FIRST_BUG.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BUG_SUCCESS, editedBug);
 
@@ -82,11 +82,11 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showBugAtIndex(model, INDEX_FIRST_BUG);
 
-        Bug bugInFilteredList = model.getFilteredBugList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Bug bugInFilteredList = model.getFilteredBugList().get(INDEX_FIRST_BUG.getZeroBased());
         Bug editedBug = new BugBuilder(bugInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_BUG,
                 new EditBugDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BUG_SUCCESS, editedBug);
@@ -98,28 +98,28 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
-        Bug firstBug = model.getFilteredBugList().get(INDEX_FIRST_PERSON.getZeroBased());
+    public void execute_duplicateBugUnfilteredList_failure() {
+        Bug firstBug = model.getFilteredBugList().get(INDEX_FIRST_BUG.getZeroBased());
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder(firstBug).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_BUG, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_BUG);
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    public void execute_duplicateBugFilteredList_failure() {
+        showBugAtIndex(model, INDEX_FIRST_BUG);
 
-        // edit person in filtered list into a duplicate in address book
-        Bug bugInList = model.getKanBugTracker().getBugList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+        // edit bug in filtered list into a duplicate in address book
+        Bug bugInList = model.getKanBugTracker().getBugList().get(INDEX_SECOND_BUG.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_BUG,
                 new EditBugDescriptorBuilder(bugInList).build());
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_BUG);
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
+    public void execute_invalidBugIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugList().size() + 1);
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
@@ -132,9 +132,9 @@ public class EditCommandTest {
      * but smaller than size of address book
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+    public void execute_invalidBugIndexFilteredList_failure() {
+        showBugAtIndex(model, INDEX_FIRST_BUG);
+        Index outOfBoundIndex = INDEX_SECOND_BUG;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getKanBugTracker().getBugList().size());
 
@@ -146,11 +146,11 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_BUG, DESC_AMY);
 
         // same values -> returns true
         EditCommand.EditBugDescriptor copyDescriptor = new EditBugDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_BUG, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -163,10 +163,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_BUG, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_BUG, DESC_BOB)));
     }
 
 }

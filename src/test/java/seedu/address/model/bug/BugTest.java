@@ -23,7 +23,7 @@ public class BugTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameBug() {
         // same object -> returns true
         assertTrue(ALICE.isSameBug(ALICE));
 

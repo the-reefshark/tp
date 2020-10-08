@@ -21,13 +21,13 @@ public class BugUtil {
      * Returns an add command string for adding the {@code bug}.
      */
     public static String getAddCommand(Bug bug) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(bug);
+        return AddCommand.COMMAND_WORD + " " + getBugDetails(bug);
     }
 
     /**
      * Returns the part of command string for the given {@code bug}'s details.
      */
-    public static String getPersonDetails(Bug bug) {
+    public static String getBugDetails(Bug bug) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + bug.getName().fullName + " ");
         sb.append(PREFIX_STATE + bug.getState().toString() + " ");
@@ -39,9 +39,9 @@ public class BugUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditBugDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditBugDescriptor descriptor) {
+    public static String getEditBugDescriptorDetails(EditBugDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getState().ifPresent(state -> sb.append(PREFIX_STATE).append(state.value).append(" "));

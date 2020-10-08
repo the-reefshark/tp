@@ -12,7 +12,7 @@ import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class to help with building EditPersonDescriptor objects.
+ * A utility class to help with building EditBugDescriptor objects.
  */
 public class EditBugDescriptorBuilder {
 
@@ -27,7 +27,7 @@ public class EditBugDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code bug}'s details
+     * Returns an {@code EditBugDescriptor} with fields containing {@code bug}'s details
      */
     public EditBugDescriptorBuilder(Bug bug) {
         descriptor = new EditCommand.EditBugDescriptor();
@@ -38,7 +38,7 @@ public class EditBugDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Name} of the {@code EditBugDescriptor} that we are building.
      */
     public EditBugDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
@@ -46,7 +46,7 @@ public class EditBugDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code State} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code State} of the {@code EditBugDescriptor} that we are building.
      */
     public EditBugDescriptorBuilder withState(String state) {
         descriptor.setState(new State(state));
@@ -54,7 +54,7 @@ public class EditBugDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Description} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Description} of the {@code EditBugDescriptor} that we are building.
      */
     public EditBugDescriptorBuilder withDescription(String address) {
         descriptor.setDescription(new Description(address));
@@ -62,7 +62,7 @@ public class EditBugDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditBugDescriptor}
      * that we are building.
      */
     public EditBugDescriptorBuilder withTags(String... tags) {

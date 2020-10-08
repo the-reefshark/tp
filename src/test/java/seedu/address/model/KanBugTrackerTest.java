@@ -44,8 +44,8 @@ public class KanBugTrackerTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
+    public void resetData_withDuplicateBugs_throwsDuplicateBugException() {
+        // Two bugs with the same identity fields
         Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Bug> newBugs = Arrays.asList(ALICE, editedAlice);
@@ -55,23 +55,23 @@ public class KanBugTrackerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasBug_nullBug_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> kanBugTracker.hasBug(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasBug_bugNotInAddressBook_returnsFalse() {
         assertFalse(kanBugTracker.hasBug(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasBug_bugInAddressBook_returnsTrue() {
         kanBugTracker.addBug(ALICE);
         assertTrue(kanBugTracker.hasBug(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasBug_bugWithSameIdentityFieldsInAddressBook_returnsTrue() {
         kanBugTracker.addBug(ALICE);
         Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -79,12 +79,12 @@ public class KanBugTrackerTest {
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getBugList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> kanBugTracker.getBugList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose bugs list can violate interface constraints.
      */
     private static class KanBugTrackerStub implements ReadOnlyKanBugTracker {
         private final ObservableList<Bug> bugs = FXCollections.observableArrayList();
