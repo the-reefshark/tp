@@ -1,28 +1,26 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.MoveCommand;
-import seedu.address.model.bug.Description;
-import seedu.address.model.bug.Name;
-import seedu.address.model.bug.State;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditBugDescriptorBuilder;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_STATE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 
-class MoveCommandParserTest {
+import org.junit.jupiter.api.Test;
 
-    private MoveCommandParser parser = new MoveCommandParser();
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.MoveCommand;
+import seedu.address.model.bug.State;
+
+class MoveCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, MoveCommand.MESSAGE_USAGE);
+
+    private MoveCommandParser parser = new MoveCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -65,5 +63,4 @@ class MoveCommandParserTest {
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
-
 }

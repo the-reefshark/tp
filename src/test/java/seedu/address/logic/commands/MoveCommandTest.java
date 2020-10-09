@@ -1,6 +1,19 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG2;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showBugAtIndex;
+import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.KanBugTracker;
@@ -9,12 +22,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.bug.Bug;
 import seedu.address.testutil.BugBuilder;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for MoveCommand.
