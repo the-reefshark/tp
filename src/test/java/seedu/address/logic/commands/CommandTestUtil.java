@@ -26,29 +26,29 @@ import seedu.address.testutil.EditBugDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_NAME_IDA = "Ida Mueller";
-    public static final String VALID_STATE_AMY = "backlog";
-    public static final String VALID_STATE_BOB = "done";
-    public static final String VALID_DESCRIPTION_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_DESCRIPTION_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_DESCRIPTION_IDA = "chicago ave";
+    public static final String VALID_NAME_PARSER = "Amy Bee";
+    public static final String VALID_NAME_HOMEPAGE = "Bob Choo";
+    public static final String VALID_NAME_UI = "Ida Mueller";
+    public static final String VALID_STATE_PARSER = "backlog";
+    public static final String VALID_STATE_HOMEPAGE = "done";
+    public static final String VALID_DESCRIPTION_PARSER = "Block 312, Amy Street 1";
+    public static final String VALID_DESCRIPTION_HOMEPAGE = "Block 123, Bobby Street 3";
+    public static final String VALID_DESCRIPTION_UI = "chicago ave";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final State VALID_STATE_BUG1 = new State("todo");
     public static final State VALID_STATE_BUG2 = new State("backlog");
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String NAME_DESC_IDA = " " + PREFIX_NAME + VALID_NAME_IDA;
-    public static final String STATE_DESC_AMY = " " + PREFIX_STATE + VALID_STATE_AMY;
-    public static final String STATE_DESC_BOB = " " + PREFIX_STATE + VALID_STATE_BOB;
-    public static final String DESCRIPTION_DESC_AMY = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_AMY;
-    public static final String DESCRIPTION_DESC_BOB = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BOB;
-    public static final String DESCRIPTION_DESC_IDA = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_IDA;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String NAME_DESC_PARSER = " " + PREFIX_NAME + VALID_NAME_PARSER;
+    public static final String NAME_DESC_HOMEPAGE = " " + PREFIX_NAME + VALID_NAME_HOMEPAGE;
+    public static final String NAME_DESC_UI = " " + PREFIX_NAME + VALID_NAME_UI;
+    public static final String STATE_DESC_PARSER = " " + PREFIX_STATE + VALID_STATE_PARSER;
+    public static final String STATE_DESC_HOMEPAGE = " " + PREFIX_STATE + VALID_STATE_HOMEPAGE;
+    public static final String DESCRIPTION_DESC_PARSER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_PARSER;
+    public static final String DESCRIPTION_DESC_HOMEPAGE = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_HOMEPAGE;
+    public static final String DESCRIPTION_DESC_UI = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_UI;
+    public static final String TAG_DESC_FRONTEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
+    public static final String TAG_DESC_BACKEND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_STATE_DESC = " " + PREFIX_STATE + "backklog"; // typo of backog
@@ -58,15 +58,15 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditBugDescriptor DESC_AMY;
-    public static final EditCommand.EditBugDescriptor DESC_BOB;
+    public static final EditCommand.EditBugDescriptor DESC_PARSER;
+    public static final EditCommand.EditBugDescriptor DESC_HOMEPAGE;
 
     static {
-        DESC_AMY = new EditBugDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withState(VALID_STATE_AMY).withDescription(VALID_DESCRIPTION_AMY)
+        DESC_PARSER = new EditBugDescriptorBuilder().withName(VALID_NAME_PARSER)
+                .withState(VALID_STATE_PARSER).withDescription(VALID_DESCRIPTION_PARSER)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditBugDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withState(VALID_STATE_BOB).withDescription(VALID_DESCRIPTION_BOB)
+        DESC_HOMEPAGE = new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE)
+                .withState(VALID_STATE_HOMEPAGE).withDescription(VALID_DESCRIPTION_HOMEPAGE)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

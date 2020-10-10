@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBugs.ALICE;
@@ -46,7 +46,7 @@ public class KanBugTrackerTest {
     @Test
     public void resetData_withDuplicateBugs_throwsDuplicateBugException() {
         // Two bugs with the same identity fields
-        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Bug> newBugs = Arrays.asList(ALICE, editedAlice);
         KanBugTrackerStub newData = new KanBugTrackerStub(newBugs);
@@ -73,7 +73,7 @@ public class KanBugTrackerTest {
     @Test
     public void hasBug_bugWithSameIdentityFieldsInKanBugTracker_returnsTrue() {
         kanBugTracker.addBug(ALICE);
-        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(kanBugTracker.hasBug(editedAlice));
     }

@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBugAtIndex;
@@ -33,7 +33,7 @@ class MoveCommandTest {
     @Test
     public void execute_fieldsSpecifiedUnfilteredList_success() {
         Bug movedBug = new BugBuilder(model.getFilteredBugList().get(0))
-                .withState(VALID_STATE_AMY).build();
+                .withState(VALID_STATE_PARSER).build();
         MoveCommand moveCommand = new MoveCommand(INDEX_FIRST_BUG, movedBug.getState());
 
         String expectedMessage = String.format(MoveCommand.MESSAGE_MOVE_BUG_SUCCESS, movedBug);
@@ -49,7 +49,7 @@ class MoveCommandTest {
         showBugAtIndex(model, INDEX_FIRST_BUG);
 
         Bug bugInFilteredList = model.getFilteredBugList().get(INDEX_FIRST_BUG.getZeroBased());
-        Bug movedBug = new BugBuilder(bugInFilteredList).withState(VALID_STATE_AMY).build();
+        Bug movedBug = new BugBuilder(bugInFilteredList).withState(VALID_STATE_PARSER).build();
         MoveCommand moveCommand = new MoveCommand(INDEX_FIRST_BUG, movedBug.getState());
 
         String expectedMessage = String.format(MoveCommand.MESSAGE_MOVE_BUG_SUCCESS, movedBug);

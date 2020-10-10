@@ -2,9 +2,9 @@ package seedu.address.model.bug;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBugs.ALICE;
@@ -31,20 +31,21 @@ public class BugTest {
         assertFalse(ALICE.isSameBug(null));
 
         // different phone and state -> returns false
-        Bug editedAlice = new BugBuilder(ALICE).withState(VALID_STATE_BOB).build();
+        Bug editedAlice = new BugBuilder(ALICE).withState(VALID_STATE_HOMEPAGE).build();
         assertFalse(ALICE.isSameBug(editedAlice));
 
         // different name -> returns false
-        editedAlice = new BugBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        editedAlice = new BugBuilder(ALICE).withName(VALID_NAME_HOMEPAGE).build();
         assertFalse(ALICE.isSameBug(editedAlice));
 
         // same name, same state, different attributes -> returns true
-        editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
+        editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_HOMEPAGE)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameBug(editedAlice));
 
         // same name, same phone, same state, different attributes -> returns true
-        editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new BugBuilder(ALICE)
+                          .withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameBug(editedAlice));
     }
 
@@ -67,15 +68,15 @@ public class BugTest {
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false
-        Bug editedAlice = new BugBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        Bug editedAlice = new BugBuilder(ALICE).withName(VALID_NAME_HOMEPAGE).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different state -> returns false
-        editedAlice = new BugBuilder(ALICE).withState(VALID_STATE_BOB).build();
+        editedAlice = new BugBuilder(ALICE).withState(VALID_STATE_HOMEPAGE).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different address -> returns false
-        editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).build();
+        editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_HOMEPAGE).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

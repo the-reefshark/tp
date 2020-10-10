@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -53,10 +53,10 @@ public class EditCommandTest {
         Bug lastBug = model.getFilteredBugList().get(indexLastBug.getZeroBased());
 
         BugBuilder bugInList = new BugBuilder(lastBug);
-        Bug editedBug = bugInList.withName(VALID_NAME_BOB)
+        Bug editedBug = bugInList.withName(VALID_NAME_HOMEPAGE)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE)
                 .withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastBug, descriptor);
 
@@ -85,9 +85,9 @@ public class EditCommandTest {
         showBugAtIndex(model, INDEX_FIRST_BUG);
 
         Bug bugInFilteredList = model.getFilteredBugList().get(INDEX_FIRST_BUG.getZeroBased());
-        Bug editedBug = new BugBuilder(bugInFilteredList).withName(VALID_NAME_BOB).build();
+        Bug editedBug = new BugBuilder(bugInFilteredList).withName(VALID_NAME_HOMEPAGE).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_BUG,
-                new EditBugDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BUG_SUCCESS, editedBug);
 
@@ -121,7 +121,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidBugIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugList().size() + 1);
-        EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
@@ -139,17 +139,17 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getKanBugTracker().getBugList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditBugDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_BUG, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_BUG, DESC_PARSER);
 
         // same values -> returns true
-        EditCommand.EditBugDescriptor copyDescriptor = new EditBugDescriptor(DESC_AMY);
+        EditCommand.EditBugDescriptor copyDescriptor = new EditBugDescriptor(DESC_PARSER);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_BUG, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -163,10 +163,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_BUG, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_BUG, DESC_PARSER)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_BUG, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_BUG, DESC_HOMEPAGE)));
     }
 
 }

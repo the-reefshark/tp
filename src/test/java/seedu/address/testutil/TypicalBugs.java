@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -46,10 +46,10 @@ public class TypicalBugs {
             .withState("backlog").withDescription("chicago ave").build();
 
     // Manually added - Bug's details found in {@code CommandTestUtil}
-    public static final Bug AMY = new BugBuilder().withName(VALID_NAME_AMY)
-            .withState(VALID_STATE_AMY).withDescription(VALID_DESCRIPTION_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Bug BOB = new BugBuilder().withName(VALID_NAME_BOB)
-            .withState(VALID_STATE_BOB).withDescription(VALID_DESCRIPTION_BOB)
+    public static final Bug AMY = new BugBuilder().withName(VALID_NAME_PARSER)
+            .withState(VALID_STATE_PARSER).withDescription(VALID_DESCRIPTION_PARSER).withTags(VALID_TAG_FRIEND).build();
+    public static final Bug BOB = new BugBuilder().withName(VALID_NAME_HOMEPAGE)
+            .withState(VALID_STATE_HOMEPAGE).withDescription(VALID_DESCRIPTION_HOMEPAGE)
                                           .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

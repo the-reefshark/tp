@@ -3,7 +3,7 @@ package seedu.address.model.bug;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBugs.ALICE;
@@ -43,7 +43,7 @@ public class UniqueBugListTest {
     @Test
     public void contains_bugWithSameIdentityFieldsInList_returnsTrue() {
         uniqueBugList.add(ALICE);
-        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueBugList.contains(editedAlice));
     }
@@ -86,7 +86,7 @@ public class UniqueBugListTest {
     @Test
     public void setBug_editedBugHasSameIdentity_success() {
         uniqueBugList.add(ALICE);
-        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueBugList.setBug(ALICE, editedAlice);
         UniqueBugList expectedUniqueBugList = new UniqueBugList();

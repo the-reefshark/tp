@@ -2,9 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_STATE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
@@ -37,10 +37,10 @@ class MoveCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + NAME_DESC_PARSER, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + NAME_DESC_PARSER, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -57,9 +57,9 @@ class MoveCommandParserTest {
     @Test
     public void parse_correctIndexAndState_success() {
         Index targetIndex = INDEX_SECOND_BUG;
-        String userInput = targetIndex.getOneBased() + STATE_DESC_AMY;
+        String userInput = targetIndex.getOneBased() + STATE_DESC_PARSER;
 
-        MoveCommand expectedCommand = new MoveCommand(targetIndex, new State(VALID_STATE_AMY));
+        MoveCommand expectedCommand = new MoveCommand(targetIndex, new State(VALID_STATE_PARSER));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

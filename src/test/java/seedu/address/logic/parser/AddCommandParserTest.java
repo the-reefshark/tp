@@ -1,25 +1,25 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_IDA;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_UI;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_STATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_IDA;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_UI;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BACKEND;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRONTEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -46,42 +46,42 @@ public class AddCommandParserTest {
         Bug expectedBug = new BugBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + STATE_DESC_BOB
-                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBug));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE
+                + DESCRIPTION_DESC_HOMEPAGE + TAG_DESC_FRONTEND, new AddCommand(expectedBug));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + STATE_DESC_BOB
-                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBug));
+        assertParseSuccess(parser, NAME_DESC_PARSER + NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE
+                + DESCRIPTION_DESC_HOMEPAGE + TAG_DESC_FRONTEND, new AddCommand(expectedBug));
 
         // multiple phones - last phone accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + STATE_DESC_BOB
-                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBug));
+        assertParseSuccess(parser, NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE
+                + DESCRIPTION_DESC_HOMEPAGE + TAG_DESC_FRONTEND, new AddCommand(expectedBug));
 
         // multiple state - last state accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + STATE_DESC_AMY + STATE_DESC_BOB
-                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBug));
+        assertParseSuccess(parser, NAME_DESC_HOMEPAGE + STATE_DESC_PARSER + STATE_DESC_HOMEPAGE
+                + DESCRIPTION_DESC_HOMEPAGE + TAG_DESC_FRONTEND, new AddCommand(expectedBug));
 
         // multiple descriptions - last description accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + STATE_DESC_BOB + DESCRIPTION_DESC_AMY
-                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBug));
+        assertParseSuccess(parser, NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + DESCRIPTION_DESC_PARSER
+                + DESCRIPTION_DESC_HOMEPAGE + TAG_DESC_FRONTEND, new AddCommand(expectedBug));
 
         // multiple tags - all accepted
         Bug expectedBugMultipleTags = new BugBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
-        assertParseSuccess(parser, NAME_DESC_BOB + STATE_DESC_BOB + DESCRIPTION_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedBugMultipleTags));
+        assertParseSuccess(parser, NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + DESCRIPTION_DESC_HOMEPAGE
+                + TAG_DESC_BACKEND + TAG_DESC_FRONTEND, new AddCommand(expectedBugMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Bug expectedBug = new BugBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + STATE_DESC_AMY + DESCRIPTION_DESC_AMY,
+        assertParseSuccess(parser, NAME_DESC_PARSER + STATE_DESC_PARSER + DESCRIPTION_DESC_PARSER,
                 new AddCommand(expectedBug));
 
 
         Bug bug = new BugBuilder(IDA).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_IDA + DESCRIPTION_DESC_IDA,
+        assertParseSuccess(parser, NAME_DESC_UI + DESCRIPTION_DESC_UI,
                 new AddCommand(bug));
     }
 
@@ -90,43 +90,43 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + STATE_DESC_BOB + DESCRIPTION_DESC_BOB,
+        assertParseFailure(parser, VALID_NAME_HOMEPAGE + STATE_DESC_HOMEPAGE + DESCRIPTION_DESC_HOMEPAGE,
                 expectedMessage);
 
         // missing description prefix
-        assertParseFailure(parser, NAME_DESC_BOB + STATE_DESC_BOB + VALID_DESCRIPTION_BOB,
+        assertParseFailure(parser, NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + VALID_DESCRIPTION_HOMEPAGE,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_STATE_BOB + VALID_DESCRIPTION_BOB,
+        assertParseFailure(parser, VALID_NAME_HOMEPAGE + VALID_STATE_HOMEPAGE + VALID_DESCRIPTION_HOMEPAGE,
                 expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + STATE_DESC_BOB + DESCRIPTION_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + STATE_DESC_HOMEPAGE + DESCRIPTION_DESC_HOMEPAGE
+                + TAG_DESC_BACKEND + TAG_DESC_FRONTEND, Name.MESSAGE_CONSTRAINTS);
 
         // invalid state
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_STATE_DESC + DESCRIPTION_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, State.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_HOMEPAGE + INVALID_STATE_DESC + DESCRIPTION_DESC_HOMEPAGE
+                + TAG_DESC_BACKEND + TAG_DESC_FRONTEND, State.MESSAGE_CONSTRAINTS);
 
         // invalid description
-        assertParseFailure(parser, NAME_DESC_BOB + STATE_DESC_BOB + INVALID_DESCRIPTION_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Description.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + INVALID_DESCRIPTION_DESC
+                + TAG_DESC_BACKEND + TAG_DESC_FRONTEND, Description.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + STATE_DESC_BOB + DESCRIPTION_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + DESCRIPTION_DESC_HOMEPAGE
                 + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + STATE_DESC_BOB + INVALID_DESCRIPTION_DESC,
+        assertParseFailure(parser, INVALID_NAME_DESC + STATE_DESC_HOMEPAGE + INVALID_DESCRIPTION_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + STATE_DESC_BOB
-                + DESCRIPTION_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE
+                + DESCRIPTION_DESC_HOMEPAGE + TAG_DESC_BACKEND + TAG_DESC_FRONTEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }
