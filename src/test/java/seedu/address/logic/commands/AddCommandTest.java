@@ -26,28 +26,28 @@ import seedu.address.testutil.BugBuilder;
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullBug_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_bugAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingBugAdded modelStub = new ModelStubAcceptingBugAdded();
         Bug validBug = new BugBuilder().build();
 
         CommandResult commandResult = new AddCommand(validBug).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validBug), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validBug), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validBug), modelStub.bugsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateBug_throwsCommandException() {
         Bug validBug = new BugBuilder().build();
         AddCommand addCommand = new AddCommand(validBug);
         ModelStub modelStub = new ModelStubWithBug(validBug);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_BUG, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -163,7 +163,7 @@ public class AddCommandTest {
         @Override
         public boolean hasBug(Bug bug) {
             requireNonNull(bug);
-            return this.bug.isSamePerson(bug);
+            return this.bug.isSameBug(bug);
         }
     }
 
@@ -171,18 +171,18 @@ public class AddCommandTest {
      * A Model stub that always accept the bug being added.
      */
     private class ModelStubAcceptingBugAdded extends ModelStub {
-        final ArrayList<Bug> personsAdded = new ArrayList<>();
+        final ArrayList<Bug> bugsAdded = new ArrayList<>();
 
         @Override
         public boolean hasBug(Bug bug) {
             requireNonNull(bug);
-            return personsAdded.stream().anyMatch(bug::isSamePerson);
+            return bugsAdded.stream().anyMatch(bug::isSameBug);
         }
 
         @Override
         public void addBug(Bug bug) {
             requireNonNull(bug);
-            personsAdded.add(bug);
+            bugsAdded.add(bug);
         }
 
         @Override

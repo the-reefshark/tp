@@ -12,7 +12,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of KanBugTracker data in local storage.
  */
 public class StorageManager implements Storage {
 
@@ -21,7 +21,7 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
 
     /**
-     * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
+     * Creates a {@code StorageManager} with the given {@code KanBugTrackerStorage} and {@code UserPrefStorage}.
      */
     public StorageManager(KanBugTrackerStorage kanBugTrackerStorage, UserPrefsStorage userPrefsStorage) {
         super();
@@ -47,33 +47,34 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ KanBugTracker methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return kanBugTrackerStorage.getAddressBookFilePath();
+    public Path getKanBugTrackerFilePath() {
+        return kanBugTrackerStorage.getKanBugTrackerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyKanBugTracker> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(kanBugTrackerStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyKanBugTracker> readKanBugTracker() throws DataConversionException, IOException {
+        return readKanBugTracker(kanBugTrackerStorage.getKanBugTrackerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyKanBugTracker> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyKanBugTracker> readKanBugTracker(Path filePath)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return kanBugTrackerStorage.readAddressBook(filePath);
+        return kanBugTrackerStorage.readKanBugTracker(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyKanBugTracker addressBook) throws IOException {
-        saveAddressBook(addressBook, kanBugTrackerStorage.getAddressBookFilePath());
+    public void saveKanBugTracker(ReadOnlyKanBugTracker kanBugTracker) throws IOException {
+        saveKanBugTracker(kanBugTracker, kanBugTrackerStorage.getKanBugTrackerFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyKanBugTracker addressBook, Path filePath) throws IOException {
+    public void saveKanBugTracker(ReadOnlyKanBugTracker kanBugTracker, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        kanBugTrackerStorage.saveAddressBook(addressBook, filePath);
+        kanBugTrackerStorage.saveKanBugTracker(kanBugTracker, filePath);
     }
 
 }

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Bug's state in the address book.
+ * Represents a Bug's state in the bug tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidState(String)}
  */
 public class State {

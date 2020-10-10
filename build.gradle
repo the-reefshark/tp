@@ -68,5 +68,8 @@ dependencies {
 shadowJar {
     archiveName = 'addressbook.jar'
 }
-
 defaultTasks 'clean', 'test'
+
+run {
+    standardInput = System.in
+}

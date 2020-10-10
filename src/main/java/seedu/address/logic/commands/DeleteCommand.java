@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
 
 /**
- * Deletes a bug identified using it's displayed index from the address book.
+ * Deletes a bug identified using it's displayed index from the bug tracker.
  */
 public class DeleteCommand extends Command {
 
@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Bug: %1$s";
+    public static final String MESSAGE_DELETE_BUG_SUCCESS = "Deleted Bug: %1$s";
 
     private final Index targetIndex;
 
@@ -36,12 +36,12 @@ public class DeleteCommand extends Command {
         List<Bug> lastShownList = model.getFilteredBugList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
         }
 
         Bug bugToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteBug(bugToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, bugToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_BUG_SUCCESS, bugToDelete));
     }
 
     @Override

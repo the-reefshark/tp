@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing KanBugTracker ]===========================");
 
         super.init();
 
@@ -57,7 +57,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        KanBugTrackerStorage kanBugTrackerStorage = new JsonKanBugTrackerStorage(userPrefs.getAddressBookFilePath());
+        KanBugTrackerStorage kanBugTrackerStorage = new JsonKanBugTrackerStorage(userPrefs.getKanBugTrackerFilePath());
         storage = new StorageManager(kanBugTrackerStorage, userPrefsStorage);
 
         initLogging(config);
@@ -70,24 +70,24 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s bug tracker and {@code userPrefs}. <br>
+     * The data from the sample bug tracker will be used instead if {@code storage}'s bug tracker is not found,
+     * or an empty bug tracker will be used instead if errors occur when reading {@code storage}'s bug tracker.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyKanBugTracker> addressBookOptional;
+        Optional<ReadOnlyKanBugTracker> kanBugTrackerOptional;
         ReadOnlyKanBugTracker initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            kanBugTrackerOptional = storage.readKanBugTracker();
+            if (!kanBugTrackerOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample KanBugTracker");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = kanBugTrackerOptional.orElseGet(SampleDataUtil::getSampleKanBugTracker);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty KanBugTracker");
             initialData = new KanBugTracker();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty KanBugTracker");
             initialData = new KanBugTracker();
         }
 
@@ -152,7 +152,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty KanBugTracker");
             initializedPrefs = new UserPrefs();
         }
 
@@ -168,7 +168,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting KanBugTracker " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

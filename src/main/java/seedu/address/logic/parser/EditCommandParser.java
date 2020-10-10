@@ -49,8 +49,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editBugDescriptor.setState(ParserUtil.parseState(argMultimap.getValue(PREFIX_STATE).get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editBugDescriptor.setDescription(ParserUtil.parseDescription(argMultimap
-                                                                                 .getValue(PREFIX_DESCRIPTION).get()));
+            editBugDescriptor.setDescription(
+                    ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editBugDescriptor::setTags);
 
