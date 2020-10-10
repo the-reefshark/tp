@@ -17,7 +17,7 @@ public class BugBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_STATE = "backlog";
-    public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_DESCRIPTION = "just some random description";
 
     private Name name;
     private State state;
