@@ -23,29 +23,29 @@ public class BugTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameBug() {
         // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
+        assertTrue(ALICE.isSameBug(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        assertFalse(ALICE.isSameBug(null));
 
         // different phone and state -> returns false
         Bug editedAlice = new BugBuilder(ALICE).withState(VALID_STATE_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        assertFalse(ALICE.isSameBug(editedAlice));
 
         // different name -> returns false
         editedAlice = new BugBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        assertFalse(ALICE.isSameBug(editedAlice));
 
         // same name, same state, different attributes -> returns true
         editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameBug(editedAlice));
 
         // same name, same phone, same state, different attributes -> returns true
         editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameBug(editedAlice));
     }
 
     @Test

@@ -18,6 +18,7 @@ import seedu.address.model.KanBugTracker;
 import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.NameContainsKeywordsPredicate;
+import seedu.address.model.bug.State;
 import seedu.address.testutil.EditBugDescriptorBuilder;
 
 /**
@@ -28,13 +29,15 @@ public class CommandTestUtil {
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_NAME_IDA = "Ida Mueller";
-    public static final String VALID_STATE_AMY = "todo";
+    public static final String VALID_STATE_AMY = "backlog";
     public static final String VALID_STATE_BOB = "done";
     public static final String VALID_DESCRIPTION_AMY = "Block 312, Amy Street 1";
     public static final String VALID_DESCRIPTION_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_DESCRIPTION_IDA = "chicago ave";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final State VALID_STATE_BUG1 = new State("todo");
+    public static final State VALID_STATE_BUG2 = new State("backlog");
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -48,7 +51,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_STATE_DESC = " " + PREFIX_STATE + "bob!yahoo"; // missing '@' symbol
+    public static final String INVALID_STATE_DESC = " " + PREFIX_STATE + "backklog"; // typo of backog
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION; // descriptions cannot be empty
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
@@ -97,7 +100,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered bug list and selected bug in {@code actualModel} remain unchanged
+     * - the bug tracker, filtered bug list and selected bug in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
@@ -111,9 +114,9 @@ public class CommandTestUtil {
     }
     /**
      * Updates {@code model}'s filtered list to show only the bug at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s bug tracker.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showBugAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredBugList().size());
 
         Bug bug = model.getFilteredBugList().get(targetIndex.getZeroBased());

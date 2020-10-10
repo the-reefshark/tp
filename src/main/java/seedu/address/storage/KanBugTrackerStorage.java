@@ -16,31 +16,31 @@ public interface KanBugTrackerStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getKanBugTrackerFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyKanBugTracker}.
+     * Returns KanBugTracker data as a {@link ReadOnlyKanBugTracker}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyKanBugTracker> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyKanBugTracker> readKanBugTracker() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getKanBugTrackerFilePath()
      */
-    Optional<ReadOnlyKanBugTracker> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyKanBugTracker> readKanBugTracker(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyKanBugTracker} to the storage.
-     * @param addressBook cannot be null.
+     * @param kanBugTracker cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyKanBugTracker addressBook) throws IOException;
+    void saveKanBugTracker(ReadOnlyKanBugTracker kanBugTracker) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyKanBugTracker)
+     * @see #saveKanBugTracker(ReadOnlyKanBugTracker)
      */
-    void saveAddressBook(ReadOnlyKanBugTracker addressBook, Path filePath) throws IOException;
+    void saveKanBugTracker(ReadOnlyKanBugTracker kanBugTracker, Path filePath) throws IOException;
 
 }

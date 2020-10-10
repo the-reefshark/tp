@@ -42,7 +42,7 @@ public class BugCard extends UiPart<Region> {
     private FlowPane tags;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Bug} and index to display.
+     * Creates a {@code BugCard} with the given {@code Bug} and index to display.
      */
     public BugCard(Bug bug, int displayedIndex) {
         super(FXML);

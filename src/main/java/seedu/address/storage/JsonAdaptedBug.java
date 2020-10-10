@@ -29,7 +29,7 @@ class JsonAdaptedBug {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given bug details.
+     * Constructs a {@code JsonAdaptedBug} with the given bug details.
      */
     @JsonCreator
     public JsonAdaptedBug(@JsonProperty("name") String name,
@@ -61,9 +61,9 @@ class JsonAdaptedBug {
      * @throws IllegalValueException if there were any data constraints violated in the adapted bug.
      */
     public Bug toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> bugTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            bugTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -91,7 +91,7 @@ class JsonAdaptedBug {
         }
         final Description modelDescription = new Description(description);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(bugTags);
         return new Bug(modelName, modelState, modelDescription, modelTags);
     }
 

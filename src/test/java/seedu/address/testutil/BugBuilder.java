@@ -17,7 +17,7 @@ public class BugBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_STATE = "backlog";
-    public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_DESCRIPTION = "just some random description";
 
     private Name name;
     private State state;
@@ -25,7 +25,7 @@ public class BugBuilder {
     private Set<Tag> tags;
 
     /**
-     * Creates a {@code PersonBuilder} with the default details.
+     * Creates a {@code BugBuilder} with the default details.
      */
     public BugBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -35,7 +35,7 @@ public class BugBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code bugToCopy}.
+     * Initializes the BugBuilder with the data of {@code bugToCopy}.
      */
     public BugBuilder(Bug bugToCopy) {
         name = bugToCopy.getName();

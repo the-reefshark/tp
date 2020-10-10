@@ -11,13 +11,13 @@ import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
 
 /**
- * Adds a bug to the address book.
+ * Adds a bug to the bug tracker.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a bug to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a bug to the KanBug Tracker. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_STATE + "STATE] "
@@ -31,7 +31,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "Size ";
 
     public static final String MESSAGE_SUCCESS = "New bug added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This bug already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_BUG = "This bug already exists in the KanBug Tracker";
 
     private final Bug toAdd;
 
@@ -48,7 +48,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasBug(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_BUG);
         }
 
         model.addBug(toAdd);
