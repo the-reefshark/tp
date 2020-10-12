@@ -26,16 +26,16 @@ import seedu.address.testutil.EditBugDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_PARSER = "Amy Bee";
-    public static final String VALID_NAME_HOMEPAGE = "Bob Choo";
-    public static final String VALID_NAME_UI = "Ida Mueller";
+    public static final String VALID_NAME_PARSER = "Program cannot start up";
+    public static final String VALID_NAME_HOMEPAGE = "Duplicate items in list";
+    public static final String VALID_NAME_UI = "ArrayOutOfBounds Error";
     public static final String VALID_STATE_PARSER = "backlog";
     public static final String VALID_STATE_HOMEPAGE = "done";
-    public static final String VALID_DESCRIPTION_PARSER = "Block 312, Amy Street 1";
-    public static final String VALID_DESCRIPTION_HOMEPAGE = "Block 123, Bobby Street 3";
-    public static final String VALID_DESCRIPTION_UI = "chicago ave";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_DESCRIPTION_PARSER = "Blank screen on launching application";
+    public static final String VALID_DESCRIPTION_HOMEPAGE = "Duplicates in list when searching for a specific bug";
+    public static final String VALID_DESCRIPTION_UI = "No input validation for invalid index";
+    public static final String VALID_TAG_COMPONENT = "UI";
+    public static final String VALID_TAG_FRIEND = "Logic";
     public static final State VALID_STATE_BUG1 = new State("todo");
     public static final State VALID_STATE_BUG2 = new State("backlog");
 
@@ -48,7 +48,7 @@ public class CommandTestUtil {
     public static final String DESCRIPTION_DESC_HOMEPAGE = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_HOMEPAGE;
     public static final String DESCRIPTION_DESC_UI = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_UI;
     public static final String TAG_DESC_FRONTEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_BACKEND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_BACKEND = " " + PREFIX_TAG + VALID_TAG_COMPONENT;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_STATE_DESC = " " + PREFIX_STATE + "backklog"; // typo of backog
@@ -67,7 +67,7 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_HOMEPAGE = new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE)
                 .withState(VALID_STATE_HOMEPAGE).withDescription(VALID_DESCRIPTION_HOMEPAGE)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND).build();
     }
 
     /**

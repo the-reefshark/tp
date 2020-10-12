@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBugs.ALICE;
-import static seedu.address.testutil.TypicalBugs.BENSON;
+import static seedu.address.testutil.TypicalBugs.BUGONE;
+import static seedu.address.testutil.TypicalBugs.BUGTWO;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,13 +79,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasBug_bugNotInKanBugTracker_returnsFalse() {
-        assertFalse(modelManager.hasBug(ALICE));
+        assertFalse(modelManager.hasBug(BUGONE));
     }
 
     @Test
     public void hasBug_bugInKanBugTracker_returnsTrue() {
-        modelManager.addBug(ALICE);
-        assertTrue(modelManager.hasBug(ALICE));
+        modelManager.addBug(BUGONE);
+        assertTrue(modelManager.hasBug(BUGONE));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        KanBugTracker kanBugTracker = new KanBugTrackerBuilder().withBug(ALICE).withBug(BENSON).build();
+        KanBugTracker kanBugTracker = new KanBugTrackerBuilder().withBug(BUGONE).withBug(BUGTWO).build();
         KanBugTracker differentKanBugTracker = new KanBugTracker();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -117,7 +117,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentKanBugTracker, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = BUGONE.getName().fullName.split("\\s+");
         modelManager.updateFilteredBugList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(kanBugTracker, userPrefs)));
 

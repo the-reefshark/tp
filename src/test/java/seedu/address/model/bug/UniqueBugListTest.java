@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBugs.ALICE;
-import static seedu.address.testutil.TypicalBugs.BOB;
+import static seedu.address.testutil.TypicalBugs.BUGELEVEN;
+import static seedu.address.testutil.TypicalBugs.BUGONE;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,19 +31,20 @@ public class UniqueBugListTest {
 
     @Test
     public void contains_bugNotInList_returnsFalse() {
-        assertFalse(uniqueBugList.contains(ALICE));
+        assertFalse(uniqueBugList.contains(BUGONE));
     }
 
     @Test
     public void contains_bugInList_returnsTrue() {
-        uniqueBugList.add(ALICE);
-        assertTrue(uniqueBugList.contains(ALICE));
+        uniqueBugList.add(BUGONE);
+        assertTrue(uniqueBugList.contains(BUGONE));
     }
 
     @Test
     public void contains_bugWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueBugList.add(ALICE);
-        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_HUSBAND)
+        uniqueBugList.add(BUGONE);
+        Bug editedAlice =
+                new BugBuilder(BUGONE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_COMPONENT)
                 .build();
         assertTrue(uniqueBugList.contains(editedAlice));
     }
@@ -55,40 +56,41 @@ public class UniqueBugListTest {
 
     @Test
     public void add_duplicateBug_throwsDuplicateBugException() {
-        uniqueBugList.add(ALICE);
-        assertThrows(DuplicateBugException.class, () -> uniqueBugList.add(ALICE));
+        uniqueBugList.add(BUGONE);
+        assertThrows(DuplicateBugException.class, () -> uniqueBugList.add(BUGONE));
     }
 
     @Test
     public void setBug_nullTargetBug_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueBugList.setBug(null, ALICE));
+        assertThrows(NullPointerException.class, () -> uniqueBugList.setBug(null, BUGONE));
     }
 
     @Test
     public void setBug_nullEditedBug_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueBugList.setBug(ALICE, null));
+        assertThrows(NullPointerException.class, () -> uniqueBugList.setBug(BUGONE, null));
     }
 
     @Test
     public void setBug_targetBugNotInList_throwsBugNotFoundException() {
-        assertThrows(BugNotFoundException.class, () -> uniqueBugList.setBug(ALICE, ALICE));
+        assertThrows(BugNotFoundException.class, () -> uniqueBugList.setBug(BUGONE, BUGONE));
     }
 
     @Test
     public void setBug_editedBugIsSameBug_success() {
-        uniqueBugList.add(ALICE);
-        uniqueBugList.setBug(ALICE, ALICE);
+        uniqueBugList.add(BUGONE);
+        uniqueBugList.setBug(BUGONE, BUGONE);
         UniqueBugList expectedUniqueBugList = new UniqueBugList();
-        expectedUniqueBugList.add(ALICE);
+        expectedUniqueBugList.add(BUGONE);
         assertEquals(expectedUniqueBugList, uniqueBugList);
     }
 
     @Test
     public void setBug_editedBugHasSameIdentity_success() {
-        uniqueBugList.add(ALICE);
-        Bug editedAlice = new BugBuilder(ALICE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_HUSBAND)
+        uniqueBugList.add(BUGONE);
+        Bug editedAlice =
+                new BugBuilder(BUGONE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_COMPONENT)
                 .build();
-        uniqueBugList.setBug(ALICE, editedAlice);
+        uniqueBugList.setBug(BUGONE, editedAlice);
         UniqueBugList expectedUniqueBugList = new UniqueBugList();
         expectedUniqueBugList.add(editedAlice);
         assertEquals(expectedUniqueBugList, uniqueBugList);
@@ -96,18 +98,18 @@ public class UniqueBugListTest {
 
     @Test
     public void setBug_editedBugHasDifferentIdentity_success() {
-        uniqueBugList.add(ALICE);
-        uniqueBugList.setBug(ALICE, BOB);
+        uniqueBugList.add(BUGONE);
+        uniqueBugList.setBug(BUGONE, BUGELEVEN);
         UniqueBugList expectedUniqueBugList = new UniqueBugList();
-        expectedUniqueBugList.add(BOB);
+        expectedUniqueBugList.add(BUGELEVEN);
         assertEquals(expectedUniqueBugList, uniqueBugList);
     }
 
     @Test
     public void setBug_editedBugHasNonUniqueIdentity_throwsDuplicateBugException() {
-        uniqueBugList.add(ALICE);
-        uniqueBugList.add(BOB);
-        assertThrows(DuplicateBugException.class, () -> uniqueBugList.setBug(ALICE, BOB));
+        uniqueBugList.add(BUGONE);
+        uniqueBugList.add(BUGELEVEN);
+        assertThrows(DuplicateBugException.class, () -> uniqueBugList.setBug(BUGONE, BUGELEVEN));
     }
 
     @Test
@@ -117,13 +119,13 @@ public class UniqueBugListTest {
 
     @Test
     public void remove_bugDoesNotExist_throwsBugNotFoundException() {
-        assertThrows(BugNotFoundException.class, () -> uniqueBugList.remove(ALICE));
+        assertThrows(BugNotFoundException.class, () -> uniqueBugList.remove(BUGONE));
     }
 
     @Test
     public void remove_existingBug_removesBug() {
-        uniqueBugList.add(ALICE);
-        uniqueBugList.remove(ALICE);
+        uniqueBugList.add(BUGONE);
+        uniqueBugList.remove(BUGONE);
         UniqueBugList expectedUniqueBugList = new UniqueBugList();
         assertEquals(expectedUniqueBugList, uniqueBugList);
     }
@@ -135,9 +137,9 @@ public class UniqueBugListTest {
 
     @Test
     public void setBugs_uniqueBugList_replacesOwnListWithProvidedUniqueBugList() {
-        uniqueBugList.add(ALICE);
+        uniqueBugList.add(BUGONE);
         UniqueBugList expectedUniqueBugList = new UniqueBugList();
-        expectedUniqueBugList.add(BOB);
+        expectedUniqueBugList.add(BUGELEVEN);
         uniqueBugList.setBugs(expectedUniqueBugList);
         assertEquals(expectedUniqueBugList, uniqueBugList);
     }
@@ -149,17 +151,17 @@ public class UniqueBugListTest {
 
     @Test
     public void setBugs_list_replacesOwnListWithProvidedList() {
-        uniqueBugList.add(ALICE);
-        List<Bug> bugList = Collections.singletonList(BOB);
+        uniqueBugList.add(BUGONE);
+        List<Bug> bugList = Collections.singletonList(BUGELEVEN);
         uniqueBugList.setBugs(bugList);
         UniqueBugList expectedUniqueBugList = new UniqueBugList();
-        expectedUniqueBugList.add(BOB);
+        expectedUniqueBugList.add(BUGELEVEN);
         assertEquals(expectedUniqueBugList, uniqueBugList);
     }
 
     @Test
     public void setBugs_listWithDuplicateBugs_throwsDuplicateBugException() {
-        List<Bug> listWithDuplicateBugs = Arrays.asList(ALICE, ALICE);
+        List<Bug> listWithDuplicateBugs = Arrays.asList(BUGONE, BUGONE);
         assertThrows(DuplicateBugException.class, () -> uniqueBugList.setBugs(listWithDuplicateBugs));
     }
 
