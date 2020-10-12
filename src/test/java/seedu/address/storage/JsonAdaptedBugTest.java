@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedBug.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBugs.BENSON;
+import static seedu.address.testutil.TypicalBugs.BUGTWO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +22,17 @@ public class JsonAdaptedBugTest {
     private static final String INVALID_STATE = "example.com";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_STATE = BENSON.getState().toString();
-    private static final String VALID_DESCRIPTION = BENSON.getDescription().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_NAME = BUGTWO.getName().toString();
+    private static final String VALID_STATE = BUGTWO.getState().toString();
+    private static final String VALID_DESCRIPTION = BUGTWO.getDescription().toString();
+    private static final List<JsonAdaptedTag> VALID_TAGS = BUGTWO.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validBugDetails_returnsBug() throws Exception {
-        JsonAdaptedBug bug = new JsonAdaptedBug(BENSON);
-        assertEquals(BENSON, bug.toModelType());
+        JsonAdaptedBug bug = new JsonAdaptedBug(BUGTWO);
+        assertEquals(BUGTWO, bug.toModelType());
     }
 
     @Test

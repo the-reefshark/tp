@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_PARS
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_PARSER;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBugs.AMY;
+import static seedu.address.testutil.TypicalBugs.BUGTEN;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -80,7 +80,7 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_PARSER + STATE_DESC_PARSER
                                     + DESCRIPTION_DESC_PARSER;
-        Bug expectedBug = new BugBuilder(AMY).withTags().build();
+        Bug expectedBug = new BugBuilder(BUGTEN).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addBug(expectedBug);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

@@ -20,13 +20,13 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRONTEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalBugs.AMY;
-import static seedu.address.testutil.TypicalBugs.BOB;
-import static seedu.address.testutil.TypicalBugs.IDA;
+import static seedu.address.testutil.TypicalBugs.BUGELEVEN;
+import static seedu.address.testutil.TypicalBugs.BUGNINE;
+import static seedu.address.testutil.TypicalBugs.BUGTEN;
 
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +43,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Bug expectedBug = new BugBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Bug expectedBug = new BugBuilder(BUGELEVEN).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE
@@ -66,7 +66,7 @@ public class AddCommandParserTest {
                 + DESCRIPTION_DESC_HOMEPAGE + TAG_DESC_FRONTEND, new AddCommand(expectedBug));
 
         // multiple tags - all accepted
-        Bug expectedBugMultipleTags = new BugBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Bug expectedBugMultipleTags = new BugBuilder(BUGELEVEN).withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT)
                 .build();
         assertParseSuccess(parser, NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + DESCRIPTION_DESC_HOMEPAGE
                 + TAG_DESC_BACKEND + TAG_DESC_FRONTEND, new AddCommand(expectedBugMultipleTags));
@@ -75,12 +75,12 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Bug expectedBug = new BugBuilder(AMY).withTags().build();
+        Bug expectedBug = new BugBuilder(BUGTEN).withTags().build();
         assertParseSuccess(parser, NAME_DESC_PARSER + STATE_DESC_PARSER + DESCRIPTION_DESC_PARSER,
                 new AddCommand(expectedBug));
 
 
-        Bug bug = new BugBuilder(IDA).withTags().build();
+        Bug bug = new BugBuilder(BUGNINE).withTags().build();
         assertParseSuccess(parser, NAME_DESC_UI + DESCRIPTION_DESC_UI,
                 new AddCommand(bug));
     }

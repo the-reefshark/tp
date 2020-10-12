@@ -17,8 +17,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_PAR
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -99,7 +99,7 @@ public class EditCommandParserTest {
 
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_PARSER)
                 .withState(VALID_STATE_PARSER).withDescription(VALID_DESCRIPTION_PARSER)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -155,7 +155,7 @@ public class EditCommandParserTest {
 
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder()
                 .withState(VALID_STATE_HOMEPAGE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_FRIEND,
-                        VALID_TAG_HUSBAND).build();
+                        VALID_TAG_COMPONENT).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

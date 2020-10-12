@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,19 +35,19 @@ public class EditBugDescriptorTest {
         assertFalse(DESC_PARSER.equals(DESC_HOMEPAGE));
 
         // different name -> returns false
-        EditBugDescriptor editedAmy = new EditBugDescriptorBuilder(DESC_PARSER).withName(VALID_NAME_HOMEPAGE).build();
-        assertFalse(DESC_PARSER.equals(editedAmy));
+        EditBugDescriptor editedBug = new EditBugDescriptorBuilder(DESC_PARSER).withName(VALID_NAME_HOMEPAGE).build();
+        assertFalse(DESC_PARSER.equals(editedBug));
 
         // different state -> returns false
-        editedAmy = new EditBugDescriptorBuilder(DESC_PARSER).withState(VALID_STATE_HOMEPAGE).build();
-        assertFalse(DESC_PARSER.equals(editedAmy));
+        editedBug = new EditBugDescriptorBuilder(DESC_PARSER).withState(VALID_STATE_HOMEPAGE).build();
+        assertFalse(DESC_PARSER.equals(editedBug));
 
         // different address -> returns false
-        editedAmy = new EditBugDescriptorBuilder(DESC_PARSER).withDescription(VALID_DESCRIPTION_HOMEPAGE).build();
-        assertFalse(DESC_PARSER.equals(editedAmy));
+        editedBug = new EditBugDescriptorBuilder(DESC_PARSER).withDescription(VALID_DESCRIPTION_HOMEPAGE).build();
+        assertFalse(DESC_PARSER.equals(editedBug));
 
         // different tags -> returns false
-        editedAmy = new EditBugDescriptorBuilder(DESC_PARSER).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_PARSER.equals(editedAmy));
+        editedBug = new EditBugDescriptorBuilder(DESC_PARSER).withTags(VALID_TAG_COMPONENT).build();
+        assertFalse(DESC_PARSER.equals(editedBug));
     }
 }
