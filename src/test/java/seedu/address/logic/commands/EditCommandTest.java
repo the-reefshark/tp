@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBugAtIndex;
@@ -54,10 +54,10 @@ public class EditCommandTest {
 
         BugBuilder bugInList = new BugBuilder(lastBug);
         Bug editedBug = bugInList.withName(VALID_NAME_HOMEPAGE)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_COMPONENT).build();
 
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_COMPONENT).build();
         EditCommand editCommand = new EditCommand(indexLastBug, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BUG_SUCCESS, editedBug);

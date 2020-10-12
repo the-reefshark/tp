@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_BUGS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalBugs.CARL;
-import static seedu.address.testutil.TypicalBugs.ELLE;
-import static seedu.address.testutil.TypicalBugs.FIONA;
+import static seedu.address.testutil.TypicalBugs.BUGFIVE;
+import static seedu.address.testutil.TypicalBugs.BUGSIX;
+import static seedu.address.testutil.TypicalBugs.BUGTHREE;
 import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 
 import java.util.Arrays;
@@ -71,7 +71,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredBugList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredBugList());
+        assertEquals(Arrays.asList(BUGTHREE, BUGFIVE, BUGSIX), model.getFilteredBugList());
     }
 
     /**
