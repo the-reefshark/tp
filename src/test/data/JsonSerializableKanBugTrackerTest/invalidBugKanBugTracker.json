@@ -1,7 +1,7 @@
 {
   "bugs": [ {
-    "name": "Hans Muster",
-    "state": "invalid@email!3e",
-    "description": "4th street"
+    "name": "Ui display bug",
+    "state": "invalid state",
+    "description": "The window application overflowed"
   } ]
 }
