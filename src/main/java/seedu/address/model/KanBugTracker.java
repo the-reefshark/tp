@@ -9,7 +9,7 @@ import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.UniqueBugList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the kanbug-tracker level
  * Duplicates are not allowed (by .isSameBug comparison)
  */
 public class KanBugTracker implements ReadOnlyKanBugTracker {

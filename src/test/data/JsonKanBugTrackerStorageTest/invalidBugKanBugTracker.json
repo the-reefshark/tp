@@ -1,8 +1,7 @@
 {
   "bugs": [ {
     "name": "Bug with invalid name field: Ha!ns Mu@ster",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "description": "4th street"
+    "state": "backlog",
+    "description": "Invalid name field bug"
   } ]
 }

@@ -1,11 +1,10 @@
 {
   "bugs": [ {
     "name": "Valid Bug",
-    "email": "hans@example.com",
-    "description": "4th street"
+    "description": "Valid input"
   }, {
-    "name": "Bug With Invalid Email Field",
-    "email": "hans@example!com",
-    "description": "4th street"
+    "name": "Bug With Invalid state field",
+    "state": "Invalid state",
+    "description": "Invalid input"
   } ]
 }
