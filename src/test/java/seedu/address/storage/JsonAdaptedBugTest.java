@@ -17,10 +17,10 @@ import seedu.address.model.bug.Name;
 import seedu.address.model.bug.State;
 
 public class JsonAdaptedBugTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_NAME = "C@mmand";
     private static final String INVALID_DESCRIPTION = " ";
-    private static final String INVALID_STATE = "example";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_STATE = "Invalid state";
+    private static final String INVALID_TAG = "#Command";
 
     private static final String VALID_NAME = BUGTWO.getName().toString();
     private static final String VALID_STATE = BUGTWO.getState().toString();

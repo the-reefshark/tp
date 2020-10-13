@@ -3,7 +3,8 @@
     "name": "Valid Bug",
     "description": "Valid input"
   }, {
-    "name": "Bug With Invalid Email Field",
+    "name": "Bug With Invalid state field",
+    "state": "Invalid state",
     "description": "Invalid input"
   } ]
 }
