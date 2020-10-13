@@ -1,12 +1,12 @@
 {
   "bugs": [ {
-    "name": "Alice Pauline",
+    "name": "Exit command hangs",
     "state": "done",
-    "description": "123, Jurong West Ave 6, #08-111",
-    "tagged": [ "friends" ]
+    "description": "Exit command did not work normally",
+    "tagged": [ "Command" ]
   }, {
-    "name": "Alice Pauline",
+    "name": "Exit command hangs",
     "state": "done",
-    "description": "4th street"
+    "description": "Need to implement Exit command again"
   } ]
 }
