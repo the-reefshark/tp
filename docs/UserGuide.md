@@ -46,9 +46,6 @@ Lists all bugs in the tracker
 Format: `list`
 * Shows a list of all bugs in the tracker system
 
-Examples:
-* `list`, displays all the bugs in the tracker. 
-
 ### Adding a bug : `add`
 Adds a bug to the list
 
