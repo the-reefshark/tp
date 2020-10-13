@@ -7,10 +7,12 @@ KanBug Tracker is a **desktop app for managing the tracking of bugs you encounte
 
 [![CI Status](https://github.com/AY2021S1-CS2103T-W17-1/tP/workflows/Java%20CI/badge.svg)](https://github.com/AY2021S1-CS2103T-W17-1/tp/actions)
 
-Main View
+#### Main View:
+
 ![Ui](images/Ui.png)
 
-ToDo View
+#### ToDo View:
+
 ![Ui](images/Ui2.png)
 
 * [Features](#features)
@@ -39,16 +41,10 @@ Format: `help`
 
 
 ### Listing all bugs : `list`
-Lists all bugs in the tracker or bugs in a particular state
+Lists all bugs in the tracker
 
-Format: `list [s/STATE]`
-* Shows a list of bugs in the specified state or all bugs in the tracker system
-* The state field is optional
-* State can be either **backlog,todo,ongoing** or **done**
-
-Examples:
-* `list`, displays all the bugs in the tracker. 
-* `list s/done`, displays a list of bugs in 'Done' state
+Format: `list`
+* Shows a list of all bugs in the tracker system
 
 ### Adding a bug : `add`
 Adds a bug to the list
@@ -120,7 +116,7 @@ Data is saved into the hard disk everytime a change is made.
 |  Action  |  Format  |
 |:--------:|:--------:|
 |  **help**  |  `help`  |
-|  **list**  |  `list [s/STATE]`  |
+|  **list**  |  `list`  |
 |  **add**  |  `add n/NAME d/DESCRIPTION s/STATE`  |
 |  **delete**  |  `delete INDEX`  |
 |  **edit**  |  `edit INDEX [n/NEW_NAME] [d/NEW_DESCRIPTION]`  |
@@ -128,4 +124,3 @@ Data is saved into the hard disk everytime a change is made.
 |  **exit**  |  `exit`  |
 
 Team Name: AY2021S1-CS2103T-W17-1
-
