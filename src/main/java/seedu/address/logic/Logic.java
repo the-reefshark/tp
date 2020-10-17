@@ -43,6 +43,9 @@ public interface Logic {
      */
     GuiSettings getGuiSettings();
 
+    /** Returns a filtered list of bugs according to state**/
+    ObservableList<Bug> getFilteredBugListByState(String state);
+
     /**
      * Set the user prefs' GUI settings.
      */

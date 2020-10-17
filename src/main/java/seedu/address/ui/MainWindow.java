@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private BugListPanel bugListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private KanbanBoard board;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -66,6 +67,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        board = new KanbanBoard();
     }
 
     public Stage getPrimaryStage() {
@@ -163,6 +165,15 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    @FXML
+    private void handleBoard() {
+        if (!board.isShowing()) {
+            board.show();
+        } else {
+            board.focus();
+        }
+    }
+
     public BugListPanel getBugListPanel() {
         return bugListPanel;
     }
@@ -184,6 +195,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowBoard()) {
+                handleBoard();
             }
 
             return commandResult;
