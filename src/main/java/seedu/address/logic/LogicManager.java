@@ -79,7 +79,7 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Bug> getFilteredBugListByState(String state) {
         ObservableList<Bug> listOfBugs = model.getFilteredBugList();
-        listOfBugs.filtered((bug) -> bug.equals(new State(state)));
+        listOfBugs.filtered((bug) -> bug.compareState(new State(state)));
         return listOfBugs;
     }
 
