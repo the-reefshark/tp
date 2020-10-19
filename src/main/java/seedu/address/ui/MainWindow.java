@@ -112,7 +112,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        bugListPanel = new BugListPanel(logic.getFilteredBugList());
+        bugListPanel = new BugListPanel(logic.getFilteredBugListByState("backlog"));
         bugListPanelPlaceholder.getChildren().add(bugListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

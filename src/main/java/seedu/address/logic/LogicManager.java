@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -78,8 +79,8 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Bug> getFilteredBugListByState(String state) {
-        ObservableList<Bug> listOfBugs = model.getFilteredBugList();
-        listOfBugs.filtered((bug) -> bug.compareState(new State(state)));
+        FilteredList<Bug> listOfBugs = new FilteredList<>(model.getFilteredBugList());
+        listOfBugs.setPredicate((bug) -> bug.compareState(new State(state)));
         return listOfBugs;
     }
 
