@@ -49,15 +49,15 @@ Format: `list`
 ### Adding a bug : `add`
 Adds a bug to the list
 
-Format: `add n/NAME d/DESCRIPTION [s/STATE]`
+Format: `add n/NAME d/DESCRIPTION [s/STATE] [t/TAG]`
 * Add a bug with the specified name, description and state to the bottom of the list.
 * The state field is optional, all other fields are needed.
 * If state is not specified, a default state of backlog will be assigned.
 
 Examples:
-* `add n/Print bug d/prints the wrong message s/todo`, adds a bug with name “Print Bug”, Description of “prints the wrong message” and state of “To do”.
-* `add n/move bug d/moves bug to wrong column s/backlog`, adds a bug with name “move bug”, Description of “moves bug to wrong column” and state of “Backlog”.
-* `add n/move bug d/UI`, adds a bug with name “move bug”, Description of “UI” and state of “Backlog”.
+* `add n/Print bug d/prints the wrong message s/todo t/Ui.java`, adds a bug with name *Print Bug*, Description of *prints the wrong message*, state of *To do* and a tag of *Ui.java*.
+* `add n/Move bug d/moves bug to wrong column s/backlog`, adds a bug with name *Move bug*, Description of *moves bug to wrong column* and state of *Backlog*.
+* `add n/Move bug d/UI`, adds a bug with name *move bug*, Description of *UI* and state of *Backlog*.
 
 
 ### Deleting a bug : `delete`
@@ -73,16 +73,18 @@ Example:
 ### Editing a bug : `edit`
 Edits an existing bug in the tracker
 
-Format: `edit INDEX [n/NEW_NAME] [d/NEW_DESCRIPTION]`
+Format: `edit INDEX [n/NEW_NAME] [d/NEW_DESCRIPTION] [t/NEW_TAG]`
 
 - Edits the bug at the specified `INDEX`. The index refers to the index number shown in the displayed list of bugs. The Index **must be a positive integer** 1,2,3...
 - At least one of the optional fields must be provided.
 - Existing values will be updated to the input values.
+- **Multiple tags** can be added or editted.
 
 Examples:
 
 - `edit 1 n/Wrong list numbers when displaying list d/List column printed as all 1's`, edits the name and description of the 1st bug to be "Wrong list numbers when displaying list" and "List column printed as all 1's" respectively.
 - `edit 2 d/When listing items, duplicates are printed`, edits the description of the 2nd bug to be "When listing items, duplicated are printed".
+- `edit 3 t/Logger.java t/Logging`, edits/adds the two tags provided *Logger.java* and *Logging*.
 
 ### Moving a bug : `move`
 
@@ -119,7 +121,7 @@ Data is saved into the hard disk everytime a change is made.
 |  **list**  |  `list`  |
 |  **add**  |  `add n/NAME d/DESCRIPTION s/STATE`  |
 |  **delete**  |  `delete INDEX`  |
-|  **edit**  |  `edit INDEX [n/NEW_NAME] [d/NEW_DESCRIPTION]`  |
+|  **edit**  |  `edit INDEX [n/NEW_NAME] [d/NEW_DESCRIPTION] [t/NEW_TAG]`  |
 |  **move**  |  `move INDEX s/STATE`  |
 |  **exit**  |  `exit`  |
 
