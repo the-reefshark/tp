@@ -67,7 +67,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        board = new KanbanBoard();
+        board = new KanbanBoard(new Stage(), logic);
     }
 
     public Stage getPrimaryStage() {
@@ -112,7 +112,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        bugListPanel = new BugListPanel(logic.getFilteredBugListByState("backlog"));
+        bugListPanel = new BugListPanel(logic.getFilteredBugList());
         bugListPanelPlaceholder.getChildren().add(bugListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
