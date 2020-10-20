@@ -4,7 +4,7 @@
 
 * The KanBug Tracker is a **desktop application for managing the tracking of bugs you encounter, optimised for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). <br>
   Example usages:
-  * management of bugs encountered during a self-initiated project 
+  * management of bugs encountered during a self-initiated project
   * documenting the bug fixing process by being able to add descriptions to and modifying the status of different bugs
 * The project was built using software engineering best practices that governed how the code was written and how the project was managed.
   * It is **written in OOP fashion**.

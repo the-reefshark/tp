@@ -64,7 +64,7 @@ Examples:
 Deletes a bug from the list
 
 Format: `delete INDEX`
-  * Deletes the bug at the specified index  
+  * Deletes the bug at the specified index
 
 Example:
   * `delete 1`, deletes the bug at index one of the bug list.
