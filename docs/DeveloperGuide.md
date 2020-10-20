@@ -265,10 +265,46 @@ Given below is sequence diagram for the creation of the BugListPanes:
 <img src= "images/KanbanBoardUI.png">
 
 
-### \[Proposed\] Rishabh feature
+### \[Proposed\] Note feature
 
 #### Proposed Implementation
-_{Explain here how your feature will be implemented}_
+The proposed notes feature is facilitated by `Bug`, `AddCommandParser` and `EditCommandParser`. It adds a new `Note` state that can be parsed by the `AddCommandParser` and `EditCommandParser` and stored internally as an `Optional<Note>` object inside `Bug`.
+
+The added operations by `Note` are internal operations that are handled by the `AddCommandParser` and `EditCommandParser` and as a result their functionality is not required elsewhere.
+
+Given below is an example usage scenario and how the `Note` mechanism behaves at each step when used with `AddCommandParser` and `EditCommandParser`.
+
+Step 1: The user launches the application and executes the add command and provides a `Note` input using the `nt/` prefix. The `AddCommandParser` then executes and splits the input String into its respective components asccording to the given prefix.
+
+Step 2: The `AddCommandParser` then wraps the string following the `nt/` prefix in an `Optional<Note>` object which is then stored inside the new `Bug` that has been created.
+
+The following activity diagram summarizes what happens when a user executes the add command:
+
+<img src="images/NoteAddActivityDiagram.png" width="350">
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `nt/` command is not followed by a String, it will result in a message to the user that their input should not be blank.
+
+</div>
+
+Step 3: The user then decides to change the `Note` in the bug that he has just added using the `edit` commmand accompanied with the `nt/` prefix. The `EditCommandParser` then executes and splits the input String into its respective components according to the given prefix.
+
+Step 4: The `EditCommandParser` then copies the unchanged information from the original `Bug` into a new `Bug` while modifying the `Note` section by wrapping the given input String into an `Optional<Note>` object and storing it in the new `Bug` that has been created. This new `Bug` object then replace the original object in the KanBug Tracker.
+
+The following activity diagram summarizes what happens when a user executes the edit command:
+
+<img src="images/NoteEditActivityDiagram.png" width="400">
+
+#### Design consideration:
+
+##### Aspect: How notes are stored and accessed
+
+* **Alternative 1 (current choice):** Saves the Note inside an Optional<Note> object in Bug.
+  * Pros: Prevents a null pointer exception and is a safer implementation while allowing the notes field to be optional
+  * Cons: Difficult to implement
+
+* **Alternative 2:** Saves the Note directly in Bug
+  * Pros: Easy to implement.
+  * Cons: Will run into null pointer exceptions that are hard to trace if the user chooses not to add notes
 
 
 ## **Documentation, logging, testing, configuration, dev-ops**

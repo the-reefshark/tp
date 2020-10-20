@@ -1,0 +1,20 @@
+@startuml
+start
+:User executes add command;
+:AddCommandParser
+  splits user input;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([note is provided])
+    :Store Optional<Note>
+         inside new Bug;
+else ([else])
+    :Store Empty Optional
+        inside new Bug;
+endif
+:Save new Bug to
+ KanBugTracker;
+stop
+@enduml
