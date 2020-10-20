@@ -235,13 +235,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - 3b. The user enters an invalid edit format
 
-  - 3b1. KanBug Tracker shows an error message. 
+  - 3b1. KanBug Tracker shows an error message.
 
     Use case resumes at 2.
 
 **Use case: Move a bug**
 
-**MSS** 
+**MSS**
 
 1. User requests to list bugs
 2. KanBug Tracker shows the list of bugs

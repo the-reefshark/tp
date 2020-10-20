@@ -9,13 +9,13 @@ KanBug Tracker is a **desktop app for managing the tracking of bugs you encounte
 
 Given below are my contributions to the project.
 
-**As the project is on going, this section will be filled up at a later time .**
+**As the project is on going, this section will be filled up at a later time.**
 
-* **New Feature**: 
+* **New Feature**:
   
 * **New Feature**:
 
-* **Code contributed**: 
+* **Code contributed**:
 
 * **Project management**:
   
@@ -26,3 +26,5 @@ Given below are my contributions to the project.
 * **Community**:
   
 * **Tools**:
+
+  
