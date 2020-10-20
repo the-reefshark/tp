@@ -160,7 +160,7 @@ Step 2: The `AddCommandParser` then wraps the string following the `nt/` prefix 
 
 The following activity diagram summarizes what happens when a user executes the add command:
 
-![NoteAddActivityDiagram](images/NoteAddActivityDiagram.png)
+<img src="images/NoteAddActivityDiagram.png" width="350">
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the `nt/` command is not followed by a String, it will result in a message to the user that their input should not be blank.
 
@@ -172,7 +172,7 @@ Step 4: The `EditCommandParser` then copies the unchanged information from the o
 
 The following activity diagram summarizes what happens when a user executes the edit command:
 
-![NoteEditActivityDiagram](images/NoteEditActivityDiagram.png)
+<img src="images/NoteEditActivityDiagram.png" width="400">
 
 #### Design consideration:
 
