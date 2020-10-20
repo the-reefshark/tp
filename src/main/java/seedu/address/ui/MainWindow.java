@@ -28,6 +28,7 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
+    private Stage mainWindowStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
@@ -59,6 +60,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Set dependencies
         this.primaryStage = primaryStage;
+        this.mainWindowStage = primaryStage;
         this.logic = logic;
 
         // Configure the UI
@@ -67,7 +69,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        board = new KanbanBoard(new Stage(), logic);
+        board = new KanbanBoard(new Stage(), primaryStage, logic);
     }
 
     public Stage getPrimaryStage() {

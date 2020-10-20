@@ -1,25 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.stage.Stage?>
-<fx:root resizable="false" title="Kanban Board" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <scene>
         <Scene>
             <stylesheets>
                 <URL value="@DarkTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
+            <VBox>
+            <children>
+                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                    <Menu mnemonicParsing="false" text="File">
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Help">
+                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                    </Menu>
+                </MenuBar>
+                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10" />
+                    </padding>
+                </StackPane>
+                <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                           minHeight="100" prefHeight="100" maxHeight="100">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10" />
+                    </padding>
+                </StackPane>
             <HBox alignment="CENTER">
                 <children>
-                    <StackPane fx:id="bugListPanelPlaceholderBacklog" HBox.Hgrow="ALWAYS"/>
-                    <StackPane fx:id="bugListPanelPlaceholderTodo" HBox.Hgrow="ALWAYS"/>
-                    <StackPane fx:id="bugListPanelPlaceholderOngoing" HBox.Hgrow="ALWAYS"/>
-                    <StackPane fx:id="bugListPanelPlaceholderDone" HBox.Hgrow="ALWAYS"/>
+                    <VBox>
+                        <children>
+                            <Label fx:id="backlogLabel" text="Backlog" alignment="CENTER">
+                                <HBox.margin>
+                                    <Insets right="5.0" />
+                                </HBox.margin>
+                            </Label>
+                            <StackPane fx:id="bugListPanelPlaceholderBacklog" HBox.Hgrow="ALWAYS"/>
+                        </children>
+                    </VBox>
+                    <Line></Line>
+                    <VBox>
+                        <children>
+                            <Label fx:id="todoLabel" text="todo" alignment="CENTER">
+                                <HBox.margin>
+                                    <Insets right="5.0" />
+                                </HBox.margin>
+                            </Label>
+                            <StackPane fx:id="bugListPanelPlaceholderTodo" HBox.Hgrow="ALWAYS"/>
+                        </children>
+                    </VBox>
+                    <Line></Line>
+                    <VBox>
+                        <children>
+                            <Label fx:id="ongoingLabel" text="Ongoing" alignment="CENTER">
+                                <HBox.margin>
+                                    <Insets right="5.0" />
+                                </HBox.margin>
+                            </Label>
+                            <StackPane fx:id="bugListPanelPlaceholderOngoing" HBox.Hgrow="ALWAYS"/>
+                        </children>
+                    </VBox>
+                    <Line></Line>
+                    <VBox>
+                        <children>
+                            <Label fx:id="doneLabel" text="Done" alignment="CENTER">
+                                <HBox.margin>
+                                    <Insets right="5.0" />
+                                </HBox.margin>
+                            </Label>
+                            <StackPane fx:id="bugListPanelPlaceholderDone" HBox.Hgrow="ALWAYS"/>
+                        </children>
+                    </VBox>
                 </children>
             </HBox>
+                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+            </children>
+            </VBox>
         </Scene>
     </scene>
 </fx:root>
