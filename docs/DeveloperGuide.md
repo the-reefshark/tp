@@ -130,7 +130,6 @@ This section describes some noteworthy details on how certain features are imple
 ### \[Proposed\] Edit Tag feature
 
 #### Proposed Implementation
-#### Proposed Implementation
 
 The proposed edit tag feature is facilitated by `EditTagCommand`. It extends `Command` and uses **editTag** as its `COMMAND_WORD`  and makes use of the **ot/** and **nt/** prefixes.
 
@@ -237,9 +236,36 @@ Design Pattern.
 - **Alternative 2**: Create `Priority` as a subclass of `Tag` [rejected]
     - Cons: Break the Liskov Substitution Principle.
  
-### \[Proposed\] Duy feature
+### \[Proposed\] Search feature
 
 #### Proposed Implementation
+The proposed search command is facilitated by `logic.command` package. It should have its own class named `SearchCommand` and inherits from the abstract class `Command`. The command then returns an instance of `CommandResult` upon success and prints feedback to the users.
+Additionally, it implements the following operations:  
+* `SearchCommand#execute()` - Executes the search command.  
+
+Given below is an example usage scenario and how the edit tag feature behaves at each step.  
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.  
+
+Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/todo t/Ui.java` command to add a new bug to the kanbug tracker. A new bug with the following information is added:  
+
+- name: **Ui bug**
+- description: **Displays wrongly the information**
+- state: **todo**
+- tag: **Ui.java**
+
+Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug. The user wants to see the information of the above bug. Then, the user executes `search k/Ui bug`. This results in the information of all the bugs of which name or description or tag contains `Ui bug` as a substring displays in the tracker.
+
+**Note that the keyword is case-insensitive**
+
+#### Design consideration:
+**Alternative 1 (current choice)**: Use `k/` new prefix as a keyword to search
+- Pro: Flexible search
+- Con: The list of results might be large
+
+**Alternative 2**: Use current field prefixes to search
+- Pro: When the user remembers exactly information of a particular field
+- Con: Restricted search
+
 
 
 ### \[Proposed\] FeatureUI kanban board window
