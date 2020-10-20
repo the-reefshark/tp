@@ -138,7 +138,13 @@ _{Explain here how your feature will be implemented}_
 ### \[Proposed\] Duy feature
 
 #### Proposed Implementation
-_{Explain here how your feature will be implemented}_
+##### Search bug : `search`
+Search existing bugs based on a specified keyword in the tracker
+
+Format: `search k/KEYWORD`
+
+- Search bugs based on the given keyword. The tracker returns all the bugs that has whether name or description or tags contains this keyword as a substring. The keyword **should be a non-empty string**
+- The keyword field is **mandatory** and must be provided.
 
 ### \[Proposed\] Roger feature
 
