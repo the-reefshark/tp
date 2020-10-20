@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_KEYWORD;
 import seedu.address.model.Model;
 import seedu.address.model.bug.NameContainsKeywordsPredicate;
 
@@ -13,7 +14,7 @@ public class SearchCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Search all bugs whose names/descriptions/tags contain "
             + "the specified keyword (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: " + PREFIX_KEYWORD + "KEYWORD\n"
             + "Example: " + COMMAND_WORD + " Incorrect display";
 
     private final NameContainsKeywordsPredicate predicate;
