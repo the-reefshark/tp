@@ -242,7 +242,7 @@ Design Pattern.
 #### Proposed Implementation
 _{Explain here how your feature will be implemented}_
 
-### \[Proposed\] Roger FeatureUI kanban board window
+### \[Proposed\] FeatureUI kanban board window
 
 #### Proposed Implementation
 The kanban board window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a Observerable list that contains only the bugs that belong to their respective state. This observerable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
