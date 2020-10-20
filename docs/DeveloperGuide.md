@@ -122,6 +122,9 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 ### Proposed implementation
 
+=======
+## **Implementation**
+
 This section describes some noteworthy details on how certain features are implemented.
 
 ### \[Proposed\] Edit Tag feature
@@ -262,6 +265,7 @@ Step 3. When there are a lot of bugs in the tracker, it is difficult for the use
 **Alternative 2**: Use current field prefixes to search
 - Pro: When the user remembers exactly information of a particular field
 - Con: Restricted search
+
 
 
 ### \[Proposed\] FeatureUI kanban board window
@@ -528,6 +532,4 @@ testers are expected to do more *exploratory* testing.
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_  
-
-   
+   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
