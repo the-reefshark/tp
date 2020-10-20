@@ -125,10 +125,74 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Kishen feature
+### \[Proposed\] Edit Tag feature
 
 #### Proposed Implementation
-_{Explain here how your feature will be implemented}_
+#### Proposed Implementation
+
+The proposed edit tag feature is facilitated by `EditTagCommand`. It extends `Command` and uses **editTag** as its `COMMAND_WORD`  and makes use of the **ot/** and **nt/** prefixes.
+
+Additionally, it implements the following operations:
+
+- `EditTagCommand#execute()`  —  Executes the command. 
+
+Given below is an example usage scenario and how the edit tag feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.
+
+Step 2. The user executes `add n/Print bug d/prints the wrong message s/todo t/Ui.java` command to add a new bug to the kanbug tracker. A new bug with the following information is added:
+
+- name: **Print bug**
+- description: **prints the wrong message**
+- state: **todo**
+- tag: **Ui.java**
+
+This bug is added as the 6th bug in the kanbug tracker.
+
+**Note that the index 6 is for illustration purposes only**
+
+Step 3. The user decides that the tag they added is incorrect and would like to modify it. The user executes `editTag 6 ot/Ui.java nt/display`. This will result in the tag of the bug at index 6 being modified such that the new tag is **display** instead of **Ui.java**.
+
+The updated bug is as follows:
+
+- name: **Print bug**
+- description: **prints the wrong message**
+- state: **todo**
+- tag: **display**
+
+### [Proposed] Add tag feature
+
+#### Proposed Implementation
+
+The proposed edit tag feature is facilitated by `AddTagCommand`. It extends `Command` and uses **addTag** as its `COMMAND_WORD`  and makes use of the **nt/** prefix.
+
+Additionally, it implements the following operations:
+
+- `AddTagCommand#execute()`  —  Executes the command. 
+
+Given below is an example usage scenario and how the edit tag feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.
+
+Step 2. The user executes `add n/Print bug d/prints the wrong message s/todo t/Ui.java` command to add a new bug to the kanbug tracker. A new bug with the following information is added:
+
+- name: **Print bug**
+- description: **prints the wrong message**
+- state: **todo**
+- tag: **Ui.java**
+
+This bug is added as the 6th bug in the kanbug tracker.
+
+**Note that the index 6 is for illustration purposes only**
+
+Step 3. The user decides that the tag they would like to add an additional tag to the bug. The user executes `addTag nt/wrongPrinting`. This will result in the tag of the bug at index 6 being modified such that an additional tag **wrongPrinting** is added to the bug.
+
+The updated bug is as follows:
+
+- name: **Print bug**
+- description: **prints the wrong message**
+- state: **todo**
+- tag: **Ui.java**, **wrongPrinting**
 
 ### \[Proposed\] Phong feature
 
