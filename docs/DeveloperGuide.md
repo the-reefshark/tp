@@ -121,6 +121,36 @@ The `Storage` component,
 Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
+## **Implementation**
+
+This section describes some noteworthy details on how certain features are implemented.
+
+### \[Proposed\] Kishen feature
+
+#### Proposed Implementation
+_{Explain here how your feature will be implemented}_
+
+### \[Proposed\] Phong feature
+
+#### Proposed Implementation
+_{Explain here how your feature will be implemented}_
+
+### \[Proposed\] Duy feature
+
+#### Proposed Implementation
+_{Explain here how your feature will be implemented}_
+
+### \[Proposed\] Roger feature
+
+#### Proposed Implementation
+_{Explain here how your feature will be implemented}_
+
+### \[Proposed\] Rishabh feature
+
+#### Proposed Implementation
+_{Explain here how your feature will be implemented}_
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
