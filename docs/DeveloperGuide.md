@@ -120,7 +120,9 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.address.commons` package.
 
---------------------------------------------------------------------------------------------------------------------
+### Proposed implementation
+
+=======
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
@@ -238,19 +240,36 @@ Design Pattern.
 ### \[Proposed\] Duy feature
 
 #### Proposed Implementation
-_{Explain here how your feature will be implemented}_
 
-### \[Proposed\] Roger feature
+
+### \[Proposed\] FeatureUI kanban board window
 
 #### Proposed Implementation
-_{Explain here how your feature will be implemented}_
+The kanban board window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a Observerable list that contains only the bugs that belong to their respective state. This observerable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
+
+<img src="images/Ui.png" width="450" />
+
+Given below is how the KanbanBoard window will create the 4 BugListpanes
+
+Step 1:
+The user lanches the app and the system initalises the UI.
+
+Step 2:
+MainWindow calls fillInnerParts() on KanbanBoard.
+
+Step 3:
+For each of the 4 states, KanbanBoard would call getFilteredBugListByState on logic manager to get the appropriate lists and create the BugListPane
+
+Given below is sequence diagram for the creation of the BugListPanes:
+
+<img src= "images/KanbanBoardUI.png">
+
 
 ### \[Proposed\] Rishabh feature
 
 #### Proposed Implementation
 _{Explain here how your feature will be implemented}_
 
---------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
