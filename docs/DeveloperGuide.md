@@ -130,11 +130,47 @@ This section describes some noteworthy details on how certain features are imple
 #### Proposed Implementation
 _{Explain here how your feature will be implemented}_
 
-### \[Proposed\] Phong feature
+### \[Proposed\] Bug priority
+
+Feature description: Each bug will now have a priority level (low, medium, high) that will be shown on the GUI. Users
+can add or edit a bug with the priority using the `pr/` tag. The priority is optional, but each bug must have at most
+one priority only.
 
 #### Proposed Implementation
-_{Explain here how your feature will be implemented}_
 
+The priority of a bug will be represented by `Priority` in the `seedu.address.model.bug` package. The `Priority` would
+be quite similar to other classes in the same package such as `Description`, `Name`, that is:
+- `Priority` will also have its own `MESSAGE_CONSTRAINTS` and `VALIDATION_REGEX`.
+- We will need to update the `Bug` to include an instance of `Priority`, and also update its constructor.
+- We will need to update `MESSAGE_USAGE` of `AddCommand` and `EditCommand`.
+- We will also need to update `EditCommand.BugDescriptor`.
+- We will add one more prefix constant called `PREFIX_PRIORITY` into `CliSyntax`.
+- We will update the `AddCommandParser#parse` and `EditCommandParser#parse` accordingly to read the `pr/` argument.
+- We will have to create `ParserUtil#parsePriority`.
+- We will need to include an instance of `Priority` into `seedu.address.storage.JsonAdaptedBug`, and update all
+of its methods to deal with priority.
+- We will need to update `seedu.address.ui.BugCard` and `BugListCard.fxml` to include priority.
+
+The followings are notable differences between `Priority` and other fields of `Bug`:
+- The `VALIDATION_REGEX` of `PRIORITY` will be set such that its constructor can only accept the `String` `"low"`, 
+`"medium"`, `"higher"` (either uppercase or lowercase)
+- Aside from the 3 possible states of `Priority` (`"low"`, `"medium"` or `"high"`), it will also have the state `"null"` 
+that represent when the bug have no priority indicated. This type of `Priority` will be create using an overload 
+version of the constructor that accept no argument (`new Priority("low")` will create a low priority, but 
+`new Priority()` will create a "null" priority. We will check if the `Priority` is "null" before showing it on the UI.
+
+**Note**: This is to simplified the code so that every instance of `Bug` is mandatory and also avoid using `null` (which
+could cause `NullPointerException` and break the app) at the same time. This approach is inspired by the Null Object 
+Design Pattern.
+
+#### Design consideration:
+
+- **Alternative 1**: Create `Priority` as a separate class
+    - Pros: Adhere OOP principles
+    - Cons: Need to refactor quite a lot in many different places.
+- **Alternative 2**: Create `Priority` as a subclass of `Tag` [rejected]
+    - Cons: Break the Liskov Substitution Principle: `Priority` is more restrictive when creating an instance.
+ 
 ### \[Proposed\] Duy feature
 
 #### Proposed Implementation
