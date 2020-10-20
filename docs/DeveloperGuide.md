@@ -233,7 +233,7 @@ Design Pattern.
     - Pros: Adhere OOP principles
     - Cons: Need to refactor quite a lot in many different places.
 - **Alternative 2**: Create `Priority` as a subclass of `Tag` [rejected]
-    - Cons: Break the Liskov Substitution Principle: `Priority` is more restrictive when creating an instance.
+    - Cons: Break the Liskov Substitution Principle.
  
 ### \[Proposed\] Duy feature
 
