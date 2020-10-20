@@ -240,7 +240,7 @@ Design Pattern.
 ### \[Proposed\] Duy feature
 
 #### Proposed Implementation
-_{Explain here how your feature will be implemented}_
+
 
 ### \[Proposed\] FeatureUI kanban board window
 
