@@ -73,11 +73,13 @@ class PriorityTest {
         Priority p2 = new Priority("medium");
         Priority p3 = new Priority("meDIuM");
         Priority p4 = new Priority("high");
+        Priority p5 = new Priority();
 
         assertNotEquals(p1, p2); // different values
         assertNotEquals(p3, p4); // different values
         assertNotEquals(p3, null); // compare to null
         assertNotEquals(p1, "low"); // different types
+        assertNotEquals(p1, p5);
     }
 
     @Test

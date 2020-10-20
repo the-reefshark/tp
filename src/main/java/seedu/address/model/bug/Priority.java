@@ -23,6 +23,11 @@ public class Priority {
         this.priorityLevel = priorityLevel.toLowerCase();
     }
 
+    // represent a null Priority object
+    public Priority() {
+        priorityLevel = "null";
+    }
+
     public static boolean isValidPriority(String test) {
         return test.matches(VALIDATION_REGEX);
     }
