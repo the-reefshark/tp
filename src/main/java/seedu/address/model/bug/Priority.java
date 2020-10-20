@@ -1,8 +1,5 @@
 package seedu.address.model.bug;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -26,6 +23,10 @@ public class Priority {
     // represent a null Priority object
     public Priority() {
         priorityLevel = "null";
+    }
+
+    public boolean isNull() {
+        return priorityLevel.equals("null");
     }
 
     public static boolean isValidPriority(String test) {

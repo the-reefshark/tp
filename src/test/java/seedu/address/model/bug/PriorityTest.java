@@ -91,4 +91,13 @@ class PriorityTest {
         assertEquals(p1.hashCode(), p2.hashCode());
         assertEquals(p1.hashCode(), p3.hashCode());
     }
+
+    @Test
+    public void isNull() {
+        assertFalse(new Priority("low").isNull());
+        assertFalse(new Priority("medium").isNull());
+        assertFalse(new Priority("high").isNull());
+
+        assertTrue(new Priority().isNull());
+    }
 }
