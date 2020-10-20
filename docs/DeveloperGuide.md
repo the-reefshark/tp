@@ -121,6 +121,11 @@ The `Storage` component,
 Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
+### [Proposed] UI kanban board window
+
+### Proposed implementation
+
+The kanban board window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 buglist panes in a horizontal box. The 4 bug
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
