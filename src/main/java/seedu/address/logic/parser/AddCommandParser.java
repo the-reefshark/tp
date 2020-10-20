@@ -45,8 +45,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         State state;
 
         if (arePrefixesPresent(argMultimap, PREFIX_STATE)) {
+            assert argMultimap.getValue(PREFIX_STATE).isPresent();
             state = ParserUtil.parseState(argMultimap.getValue(PREFIX_STATE).get());
         } else {
+            assert argMultimap.getValue(PREFIX_STATE).isEmpty();
             state = DEFAULT_STATE;
         }
 
