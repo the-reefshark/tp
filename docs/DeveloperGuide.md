@@ -120,12 +120,56 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.address.commons` package.
 
---------------------------------------------------------------------------------------------------------------------
-### [Proposed] UI kanban board window
-
 ### Proposed implementation
 
-The kanban board window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 buglist panes in a horizontal box. The 4 bug
+=======
+## **Implementation**
+
+This section describes some noteworthy details on how certain features are implemented.
+
+### \[Proposed\] Kishen feature
+
+#### Proposed Implementation
+_{Explain here how your feature will be implemented}_
+
+### \[Proposed\] Phong feature
+
+#### Proposed Implementation
+_{Explain here how your feature will be implemented}_
+
+### \[Proposed\] Duy feature
+
+#### Proposed Implementation
+_{Explain here how your feature will be implemented}_
+
+### \[Proposed\] Roger FeatureUI kanban board window
+
+#### Proposed Implementation
+The kanban board window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a Observerable list that contains only the bugs that belong to their respective state. This observerable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
+
+<img src="images/Ui.png" width="450" />
+
+Given below is how the KanbanBoard window will create the 4 BugListpanes
+
+Step 1:
+The user lanches the app and the system initalises the UI.
+
+Step 2:
+MainWindow calls fillInnerParts() on KanbanBoard.
+
+Step 3:
+For each of the 4 states, KanbanBoard would call getFilteredBugListByState on logic manager to get the appropriate lists and create the BugListPane
+
+Given below is sequence diagram for the creation of the BugListPanes:
+
+<img src= "images/KanbanBoardUI.png">
+
+
+### \[Proposed\] Rishabh feature
+
+#### Proposed Implementation
+_{Explain here how your feature will be implemented}_
+
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 

@@ -1,0 +1,47 @@
+@startuml
+!include style.puml
+
+box UI LOGIC_COLOR_T1
+participant ":KanbanBoard" as KanbanBoard LOGIC_COLOR
+participant "BugListPane" as BugListPane LOGIC_COLOR
+
+end box
+
+box Logic MODEL_COLOR_T1
+participant ":LogicManager" as LogicManager MODEL_COLOR
+end box
+
+[-> KanbanBoard : fillInnerParts()
+activate KanbanBoard
+
+KanbanBoard -> LogicManager : getFilteredBugListByState("backlog")
+activate LogicManager
+
+LogicManager --> KanbanBoard: ObserverableList<Bug>
+
+create BugListPane
+KanbanBoard -> BugListPane: new
+
+KanbanBoard -> LogicManager : getFilteredBugListByState("todo")
+
+LogicManager --> KanbanBoard: ObserverableList<Bug>
+create BugListPane
+KanbanBoard -> BugListPane: new
+
+KanbanBoard -> LogicManager : getFilteredBugListByState("ongoing")
+
+LogicManager --> KanbanBoard: ObserverableList<Bug>
+
+create BugListPane
+KanbanBoard -> BugListPane: new
+
+KanbanBoard -> LogicManager : getFilteredBugListByState("done")
+
+LogicManager --> KanbanBoard: ObserverableList<Bug>
+
+create BugListPane
+KanbanBoard -> BugListPane: new
+
+deactivate LogicManager
+deactivate KanbanBoard
+@enduml
