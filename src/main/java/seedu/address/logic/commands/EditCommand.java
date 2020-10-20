@@ -1,10 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
 import java.util.Collections;
@@ -18,10 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.bug.Bug;
-import seedu.address.model.bug.Description;
-import seedu.address.model.bug.Name;
-import seedu.address.model.bug.State;
+import seedu.address.model.bug.*;
 import seedu.address.model.tag.Tag;
 
 
@@ -39,9 +33,10 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_STATE + "STATE] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_NOTE + "NOTE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_STATE + "johndoe@example.com";
+            + PREFIX_STATE + "backlog";
 
     public static final String MESSAGE_EDIT_BUG_SUCCESS = "Edited Bug: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -93,9 +88,11 @@ public class EditCommand extends Command {
         Name updatedName = editBugDescriptor.getName().orElse(bugToEdit.getName());
         State updatedState = editBugDescriptor.getState().orElse(bugToEdit.getState());
         Description updatedDescription = editBugDescriptor.getDescription().orElse(bugToEdit.getDescription());
+        Optional<Note> optionalNote = editBugDescriptor.getOptionalNote();
+        Optional<Note> updatedOptionalNote = optionalNote.isPresent() ? optionalNote : bugToEdit.getOptionalNote();
         Set<Tag> updatedTags = editBugDescriptor.getTags().orElse(bugToEdit.getTags());
 
-        return new Bug(updatedName, updatedState, updatedDescription, updatedTags);
+        return new Bug(updatedName, updatedState, updatedDescription, updatedOptionalNote, updatedTags);
     }
 
     @Override
@@ -124,6 +121,7 @@ public class EditCommand extends Command {
         private Name name;
         private State state;
         private Description description;
+        private Optional<Note> note;
         private Set<Tag> tags;
 
         public EditBugDescriptor() {}
@@ -136,6 +134,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setState(toCopy.state);
             setDescription(toCopy.description);
+            setOptionalNote(toCopy.note);
             setTags(toCopy.tags);
         }
 
@@ -169,6 +168,10 @@ public class EditCommand extends Command {
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
         }
+
+        public void setOptionalNote(Optional<Note> note) { this.note = note; }
+
+        public Optional<Note> getOptionalNote() { return note; }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -205,6 +208,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getState().equals(e.getState())
                     && getDescription().equals(e.getDescription())
+                    && getOptionalNote().equals(e.getOptionalNote())
                     && getTags().equals(e.getTags());
         }
     }

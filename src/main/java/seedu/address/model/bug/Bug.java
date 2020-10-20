@@ -2,10 +2,7 @@ package seedu.address.model.bug;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import seedu.address.model.tag.Tag;
 
@@ -21,16 +18,18 @@ public class Bug {
 
     // Data fields
     private final Description description;
+    private final Optional<Note> optionalNote;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Bug(Name name, State state, Description description, Set<Tag> tags) {
-        requireAllNonNull(name, state, description, tags);
+    public Bug(Name name, State state, Description description, Optional<Note> optionalNote, Set<Tag> tags) {
+        requireAllNonNull(name, state, description, optionalNote, tags);
         this.name = name;
         this.state = state;
         this.description = description;
+        this.optionalNote = optionalNote;
         this.tags.addAll(tags);
     }
 
@@ -45,6 +44,8 @@ public class Bug {
     public Description getDescription() {
         return description;
     }
+
+    public Optional<Note> getOptionalNote() { return optionalNote; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -86,26 +87,29 @@ public class Bug {
         return otherBug.getName().equals(getName())
                 && otherBug.getState().equals(getState())
                 && otherBug.getDescription().equals(getDescription())
+                && otherBug.getOptionalNote().equals(getOptionalNote())
                 && otherBug.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, state, description, tags);
+        return Objects.hash(name, state, description, optionalNote, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
+        String note = getOptionalNote().isPresent() ? getOptionalNote().get().toString() : "";
         builder.append(getName())
                 .append(" State: ")
                 .append(getState())
                 .append(" Description: ")
                 .append(getDescription())
+                .append(" Note: ")
+                .append(note)
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

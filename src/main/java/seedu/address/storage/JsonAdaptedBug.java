@@ -1,20 +1,16 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.bug.Bug;
-import seedu.address.model.bug.Description;
-import seedu.address.model.bug.Name;
-import seedu.address.model.bug.State;
+import seedu.address.model.bug.*;
 import seedu.address.model.tag.Tag;
+
+import javax.swing.text.html.Option;
 
 /**
  * Jackson-friendly version of {@link Bug}.
@@ -26,6 +22,7 @@ class JsonAdaptedBug {
     private final String name;
     private final String state;
     private final String description;
+    private final Optional<String> optionalNote;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -33,11 +30,14 @@ class JsonAdaptedBug {
      */
     @JsonCreator
     public JsonAdaptedBug(@JsonProperty("name") String name,
-                          @JsonProperty("email") String state, @JsonProperty("description") String description,
+                          @JsonProperty("email") String state,
+                          @JsonProperty("description") String description,
+                          @JsonProperty("note") String note,
                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.state = state;
         this.description = description;
+        this.optionalNote = Optional.ofNullable(note);
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -50,6 +50,10 @@ class JsonAdaptedBug {
         name = source.getName().fullName;
         state = source.getState().toString();
         description = source.getDescription().value;
+
+        Optional<Note> note = source.getOptionalNote();
+        optionalNote = note.isPresent() ? Optional.of(note.get().value) : Optional.empty();
+
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -91,8 +95,18 @@ class JsonAdaptedBug {
         }
         final Description modelDescription = new Description(description);
 
+        if (optionalNote == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Note.class.getSimpleName()));
+        }
+        if (optionalNote.isPresent() && !Note.isValidNote(optionalNote.get())) {
+            throw new IllegalValueException(Note.MESSAGE_CONSTRAINTS);
+        }
+
+        final Optional<Note> modelOptionalNote = optionalNote.map(Note::new);
+
         final Set<Tag> modelTags = new HashSet<>(bugTags);
-        return new Bug(modelName, modelState, modelDescription, modelTags);
+        return new Bug(modelName, modelState, modelDescription, modelOptionalNote, modelTags);
     }
 
 }
