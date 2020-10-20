@@ -37,15 +37,18 @@ public class AddCommandParser implements Parser<AddCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-
+        assert argMultimap.getValue(PREFIX_NAME).isPresent();
+        assert argMultimap.getValue(PREFIX_DESCRIPTION).isPresent();
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         State state;
 
         if (arePrefixesPresent(argMultimap, PREFIX_STATE)) {
+            assert argMultimap.getValue(PREFIX_STATE).isPresent();
             state = ParserUtil.parseState(argMultimap.getValue(PREFIX_STATE).get());
         } else {
+            assert argMultimap.getValue(PREFIX_STATE).isEmpty();
             state = DEFAULT_STATE;
         }
 
