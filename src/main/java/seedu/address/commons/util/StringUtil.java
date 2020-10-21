@@ -39,6 +39,20 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if the {@code sentence} contains the {@code word}.
+     * @param sentence cannot be null
+     * @param queryString cannot be null, cannot be empty
+     */
+    public static boolean containsQueryStringIgnoreCase(String sentence, String queryString) {
+        requireNonNull(sentence);
+        requireNonNull(queryString);
+
+        String preppedWord = queryString.trim();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+        return sentence.toLowerCase().contains(queryString.toLowerCase());
+    }
+
+    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {
