@@ -41,6 +41,7 @@ public class ArgumentMultimap {
 
     /**
      * Returns all values of {@code prefix}.
+     *
      * If the prefix does not exist or has no values, this will return an empty list.
      * Modifying the returned list will not affect the underlying data structure of the ArgumentMultimap.
      */
@@ -57,4 +58,19 @@ public class ArgumentMultimap {
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
     }
+
+    public int getSize() {
+        return argMultimap.size();
+    }
+
+    /**
+     * Gets the size of the list mapped to the input prefix
+     * @param prefix of list to check
+     * @return size of the list mapped to the input prefix
+     */
+    public int numberOfPrefixElements(Prefix prefix) {
+        List<String> argValues = getAllValues(prefix);
+        return argValues.size();
+    }
+
 }

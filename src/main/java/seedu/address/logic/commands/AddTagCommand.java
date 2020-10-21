@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OLDTAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
 import java.util.HashSet;
@@ -19,39 +18,32 @@ import seedu.address.model.bug.Name;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
-public class EditTagCommand extends Command {
+public class AddTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "editTag";
+    public static final String COMMAND_WORD = "addTag";
 
     //TODO Update the DG such that only valid tags are used
-    //TODO add in test cases for this class
 
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the tags of "
-            + "the bug identified by the index number used in the displayed bug list."
-            + "The existing tag supplied by the user will be replaced with the new tag given"
-            + "as input.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to the"
+            + "bug identified by the index number used in the displayed bug list."
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_OLDTAG + "OLD_TAG "
             + PREFIX_NEWTAG + "NEW_TAG\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_OLDTAG + "display " + PREFIX_NEWTAG + "Ui";
+            + PREFIX_NEWTAG + "Ui";
 
-    public static final String MESSAGE_EDIT_BUG_SUCCESS = "Edited Tag: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "A valid existing tag must be supplied.";
+    public static final String MESSAGE_ADD_BUG_SUCCESS = "Added Tag: %1$s";
+    public static final String MESSAGE_NOT_ADDED = "A valid tag must be supplied.";
 
     private Index index;
-    private Tag oldTag;
     private Tag newTag;
 
     /**
-     * @param index of the bug in the filtered bug list to edit
-     * @param oldTag to be modified
-     * @param newTag to replace old tag
+     * Creates a new instance of AddTagCommand
+     * @param index of bug to add the tag to
+     * @param newTag to add to the bug
      */
-    public EditTagCommand(Index index, Tag oldTag, Tag newTag) {
+    public AddTagCommand(Index index, Tag newTag) {
         this.index = index;
-        this.oldTag = oldTag;
         this.newTag = newTag;
     }
 
@@ -65,34 +57,28 @@ public class EditTagCommand extends Command {
         }
 
         Bug bugToEdit = lastShownList.get(index.getZeroBased());
-        Bug editedBug = updateTagInBug(bugToEdit, oldTag, newTag);
+        Bug editedBug = addTagToBug(bugToEdit, newTag);
 
         model.setBug(bugToEdit, editedBug);
         model.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);
-        return new CommandResult(String.format(MESSAGE_EDIT_BUG_SUCCESS, editedBug));
+        return new CommandResult(String.format(MESSAGE_ADD_BUG_SUCCESS, editedBug));
     }
 
-    private static Bug updateTagInBug(Bug bugToEdit, Tag oldTag, Tag newTag) throws CommandException {
+    private static Bug addTagToBug(Bug bugToEdit, Tag newTag) throws CommandException {
         assert bugToEdit != null;
 
         Set<Tag> existingTagSet = bugToEdit.getTags();
 
-        if (!existingTagSet.contains(oldTag)) {
-            throw new CommandException((MESSAGE_NOT_EDITED));
-        }
-
         Name bugName = bugToEdit.getName();
         State bugState = bugToEdit.getState();
         Description bugDescription = bugToEdit.getDescription();
-        Set<Tag> updatedTags = updateTagSet(existingTagSet, oldTag, newTag);
+        Set<Tag> updatedTags = addTagSet(existingTagSet, newTag);
 
         return new Bug(bugName, bugState, bugDescription, updatedTags);
     }
 
-    private static Set<Tag> updateTagSet(Set<Tag> existingTagSet, Tag oldTag, Tag newTag) {
-        assert existingTagSet.contains(oldTag);
+    private static Set<Tag> addTagSet(Set<Tag> existingTagSet, Tag newTag) {
         Set<Tag> setCopy = new HashSet<>(existingTagSet);
-        setCopy.remove(oldTag);
         setCopy.add(newTag);
         return setCopy;
     }
@@ -105,16 +91,13 @@ public class EditTagCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditTagCommand)) {
+        if (!(other instanceof AddTagCommand)) {
             return false;
         }
 
         // state check
-        EditTagCommand e = (EditTagCommand) other;
+        AddTagCommand e = (AddTagCommand) other;
         return index.equals(e.index)
-                       && oldTag.equals(e.oldTag)
                        && newTag.equals(e.newTag);
     }
-
-
 }

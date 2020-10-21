@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -54,6 +55,9 @@ public class KanBugTrackerParser {
 
         case EditTagCommand.COMMAND_WORD:
             return new EditTagCommandParser().parse(arguments);
+
+        case AddTagCommand.COMMAND_WORD:
+            return new AddTagCommandParser().parse(arguments);
 
         case MoveCommand.COMMAND_WORD:
             return new MoveCommandParser().parse(arguments);
