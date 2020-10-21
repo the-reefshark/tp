@@ -55,8 +55,8 @@ public class BugCard extends UiPart<Region> {
         state.setText(bug.getState().toString());
         //priority.setText(bug.getPriority().priority);
         if (!bug.getPriority().isNull()) {
-            Label label = new Label("Priority " + bug.getPriority().priority);
-            switch (bug.getPriority().priority) {
+            Label label = new Label("Priority " + bug.getPriority().getValue());
+            switch (bug.getPriority().getValue()) {
             case "low":
                 label.setStyle("-fx-background-color: green;");
                 break;

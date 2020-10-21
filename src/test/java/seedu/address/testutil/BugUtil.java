@@ -49,7 +49,7 @@ public class BugUtil {
         descriptor.getDescription().ifPresent(address -> sb.append(PREFIX_DESCRIPTION)
                                                                  .append(address.value).append(" "));
         descriptor.getPriority().ifPresent(priority -> sb.append(PREFIX_PRIORITY)
-                .append(priority.isNull() ? "" : priority.priority).append(" "));
+                .append(priority.getValue()).append(" "));
 
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

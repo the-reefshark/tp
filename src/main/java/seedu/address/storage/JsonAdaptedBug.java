@@ -57,7 +57,7 @@ class JsonAdaptedBug {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        priority = source.getPriority().priority;
+        priority = source.getPriority().getValue();
     }
 
     /**

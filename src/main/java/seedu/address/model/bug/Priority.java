@@ -3,6 +3,10 @@ package seedu.address.model.bug;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a bug's priority (low, medium or high)
+ * Guarantees: immutable; is valid as declared in {@link #isValidPriority(String)} (String)}
+ */
 public class Priority {
     public static final String MESSAGE_CONSTRAINTS = "Priority level should only be either low, medium or high.";
     public static final String EMPTY_PRIORITY = "";
@@ -13,7 +17,7 @@ public class Priority {
     public static final String VALIDATION_REGEX =
             LOW_REGEX + "|" + MEDIUM_REGEX + "|" + HIGH_REGEX;
 
-    public final String priority;
+    private final String priority;
 
     /**
      * Construct a (@code Priority} object (low, medium or high priority)
@@ -38,6 +42,10 @@ public class Priority {
 
     public static boolean isValidPriority(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public String getValue() {
+        return isNull() ? "" : priority;
     }
 
     @Override
