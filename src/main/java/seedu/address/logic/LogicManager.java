@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -15,7 +16,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyKanBugTracker;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.State;
 import seedu.address.storage.Storage;
+
 
 /**
  * The main LogicManager of the app.
@@ -72,6 +75,13 @@ public class LogicManager implements Logic {
     @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
+    }
+
+    @Override
+    public ObservableList<Bug> getFilteredBugListByState(String state) {
+        FilteredList<Bug> listOfBugs = new FilteredList<>(model.getFilteredBugList());
+        listOfBugs.setPredicate((bug) -> bug.compareState(new State(state)));
+        return listOfBugs;
     }
 
     @Override
