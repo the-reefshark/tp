@@ -14,6 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
@@ -52,7 +53,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             state = DEFAULT_STATE;
         }
 
-        Bug bug = new Bug(name, state, description, tagList);
+        Bug bug = new Bug(name, state, description, tagList, new Priority());
         return new AddCommand(bug);
     }
 

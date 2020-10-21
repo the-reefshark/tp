@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
@@ -95,7 +96,7 @@ public class EditCommand extends Command {
         Description updatedDescription = editBugDescriptor.getDescription().orElse(bugToEdit.getDescription());
         Set<Tag> updatedTags = editBugDescriptor.getTags().orElse(bugToEdit.getTags());
 
-        return new Bug(updatedName, updatedState, updatedDescription, updatedTags);
+        return new Bug(updatedName, updatedState, updatedDescription, updatedTags, new Priority());
     }
 
     @Override

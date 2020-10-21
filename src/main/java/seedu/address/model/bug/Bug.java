@@ -22,16 +22,18 @@ public class Bug {
     // Data fields
     private final Description description;
     private final Set<Tag> tags = new HashSet<>();
+    private final Priority priority;
 
     /**
      * Every field must be present and not null.
      */
-    public Bug(Name name, State state, Description description, Set<Tag> tags) {
+    public Bug(Name name, State state, Description description, Set<Tag> tags, Priority priority) {
         requireAllNonNull(name, state, description, tags);
         this.name = name;
         this.state = state;
         this.description = description;
         this.tags.addAll(tags);
+        this.priority = priority;
     }
 
     public Name getName() {
@@ -52,6 +54,10 @@ public class Bug {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Priority getPriority() {
+        return priority;
     }
 
     /**
@@ -86,13 +92,14 @@ public class Bug {
         return otherBug.getName().equals(getName())
                 && otherBug.getState().equals(getState())
                 && otherBug.getDescription().equals(getDescription())
-                && otherBug.getTags().equals(getTags());
+                && otherBug.getTags().equals(getTags())
+                && otherBug.getPriority().equals(getPriority());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, state, description, tags);
+        return Objects.hash(name, state, description, tags, priority);
     }
 
     @Override
@@ -103,6 +110,7 @@ public class Bug {
                 .append(getState())
                 .append(" Description: ")
                 .append(getDescription())
+                .append(getPriority().isNull() ? "" : " Priority: " + getPriority())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

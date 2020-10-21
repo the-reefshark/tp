@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
@@ -92,7 +93,7 @@ class JsonAdaptedBug {
         final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(bugTags);
-        return new Bug(modelName, modelState, modelDescription, modelTags);
+        return new Bug(modelName, modelState, modelDescription, modelTags, new Priority());
     }
 
 }

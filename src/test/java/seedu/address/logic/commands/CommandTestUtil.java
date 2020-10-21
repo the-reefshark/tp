@@ -34,6 +34,8 @@ public class CommandTestUtil {
     public static final String VALID_DESCRIPTION_PARSER = "Blank screen on launching application";
     public static final String VALID_DESCRIPTION_HOMEPAGE = "Duplicates in list when searching for a specific bug";
     public static final String VALID_DESCRIPTION_UI = "No input validation for invalid index";
+    public static final String VALID_PRIORITY_PARSER = "medium";
+    public static final String VALID_PRIORITY_HOMEPAGE = "high";
     public static final String VALID_TAG_COMPONENT = "UI";
     public static final String VALID_TAG_FRIEND = "Logic";
     public static final State VALID_STATE_BUG1 = new State("todo");

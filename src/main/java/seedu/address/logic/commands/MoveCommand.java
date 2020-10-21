@@ -11,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 
 public class MoveCommand extends Command {
@@ -59,7 +60,7 @@ public class MoveCommand extends Command {
 
     private static Bug createMovedBug(Bug bugToMove, State destination) {
         assert bugToMove != null;
-        return new Bug(bugToMove.getName(), destination, bugToMove.getDescription(), bugToMove.getTags());
+        return new Bug(bugToMove.getName(), destination, bugToMove.getDescription(), bugToMove.getTags(), new Priority());
     }
 
     @Override
