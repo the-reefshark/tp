@@ -105,4 +105,16 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String queryString}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static String parseQueryString(String queryString) throws ParseException {
+        requireNonNull(queryString);
+        String trimmedQueryString = queryString.trim();
+        return trimmedQueryString;
+    }
 }

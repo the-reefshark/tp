@@ -258,7 +258,7 @@ Step 3. When there are a lot of bugs in the tracker, it is difficult for the use
 **Note that the keyword is case-insensitive**
 
 #### Design consideration:
-**Alternative 1 (current choice)**: Use `k/` new prefix as a keyword to search
+**Alternative 1 (current choice)**: Use `q/` new prefix as a query-string to search
 - Pro: Flexible search
 - Con: The list of results might be large
 
