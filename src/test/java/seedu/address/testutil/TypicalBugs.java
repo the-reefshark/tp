@@ -4,6 +4,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOM
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
@@ -39,7 +41,7 @@ public class TypicalBugs {
     public static final Bug BUGSEVEN = new BugBuilder().withName("George Best")
             .withState("backlog").withDescription("4th street").build();
 
-    // Manually added
+    // Manually added - default state backog
     public static final Bug BUGEIGHT = new BugBuilder().withName("Hoon Meier")
             .withState("backlog").withDescription("little india").build();
     public static final Bug BUGNINE = new BugBuilder().withName("ArrayOutOfBounds Error")
@@ -47,10 +49,11 @@ public class TypicalBugs {
 
     // Manually added - Bug's details found in {@code CommandTestUtil}
     public static final Bug BUGTEN = new BugBuilder().withName(VALID_NAME_PARSER)
-            .withState(VALID_STATE_PARSER).withDescription(VALID_DESCRIPTION_PARSER).withTags(VALID_TAG_FRIEND).build();
+            .withState(VALID_STATE_PARSER).withDescription(VALID_DESCRIPTION_PARSER).withTags(VALID_TAG_FRIEND)
+            .withPriority(VALID_PRIORITY_PARSER).build();
     public static final Bug BUGELEVEN = new BugBuilder().withName(VALID_NAME_HOMEPAGE)
             .withState(VALID_STATE_HOMEPAGE).withDescription(VALID_DESCRIPTION_HOMEPAGE)
-                                          .withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND).build();
+            .withPriority(VALID_PRIORITY_HOMEPAGE).withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

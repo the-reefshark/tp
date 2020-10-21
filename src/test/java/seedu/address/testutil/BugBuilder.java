@@ -82,10 +82,18 @@ public class BugBuilder {
     }
 
     /**
-     * Sets the {@code State} of the {@code Bug} that we are building.
+     * Sets the {@code Priority} of the {@code Bug} that we are building.
      */
     public BugBuilder withPriority(String priority) {
         this.priority = new Priority(priority);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Priority} of the {@code Bug} that we are building as empty priority.
+     */
+    public BugBuilder withPriority() {
+        this.priority = new Priority();
         return this;
     }
 

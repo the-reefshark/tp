@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -24,6 +25,7 @@ import seedu.address.model.tag.Tag;
 public class AddCommandParser implements Parser<AddCommand> {
 
     public static final State DEFAULT_STATE = new State("backlog");
+    public static final Priority DEFAULT_PRIORITY = new Priority();
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -31,8 +33,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_STATE, PREFIX_DESCRIPTION, PREFIX_TAG);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_STATE,
+                PREFIX_DESCRIPTION, PREFIX_TAG, PREFIX_PRIORITY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -44,6 +46,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         State state;
+        Priority priority;
 
         if (arePrefixesPresent(argMultimap, PREFIX_STATE)) {
             assert argMultimap.getValue(PREFIX_STATE).isPresent();
@@ -53,7 +56,13 @@ public class AddCommandParser implements Parser<AddCommand> {
             state = DEFAULT_STATE;
         }
 
-        Bug bug = new Bug(name, state, description, tagList, new Priority());
+        if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
+            priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+        } else {
+            priority = DEFAULT_PRIORITY;
+        }
+
+        Bug bug = new Bug(name, state, description, tagList, priority);
         return new AddCommand(bug);
     }
 
