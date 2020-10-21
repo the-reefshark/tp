@@ -253,7 +253,7 @@ Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/tod
 - state: **todo**
 - tag: **Ui.java**
 
-Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug. The user wants to see the information of the above bug. Then, the user executes `search k/Ui bug`. This results in the information of all the bugs of which name or description or tag contains `Ui bug` as a substring displays in the tracker.
+Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug. The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`. This results in the information of all the bugs of which name or description or tag contains `Ui bug` as a substring displays in the tracker.
 
 **Note that the keyword is case-insensitive**
 
