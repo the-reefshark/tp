@@ -43,15 +43,15 @@ public class BugContainsQueryStringPredicateTest {
         BugContainsQueryStringPredicate predicate = new BugContainsQueryStringPredicate("message");
         assertTrue(predicate.test(new BugBuilder().withName("Print wrong messages").build()));
 
-        // One query-string
+        // Multiple keywords query-string
         predicate = new BugContainsQueryStringPredicate("Ui display");
         assertTrue(predicate.test(new BugBuilder().withName("Ui display").build()));
 
-        // Mixed-case keyword query-string
+        // One mixed-case keyword query-string
         predicate = new BugContainsQueryStringPredicate("ui");
         assertTrue(predicate.test(new BugBuilder().withName("Ui Bug").build()));
 
-        // Mixed-case query-string
+        // Multiple mixed-case keywords query-string
         predicate = new BugContainsQueryStringPredicate("uI bUG");
         assertTrue(predicate.test(new BugBuilder().withName("Ui Bug").build()));
     }
@@ -62,15 +62,15 @@ public class BugContainsQueryStringPredicateTest {
         BugContainsQueryStringPredicate predicate = new BugContainsQueryStringPredicate("message");
         assertTrue(predicate.test(new BugBuilder().withDescription("Print wrong messages").build()));
 
-        // One query-string
+        // Multiple keywords query-string
         predicate = new BugContainsQueryStringPredicate("Ui display");
         assertTrue(predicate.test(new BugBuilder().withDescription("Ui display").build()));
 
-        // Mixed-case keyword query-string
+        // One mixed-case keyword query-string
         predicate = new BugContainsQueryStringPredicate("ui");
         assertTrue(predicate.test(new BugBuilder().withDescription("Ui Bug").build()));
 
-        // Mixed-case query-string
+        // Multiple mixed-case keywords query-string
         predicate = new BugContainsQueryStringPredicate("uI bUG");
         assertTrue(predicate.test(new BugBuilder().withDescription("Ui Bug").build()));
     }
@@ -82,7 +82,7 @@ public class BugContainsQueryStringPredicateTest {
         BugContainsQueryStringPredicate predicate = new BugContainsQueryStringPredicate("frontend");
         assertTrue(predicate.test(new BugBuilder().withTags(tags).build()));
 
-        // Mixed-case keyword query-string
+        // Multiple keywords query-string
         predicate = new BugContainsQueryStringPredicate("uI");
         assertTrue(predicate.test(new BugBuilder().withTags(tags).build()));
 
