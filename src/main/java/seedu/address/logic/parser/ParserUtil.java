@@ -107,7 +107,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String queryString}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
@@ -115,9 +115,6 @@ public class ParserUtil {
     public static String parseQueryString(String queryString) throws ParseException {
         requireNonNull(queryString);
         String trimmedQueryString = queryString.trim();
-        //if (!Name.isValidName(trimmedQueryString)) {
-        //    throw new ParseException(Name.MESSAGE_CONSTRAINTS);
-        //}
         return trimmedQueryString;
     }
 }

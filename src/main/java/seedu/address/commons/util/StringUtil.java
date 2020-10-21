@@ -39,7 +39,7 @@ public class StringUtil {
     }
 
     /**
-     * Returns true if the {@code sentence} contains the {@code word}.
+     * Returns true if the {@code sentence} contains the {@code queryString}.
      * @param sentence cannot be null
      * @param queryString cannot be null, cannot be empty
      */
