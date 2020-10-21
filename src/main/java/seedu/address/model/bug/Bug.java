@@ -108,4 +108,7 @@ public class Bug {
         return builder.toString();
     }
 
+    public boolean compareState(State state) {
+        return this.state.equals(state);
+    }
 }
