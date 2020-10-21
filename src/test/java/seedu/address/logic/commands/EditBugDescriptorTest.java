@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 

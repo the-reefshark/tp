@@ -15,13 +15,19 @@ public class Priority {
 
     public final String priority;
 
+    /**
+     * Construct a (@code Priority} object (low, medium or high priority)
+     * @param priority
+     */
     public Priority(String priority) {
         requireNonNull(priority);
         checkArgument(isValidPriority(priority), MESSAGE_CONSTRAINTS);
         this.priority = priority.toLowerCase();
     }
 
-    // represent a null Priority object
+    /**
+     * Construct a {@code Priority} object (priority not indicated)
+     */
     public Priority() {
         priority = Priority.EMPTY_PRIORITY;
     }
@@ -47,5 +53,7 @@ public class Priority {
     }
 
     @Override
-    public int hashCode() { return priority.hashCode(); }
+    public int hashCode() {
+        return priority.hashCode();
+    }
 }

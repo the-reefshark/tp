@@ -10,9 +10,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditBugDescriptor;
-import seedu.address.logic.parser.Parser;
 import seedu.address.model.bug.Bug;
-import seedu.address.model.bug.Priority;
 import seedu.address.model.tag.Tag;
 
 /**

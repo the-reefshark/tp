@@ -89,7 +89,9 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Priority parsePriorityForEdit(String priority) throws ParseException {
         assert priority != null;
-        if (priority.equals("")) return new Priority();
+        if (priority.equals("")) {
+            return new Priority();
+        }
         return ParserUtil.parsePriority(priority);
     }
 

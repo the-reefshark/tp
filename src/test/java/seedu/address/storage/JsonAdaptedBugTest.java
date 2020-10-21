@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
 import seedu.address.model.bug.Priority;

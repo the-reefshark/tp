@@ -66,6 +66,8 @@ public class BugCard extends UiPart<Region> {
             case "high":
                 label.setStyle("-fx-background-color: red;");
                 break;
+            default:
+                label = new Label("Unexpected error has occurred.");
             }
             priority.getChildren().add(label);
         }
