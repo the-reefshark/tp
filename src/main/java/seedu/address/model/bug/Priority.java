@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class Priority {
     public static final String MESSAGE_CONSTRAINTS = "Priority level should only be either low, medium or high.";
+    public static final String EMPTY_PRIORITY = "hahaha";
 
     private static final String LOW_REGEX = "((?i)\\blow\\b)";
     private static final String MEDIUM_REGEX = "((?i)\\bmedium\\b)";
@@ -22,11 +23,11 @@ public class Priority {
 
     // represent a null Priority object
     public Priority() {
-        priority = "";
+        priority = Priority.EMPTY_PRIORITY;
     }
 
     public boolean isNull() {
-        return priority.equals("");
+        return priority.equals(Priority.EMPTY_PRIORITY);
     }
 
     public static boolean isValidPriority(String test) {
