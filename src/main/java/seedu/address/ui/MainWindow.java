@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -28,14 +29,14 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Stage mainWindowStage;
     private Logic logic;
+    private Scene kanbanScene;
 
     // Independent Ui parts residing in this Ui container
     private BugListPanel bugListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private KanbanBoard board;
+    private KanbanBoard kanbanBoard;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -60,7 +61,6 @@ public class MainWindow extends UiPart<Stage> {
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        this.mainWindowStage = primaryStage;
         this.logic = logic;
 
         // Configure the UI
@@ -69,7 +69,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        board = new KanbanBoard(new Stage(), primaryStage, logic);
+        kanbanBoard = new KanbanBoard(new Stage(), primaryStage, logic);
+        kanbanScene = kanbanBoard.getScene();
     }
 
     public Stage getPrimaryStage() {
@@ -169,11 +170,10 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleBoard() {
-        if (!board.isShowing()) {
-            primaryStage.hide();
-            board.show();
+        if (!kanbanBoard.isShowing()) {
+            primaryStage.setScene(kanbanScene);
         } else {
-            board.focus();
+            kanbanBoard.focus();
         }
     }
 

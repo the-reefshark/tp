@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
@@ -23,6 +24,7 @@ public class KanbanBoard extends UiPart<Stage> {
     private static final String FXML = "KanbanBoard.fxml";
     private Logic logic;
     private Stage stage;
+    private Scene mainWindowScene;
     private Stage mainWindowStage;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -62,12 +64,12 @@ public class KanbanBoard extends UiPart<Stage> {
     public KanbanBoard(Stage root, Stage mainWindowStage, Logic logic) {
         super(FXML, root);
         this.logic = logic;
-        backlogLabel.setText("BackLog");
         stage = root;
         fillInner();
         setWindowDefaultSize(logic.getGuiSettings());
         helpWindow = new HelpWindow();
         this.mainWindowStage = mainWindowStage;
+        this.mainWindowScene = mainWindowStage.getScene();
     }
 
     /**
@@ -157,6 +159,10 @@ public class KanbanBoard extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
+    public void switchToMain() {
+        mainWindowStage.setScene(mainWindowScene);
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -176,9 +182,8 @@ public class KanbanBoard extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (!commandResult.isShowBoard() && !commandResult.isShowHelp()) {
-                stage.hide();
-                mainWindowStage.show();
+            if (commandResult.isShowBoard()) {
+                switchToMain();
             }
 
             return commandResult;
@@ -211,5 +216,9 @@ public class KanbanBoard extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         stage.hide();
+    }
+
+    public Scene getScene() {
+        return stage.getScene();
     }
 }
