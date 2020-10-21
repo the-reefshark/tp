@@ -1,0 +1,12 @@
+{
+  "bugs": [ {
+    "name": "Alice Pauline",
+    "state": "done",
+    "description": "123, Jurong West Ave 6, #08-111",
+    "tagged": [ "friends" ]
+  }, {
+    "name": "Alice Pauline",
+    "state": "done",
+    "description": "4th street"
+  } ]
+}
