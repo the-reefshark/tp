@@ -25,6 +25,7 @@ public class JsonAdaptedBugTest {
     private static final String VALID_NAME = BUGTWO.getName().toString();
     private static final String VALID_STATE = BUGTWO.getState().toString();
     private static final String VALID_DESCRIPTION = BUGTWO.getDescription().toString();
+    private static final String VALID_NOTE = BUGTWO.getOptionalNote().get().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = BUGTWO.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());

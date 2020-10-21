@@ -26,12 +26,11 @@ public class Note {
      */
     public Note(String note) {
         requireNonNull(note);
-        checkArgument(isValidNote(note), MESSAGE_CONSTRAINTS);
         value = note;
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid note.
      */
     public static boolean isValidNote(String test) {
         return test.matches(VALIDATION_REGEX);

@@ -100,16 +100,19 @@ public class Bug {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        String note = getOptionalNote().isPresent() ? getOptionalNote().get().toString() : "";
         builder.append(getName())
                 .append(" State: ")
                 .append(getState())
                 .append(" Description: ")
-                .append(getDescription())
-                .append(" Note: ")
-                .append(note)
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getDescription());
+        if (getOptionalNote().isPresent()) {
+            builder.append(" Note: ")
+                   .append(getOptionalNote().get().toString());
+        }
+        if (!tags.isEmpty()) {
+            builder.append(" Tags: ");
+            getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
 }

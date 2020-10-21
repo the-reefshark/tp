@@ -22,7 +22,7 @@ class JsonAdaptedBug {
     private final String name;
     private final String state;
     private final String description;
-    private final Optional<String> optionalNote;
+    private final String note;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -30,14 +30,14 @@ class JsonAdaptedBug {
      */
     @JsonCreator
     public JsonAdaptedBug(@JsonProperty("name") String name,
-                          @JsonProperty("email") String state,
+                          @JsonProperty("state") String state,
                           @JsonProperty("description") String description,
                           @JsonProperty("note") String note,
                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.state = state;
         this.description = description;
-        this.optionalNote = Optional.ofNullable(note);
+        this.note = note;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -52,7 +52,7 @@ class JsonAdaptedBug {
         description = source.getDescription().value;
 
         Optional<Note> note = source.getOptionalNote();
-        optionalNote = note.isPresent() ? Optional.of(note.get().value) : Optional.empty();
+        this.note = note.isPresent() ? note.get().value : "";
 
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -95,15 +95,12 @@ class JsonAdaptedBug {
         }
         final Description modelDescription = new Description(description);
 
-        if (optionalNote == null) {
+        if (note == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Note.class.getSimpleName()));
         }
-        if (optionalNote.isPresent() && !Note.isValidNote(optionalNote.get())) {
-            throw new IllegalValueException(Note.MESSAGE_CONSTRAINTS);
-        }
 
-        final Optional<Note> modelOptionalNote = optionalNote.map(Note::new);
+        final Optional<Note> modelOptionalNote = Optional.of(new Note(note));
 
         final Set<Tag> modelTags = new HashSet<>(bugTags);
         return new Bug(modelName, modelState, modelDescription, modelOptionalNote, modelTags);

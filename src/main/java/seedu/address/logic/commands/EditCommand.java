@@ -142,7 +142,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, state, description, tags);
+            return CollectionUtil.isAnyNonNull(name, state, description, note, tags);
         }
 
         public void setName(Name name) {
@@ -171,7 +171,7 @@ public class EditCommand extends Command {
 
         public void setOptionalNote(Optional<Note> note) { this.note = note; }
 
-        public Optional<Note> getOptionalNote() { return note; }
+        public Optional<Note> getOptionalNote() { return note == null ? Optional.empty() : note; }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.

@@ -2,10 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -16,6 +13,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditBugDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.bug.Note;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -31,8 +29,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_STATE, PREFIX_DESCRIPTION, PREFIX_TAG);
-
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_STATE, PREFIX_DESCRIPTION,
+                        PREFIX_NOTE, PREFIX_TAG);
         Index index;
 
         try {
@@ -52,6 +50,14 @@ public class EditCommandParser implements Parser<EditCommand> {
             editBugDescriptor.setDescription(
                     ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
+        if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
+            String editedNoteContent = argMultimap.getValue(PREFIX_NOTE).get();
+            if (editedNoteContent.isBlank()) {
+                editBugDescriptor.setOptionalNote(Optional.empty());
+            }
+            editBugDescriptor.setOptionalNote(Optional.of(ParserUtil.parseNote(editedNoteContent)));
+        }
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editBugDescriptor::setTags);
 
         if (!editBugDescriptor.isAnyFieldEdited()) {

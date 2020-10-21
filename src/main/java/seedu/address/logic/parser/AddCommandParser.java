@@ -48,6 +48,11 @@ public class AddCommandParser implements Parser<AddCommand> {
             state = DEFAULT_STATE;
         }
 
+        if (arePrefixesPresent(argMultimap, PREFIX_NOTE)
+                && !Note.isValidNote(argMultimap.getValue(PREFIX_NOTE).get())) {
+            throw new ParseException(Note.MESSAGE_CONSTRAINTS);
+        }
+
         if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
             optionalNote = Optional.of(ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get()));
         }
