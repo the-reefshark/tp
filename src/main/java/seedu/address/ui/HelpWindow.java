@@ -2,13 +2,19 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+
 
 /**
  * Controller for a help page
@@ -16,7 +22,26 @@ import seedu.address.commons.core.LogsCenter;
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String FEATURES_ONE = "Words in UPPER_CASE are parameters to be supplied by the user";
+    public static final String FEATURES_TWO = "Items in [...] are optional";
+
+    public static final String LIST_ACTION = "list";
+    public static final String LIST_FORMAT = "list";
+    public static final String ADD_ACTION = "add";
+    public static final String ADD_FORMAT = "add n/NAME d/DESCRIPTION [s/STATE] [t/TAG]";
+    public static final String DELETE_ACTION = "delete";
+    public static final String DELETE_FORMAT = "delete INDEX";
+    public static final String EDIT_ACTION = "edit";
+    public static final String EDIT_FORMAT = "edit INDEX [n/NEW_NAME] [d/NEW_DESCRIPTION] [t/TAG]";
+    public static final String MOVE_ACTION = "move";
+    public static final String MOVE_FORMAT = "move INDEX s/STATE";
+    public static final String EXIT_ACTION = "exit";
+    public static final String EXIT_FORMAT = "exit";
+
+    public static final String HELP_MESSAGE_HEADER = FEATURES_ONE + "\n" + FEATURES_TWO;
+
+    public static final String HELP_MESSAGE_FOOTER =
+            "For a more detailed guide, refer to: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -25,7 +50,29 @@ public class HelpWindow extends UiPart<Stage> {
     private Button copyButton;
 
     @FXML
-    private Label helpMessage;
+    private Label helpHeader;
+
+    @FXML
+    private Label helpFooter;
+
+    @FXML
+    private TableColumn<Table, String> action;
+
+    @FXML
+    private TableColumn<Table, String> format;
+
+    @FXML
+    private TableView<Table> tableID;
+
+
+    private ObservableList<Table> data =
+            FXCollections.observableArrayList(
+                    new Table(LIST_ACTION, LIST_FORMAT),
+                    new Table(ADD_ACTION, ADD_FORMAT),
+                    new Table(DELETE_ACTION, DELETE_FORMAT),
+                    new Table(EDIT_ACTION, EDIT_FORMAT),
+                    new Table(MOVE_ACTION, MOVE_FORMAT),
+                    new Table(EXIT_ACTION, EXIT_FORMAT));
 
     /**
      * Creates a new HelpWindow.
@@ -34,7 +81,11 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+        action.setCellValueFactory(new PropertyValueFactory<Table, String>("action"));
+        format.setCellValueFactory(new PropertyValueFactory<Table, String>("format"));
+        helpHeader.setText(HELP_MESSAGE_HEADER);
+        tableID.setItems(data);
+        helpFooter.setText(HELP_MESSAGE_FOOTER);
     }
 
     /**
