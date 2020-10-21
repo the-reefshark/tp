@@ -12,21 +12,21 @@ public class Priority {
     public static final String VALIDATION_REGEX =
             LOW_REGEX + "|" + MEDIUM_REGEX + "|" + HIGH_REGEX;
 
-    private String priorityLevel;
+    public final String priority;
 
-    public Priority(String priorityLevel) {
-        requireNonNull(priorityLevel);
-        checkArgument(isValidPriority(priorityLevel), MESSAGE_CONSTRAINTS);
-        this.priorityLevel = priorityLevel.toLowerCase();
+    public Priority(String priority) {
+        requireNonNull(priority);
+        checkArgument(isValidPriority(priority), MESSAGE_CONSTRAINTS);
+        this.priority = priority.toLowerCase();
     }
 
     // represent a null Priority object
     public Priority() {
-        priorityLevel = "null";
+        priority = "";
     }
 
     public boolean isNull() {
-        return priorityLevel.equals("null");
+        return priority.equals("");
     }
 
     public static boolean isValidPriority(String test) {
@@ -35,16 +35,16 @@ public class Priority {
 
     @Override
     public String toString() {
-        return priorityLevel;
+        return priority;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof Priority)
-                && this.priorityLevel.equals(((Priority) other).priorityLevel);
+                && this.priority.equals(((Priority) other).priority);
     }
 
     @Override
-    public int hashCode() { return priorityLevel.hashCode(); }
+    public int hashCode() { return priority.hashCode(); }
 }
