@@ -170,6 +170,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleBoard() {
         if (!board.isShowing()) {
+            primaryStage.hide();
             board.show();
         } else {
             board.focus();

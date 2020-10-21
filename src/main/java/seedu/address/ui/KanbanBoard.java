@@ -177,8 +177,8 @@ public class KanbanBoard extends UiPart<Stage> {
             }
 
             if (!commandResult.isShowBoard() && !commandResult.isShowHelp()) {
-                mainWindowStage.show();
                 stage.hide();
+                mainWindowStage.show();
             }
 
             return commandResult;
