@@ -19,7 +19,6 @@ public class BugBuilder {
     public static final String DEFAULT_NAME = "Default bug";
     public static final String DEFAULT_STATE = "backlog";
     public static final String DEFAULT_DESCRIPTION = "just some random description";
-    public static final String DEFAULT_PRIORITY = "medium";
 
     private Name name;
     private State state;

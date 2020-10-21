@@ -25,21 +25,21 @@ public class TypicalBugs {
 
     public static final Bug BUGONE = new BugBuilder().withName("Alice Pauline")
             .withDescription("123, Jurong West Ave 6, #08-111").withState("todo")
-            .withTags("friends").build();
+            .withTags("friends").withPriority("low").build();
     public static final Bug BUGTWO = new BugBuilder().withName("Benson Meier")
             .withDescription("311, Clementi Ave 2, #02-25")
-            .withState("todo")
+            .withState("todo").withPriority()
             .withTags("owesMoney", "friends").build();
     public static final Bug BUGTHREE = new BugBuilder().withName("Carl Kurz")
-            .withState("done").withDescription("wall street").build();
+            .withState("done").withDescription("wall street").withPriority("low").build();
     public static final Bug BUGFOUR = new BugBuilder().withName("Daniel Meier")
-            .withState("ongoing").withDescription("10th street").withTags("friends").build();
+            .withState("ongoing").withDescription("10th street").withTags("friends").withPriority().build();
     public static final Bug BUGFIVE = new BugBuilder().withName("Elle Meyer")
-            .withState("done").withDescription("michegan ave").build();
+            .withState("done").withDescription("michegan ave").withPriority("medium").build();
     public static final Bug BUGSIX = new BugBuilder().withName("Fiona Kunz")
-            .withState("ongoing").withDescription("little tokyo").build();
+            .withState("ongoing").withDescription("little tokyo").withPriority("low").build();
     public static final Bug BUGSEVEN = new BugBuilder().withName("George Best")
-            .withState("backlog").withDescription("4th street").build();
+            .withState("backlog").withDescription("4th street").withPriority("high").build();
 
     // Manually added - default state backog
     public static final Bug BUGEIGHT = new BugBuilder().withName("Hoon Meier")
