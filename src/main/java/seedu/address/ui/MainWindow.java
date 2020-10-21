@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -29,11 +30,13 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private Scene kanbanScene;
 
     // Independent Ui parts residing in this Ui container
     private BugListPanel bugListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private KanbanBoard kanbanBoard;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -66,6 +69,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        kanbanBoard = new KanbanBoard(new Stage(), primaryStage, logic);
+        kanbanScene = kanbanBoard.getScene();
     }
 
     public Stage getPrimaryStage() {
@@ -163,6 +168,15 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    @FXML
+    private void handleBoard() {
+        if (!kanbanBoard.isShowing()) {
+            primaryStage.setScene(kanbanScene);
+        } else {
+            kanbanBoard.focus();
+        }
+    }
+
     public BugListPanel getBugListPanel() {
         return bugListPanel;
     }
@@ -184,6 +198,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowBoard()) {
+                handleBoard();
             }
 
             return commandResult;
