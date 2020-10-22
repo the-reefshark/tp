@@ -1,9 +1,6 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -17,6 +14,8 @@ import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
+import javax.swing.text.html.Option;
+
 /**
  * Jackson-friendly version of {@link Bug}.
  */
@@ -27,6 +26,7 @@ class JsonAdaptedBug {
     private final String name;
     private final String state;
     private final String description;
+    private final String note;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final String priority;
 
@@ -35,12 +35,15 @@ class JsonAdaptedBug {
      */
     @JsonCreator
     public JsonAdaptedBug(@JsonProperty("name") String name,
-                          @JsonProperty("email") String state, @JsonProperty("description") String description,
+                          @JsonProperty("state") String state,
+                          @JsonProperty("description") String description,
+                          @JsonProperty("note") String note,
                           @JsonProperty("priority") String priority,
                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.state = state;
         this.description = description;
+        this.note = note;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -54,6 +57,10 @@ class JsonAdaptedBug {
         name = source.getName().fullName;
         state = source.getState().toString();
         description = source.getDescription().value;
+
+        Optional<Note> note = source.getOptionalNote();
+        this.note = note.isPresent() ? note.get().value : "";
+
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -106,8 +113,15 @@ class JsonAdaptedBug {
         final Priority modelPriority = priority.equals(Priority.EMPTY_PRIORITY)
                 ? new Priority() : new Priority(priority);
 
+        if (note == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Note.class.getSimpleName()));
+        }
+
+        final Optional<Note> modelOptionalNote = Optional.of(new Note(note));
+
         final Set<Tag> modelTags = new HashSet<>(bugTags);
-        return new Bug(modelName, modelState, modelDescription, modelTags, modelPriority);
+        return new Bug(modelName, modelState, modelDescription, modelOptionalNote, modelTags, modelPriority);
     }
 
 }

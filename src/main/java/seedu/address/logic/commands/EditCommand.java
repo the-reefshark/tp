@@ -42,9 +42,10 @@ public class EditCommand extends Command {
             + "[" + PREFIX_STATE + "STATE] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_PRIORITY + "PRIORITY] "
+            + "[" + PREFIX_NOTE + "NOTE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_STATE + "johndoe@example.com";
+            + PREFIX_STATE + "backlog";
 
     public static final String MESSAGE_EDIT_BUG_SUCCESS = "Edited Bug: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -96,10 +97,12 @@ public class EditCommand extends Command {
         Name updatedName = editBugDescriptor.getName().orElse(bugToEdit.getName());
         State updatedState = editBugDescriptor.getState().orElse(bugToEdit.getState());
         Description updatedDescription = editBugDescriptor.getDescription().orElse(bugToEdit.getDescription());
+        Optional<Note> optionalNote = editBugDescriptor.getOptionalNote();
+        Optional<Note> updatedOptionalNote = optionalNote.isPresent() ? optionalNote : bugToEdit.getOptionalNote();
         Set<Tag> updatedTags = editBugDescriptor.getTags().orElse(bugToEdit.getTags());
         Priority updatedPriority = editBugDescriptor.getPriority().orElse(bugToEdit.getPriority());
 
-        return new Bug(updatedName, updatedState, updatedDescription, updatedTags, updatedPriority);
+        return new Bug(updatedName, updatedState, updatedDescription, updatedOptionalNote, updatedTags, updatedPriority);
     }
 
     @Override
@@ -128,6 +131,7 @@ public class EditCommand extends Command {
         private Name name;
         private State state;
         private Description description;
+        private Optional<Note> note;
         private Set<Tag> tags;
         private Priority priority;
 
@@ -141,6 +145,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setState(toCopy.state);
             setDescription(toCopy.description);
+            setOptionalNote(toCopy.note);
             setTags(toCopy.tags);
             setPriority(toCopy.priority);
         }
@@ -149,7 +154,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, state, description, tags, priority);
+            return CollectionUtil.isAnyNonNull(name, state, description, note, tags, priority);
         }
 
         public void setName(Name name) {
@@ -183,6 +188,10 @@ public class EditCommand extends Command {
         public Optional<Priority> getPriority() {
             return Optional.ofNullable(priority);
         }
+      
+        public void setOptionalNote(Optional<Note> note) { this.note = note; }
+
+        public Optional<Note> getOptionalNote() { return note == null ? Optional.empty() : note; }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -220,6 +229,7 @@ public class EditCommand extends Command {
                     && getState().equals(e.getState())
                     && getDescription().equals(e.getDescription())
                     && getPriority().equals(e.getPriority())
+                    && getOptionalNote().equals(e.getOptionalNote())
                     && getTags().equals(e.getTags());
         }
     }

@@ -18,6 +18,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditBugDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bug.Priority;
+import seedu.address.model.bug.Note;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,9 +33,11 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_STATE,
-                PREFIX_DESCRIPTION, PREFIX_TAG, PREFIX_PRIORITY);
-
+      
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_STATE, PREFIX_DESCRIPTION,
+                        PREFIX_NOTE, PREFIX_TAG, PREFIX_PRIORITY);
+      
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -56,6 +59,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editBugDescriptor.setDescription(
                     ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+        }
+        if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
+            String editedNoteContent = argMultimap.getValue(PREFIX_NOTE).get();
+            if (editedNoteContent.isBlank()) {
+                editBugDescriptor.setOptionalNote(Optional.empty());
+            }
+            editBugDescriptor.setOptionalNote(Optional.of(ParserUtil.parseNote(editedNoteContent)));
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editBugDescriptor::setTags);
