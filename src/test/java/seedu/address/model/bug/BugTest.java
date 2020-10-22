@@ -1,9 +1,12 @@
 package seedu.address.model.bug;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -30,57 +33,60 @@ public class BugTest {
         // null -> returns false
         assertFalse(BUGONE.isSameBug(null));
 
-        // different phone and state -> returns false
-        Bug editedAlice = new BugBuilder(BUGONE).withState(VALID_STATE_HOMEPAGE).build();
-        assertFalse(BUGONE.isSameBug(editedAlice));
+        // different state -> returns false
+        Bug editedBugOne = new BugBuilder(BUGONE).withState(VALID_STATE_HOMEPAGE).build();
+        assertFalse(BUGONE.isSameBug(editedBugOne));
 
         // different name -> returns false
-        editedAlice = new BugBuilder(BUGONE).withName(VALID_NAME_HOMEPAGE).build();
-        assertFalse(BUGONE.isSameBug(editedAlice));
+        editedBugOne = new BugBuilder(BUGONE).withName(VALID_NAME_HOMEPAGE).build();
+        assertFalse(BUGONE.isSameBug(editedBugOne));
 
         // same name, same state, different attributes -> returns true
-        editedAlice = new BugBuilder(BUGONE).withDescription(VALID_DESCRIPTION_HOMEPAGE)
-                .withTags(VALID_TAG_COMPONENT).build();
-        assertTrue(BUGONE.isSameBug(editedAlice));
+        editedBugOne = new BugBuilder(BUGONE).withDescription(VALID_DESCRIPTION_HOMEPAGE)
+                .withTags(VALID_TAG_COMPONENT).withPriority(VALID_PRIORITY_HOMEPAGE).build();
+        assertTrue(BUGONE.isSameBug(editedBugOne));
 
-        // same name, same phone, same state, different attributes -> returns true
-        editedAlice = new BugBuilder(BUGONE)
-                          .withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_COMPONENT).build();
-        assertTrue(BUGONE.isSameBug(editedAlice));
+        // same name, state and attributes -> returns true
+        editedBugOne = new BugBuilder(BUGONE).build();
+        assertTrue(BUGONE.isSameBug(editedBugOne));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
         Bug aliceCopy = new BugBuilder(BUGONE).build();
-        assertTrue(BUGONE.equals(aliceCopy));
+        assertEquals(BUGONE, aliceCopy);
 
         // same object -> returns true
-        assertTrue(BUGONE.equals(BUGONE));
+        assertEquals(BUGONE, BUGONE);
 
         // null -> returns false
-        assertFalse(BUGONE.equals(null));
+        assertNotEquals(null, BUGONE);
 
         // different type -> returns false
-        assertFalse(BUGONE.equals(5));
+        assertNotEquals(5, BUGONE);
 
         // different bug -> returns false
-        assertFalse(BUGONE.equals(BUGELEVEN));
+        assertNotEquals(BUGONE, BUGELEVEN);
 
         // different name -> returns false
-        Bug editedAlice = new BugBuilder(BUGONE).withName(VALID_NAME_HOMEPAGE).build();
-        assertFalse(BUGONE.equals(editedAlice));
+        Bug editedBugOne = new BugBuilder(BUGONE).withName(VALID_NAME_HOMEPAGE).build();
+        assertNotEquals(BUGONE, editedBugOne);
 
         // different state -> returns false
-        editedAlice = new BugBuilder(BUGONE).withState(VALID_STATE_HOMEPAGE).build();
-        assertFalse(BUGONE.equals(editedAlice));
+        editedBugOne = new BugBuilder(BUGONE).withState(VALID_STATE_HOMEPAGE).build();
+        assertNotEquals(BUGONE, editedBugOne);
 
         // different address -> returns false
-        editedAlice = new BugBuilder(BUGONE).withDescription(VALID_DESCRIPTION_HOMEPAGE).build();
-        assertFalse(BUGONE.equals(editedAlice));
+        editedBugOne = new BugBuilder(BUGONE).withDescription(VALID_DESCRIPTION_HOMEPAGE).build();
+        assertNotEquals(BUGONE, editedBugOne);
 
         // different tags -> returns false
-        editedAlice = new BugBuilder(BUGONE).withTags(VALID_TAG_COMPONENT).build();
-        assertFalse(BUGONE.equals(editedAlice));
+        editedBugOne = new BugBuilder(BUGONE).withTags(VALID_TAG_COMPONENT).build();
+        assertNotEquals(BUGONE, editedBugOne);
+
+        // different priority -> return false
+        editedBugOne = new BugBuilder(BUGONE).withPriority(VALID_PRIORITY_HOMEPAGE).build();
+        assertNotEquals(BUGONE, editedBugOne);
     }
 }

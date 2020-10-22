@@ -5,9 +5,12 @@ import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_HOME
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRIORITY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_STATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BACKEND;
@@ -15,10 +18,13 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRONTEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -33,6 +39,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditBugDescriptor;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditBugDescriptorBuilder;
@@ -40,6 +47,7 @@ import seedu.address.testutil.EditBugDescriptorBuilder;
 public class EditCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
+    private static final String PRIORITY_EMPTY = " " + PREFIX_PRIORITY;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -79,6 +87,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_STATE_DESC, State.MESSAGE_CONSTRAINTS); // invalid state
         assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_PRIORITY_DESC, Priority.MESSAGE_CONSTRAINTS); // invalid priority
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Bug} being edited,
         // parsing it together with a valid tag results in error
@@ -94,12 +103,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_BUG;
-        String userInput = targetIndex.getOneBased() + TAG_DESC_BACKEND
+        String userInput = targetIndex.getOneBased() + TAG_DESC_BACKEND + PRIORITY_DESC_PARSER
                 + STATE_DESC_PARSER + DESCRIPTION_DESC_PARSER + NAME_DESC_PARSER + TAG_DESC_FRONTEND;
 
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_PARSER)
                 .withState(VALID_STATE_PARSER).withDescription(VALID_DESCRIPTION_PARSER)
-                .withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND).withPriority(VALID_PRIORITY_PARSER).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -108,10 +117,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_BUG;
-        String userInput = targetIndex.getOneBased() + STATE_DESC_PARSER;
+        String userInput = targetIndex.getOneBased() + STATE_DESC_PARSER + PRIORITY_DESC_PARSER;
 
         EditCommand.EditBugDescriptor descriptor = new EditBugDescriptorBuilder()
-                .withState(VALID_STATE_PARSER).build();
+                .withState(VALID_STATE_PARSER).withPriority(VALID_PRIORITY_PARSER).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -144,18 +153,25 @@ public class EditCommandParserTest {
         descriptor = new EditBugDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
+
+        // priority
+        userInput = targetIndex.getOneBased() + PRIORITY_DESC_PARSER;
+        descriptor = new EditBugDescriptorBuilder().withPriority(VALID_PRIORITY_PARSER).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_BUG;
-        String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_PARSER + STATE_DESC_PARSER
-                + TAG_DESC_FRONTEND + DESCRIPTION_DESC_PARSER + STATE_DESC_PARSER + TAG_DESC_FRONTEND
-                + DESCRIPTION_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + TAG_DESC_BACKEND;
+        String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_PARSER + PRIORITY_DESC_PARSER
+                + STATE_DESC_PARSER + TAG_DESC_FRONTEND + DESCRIPTION_DESC_PARSER + STATE_DESC_PARSER
+                + TAG_DESC_FRONTEND + DESCRIPTION_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + PRIORITY_DESC_HOMEPAGE
+                + TAG_DESC_BACKEND;
 
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder()
                 .withState(VALID_STATE_HOMEPAGE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_FRIEND,
-                        VALID_TAG_COMPONENT).build();
+                        VALID_TAG_COMPONENT).withPriority(VALID_PRIORITY_HOMEPAGE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -179,6 +195,35 @@ public class EditCommandParserTest {
 
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withTags().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test void parse_resetPriority_success() {
+        Index targetIndex = INDEX_THIRD_BUG;
+        String userInput = targetIndex.getOneBased() + PRIORITY_EMPTY;
+
+        EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withPriority().build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_multipleRepeatedPriorityIncludingEmpty_acceptsLast() {
+        // empty priority is the last priority
+        Index targetIndex = INDEX_FIRST_BUG;
+        String userInput = targetIndex.getOneBased() + PRIORITY_DESC_HOMEPAGE + PRIORITY_EMPTY;
+
+        EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withPriority().build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // empty priority is not the last priority
+        userInput = targetIndex.getOneBased() + PRIORITY_EMPTY + PRIORITY_DESC_HOMEPAGE;
+        descriptor = new EditBugDescriptorBuilder().withPriority(VALID_PRIORITY_HOMEPAGE).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

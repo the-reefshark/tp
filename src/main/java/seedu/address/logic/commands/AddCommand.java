@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -22,11 +23,13 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_STATE + "STATE] "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
+            + PREFIX_PRIORITY + "PRIORITY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Array size error "
             + PREFIX_STATE + "backlog "
             + PREFIX_DESCRIPTION + "ArrayStoreException due to array being too small "
+            + PREFIX_PRIORITY + "medium "
             + PREFIX_TAG + "Array "
             + PREFIX_TAG + "Size ";
 

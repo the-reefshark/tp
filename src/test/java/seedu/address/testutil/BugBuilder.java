@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -23,6 +24,7 @@ public class BugBuilder {
     private State state;
     private Description description;
     private Set<Tag> tags;
+    private Priority priority;
 
     /**
      * Creates a {@code BugBuilder} with the default details.
@@ -32,6 +34,7 @@ public class BugBuilder {
         state = new State(DEFAULT_STATE);
         description = new Description(DEFAULT_DESCRIPTION);
         tags = new HashSet<>();
+        priority = new Priority();
     }
 
     /**
@@ -42,6 +45,7 @@ public class BugBuilder {
         state = bugToCopy.getState();
         description = bugToCopy.getDescription();
         tags = new HashSet<>(bugToCopy.getTags());
+        priority = bugToCopy.getPriority();
     }
 
     /**
@@ -76,8 +80,24 @@ public class BugBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Priority} of the {@code Bug} that we are building.
+     */
+    public BugBuilder withPriority(String priority) {
+        this.priority = new Priority(priority);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Priority} of the {@code Bug} that we are building as empty priority.
+     */
+    public BugBuilder withPriority() {
+        this.priority = new Priority();
+        return this;
+    }
+
     public Bug build() {
-        return new Bug(name, state, description, tags);
+        return new Bug(name, state, description, tags, priority);
     }
 
 }
