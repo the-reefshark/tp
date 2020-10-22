@@ -42,8 +42,8 @@ public class SearchCommandTest {
         assertTrue(searchFirstCommand.equals(searchFirstCommand));
 
         // same values -> returns true
-        SearchCommand findFirstCommandCopy = new SearchCommand(firstPredicate);
-        assertTrue(searchFirstCommand.equals(findFirstCommandCopy));
+        SearchCommand searchFirstCommandCopy = new SearchCommand(firstPredicate);
+        assertTrue(searchFirstCommand.equals(searchFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(searchFirstCommand.equals(1));
