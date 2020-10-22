@@ -93,7 +93,7 @@ public class Bug {
         return otherBug.getName().equals(getName())
                 && otherBug.getState().equals(getState())
                 && otherBug.getDescription().equals(getDescription())
-                && otherBug.getPriority().equals(getPriority());
+                && otherBug.getPriority().equals(getPriority())
                 && otherBug.getOptionalNote().equals(getOptionalNote())
                 && otherBug.getTags().equals(getTags());
     }
