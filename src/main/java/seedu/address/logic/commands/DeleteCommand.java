@@ -10,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
 
+
 /**
  * Deletes a bug identified using it's displayed index from the bug tracker.
  */

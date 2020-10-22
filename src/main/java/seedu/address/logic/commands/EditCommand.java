@@ -1,7 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
 import java.util.Collections;
@@ -15,7 +19,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.bug.*;
+import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.Description;
+import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Priority;
+import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
 
@@ -33,6 +41,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_STATE + "STATE] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_PRIORITY + "PRIORITY] "
             + "[" + PREFIX_NOTE + "NOTE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -91,8 +100,9 @@ public class EditCommand extends Command {
         Optional<Note> optionalNote = editBugDescriptor.getOptionalNote();
         Optional<Note> updatedOptionalNote = optionalNote.isPresent() ? optionalNote : bugToEdit.getOptionalNote();
         Set<Tag> updatedTags = editBugDescriptor.getTags().orElse(bugToEdit.getTags());
+        Priority updatedPriority = editBugDescriptor.getPriority().orElse(bugToEdit.getPriority());
 
-        return new Bug(updatedName, updatedState, updatedDescription, updatedOptionalNote, updatedTags);
+        return new Bug(updatedName, updatedState, updatedDescription, updatedOptionalNote, updatedTags, updatedPriority);
     }
 
     @Override
@@ -123,6 +133,7 @@ public class EditCommand extends Command {
         private Description description;
         private Optional<Note> note;
         private Set<Tag> tags;
+        private Priority priority;
 
         public EditBugDescriptor() {}
 
@@ -136,13 +147,14 @@ public class EditCommand extends Command {
             setDescription(toCopy.description);
             setOptionalNote(toCopy.note);
             setTags(toCopy.tags);
+            setPriority(toCopy.priority);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, state, description, note, tags);
+            return CollectionUtil.isAnyNonNull(name, state, description, note, tags, priority);
         }
 
         public void setName(Name name) {
@@ -169,6 +181,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(description);
         }
 
+        public void setPriority(Priority priority) {
+            this.priority = priority;
+        }
+
+        public Optional<Priority> getPriority() {
+            return Optional.ofNullable(priority);
+        }
+      
         public void setOptionalNote(Optional<Note> note) { this.note = note; }
 
         public Optional<Note> getOptionalNote() { return note == null ? Optional.empty() : note; }
@@ -208,6 +228,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getState().equals(e.getState())
                     && getDescription().equals(e.getDescription())
+                    && getPriority().equals(e.getPriority())
                     && getOptionalNote().equals(e.getOptionalNote())
                     && getTags().equals(e.getTags());
         }

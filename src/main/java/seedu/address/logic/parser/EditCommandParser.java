@@ -2,7 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,6 +17,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditBugDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.Note;
 import seedu.address.model.tag.Tag;
 
@@ -28,11 +33,12 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
+      
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_STATE, PREFIX_DESCRIPTION,
-                        PREFIX_NOTE, PREFIX_TAG);
+                        PREFIX_NOTE, PREFIX_TAG, PREFIX_PRIORITY);
+      
         Index index;
-
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
@@ -41,10 +47,14 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditBugDescriptor editBugDescriptor = new EditBugDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            assert argMultimap.getValue(PREFIX_NAME).get() != null;
             editBugDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_STATE).isPresent()) {
             editBugDescriptor.setState(ParserUtil.parseState(argMultimap.getValue(PREFIX_STATE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PRIORITY).isPresent()) {
+            editBugDescriptor.setPriority(parsePriorityForEdit(argMultimap.getValue(PREFIX_PRIORITY).get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editBugDescriptor.setDescription(
@@ -78,8 +88,22 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (tags.isEmpty()) {
             return Optional.empty();
         }
+
+        assert (!tags.isEmpty() == true);
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
+    }
+
+    /**
+     * Parses {@code String priority} into a {@code Priority} if {@conde priority} is a non-empty string.
+     * If {@code priority} is an empty string, it will be parsed into a 'null' priority.
+     */
+    private Priority parsePriorityForEdit(String priority) throws ParseException {
+        assert priority != null;
+        if (priority.equals("")) {
+            return new Priority();
+        }
+        return ParserUtil.parsePriority(priority);
     }
 
 }

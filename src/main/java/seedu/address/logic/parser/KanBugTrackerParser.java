@@ -14,8 +14,10 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.KanbanCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MoveCommand;
+import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -63,6 +65,9 @@ public class KanBugTrackerParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
+        case SearchCommand.COMMAND_WORD:
+            return new SearchCommandParser().parse(arguments);
+
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
@@ -71,7 +76,8 @@ public class KanBugTrackerParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
+        case KanbanCommand.COMMAND_WORD:
+            return new KanbanCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

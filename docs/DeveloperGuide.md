@@ -120,7 +120,218 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.address.commons` package.
 
---------------------------------------------------------------------------------------------------------------------
+### Proposed implementation
+
+=======
+## **Implementation**
+
+This section describes some noteworthy details on how certain features are implemented.
+
+### \[Proposed\] Edit Tag feature
+
+#### Proposed Implementation
+
+The proposed edit tag feature is facilitated by `EditTagCommand`. It extends `Command` and uses **editTag** as its `COMMAND_WORD`  and makes use of the **ot/** and **nt/** prefixes.
+
+Additionally, it implements the following operations:
+
+- `EditTagCommand#execute()`  —  Executes the command. 
+
+Given below is an example usage scenario and how the edit tag feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.
+
+Step 2. The user executes `add n/Print bug d/prints the wrong message s/todo t/Ui.java` command to add a new bug to the kanbug tracker. A new bug with the following information is added:
+
+- name: **Print bug**
+- description: **prints the wrong message**
+- state: **todo**
+- tag: **Ui.java**
+
+This bug is added as the 6th bug in the kanbug tracker.
+
+**Note that the index 6 is for illustration purposes only**
+
+Step 3. The user decides that the tag they added is incorrect and would like to modify it. The user executes `editTag 6 ot/Ui.java nt/display`. This will result in the tag of the bug at index 6 being modified such that the new tag is **display** instead of **Ui.java**.
+
+The updated bug is as follows:
+
+- name: **Print bug**
+- description: **prints the wrong message**
+- state: **todo**
+- tag: **display**
+
+### [Proposed] Add tag feature
+
+#### Proposed Implementation
+
+The proposed edit tag feature is facilitated by `AddTagCommand`. It extends `Command` and uses **addTag** as its `COMMAND_WORD`  and makes use of the **nt/** prefix.
+
+Additionally, it implements the following operations:
+
+- `AddTagCommand#execute()`  —  Executes the command. 
+
+Given below is an example usage scenario and how the edit tag feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.
+
+Step 2. The user executes `add n/Print bug d/prints the wrong message s/todo t/Ui.java` command to add a new bug to the kanbug tracker. A new bug with the following information is added:
+
+- name: **Print bug**
+- description: **prints the wrong message**
+- state: **todo**
+- tag: **Ui.java**
+
+This bug is added as the 6th bug in the kanbug tracker.
+
+**Note that the index 6 is for illustration purposes only**
+
+Step 3. The user decides that the tag they would like to add an additional tag to the bug. The user executes `addTag nt/wrongPrinting`. This will result in the tag of the bug at index 6 being modified such that an additional tag **wrongPrinting** is added to the bug.
+
+The updated bug is as follows:
+
+- name: **Print bug**
+- description: **prints the wrong message**
+- state: **todo**
+- tag: **Ui.java**, **wrongPrinting**
+
+### \[Proposed\] Bug priority
+
+Feature description: Each bug will now have a priority level (low, medium, high) that will be shown on the GUI. Users
+can add or edit a bug with the priority using the `pr/` tag. The priority is optional, but each bug must have at most
+one priority only.
+
+#### Proposed Implementation
+
+The priority of a bug will be represented by `Priority` in the `seedu.address.model.bug` package. The `Priority` would
+be quite similar to other classes in the same package such as `Description`, `Name`, that is:
+- `Priority` will also have its own `MESSAGE_CONSTRAINTS` and `VALIDATION_REGEX`.
+- We will need to update the `Bug` to include an instance of `Priority`, and also update its constructor.
+- We will need to update `MESSAGE_USAGE` of `AddCommand` and `EditCommand`.
+- We will also need to update `EditCommand.BugDescriptor`.
+- We will add one more prefix constant called `PREFIX_PRIORITY` into `CliSyntax`.
+- We will update the `AddCommandParser#parse` and `EditCommandParser#parse` accordingly to read the `pr/` argument.
+- We will have to create `ParserUtil#parsePriority`.
+- We will need to include an instance of `Priority` into `seedu.address.storage.JsonAdaptedBug`, and update all
+of its methods to deal with priority.
+- We will need to update `seedu.address.ui.BugCard` and `BugListCard.fxml` to include priority.
+
+The followings are notable differences between `Priority` and other fields of `Bug`:
+- The `VALIDATION_REGEX` of `PRIORITY` will be set such that its constructor can only accept the `String` `"low"`, 
+`"medium"`, `"higher"` (either uppercase or lowercase)
+- Aside from the 3 possible states of `Priority` (`"low"`, `"medium"` or `"high"`), it will also have the state `"null"` 
+that represent when the bug have no priority indicated. This type of `Priority` will be create using an overload 
+version of the constructor that accept no argument (`new Priority("low")` will create a low priority, but 
+`new Priority()` will create a "null" priority. We will check if the `Priority` is "null" before showing it on the UI.
+
+**Note**: This is to simplified the code so that every instance of `Bug` is mandatory and also avoid using `null` (which
+could cause `NullPointerException` and break the app) at the same time. This approach is inspired by the Null Object 
+Design Pattern.
+
+#### Design consideration:
+
+- **Alternative 1**: Create `Priority` as a separate class
+    - Pros: Adhere OOP principles
+    - Cons: Need to refactor quite a lot in many different places.
+- **Alternative 2**: Create `Priority` as a subclass of `Tag` [rejected]
+    - Cons: Break the Liskov Substitution Principle.
+ 
+### \[Proposed\] Search feature
+
+#### Proposed Implementation
+The proposed search command is facilitated by `logic.command` package. It should have its own class named `SearchCommand` and inherits from the abstract class `Command`. The command then returns an instance of `CommandResult` upon success and prints feedback to the users.
+Additionally, it implements the following operations:  
+* `SearchCommand#execute()` - Executes the search command.  
+
+Given below is an example usage scenario and how the edit tag feature behaves at each step.  
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.  
+
+Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/todo t/Ui.java` command to add a new bug to the kanbug tracker. A new bug with the following information is added:  
+
+- name: **Ui bug**
+- description: **Displays wrongly the information**
+- state: **todo**
+- tag: **Ui.java**
+
+Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug. The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`. This results in the information of all the bugs of which name or description or tag contains `Ui bug` as a substring displays in the tracker.
+
+**Note that the keyword is case-insensitive**
+
+#### Design consideration:
+**Alternative 1 (current choice)**: Use `q/` new prefix as a query-string to search
+- Pro: Flexible search
+- Con: The list of results might be large
+
+**Alternative 2**: Use current field prefixes to search
+- Pro: When the user remembers exactly information of a particular field
+- Con: Restricted search
+
+
+
+### \[Proposed\] FeatureUI kanban board window
+
+#### Proposed Implementation
+The kanban board window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a Observerable list that contains only the bugs that belong to their respective state. This observerable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
+
+<img src="images/Ui.png" width="450" />
+
+Given below is how the KanbanBoard window will create the 4 BugListpanes
+
+Step 1:
+The user lanches the app and the system initalises the UI.
+
+Step 2:
+MainWindow calls fillInnerParts() on KanbanBoard.
+
+Step 3:
+For each of the 4 states, KanbanBoard would call getFilteredBugListByState on logic manager to get the appropriate lists and create the BugListPane
+
+Given below is sequence diagram for the creation of the BugListPanes:
+
+<img src= "images/KanbanBoardUI.png">
+
+
+### \[Proposed\] Note feature
+
+#### Proposed Implementation
+The proposed notes feature is facilitated by `Bug`, `AddCommandParser` and `EditCommandParser`. It adds a new `Note` state that can be parsed by the `AddCommandParser` and `EditCommandParser` and stored internally as an `Optional<Note>` object inside `Bug`.
+
+The added operations by `Note` are internal operations that are handled by the `AddCommandParser` and `EditCommandParser` and as a result their functionality is not required elsewhere.
+
+Given below is an example usage scenario and how the `Note` mechanism behaves at each step when used with `AddCommandParser` and `EditCommandParser`.
+
+Step 1: The user launches the application and executes the add command and provides a `Note` input using the `nt/` prefix. The `AddCommandParser` then executes and splits the input String into its respective components asccording to the given prefix.
+
+Step 2: The `AddCommandParser` then wraps the string following the `nt/` prefix in an `Optional<Note>` object which is then stored inside the new `Bug` that has been created.
+
+The following activity diagram summarizes what happens when a user executes the add command:
+
+<img src="images/NoteAddActivityDiagram.png" width="350">
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `nt/` command is not followed by a String, it will result in a message to the user that their input should not be blank.
+
+</div>
+
+Step 3: The user then decides to change the `Note` in the bug that he has just added using the `edit` commmand accompanied with the `nt/` prefix. The `EditCommandParser` then executes and splits the input String into its respective components according to the given prefix.
+
+Step 4: The `EditCommandParser` then copies the unchanged information from the original `Bug` into a new `Bug` while modifying the `Note` section by wrapping the given input String into an `Optional<Note>` object and storing it in the new `Bug` that has been created. This new `Bug` object then replace the original object in the KanBug Tracker.
+
+The following activity diagram summarizes what happens when a user executes the edit command:
+
+<img src="images/NoteEditActivityDiagram.png" width="400">
+
+#### Design consideration:
+
+##### Aspect: How notes are stored and accessed
+
+* **Alternative 1 (current choice):** Saves the Note inside an Optional<Note> object in Bug.
+  * Pros: Prevents a null pointer exception and is a safer implementation while allowing the notes field to be optional
+  * Cons: Difficult to implement
+
+* **Alternative 2:** Saves the Note directly in Bug
+  * Pros: Easy to implement.
+  * Cons: Will run into null pointer exceptions that are hard to trace if the user chooses not to add notes
+
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
@@ -235,13 +446,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - 3b. The user enters an invalid edit format
 
-  - 3b1. KanBug Tracker shows an error message. 
+  - 3b1. KanBug Tracker shows an error message.
 
     Use case resumes at 2.
 
 **Use case: Move a bug**
 
-**MSS** 
+**MSS**
 
 1. User requests to list bugs
 2. KanBug Tracker shows the list of bugs
@@ -302,17 +513,17 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-### Deleting a person
+### Deleting a bug
 
-1. Deleting a person while all persons are being shown
+1. Deleting a bug while all bugs are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all bugs using the `list` command. Multiple bugs in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First bug is deleted from the list. Details of the deleted bug shown in the status message. Timestamp in the status bar is updated.
 
    1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No bug is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.

@@ -11,21 +11,11 @@ Given below are my contributions to the project.
 
 **As the project is on going, this section will be filled up at a later time.**
 
-* **New Feature**: 
-  
 * **New Feature**:
-
-* **Code contributed**: 
-
+* **New Feature**:
+* **Code contributed**:
 * **Project management**:
-  
 * **Enhancements to existing features**:
-  
 * **Documentation**:
-  
 * **Community**:
-  
 * **Tools**:
-  
-  
-

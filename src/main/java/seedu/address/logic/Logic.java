@@ -10,6 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyKanBugTracker;
 import seedu.address.model.bug.Bug;
 
+
 /**
  * API of the Logic component
  */
@@ -42,6 +43,9 @@ public interface Logic {
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
+
+    /** Returns a filtered list of bugs according to state**/
+    ObservableList<Bug> getFilteredBugListByState(String state);
 
     /**
      * Set the user prefs' GUI settings.

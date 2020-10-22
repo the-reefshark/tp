@@ -7,7 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.bug.*;
+import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.Description;
+import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Priority;
+import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
 import javax.swing.text.html.Option;
@@ -24,6 +28,7 @@ class JsonAdaptedBug {
     private final String description;
     private final String note;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String priority;
 
     /**
      * Constructs a {@code JsonAdaptedBug} with the given bug details.
@@ -33,6 +38,7 @@ class JsonAdaptedBug {
                           @JsonProperty("state") String state,
                           @JsonProperty("description") String description,
                           @JsonProperty("note") String note,
+                          @JsonProperty("priority") String priority,
                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.state = state;
@@ -41,6 +47,7 @@ class JsonAdaptedBug {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.priority = priority;
     }
 
     /**
@@ -57,6 +64,7 @@ class JsonAdaptedBug {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        priority = source.getPriority().getValue();
     }
 
     /**
@@ -95,6 +103,16 @@ class JsonAdaptedBug {
         }
         final Description modelDescription = new Description(description);
 
+        if (priority == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Priority.class.getSimpleName()));
+        }
+        if (!Priority.isValidPriority(priority) && !priority.equals(Priority.EMPTY_PRIORITY)) {
+            throw new IllegalValueException(Priority.MESSAGE_CONSTRAINTS);
+        }
+        final Priority modelPriority = priority.equals(Priority.EMPTY_PRIORITY)
+                ? new Priority() : new Priority(priority);
+
         if (note == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Note.class.getSimpleName()));
@@ -103,7 +121,7 @@ class JsonAdaptedBug {
         final Optional<Note> modelOptionalNote = Optional.of(new Note(note));
 
         final Set<Tag> modelTags = new HashSet<>(bugTags);
-        return new Bug(modelName, modelState, modelDescription, modelOptionalNote, modelTags);
+        return new Bug(modelName, modelState, modelDescription, modelOptionalNote, modelTags, modelPriority);
     }
 
 }

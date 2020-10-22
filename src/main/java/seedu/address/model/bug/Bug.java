@@ -20,17 +20,19 @@ public class Bug {
     private final Description description;
     private final Optional<Note> optionalNote;
     private final Set<Tag> tags = new HashSet<>();
+    private final Priority priority;
 
     /**
      * Every field must be present and not null.
-     */
-    public Bug(Name name, State state, Description description, Optional<Note> optionalNote, Set<Tag> tags) {
+     */        
+    public Bug(Name name, State state, Description description, Optional<Note> optionalNote, Set<Tag> tags, Priority priority) {
         requireAllNonNull(name, state, description, optionalNote, tags);
         this.name = name;
         this.state = state;
         this.description = description;
         this.optionalNote = optionalNote;
         this.tags.addAll(tags);
+        this.priority = priority;
     }
 
     public Name getName() {
@@ -53,6 +55,10 @@ public class Bug {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Priority getPriority() {
+        return priority;
     }
 
     /**
@@ -87,6 +93,7 @@ public class Bug {
         return otherBug.getName().equals(getName())
                 && otherBug.getState().equals(getState())
                 && otherBug.getDescription().equals(getDescription())
+                && otherBug.getPriority().equals(getPriority());
                 && otherBug.getOptionalNote().equals(getOptionalNote())
                 && otherBug.getTags().equals(getTags());
     }
@@ -94,7 +101,7 @@ public class Bug {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, state, description, optionalNote, tags);
+        return Objects.hash(name, state, description, optionalNote, tags, priority);
     }
 
     @Override
@@ -105,14 +112,24 @@ public class Bug {
                 .append(getState())
                 .append(" Description: ")
                 .append(getDescription());
+        
         if (getOptionalNote().isPresent()) {
             builder.append(" Note: ")
                    .append(getOptionalNote().get().toString());
+        }
+        if (!getPriority().isNull()) {
+            builder.append(" Priority: ")
+                   .append(getPriority());
         }
         if (!tags.isEmpty()) {
             builder.append(" Tags: ");
             getTags().forEach(builder::append);
         }
+      
         return builder.toString();
+    }
+
+    public boolean compareState(State state) {
+        return this.state.equals(state);
     }
 }

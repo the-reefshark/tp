@@ -55,7 +55,7 @@ Format: `add n/NAME d/DESCRIPTION [s/STATE] [t/TAG]`
 * If state is not specified, a default state of backlog will be assigned.
 
 Examples:
-* `add n/Print bug d/prints the wrong message s/todo t/Ui.java`, adds a bug with name *Print Bug*, Description of *prints the wrong message*, state of *To do* and a tag of *Ui.java*.
+* `add n/Print bug d/prints the wrong message s/todo t/Ui`, adds a bug with name *Print Bug*, Description of *prints the wrong message*, state of *To do* and a tag of *Ui.java*.
 * `add n/Move bug d/moves bug to wrong column s/backlog`, adds a bug with name *Move bug*, Description of *moves bug to wrong column* and state of *Backlog*.
 * `add n/Move bug d/UI`, adds a bug with name *move bug*, Description of *UI* and state of *Backlog*.
 
@@ -64,7 +64,7 @@ Examples:
 Deletes a bug from the list
 
 Format: `delete INDEX`
-  * Deletes the bug at the specified index  
+  * Deletes the bug at the specified index
 
 Example:
   * `delete 1`, deletes the bug at index one of the bug list.
@@ -119,7 +119,7 @@ Data is saved into the hard disk everytime a change is made.
 |:--------:|:--------:|
 |  **help**  |  `help`  |
 |  **list**  |  `list`  |
-|  **add**  |  `add n/NAME d/DESCRIPTION s/STATE`  |
+|  **add**  |  `add n/NAME d/DESCRIPTION [s/STATE] [t/TAG]`  |
 |  **delete**  |  `delete INDEX`  |
 |  **edit**  |  `edit INDEX [n/NEW_NAME] [d/NEW_DESCRIPTION] [t/NEW_TAG]`  |
 |  **move**  |  `move INDEX s/STATE`  |
