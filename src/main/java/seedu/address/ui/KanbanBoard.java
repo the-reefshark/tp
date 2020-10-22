@@ -215,7 +215,7 @@ public class KanbanBoard extends UiPart<Stage> {
             (int) stage.getX(), (int) stage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
-        stage.hide();
+        mainWindowStage.hide();
     }
 
     public Scene getScene() {
