@@ -44,7 +44,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PRIORITY + "PRIORITY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_STATE + "johndoe@example.com";
+            + PREFIX_STATE + "todo";
 
     public static final String MESSAGE_EDIT_BUG_SUCCESS = "Edited Bug: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
