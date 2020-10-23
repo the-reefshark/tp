@@ -23,7 +23,7 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_STATE + "STATE] "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
-            + PREFIX_PRIORITY + "PRIORITY] "
+            + "[" + PREFIX_PRIORITY + "PRIORITY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Array size error "

@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.State;
 
 /**
  * Represents the in-memory model of the bug tracker data.
@@ -121,6 +122,17 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Bug> getFilteredBugList() {
         return filteredBugs;
+    }
+
+    /**
+     * Returns an a filtered list of bugs backed by the internal list of
+     * {@code versionedKanBugTracker}
+     */
+    @Override
+    public ObservableList<Bug> getFilteredBugListByState(State state) {
+        FilteredList<Bug> filteredBugsByState = new FilteredList<>(filteredBugs);
+        filteredBugsByState.setPredicate(bug -> bug.getState().equals(state));
+        return filteredBugsByState;
     }
 
     @Override

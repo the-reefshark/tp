@@ -4,8 +4,8 @@ import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -54,7 +54,7 @@ public class KanbanBoard extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private Label backlogLabel;
+    private HBox board;
 
     /**
      * Creates a new BoardWindow
@@ -70,6 +70,7 @@ public class KanbanBoard extends UiPart<Stage> {
         helpWindow = new HelpWindow();
         this.mainWindowStage = mainWindowStage;
         this.mainWindowScene = mainWindowStage.getScene();
+
     }
 
     /**
@@ -215,7 +216,7 @@ public class KanbanBoard extends UiPart<Stage> {
             (int) stage.getX(), (int) stage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
-        stage.hide();
+        mainWindowStage.hide();
     }
 
     public Scene getScene() {

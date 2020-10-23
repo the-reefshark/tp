@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyKanBugTracker;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.State;
 import seedu.address.testutil.BugBuilder;
 
 public class AddCommandTest {
@@ -140,6 +141,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Bug> getFilteredBugList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Bug> getFilteredBugListByState(State state) {
             throw new AssertionError("This method should not be called.");
         }
 
