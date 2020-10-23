@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
@@ -20,7 +21,8 @@ public class MoveCommand extends Command {
             + "by the index number used in the displayed bug list. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_STATE + "STATE "
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "[" + PREFIX_COLUMN + "STATE]"
+            + "Example: " + COMMAND_WORD
             + PREFIX_STATE + "done";
 
     public static final String MESSAGE_MOVE_BUG_SUCCESS = "Moved Bug: %1$s";
