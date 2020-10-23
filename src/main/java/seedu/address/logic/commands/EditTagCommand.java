@@ -51,6 +51,9 @@ public class EditTagCommand extends Command {
      * @param newTag to replace old tag
      */
     public EditTagCommand(Index index, Tag oldTag, Tag newTag) {
+        requireNonNull(index);
+        requireNonNull(oldTag);
+        requireNonNull(newTag);
         this.index = index;
         this.oldTag = oldTag;
         this.newTag = newTag;
