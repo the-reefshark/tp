@@ -8,6 +8,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
@@ -35,6 +36,7 @@ public class EditBugDescriptorBuilder {
         descriptor.setState(bug.getState());
         descriptor.setDescription(bug.getDescription());
         descriptor.setTags(bug.getTags());
+        descriptor.setPriority(bug.getPriority());
     }
 
     /**
@@ -68,6 +70,22 @@ public class EditBugDescriptorBuilder {
     public EditBugDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Priority} of the {@code EditBugDescriptor} that we are building.
+     */
+    public EditBugDescriptorBuilder withPriority(String priority) {
+        descriptor.setPriority(new Priority(priority));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Priority} of the {@code EditBugDescriptor} that we are building as empty priority.
+     */
+    public EditBugDescriptorBuilder withPriority() {
+        descriptor.setPriority(new Priority());
         return this;
     }
 

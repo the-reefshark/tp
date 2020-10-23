@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
@@ -27,6 +28,7 @@ class JsonAdaptedBug {
     private final String state;
     private final String description;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String priority;
 
     /**
      * Constructs a {@code JsonAdaptedBug} with the given bug details.
@@ -34,6 +36,7 @@ class JsonAdaptedBug {
     @JsonCreator
     public JsonAdaptedBug(@JsonProperty("name") String name,
                           @JsonProperty("email") String state, @JsonProperty("description") String description,
+                          @JsonProperty("priority") String priority,
                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.state = state;
@@ -41,6 +44,7 @@ class JsonAdaptedBug {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.priority = priority;
     }
 
     /**
@@ -53,6 +57,7 @@ class JsonAdaptedBug {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        priority = source.getPriority().getValue();
     }
 
     /**
@@ -91,8 +96,18 @@ class JsonAdaptedBug {
         }
         final Description modelDescription = new Description(description);
 
+        if (priority == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Priority.class.getSimpleName()));
+        }
+        if (!Priority.isValidPriority(priority) && !priority.equals(Priority.EMPTY_PRIORITY)) {
+            throw new IllegalValueException(Priority.MESSAGE_CONSTRAINTS);
+        }
+        final Priority modelPriority = priority.equals(Priority.EMPTY_PRIORITY)
+                ? new Priority() : new Priority(priority);
+
         final Set<Tag> modelTags = new HashSet<>(bugTags);
-        return new Bug(modelName, modelState, modelDescription, modelTags);
+        return new Bug(modelName, modelState, modelDescription, modelTags, modelPriority);
     }
 
 }

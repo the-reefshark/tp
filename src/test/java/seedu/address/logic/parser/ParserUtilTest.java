@@ -16,20 +16,24 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
+
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_DESCRIPTION = " ";
-    private static final String INVALID_State = "example.com";
+    private static final String INVALID_STATE = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_PRIORITY = "super high";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_DESCRIPTION = "123 Main Street #0505";
     private static final String VALID_STATE = "ongoing";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_PRIORITY = "high";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -106,7 +110,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseState_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseState(INVALID_State));
+        assertThrows(ParseException.class, () -> ParserUtil.parseState(INVALID_STATE));
     }
 
     @Test
@@ -120,6 +124,29 @@ public class ParserUtilTest {
         String stateWithWhitespace = WHITESPACE + VALID_STATE + WHITESPACE;
         State expectedState = new State(VALID_STATE);
         assertEquals(expectedState, ParserUtil.parseState(stateWithWhitespace));
+    }
+
+    @Test
+    public void parsePriorityNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePriority((String) null));
+    }
+
+    @Test
+    public void parsePriority_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePriority(INVALID_PRIORITY));
+    }
+
+    @Test
+    public void parsePriority_validValueWithoutWhitespace_returnsPriority() throws Exception {
+        Priority expectedPriority = new Priority(VALID_PRIORITY);
+        assertEquals(expectedPriority, ParserUtil.parsePriority(VALID_PRIORITY));
+    }
+
+    @Test
+    public void parsePriority_validValueWithWhitespace_returnsTrimmedState() throws Exception {
+        String priorityWithWhitespace = WHITESPACE + VALID_PRIORITY + WHITESPACE;
+        Priority expectedPriority = new Priority(VALID_PRIORITY);
+        assertEquals(expectedPriority, ParserUtil.parsePriority(priorityWithWhitespace));
     }
 
     @Test
