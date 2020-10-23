@@ -55,8 +55,8 @@ public class EditByStateCommandTest {
         final EditByStateCommand standardCommand = new EditByStateCommand(INDEX_FIRST_BUG,
                             DESC_PARSER, VALID_STATE_BUG1);
         EditCommand.EditBugDescriptor copyDescriptor = new EditCommand.EditBugDescriptor(DESC_PARSER);
-        EditByStateCommand commandWithSameValues = new EditByStateCommand(INDEX_FIRST_BUG, copyDescriptor,
-            new State("todo"));
+        EditByStateCommand commandWithSameValues = new EditByStateCommand(INDEX_FIRST_BUG,
+            copyDescriptor, new State("todo"));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
