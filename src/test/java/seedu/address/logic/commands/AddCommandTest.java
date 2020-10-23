@@ -47,7 +47,6 @@ public class AddCommandTest {
         Bug validBug = new BugBuilder().build();
         AddCommand addCommand = new AddCommand(validBug);
         ModelStub modelStub = new ModelStubWithBug(validBug);
-
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_BUG, () -> addCommand.execute(modelStub));
     }
 
