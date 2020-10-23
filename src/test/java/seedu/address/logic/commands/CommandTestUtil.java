@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OLDTAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -52,6 +54,8 @@ public class CommandTestUtil {
     public static final String DESCRIPTION_DESC_UI = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_UI;
     public static final String TAG_DESC_FRONTEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_BACKEND = " " + PREFIX_TAG + VALID_TAG_COMPONENT;
+    public static final String TAG_DESC_OLD = " " + PREFIX_OLDTAG + VALID_TAG_FRIEND;
+    public static final String TAG_DESC_NEW = " " + PREFIX_NEWTAG + VALID_TAG_COMPONENT;
     public static final String PRIORITY_DESC_PARSER = " " + PREFIX_PRIORITY + VALID_PRIORITY_PARSER;
     public static final String PRIORITY_DESC_HOMEPAGE = " " + PREFIX_PRIORITY + VALID_PRIORITY_HOMEPAGE;
 
@@ -59,6 +63,8 @@ public class CommandTestUtil {
     public static final String INVALID_STATE_DESC = " " + PREFIX_STATE + "backklog"; // typo of backog
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION; // descriptions cannot be empty
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_TAG_OLD = " " + PREFIX_OLDTAG + "prints.java"; // '.' not allowed in tags
+    public static final String INVALID_TAG_NEW = " " + PREFIX_NEWTAG + "hubs("; // '(' not allowed in tags
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "hig"; // typo of high
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
