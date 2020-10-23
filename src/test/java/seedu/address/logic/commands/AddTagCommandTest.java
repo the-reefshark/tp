@@ -36,6 +36,8 @@ public class AddTagCommandTest {
 
     private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
 
+
+
     @Test
     public void execute_invalidBugIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugList().size() + 1);

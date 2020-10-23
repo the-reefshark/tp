@@ -114,7 +114,7 @@ public class EditTagCommandTest {
     }
 
     @Test
-    public void updateTagInBug_nullInputs_throwIllegalArgumentException() {
+    public void updateTagInBug_nullNewTag_throwIllegalArgumentException() {
         Tag newTag = new Tag(VALID_TAG_FRIEND);
         Tag oldTag = new Tag(VALID_TAG_COMPONENT);
         Bug initialBug = new BugBuilder().withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT).build();
@@ -125,6 +125,15 @@ public class EditTagCommandTest {
         } catch (CommandException e) {
             assert false;
         }
+
+    }
+
+
+    @Test
+    public void updateTagInBug_nullOldTag_throwIllegalArgumentException() {
+        Tag newTag = new Tag(VALID_TAG_FRIEND);
+        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
+        Bug initialBug = new BugBuilder().withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT).build();
         try {
             Bug tagEditedBug = EditTagCommand.updateTagInBug(initialBug, null, newTag);
         } catch (IllegalArgumentException e) {
@@ -132,6 +141,15 @@ public class EditTagCommandTest {
         } catch (CommandException e) {
             assert false;
         }
+
+    }
+
+
+    @Test
+    public void updateTagInBug_nullInitialBug_throwIllegalArgumentException() {
+        Tag newTag = new Tag(VALID_TAG_FRIEND);
+        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
+        Bug initialBug = new BugBuilder().withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT).build();
         try {
             Bug tagEditedBug = EditTagCommand.updateTagInBug(null, oldTag, newTag);
         } catch (IllegalArgumentException e) {
