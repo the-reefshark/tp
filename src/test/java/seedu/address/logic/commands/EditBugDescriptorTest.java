@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 
@@ -42,12 +43,16 @@ public class EditBugDescriptorTest {
         editedBug = new EditBugDescriptorBuilder(DESC_PARSER).withState(VALID_STATE_HOMEPAGE).build();
         assertFalse(DESC_PARSER.equals(editedBug));
 
-        // different address -> returns false
+        // different description -> returns false
         editedBug = new EditBugDescriptorBuilder(DESC_PARSER).withDescription(VALID_DESCRIPTION_HOMEPAGE).build();
         assertFalse(DESC_PARSER.equals(editedBug));
 
         // different tags -> returns false
         editedBug = new EditBugDescriptorBuilder(DESC_PARSER).withTags(VALID_TAG_COMPONENT).build();
+        assertFalse(DESC_PARSER.equals(editedBug));
+
+        // different priority -> returns false
+        editedBug = new EditBugDescriptorBuilder(DESC_PARSER).withPriority(VALID_PRIORITY_HOMEPAGE).build();
         assertFalse(DESC_PARSER.equals(editedBug));
     }
 }

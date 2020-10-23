@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
@@ -73,8 +74,9 @@ public class AddTagCommand extends Command {
         State bugState = bugToEdit.getState();
         Description bugDescription = bugToEdit.getDescription();
         Set<Tag> updatedTags = addTagSet(existingTagSet, newTag);
+        Priority bugPriority = bugToEdit.getPriority();
 
-        return new Bug(bugName, bugState, bugDescription, updatedTags);
+        return new Bug(bugName, bugState, bugDescription, updatedTags, bugPriority);
     }
 
     private static Set<Tag> addTagSet(Set<Tag> existingTagSet, Tag newTag) {

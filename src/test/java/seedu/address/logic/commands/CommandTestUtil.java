@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OLDTAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -36,6 +37,8 @@ public class CommandTestUtil {
     public static final String VALID_DESCRIPTION_PARSER = "Blank screen on launching application";
     public static final String VALID_DESCRIPTION_HOMEPAGE = "Duplicates in list when searching for a specific bug";
     public static final String VALID_DESCRIPTION_UI = "No input validation for invalid index";
+    public static final String VALID_PRIORITY_PARSER = "medium";
+    public static final String VALID_PRIORITY_HOMEPAGE = "high";
     public static final String VALID_TAG_COMPONENT = "UI";
     public static final String VALID_TAG_FRIEND = "Logic";
     public static final State VALID_STATE_BUG1 = new State("todo");
@@ -53,6 +56,8 @@ public class CommandTestUtil {
     public static final String TAG_DESC_BACKEND = " " + PREFIX_TAG + VALID_TAG_COMPONENT;
     public static final String TAG_DESC_OLD = " " + PREFIX_OLDTAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_NEW = " " + PREFIX_NEWTAG + VALID_TAG_COMPONENT;
+    public static final String PRIORITY_DESC_PARSER = " " + PREFIX_PRIORITY + VALID_PRIORITY_PARSER;
+    public static final String PRIORITY_DESC_HOMEPAGE = " " + PREFIX_PRIORITY + VALID_PRIORITY_HOMEPAGE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_STATE_DESC = " " + PREFIX_STATE + "backklog"; // typo of backog
@@ -60,6 +65,7 @@ public class CommandTestUtil {
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_TAG_OLD = " " + PREFIX_OLDTAG + "prints.java"; // '.' not allowed in tags
     public static final String INVALID_TAG_NEW = " " + PREFIX_NEWTAG + "hubs("; // '(' not allowed in tags
+    public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "hig"; // typo of high
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -70,10 +76,10 @@ public class CommandTestUtil {
     static {
         DESC_PARSER = new EditBugDescriptorBuilder().withName(VALID_NAME_PARSER)
                 .withState(VALID_STATE_PARSER).withDescription(VALID_DESCRIPTION_PARSER)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_FRIEND).withPriority(VALID_PRIORITY_PARSER).build();
         DESC_HOMEPAGE = new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE)
                 .withState(VALID_STATE_HOMEPAGE).withDescription(VALID_DESCRIPTION_HOMEPAGE)
-                .withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND).withPriority(VALID_PRIORITY_HOMEPAGE).build();
     }
 
     /**

@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BUG_DISPLAYED_
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_PARSER;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBugs.BUGTEN;
@@ -78,7 +79,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_PARSER + STATE_DESC_PARSER
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_PARSER + STATE_DESC_PARSER + PRIORITY_DESC_PARSER
                                     + DESCRIPTION_DESC_PARSER;
         Bug expectedBug = new BugBuilder(BUGTEN).withTags().build();
         ModelManager expectedModel = new ModelManager();

@@ -12,5 +12,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_OLDTAG = new Prefix("ot/");
     public static final Prefix PREFIX_NEWTAG = new Prefix("nt/");
+    public static final Prefix PREFIX_QUERYSTRING = new Prefix("q/");
+    public static final Prefix PREFIX_PRIORITY = new Prefix("pr/");
 
 }

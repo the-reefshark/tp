@@ -40,6 +40,8 @@ public class BugCard extends UiPart<Region> {
     private Label state;
     @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane priority;
 
     /**
      * Creates a {@code BugCard} with the given {@code Bug} and index to display.
@@ -51,6 +53,24 @@ public class BugCard extends UiPart<Region> {
         name.setText(bug.getName().fullName);
         description.setText(bug.getDescription().value);
         state.setText(bug.getState().toString());
+        //priority.setText(bug.getPriority().priority);
+        if (!bug.getPriority().isNull()) {
+            Label label = new Label("Priority " + bug.getPriority().getValue());
+            switch (bug.getPriority().getValue()) {
+            case "low":
+                label.setStyle("-fx-background-color: green;");
+                break;
+            case "medium":
+                label.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
+                break;
+            case "high":
+                label.setStyle("-fx-background-color: red;");
+                break;
+            default:
+                label = new Label("Unexpected error has occurred.");
+            }
+            priority.getChildren().add(label);
+        }
         bug.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
