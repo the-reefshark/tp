@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 
 import java.util.List;
 
@@ -20,12 +21,13 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the bug identified by the index number used in the displayed bug list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_COLUMN + "STATE]\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_BUG_SUCCESS = "Deleted Bug: %1$s";
 
-    private final Index targetIndex;
+    protected final Index targetIndex;
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;

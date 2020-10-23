@@ -7,6 +7,6 @@ public class KanbanCommand extends Command {
     public static final String COMMAND_WORD = "kanban";
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult("showing Kanban board", false, false, true);
+        return new CommandResult("", false, false, true);
     }
 }

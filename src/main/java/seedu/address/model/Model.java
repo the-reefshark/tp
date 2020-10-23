@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.bug.Bug;
+import seedu.address.model.bug.State;
 
 /**
  * The API of the Model component.
@@ -78,6 +79,11 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered bug list */
     ObservableList<Bug> getFilteredBugList();
+
+    /**
+     * Returns a filterd bug list by state
+     */
+    ObservableList<Bug> getFilteredBugListByState(State state);
 
     /**
      * Updates the filter of the filtered bug list to filter by the given {@code predicate}.

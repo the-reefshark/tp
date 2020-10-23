@@ -129,4 +129,5 @@ public class ModelManagerTest {
         differentUserPrefs.setKanBugTrackerFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(kanBugTracker, differentUserPrefs)));
     }
+
 }
