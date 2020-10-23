@@ -26,8 +26,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_COLUMN);
             Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
             if (arePrefixesPresent(argMultimap, PREFIX_COLUMN)) {
-                State column = ParserUtil.parseState(argMultimap.getValue(PREFIX_COLUMN).get());
-                return new DeleteByStateCommand(index, column);
+                State targetState = ParserUtil.parseState(argMultimap.getValue(PREFIX_COLUMN).get());
+                return new DeleteByStateCommand(index, targetState);
             }
 
             return new DeleteCommand(index);
