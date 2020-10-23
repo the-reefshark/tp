@@ -24,7 +24,6 @@ public class AddTagCommand extends Command {
     public static final String COMMAND_WORD = "addTag";
 
     //TODO Update the DG such that only valid tags are used
-    //TODO add in test cases for this class
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to the"
             + "bug identified by the index number used in the displayed bug list."
@@ -34,7 +33,8 @@ public class AddTagCommand extends Command {
             + PREFIX_NEWTAG + "Ui";
 
     public static final String MESSAGE_ADD_BUG_SUCCESS = "Added Tag: %1$s";
-    public static final String MESSAGE_NOT_ADDED = "Invalid inputs, either tag or bug is null.";
+    public static final String MESSAGE_NOT_ADDED = "Input values cannot be null.";
+    public static final String MESSAGE_INVALID_NEW = "The new tag already exists!";
 
     private Index index;
     private Tag newTag;
@@ -68,12 +68,24 @@ public class AddTagCommand extends Command {
         return new CommandResult(String.format(MESSAGE_ADD_BUG_SUCCESS, editedBug));
     }
 
-    public static Bug addTagToBug(Bug bugToEdit, Tag newTag) throws IllegalArgumentException {
+    /**
+     * Adds a new tag to the specified bug.
+     *
+     * @param bugToEdit bug to add the new tag.
+     * @param newTag to add.
+     * @return updated bug
+     * @throws IllegalArgumentException if {@code bugToEdit} is null or {@code newTag} is null.
+     */
+    public static Bug addTagToBug(Bug bugToEdit, Tag newTag) throws CommandException, IllegalArgumentException {
         if (bugToEdit == null || newTag == null) {
             throw new IllegalArgumentException(MESSAGE_NOT_ADDED);
         }
 
         Set<Tag> existingTagSet = bugToEdit.getTags();
+
+        if (existingTagSet.contains(newTag)) {
+            throw new CommandException(MESSAGE_INVALID_NEW);
+        }
 
         Name bugName = bugToEdit.getName();
         State bugState = bugToEdit.getState();

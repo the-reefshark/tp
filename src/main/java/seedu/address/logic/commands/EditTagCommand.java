@@ -25,7 +25,6 @@ public class EditTagCommand extends Command {
     public static final String COMMAND_WORD = "editTag";
 
     //TODO Update the DG such that only valid tags are used
-    //TODO add in test cases for this class
 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the tags of "
@@ -39,7 +38,9 @@ public class EditTagCommand extends Command {
             + PREFIX_OLDTAG + "display " + PREFIX_NEWTAG + "Ui";
 
     public static final String MESSAGE_EDIT_BUG_SUCCESS = "Edited Tag: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "A valid existing tag must be supplied.";
+    public static final String MESSAGE_INVALID_OLD = "A valid existing tag must be supplied.";
+    public static final String MESSAGE_INVALID_NEW = "The new tag already exists!";
+    public static final String MESSAGE_NOT_UPDATED = "Input values cannot be null.";
 
     private Index index;
     private Tag oldTag;
@@ -76,13 +77,29 @@ public class EditTagCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_BUG_SUCCESS, editedBug));
     }
 
-    private static Bug updateTagInBug(Bug bugToEdit, Tag oldTag, Tag newTag) throws CommandException {
-        assert bugToEdit != null;
+    /**
+     * Updates the old tag in the specified bug to become the new tag.
+     *
+     * @param bugToEdit bug whose tag is to be edited.
+     * @param oldTag to be replaced.
+     * @param newTag to replace the old tag.
+     * @return updated bug
+     * @throws CommandException if old tag does not exist or new tag already exists
+     */
+    public static Bug updateTagInBug(Bug bugToEdit, Tag oldTag, Tag newTag) throws CommandException,
+                                                                                           IllegalArgumentException {
+        if (bugToEdit == null || oldTag == null || newTag == null) {
+            throw new IllegalArgumentException(MESSAGE_NOT_UPDATED);
+        }
 
         Set<Tag> existingTagSet = bugToEdit.getTags();
 
         if (!existingTagSet.contains(oldTag)) {
-            throw new CommandException((MESSAGE_NOT_EDITED));
+            throw new CommandException((MESSAGE_INVALID_OLD));
+        }
+
+        if (existingTagSet.contains(newTag)) {
+            throw new CommandException((MESSAGE_INVALID_NEW));
         }
 
         Name bugName = bugToEdit.getName();
