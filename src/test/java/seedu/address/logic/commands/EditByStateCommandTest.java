@@ -3,10 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_PARSER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
@@ -33,10 +30,6 @@ public class EditByStateCommandTest {
             new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE).build(), new State("backlog"));
         assertThrows(CommandException.class, MESSAGE_INVALID_BUG_DISPLAYED_INDEX, ()-> editByStateCommandBacklog
                                                                                            .execute(model));
-        EditByStateCommand editByStateCommandOngoing = new EditByStateCommand(INDEX_SECOND_BUG,
-            new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE).build(), new State("done"));
-        assertThrows(CommandException.class, MESSAGE_INVALID_BUG_DISPLAYED_INDEX, ()-> editByStateCommandOngoing
-                                                                                           .execute(model));
     }
 
     @Test
@@ -56,12 +49,9 @@ public class EditByStateCommandTest {
     @Test
     public void equals() {
         final EditByStateCommand standardCommand = new EditByStateCommand(INDEX_FIRST_BUG,
-                            DESC_PARSER, new State("todo"));
-
-        // same values -> returns true
+                            DESC_PARSER, VALID_STATE_BUG1);
         EditCommand.EditBugDescriptor copyDescriptor = new EditCommand.EditBugDescriptor(DESC_PARSER);
-        EditByStateCommand commandWithSameValues = new EditByStateCommand(INDEX_FIRST_BUG, copyDescriptor,
-            new State("todo"));
+        EditByStateCommand commandWithSameValues = new EditByStateCommand(INDEX_FIRST_BUG, copyDescriptor, new State("todo"));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
