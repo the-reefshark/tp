@@ -61,8 +61,8 @@ class JsonAdaptedBug {
         state = source.getState().toString();
         description = source.getDescription().value;
 
-        Optional<Note> note = source.getOptionalNote();
-        this.note = note.isPresent() ? note.get().value : "";
+        Optional<Note> tempNote = source.getOptionalNote();
+        this.note = (tempNote != null && tempNote.isPresent()) ? tempNote.get().value : "";
 
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)

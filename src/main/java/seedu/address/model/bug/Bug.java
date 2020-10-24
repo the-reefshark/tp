@@ -26,7 +26,7 @@ public class Bug {
      * Every field must be present and not null.
      */        
     public Bug(Name name, State state, Description description, Optional<Note> optionalNote, Set<Tag> tags, Priority priority) {
-        requireAllNonNull(name, state, description, optionalNote, tags);
+        requireAllNonNull(name, state, description, tags);
         this.name = name;
         this.state = state;
         this.description = description;
@@ -112,8 +112,8 @@ public class Bug {
                 .append(getState())
                 .append(" Description: ")
                 .append(getDescription());
-        
-        if (getOptionalNote().isPresent()) {
+
+        if (getOptionalNote() != null && getOptionalNote().isPresent()) {
             builder.append(" Note: ")
                    .append(getOptionalNote().get().toString());
         }

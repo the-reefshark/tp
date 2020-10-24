@@ -77,7 +77,7 @@ public class AddCommandParserTest {
 
         // multiple descriptions - last description accepted
         assertParseSuccess(parser, NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + INVALID_DESCRIPTION_DESC
-                + DESCRIPTION_DESC_HOMEPAGE + NOTE_DESC_HOMEPAGE  + PRIORITY_DESC_HOMEPAGE + TAG_DESC_FRONTEND,
+                + DESCRIPTION_DESC_HOMEPAGE + NOTE_DESC_HOMEPAGE + PRIORITY_DESC_HOMEPAGE + TAG_DESC_FRONTEND,
                 new AddCommand(expectedBug));
 
         // multiple tags - all accepted

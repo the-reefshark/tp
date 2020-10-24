@@ -80,8 +80,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_PARSER + STATE_DESC_PARSER + PRIORITY_DESC_PARSER +
-                NOTE_DESC_PARSER + DESCRIPTION_DESC_PARSER;
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_PARSER + STATE_DESC_PARSER + PRIORITY_DESC_PARSER
+                + NOTE_DESC_PARSER + DESCRIPTION_DESC_PARSER;
         Bug expectedBug = new BugBuilder(BUGTEN).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addBug(expectedBug);

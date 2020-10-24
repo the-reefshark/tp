@@ -99,11 +99,16 @@ public class EditCommand extends Command {
         Name updatedName = editBugDescriptor.getName().orElse(bugToEdit.getName());
         State updatedState = editBugDescriptor.getState().orElse(bugToEdit.getState());
         Description updatedDescription = editBugDescriptor.getDescription().orElse(bugToEdit.getDescription());
-        Optional<Note> updatedOptionalNote = Optional.empty();
-        if (editBugDescriptor.getOptionalNote() != null) {
-            updatedOptionalNote = editBugDescriptor.getOptionalNote().isPresent() ? editBugDescriptor.getOptionalNote()
-                    : Optional.empty();
+
+        Optional<Note> updatedOptionalNote = null;
+        if (editBugDescriptor.getOptionalNote() == null) {
+            updatedOptionalNote = bugToEdit.getOptionalNote();
+        } else if (editBugDescriptor.getOptionalNote().isEmpty()) {
+            updatedOptionalNote = Optional.empty();
+        } else {
+            updatedOptionalNote = editBugDescriptor.getOptionalNote();
         }
+
         Set<Tag> updatedTags = editBugDescriptor.getTags().orElse(bugToEdit.getTags());
         Priority updatedPriority = editBugDescriptor.getPriority().orElse(bugToEdit.getPriority());
 
