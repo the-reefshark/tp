@@ -2,7 +2,11 @@ package seedu.address.model.bug;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 
@@ -21,11 +25,11 @@ public class Bug {
     private final Optional<Note> optionalNote;
     private final Set<Tag> tags = new HashSet<>();
     private final Priority priority;
-
     /**
      * Every field must be present and not null.
-     */        
-    public Bug(Name name, State state, Description description, Optional<Note> optionalNote, Set<Tag> tags, Priority priority) {
+     **/
+    public Bug(Name name, State state, Description description, Optional<Note> optionalNote, Set<Tag> tags,
+               Priority priority) {
         requireAllNonNull(name, state, description, tags);
         this.name = name;
         this.state = state;
@@ -47,7 +51,9 @@ public class Bug {
         return description;
     }
 
-    public Optional<Note> getOptionalNote() { return optionalNote; }
+    public Optional<Note> getOptionalNote() {
+        return optionalNote;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -125,7 +131,6 @@ public class Bug {
             builder.append(" Tags: ");
             getTags().forEach(builder::append);
         }
-      
         return builder.toString();
     }
 

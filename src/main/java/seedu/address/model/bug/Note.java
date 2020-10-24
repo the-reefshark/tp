@@ -1,7 +1,6 @@
 package seedu.address.model.bug;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Bug's optional note in the bug tracker.

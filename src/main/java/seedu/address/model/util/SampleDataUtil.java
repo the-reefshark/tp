@@ -14,8 +14,6 @@ import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
-import javax.swing.text.html.Option;
-
 /**
  * Contains utility methods for populating {@code KanBugTracker} with sample data.
  */

@@ -204,9 +204,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(priority);
         }
 
-        public void setOptionalNote(Optional<Note> note) { this.note = note; }
+        public void setOptionalNote(Optional<Note> note) {
+            this.note = note;
+        }
 
-        public Optional<Note> getOptionalNote() { return this.note; }
+        public Optional<Note> getOptionalNote() {
+            return this.note;
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.

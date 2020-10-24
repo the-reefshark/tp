@@ -22,8 +22,6 @@ import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
-import javax.swing.text.html.Option;
-
 /**
  * Parses input arguments and creates a new AddCommand object
  */
@@ -46,10 +44,9 @@ public class AddCommandParser implements Parser<AddCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-      
+
         assert argMultimap.getValue(PREFIX_NAME).isPresent();
         assert argMultimap.getValue(PREFIX_DESCRIPTION).isPresent();
-      
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         State state = DEFAULT_STATE;
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
