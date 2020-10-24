@@ -128,7 +128,7 @@ Examples:
 
 - `edit 1 n/Wrong list numbers when displaying list d/List column printed as all 1's`, edits the name and description of the 1st bug to be "Wrong list numbers when displaying list" and "List column printed as all 1's" respectively.
 - `edit 2 d/When listing items, duplicates are printed`, edits the description of the 2nd bug to be "When listing items, duplicated are printed".
-- `edit 3 t/Logger t/Logging`, edits/adds the two tags provided *Logger.java* and *Logging*.
+- `edit 3 t/Logger t/Logging`, edits/adds the two tags provided *Logger* and *Logging*.
 
 ### Moving a bug : `move`
 
