@@ -26,7 +26,6 @@ public class EditTagCommand extends Command {
 
     //TODO Update the DG such that only valid tags are used
 
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the tags of "
             + "the bug identified by the index number used in the displayed bug list."
             + "The existing tag supplied by the user will be replaced with the new tag given"
@@ -47,6 +46,9 @@ public class EditTagCommand extends Command {
     private Tag newTag;
 
     /**
+     * Creates a new instance of an EditTagCommand with the appropriate {@code index},
+     * {@code oldTag} and {@code newTag}.
+     *
      * @param index of the bug in the filtered bug list to edit
      * @param oldTag to be modified
      * @param newTag to replace old tag
@@ -78,18 +80,18 @@ public class EditTagCommand extends Command {
     }
 
     /**
-     * Updates the old tag in the specified bug to become the new tag.
+     * Updates the old tag in the specified bug and replaces it with the new tag.
      *
-     * @param bugToEdit bug whose tag is to be edited.
-     * @param oldTag to be replaced.
-     * @param newTag to replace the old tag.
+     * @param bugToEdit bug whose tag is to be edited
+     * @param oldTag to be replaced
+     * @param newTag to replace the old tag
      * @return updated bug
-     * @throws CommandException if old tag does not exist or new tag already exists
+     * @throws CommandException if {@code oldTag} does not exist, the {@code newTag} already exists or the inputs are
+     * null
      */
-    public static Bug updateTagInBug(Bug bugToEdit, Tag oldTag, Tag newTag) throws CommandException,
-                                                                                           IllegalArgumentException {
+    public static Bug updateTagInBug(Bug bugToEdit, Tag oldTag, Tag newTag) throws CommandException {
         if (bugToEdit == null || oldTag == null || newTag == null) {
-            throw new IllegalArgumentException(MESSAGE_NOT_UPDATED);
+            throw new CommandException(MESSAGE_NOT_UPDATED);
         }
 
         Set<Tag> existingTagSet = bugToEdit.getTags();

@@ -48,37 +48,46 @@ public class AddTagCommandTest {
     }
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() throws CommandException {
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
-        Bug bug = model.getFilteredBugList().get(0);
-        Bug tagAddedBug = addTagToBug(bug, newTag);
+    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+        try {
+            Tag newTag = new Tag(VALID_TAG_FRIEND);
+            Bug bug = model.getFilteredBugList().get(0);
+            Bug tagAddedBug = addTagToBug(bug, newTag);
 
-        AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST_BUG, newTag);
+            AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST_BUG, newTag);
 
-        String expectedMessage = String.format(AddTagCommand.MESSAGE_ADD_BUG_SUCCESS, tagAddedBug);
+            String expectedMessage = String.format(AddTagCommand.MESSAGE_ADD_BUG_SUCCESS, tagAddedBug);
 
-        Model expectedModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
-        expectedModel.setBug(model.getFilteredBugList().get(0), tagAddedBug);
+            Model expectedModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
+            expectedModel.setBug(model.getFilteredBugList().get(0), tagAddedBug);
 
-        assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);
+            assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);
+        } catch (CommandException e) {
+            assert false;
+        }
+
     }
 
     @Test
-    public void addTagToBug_validTag_success() throws CommandException {
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
-        Bug bug = model.getFilteredBugList().get(0);
+    public void addTagToBug_validTag_success() {
+        try {
+            Tag newTag = new Tag(VALID_TAG_FRIEND);
+            Bug bug = model.getFilteredBugList().get(0);
 
-        Name bugName = bug.getName();
-        State bugState = bug.getState();
-        Description bugDescription = bug.getDescription();
-        Priority bugPriority = bug.getPriority();
-        Set<Tag> tagsOfBug = new HashSet<Tag>(bug.getTags());
-        tagsOfBug.add(newTag);
+            Name bugName = bug.getName();
+            State bugState = bug.getState();
+            Description bugDescription = bug.getDescription();
+            Priority bugPriority = bug.getPriority();
+            Set<Tag> tagsOfBug = new HashSet<>(bug.getTags());
+            tagsOfBug.add(newTag);
 
-        //copy bug details to reflect edited bug
-        Bug editedBug = new Bug(bugName, bugState, bugDescription, tagsOfBug, bugPriority);
+            //copy bug details to reflect edited bug
+            Bug editedBug = new Bug(bugName, bugState, bugDescription, tagsOfBug, bugPriority);
 
-        assertEquals(editedBug, AddTagCommand.addTagToBug(bug, newTag));
+            assertEquals(editedBug, AddTagCommand.addTagToBug(bug, newTag));
+        } catch (CommandException e) {
+            assert false;
+        }
     }
 
     @Test
@@ -89,10 +98,8 @@ public class AddTagCommandTest {
         try {
             addTagToBug(validBug, null);
             assert false;
-        } catch (IllegalArgumentException e) {
-            assertEquals(expectedString, e.getMessage());
         } catch (CommandException e) {
-            assert false;
+            assertEquals(expectedString, e.getMessage());
         }
     }
 
@@ -103,8 +110,6 @@ public class AddTagCommandTest {
 
         try {
             addTagToBug(validBug, new Tag(VALID_TAG_FRIEND));
-            assert false;
-        } catch (IllegalArgumentException e) {
             assert false;
         } catch (CommandException e) {
             assertEquals(expectedString, e.getMessage());
@@ -119,10 +124,8 @@ public class AddTagCommandTest {
         try {
             addTagToBug(null, validTag);
             assert false;
-        } catch (IllegalArgumentException e) {
-            assertEquals(expectedString, e.getMessage());
         } catch (CommandException e) {
-            assert false;
+            assertEquals(expectedString, e.getMessage());
         }
     }
 
