@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
@@ -28,6 +29,7 @@ public class AddTagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to the"
             + "bug identified by the index number used in the displayed bug list."
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_COLUMN + "]"
             + PREFIX_NEWTAG + "NEW_TAG\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NEWTAG + "Ui";

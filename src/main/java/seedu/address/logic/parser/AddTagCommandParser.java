@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 
 import java.util.stream.Stream;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddTagByStateCommand;
 import seedu.address.logic.commands.AddTagCommand;
@@ -30,11 +31,11 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
 
         Index index;
         Tag newTag;
-        int number_of_prefixes_expected = NUMBER_OF_PREFIXES_EXPECTED;
+        int numberOfPrefixesExpected = NUMBER_OF_PREFIXES_EXPECTED;
         if (arePrefixesPresent(argMultimap, PREFIX_COLUMN)) {
-            number_of_prefixes_expected++;
+            numberOfPrefixesExpected++;
         }
-        boolean hasExtraPrefixes = argMultimap.getSize() != number_of_prefixes_expected;
+        boolean hasExtraPrefixes = argMultimap.getSize() != numberOfPrefixesExpected;
         boolean hasIncorrectNumberOfPrefixValues =
                 argMultimap.numberOfPrefixElements(PREFIX_NEWTAG) != NUMBER_OF_NEWTAG;
 

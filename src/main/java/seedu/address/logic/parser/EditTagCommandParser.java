@@ -2,9 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OLDTAG;
 
 import java.util.stream.Stream;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditTagByStateCommand;
 import seedu.address.logic.commands.EditTagCommand;
@@ -29,15 +32,15 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_OLDTAG, PREFIX_NEWTAG, PREFIX_COLUMN);
-        int number_of_prefix_expected = NUMBER_OF_PREFIXES_EXPECTED;
+        int numberOfPrefixExpected = NUMBER_OF_PREFIXES_EXPECTED;
         Index index;
         Tag oldTag;
         Tag newTag;
         if (arePrefixesPresent(argMultimap, PREFIX_COLUMN)) {
-            number_of_prefix_expected++;
+            numberOfPrefixExpected++;
         }
 
-        boolean hasExtraPrefixes = argMultimap.getSize() != number_of_prefix_expected;
+        boolean hasExtraPrefixes = argMultimap.getSize() != numberOfPrefixExpected;
         boolean hasIncorrectNumberOfPrefixValues =
                 argMultimap.numberOfPrefixElements(PREFIX_NEWTAG) != NUMBER_OF_NEWTAG
                 || argMultimap.numberOfPrefixElements(PREFIX_OLDTAG) != NUMBER_OF_OLDTAG;
