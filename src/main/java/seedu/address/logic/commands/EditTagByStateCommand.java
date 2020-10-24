@@ -24,6 +24,7 @@ public class EditTagByStateCommand extends EditTagCommand {
      */
     public EditTagByStateCommand(Index index, Tag oldTag, Tag newTag, State targetState) {
         super(index, oldTag, newTag);
+        requireNonNull(targetState);
         this.targetState = targetState;
     }
 
@@ -43,4 +44,23 @@ public class EditTagByStateCommand extends EditTagCommand {
         model.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);
         return new CommandResult(String.format(MESSAGE_EDIT_BUG_SUCCESS, editedBug));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        //short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof EditTagByStateCommand)) {
+            return false;
+        }
+
+        EditTagByStateCommand e = (EditTagByStateCommand) other;
+        return index.equals(e.index)
+                && oldTag.equals(e.oldTag)
+                && newTag.equals(e.newTag)
+                && targetState.equals(e.targetState);
+    }
+
 }
