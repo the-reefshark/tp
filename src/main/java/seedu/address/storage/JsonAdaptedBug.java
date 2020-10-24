@@ -1,6 +1,10 @@
 package seedu.address.storage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -14,8 +18,6 @@ import seedu.address.model.bug.Note;
 import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
-
-import javax.swing.text.html.Option;
 
 /**
  * Jackson-friendly version of {@link Bug}.
@@ -82,7 +84,7 @@ class JsonAdaptedBug {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
+        if (!Name.isValidNote(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
@@ -119,7 +121,7 @@ class JsonAdaptedBug {
                     Note.class.getSimpleName()));
         }
 
-        final Optional<Note> modelOptionalNote = Optional.of(new Note(note));
+        final Optional<Note> modelOptionalNote = note.isBlank() ? Optional.empty() : Optional.of(new Note(note));
 
         final Set<Tag> modelTags = new HashSet<>(bugTags);
         return new Bug(modelName, modelState, modelDescription, modelOptionalNote, modelTags, modelPriority);

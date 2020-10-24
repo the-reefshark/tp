@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -35,6 +36,9 @@ public class CommandTestUtil {
     public static final String VALID_DESCRIPTION_PARSER = "Blank screen on launching application";
     public static final String VALID_DESCRIPTION_HOMEPAGE = "Duplicates in list when searching for a specific bug";
     public static final String VALID_DESCRIPTION_UI = "No input validation for invalid index";
+    public static final String VALID_NOTE_PARSER = "this bug has been encountered on numerous occasions in the parser";
+    public static final String VALID_NOTE_HOMEPAGE = "this is a very rare problem that has not been encountered before";
+    public static final String VALID_NOTE_BLANK = "";
     public static final String VALID_PRIORITY_PARSER = "medium";
     public static final String VALID_PRIORITY_HOMEPAGE = "high";
     public static final String VALID_TAG_COMPONENT = "UI";
@@ -50,6 +54,8 @@ public class CommandTestUtil {
     public static final String DESCRIPTION_DESC_PARSER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_PARSER;
     public static final String DESCRIPTION_DESC_HOMEPAGE = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_HOMEPAGE;
     public static final String DESCRIPTION_DESC_UI = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_UI;
+    public static final String NOTE_DESC_PARSER = " " + PREFIX_NOTE + VALID_NOTE_PARSER;
+    public static final String NOTE_DESC_HOMEPAGE = " " + PREFIX_NOTE + VALID_NOTE_HOMEPAGE;
     public static final String TAG_DESC_FRONTEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_BACKEND = " " + PREFIX_TAG + VALID_TAG_COMPONENT;
     public static final String PRIORITY_DESC_PARSER = " " + PREFIX_PRIORITY + VALID_PRIORITY_PARSER;
@@ -58,6 +64,7 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_STATE_DESC = " " + PREFIX_STATE + "backklog"; // typo of backog
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION; // descriptions cannot be empty
+    public static final String INVALID_NOTE_DESC = " " + PREFIX_NOTE; // note cannot be empty when bug is being added
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "hig"; // typo of high
 
@@ -70,10 +77,12 @@ public class CommandTestUtil {
     static {
         DESC_PARSER = new EditBugDescriptorBuilder().withName(VALID_NAME_PARSER)
                 .withState(VALID_STATE_PARSER).withDescription(VALID_DESCRIPTION_PARSER)
-                .withTags(VALID_TAG_FRIEND).withPriority(VALID_PRIORITY_PARSER).build();
+                .withNote(VALID_NOTE_PARSER).withTags(VALID_TAG_FRIEND)
+                .withPriority(VALID_PRIORITY_PARSER).build();
         DESC_HOMEPAGE = new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE)
                 .withState(VALID_STATE_HOMEPAGE).withDescription(VALID_DESCRIPTION_HOMEPAGE)
-                .withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND).withPriority(VALID_PRIORITY_HOMEPAGE).build();
+                .withNote(VALID_NOTE_HOMEPAGE).withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND)
+                .withPriority(VALID_PRIORITY_HOMEPAGE).build();
     }
 
     /**

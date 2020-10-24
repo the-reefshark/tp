@@ -66,7 +66,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             if (editedNoteContent.isBlank()) {
                 editBugDescriptor.setOptionalNote(Optional.empty());
             }
-            editBugDescriptor.setOptionalNote(Optional.of(ParserUtil.parseNote(editedNoteContent)));
+            if (!editedNoteContent.isBlank()) {
+                editBugDescriptor.setOptionalNote(Optional.of(ParserUtil.parseNote(editedNoteContent)));
+            }
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editBugDescriptor::setTags);

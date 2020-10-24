@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
@@ -77,7 +78,7 @@ public class BugTest {
         editedBugOne = new BugBuilder(BUGONE).withState(VALID_STATE_HOMEPAGE).build();
         assertNotEquals(BUGONE, editedBugOne);
 
-        // different address -> returns false
+        // different description -> returns false
         editedBugOne = new BugBuilder(BUGONE).withDescription(VALID_DESCRIPTION_HOMEPAGE).build();
         assertNotEquals(BUGONE, editedBugOne);
 
@@ -85,7 +86,11 @@ public class BugTest {
         editedBugOne = new BugBuilder(BUGONE).withTags(VALID_TAG_COMPONENT).build();
         assertNotEquals(BUGONE, editedBugOne);
 
-        // different priority -> return false
+        // different note -> returns false
+        editedBugOne = new BugBuilder(BUGONE).withNote(VALID_NOTE_HOMEPAGE).build();
+        assertNotEquals(BUGONE, editedBugOne);
+
+        // different priority -> returns false
         editedBugOne = new BugBuilder(BUGONE).withPriority(VALID_PRIORITY_HOMEPAGE).build();
         assertNotEquals(BUGONE, editedBugOne);
     }

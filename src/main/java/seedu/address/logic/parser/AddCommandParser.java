@@ -51,31 +51,25 @@ public class AddCommandParser implements Parser<AddCommand> {
         assert argMultimap.getValue(PREFIX_DESCRIPTION).isPresent();
       
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        State state;
+        State state = DEFAULT_STATE;
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Optional<Note> optionalNote = Optional.empty();
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Priority priority;
+        Priority priority = DEFAULT_PRIORITY;
 
         if (arePrefixesPresent(argMultimap, PREFIX_STATE)) {
             assert argMultimap.getValue(PREFIX_STATE).isPresent();
             state = ParserUtil.parseState(argMultimap.getValue(PREFIX_STATE).get());
-        } else {
-            assert argMultimap.getValue(PREFIX_STATE).isEmpty();
-            state = DEFAULT_STATE;
         }
 
         if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
             priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-        } else {
-            priority = DEFAULT_PRIORITY;
         }
 
         if (arePrefixesPresent(argMultimap, PREFIX_NOTE)
                 && !Note.isValidNote(argMultimap.getValue(PREFIX_NOTE).get())) {
             throw new ParseException(Note.MESSAGE_CONSTRAINTS);
         }
-
         if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
             optionalNote = Optional.of(ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get()));
         }

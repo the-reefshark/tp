@@ -1,10 +1,12 @@
 {
   "bugs": [ {
     "name": "Valid Bug",
-    "description": "Valid input"
+    "description": "Valid input",
+    "note": ""
   }, {
     "name": "Bug With Invalid state field",
     "state": "Invalid state",
-    "description": "Invalid input"
+    "description": "Invalid input",
+    "note": ""
   } ]
 }

@@ -99,12 +99,16 @@ public class EditCommand extends Command {
         Name updatedName = editBugDescriptor.getName().orElse(bugToEdit.getName());
         State updatedState = editBugDescriptor.getState().orElse(bugToEdit.getState());
         Description updatedDescription = editBugDescriptor.getDescription().orElse(bugToEdit.getDescription());
-        Optional<Note> optionalNote = editBugDescriptor.getOptionalNote();
-        Optional<Note> updatedOptionalNote = optionalNote.isPresent() ? optionalNote : bugToEdit.getOptionalNote();
+        Optional<Note> updatedOptionalNote = Optional.empty();
+        if (editBugDescriptor.getOptionalNote() != null) {
+            updatedOptionalNote = editBugDescriptor.getOptionalNote().isPresent() ? editBugDescriptor.getOptionalNote()
+                    : Optional.empty();
+        }
         Set<Tag> updatedTags = editBugDescriptor.getTags().orElse(bugToEdit.getTags());
         Priority updatedPriority = editBugDescriptor.getPriority().orElse(bugToEdit.getPriority());
 
-        return new Bug(updatedName, updatedState, updatedDescription, updatedOptionalNote, updatedTags, updatedPriority);
+        return new Bug(updatedName, updatedState, updatedDescription, updatedOptionalNote, updatedTags ,
+                updatedPriority);
     }
 
     @Override
@@ -190,10 +194,10 @@ public class EditCommand extends Command {
         public Optional<Priority> getPriority() {
             return Optional.ofNullable(priority);
         }
-      
+
         public void setOptionalNote(Optional<Note> note) { this.note = note; }
 
-        public Optional<Note> getOptionalNote() { return note == null ? Optional.empty() : note; }
+        public Optional<Note> getOptionalNote() { return this.note; }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -226,12 +230,14 @@ public class EditCommand extends Command {
 
             // state check
             EditBugDescriptor e = (EditBugDescriptor) other;
+            boolean noteEqual = getOptionalNote() == null ? (getOptionalNote() == null && e.getOptionalNote() == null)
+                    : getOptionalNote().equals(e.getOptionalNote());
 
             return getName().equals(e.getName())
                     && getState().equals(e.getState())
                     && getDescription().equals(e.getDescription())
                     && getPriority().equals(e.getPriority())
-                    && getOptionalNote().equals(e.getOptionalNote())
+                    && noteEqual
                     && getTags().equals(e.getTags());
         }
     }
