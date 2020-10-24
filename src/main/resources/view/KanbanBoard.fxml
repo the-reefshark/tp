@@ -40,11 +40,11 @@
                         <Insets bottom="5" left="10" right="10" top="5" />
                     </padding>
                 </StackPane>
-            <HBox alignment="CENTER">
+            <HBox fx:id="board" alignment="CENTER" HBox.hgrow="ALWAYS">
                 <children>
-                    <VBox alignment="CENTER">
+                    <VBox alignment="CENTER" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                         <children>
-                            <Label fx:id="backlogLabel"  contentDisplay="CENTER" text="Backlog" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                            <Label fx:id="backlogLabel" contentDisplay="CENTER" text="Backlog" textAlignment="CENTER" styleClass="state" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                                 <HBox.margin>
                                     <Insets right="5.0" />
                                 </HBox.margin>
@@ -52,10 +52,10 @@
                             <StackPane fx:id="bugListPanelPlaceholderBacklog" HBox.Hgrow="ALWAYS" />
                         </children>
                     </VBox>
-                    <Line />
-                    <VBox alignment="CENTER">
+                    <Line/>
+                    <VBox alignment="CENTER" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                         <children>
-                            <Label fx:id="todoLabel" alignment="CENTER" contentDisplay="CENTER" text="To Do" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                            <Label fx:id="todoLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="state" text="To Do" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                                 <HBox.margin>
                                     <Insets right="5.0" />
                                 </HBox.margin>
@@ -64,9 +64,9 @@
                         </children>
                     </VBox>
                     <Line />
-                    <VBox alignment="CENTER">
+                    <VBox alignment="CENTER" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                         <children>
-                            <Label fx:id="ongoingLabel" alignment="CENTER" contentDisplay="CENTER" text="Ongoing" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                            <Label fx:id="ongoingLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="state" text="Ongoing" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                                 <HBox.margin>
                                     <Insets right="5.0" />
                                 </HBox.margin>
@@ -75,9 +75,9 @@
                         </children>
                     </VBox>
                     <Line />
-                    <VBox alignment="CENTER">
+                    <VBox alignment="CENTER" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                         <children>
-                            <Label fx:id="doneLabel" alignment="CENTER" contentDisplay="CENTER" text="Done" textAlignment="RIGHT" VBox.vgrow="ALWAYS">
+                            <Label fx:id="doneLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="state" text="Done" textAlignment="RIGHT" VBox.vgrow="ALWAYS">
                                 <HBox.margin>
                                     <Insets right="5.0" />
                                 </HBox.margin>

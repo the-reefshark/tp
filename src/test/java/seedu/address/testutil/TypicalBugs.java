@@ -1,12 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import seedu.address.model.KanBugTracker;
-import seedu.address.model.bug.Bug;
-
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
@@ -20,6 +13,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.address.model.KanBugTracker;
+import seedu.address.model.bug.Bug;
 
 /**
  * A utility class containing a list of {@code Bug} objects to be used in tests.

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
@@ -47,14 +48,17 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NOTE + "NOTE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_STATE + "backlog";
+            + PREFIX_STATE + "backlog"
+            + "[" + PREFIX_COLUMN + "STATE]\n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_STATE + "todo";
 
     public static final String MESSAGE_EDIT_BUG_SUCCESS = "Edited Bug: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_BUG = "This bug already exists in the KanBug Tracker.";
 
-    private final Index index;
-    private final EditBugDescriptor editBugDescriptor;
+    protected final Index index;
+    protected final EditBugDescriptor editBugDescriptor;
 
     /**
      * @param index of the bug in the filtered bug list to edit
@@ -93,7 +97,7 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Bug} with the details of {@code bugToEdit}
      * edited with {@code editBugDescriptor}.
      */
-    private static Bug createEditedBug(Bug bugToEdit, EditBugDescriptor editBugDescriptor) {
+    protected static Bug createEditedBug(Bug bugToEdit, EditBugDescriptor editBugDescriptor) {
         assert bugToEdit != null;
 
         Name updatedName = editBugDescriptor.getName().orElse(bugToEdit.getName());

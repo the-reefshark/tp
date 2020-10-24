@@ -107,7 +107,7 @@ public class StateTest {
         assertNotEquals(s3, s5); // different object
         assertNotEquals(s5, s1); // different object
         assertNotEquals(s5, s4); // different object
-        assertNotEquals(s5, s8); // different object
+        assertNotEquals(s5, s8); //// different object
     }
 
     @Test
