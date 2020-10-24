@@ -1,11 +1,13 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Note;
 import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
@@ -19,10 +21,12 @@ public class BugBuilder {
     public static final String DEFAULT_NAME = "Default bug";
     public static final String DEFAULT_STATE = "backlog";
     public static final String DEFAULT_DESCRIPTION = "just some random description";
+    public static final String DEFAULT_NOTE = "just a test note";
 
     private Name name;
     private State state;
     private Description description;
+    private Optional<Note> note;
     private Set<Tag> tags;
     private Priority priority;
 
@@ -33,6 +37,7 @@ public class BugBuilder {
         name = new Name(DEFAULT_NAME);
         state = new State(DEFAULT_STATE);
         description = new Description(DEFAULT_DESCRIPTION);
+        note = Optional.of(new Note(DEFAULT_NOTE));
         tags = new HashSet<>();
         priority = new Priority();
     }
@@ -44,6 +49,7 @@ public class BugBuilder {
         name = bugToCopy.getName();
         state = bugToCopy.getState();
         description = bugToCopy.getDescription();
+        note = bugToCopy.getOptionalNote();
         tags = new HashSet<>(bugToCopy.getTags());
         priority = bugToCopy.getPriority();
     }
@@ -67,8 +73,16 @@ public class BugBuilder {
     /**
      * Sets the {@code Description} of the {@code Bug} that we are building.
      */
-    public BugBuilder withDescription(String address) {
-        this.description = new Description(address);
+    public BugBuilder withDescription(String description) {
+        this.description = new Description(description);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Note} of the {@code Bug} that we are building.
+     */
+    public BugBuilder withNote(String note) {
+        this.note = note.isBlank() ? Optional.empty() : Optional.of(new Note(note));
         return this;
     }
 
@@ -97,7 +111,7 @@ public class BugBuilder {
     }
 
     public Bug build() {
-        return new Bug(name, state, description, tags, priority);
+        return new Bug(name, state, description, note, tags, priority);
     }
 
 }

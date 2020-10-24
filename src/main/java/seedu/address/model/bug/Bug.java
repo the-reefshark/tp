@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -21,17 +22,19 @@ public class Bug {
 
     // Data fields
     private final Description description;
+    private final Optional<Note> optionalNote;
     private final Set<Tag> tags = new HashSet<>();
     private final Priority priority;
-
     /**
      * Every field must be present and not null.
-     */
-    public Bug(Name name, State state, Description description, Set<Tag> tags, Priority priority) {
+     **/
+    public Bug(Name name, State state, Description description, Optional<Note> optionalNote, Set<Tag> tags,
+               Priority priority) {
         requireAllNonNull(name, state, description, tags);
         this.name = name;
         this.state = state;
         this.description = description;
+        this.optionalNote = optionalNote;
         this.tags.addAll(tags);
         this.priority = priority;
     }
@@ -46,6 +49,10 @@ public class Bug {
 
     public Description getDescription() {
         return description;
+    }
+
+    public Optional<Note> getOptionalNote() {
+        return optionalNote;
     }
 
     /**
@@ -92,14 +99,15 @@ public class Bug {
         return otherBug.getName().equals(getName())
                 && otherBug.getState().equals(getState())
                 && otherBug.getDescription().equals(getDescription())
-                && otherBug.getTags().equals(getTags())
-                && otherBug.getPriority().equals(getPriority());
+                && otherBug.getPriority().equals(getPriority())
+                && otherBug.getOptionalNote().equals(getOptionalNote())
+                && otherBug.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, state, description, tags, priority);
+        return Objects.hash(name, state, description, optionalNote, tags, priority);
     }
 
     @Override
@@ -109,10 +117,20 @@ public class Bug {
                 .append(" State: ")
                 .append(getState())
                 .append(" Description: ")
-                .append(getDescription())
-                .append(getPriority().isNull() ? "" : " Priority: " + getPriority())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getDescription());
+
+        if (getOptionalNote() != null && getOptionalNote().isPresent()) {
+            builder.append(" Note: ")
+                   .append(getOptionalNote().get().toString());
+        }
+        if (!getPriority().isNull()) {
+            builder.append(" Priority: ")
+                   .append(getPriority());
+        }
+        if (!tags.isEmpty()) {
+            builder.append(" Tags: ");
+            getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
 

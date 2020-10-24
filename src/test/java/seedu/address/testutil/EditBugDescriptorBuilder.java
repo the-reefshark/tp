@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -8,6 +9,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Note;
 import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
@@ -35,6 +37,7 @@ public class EditBugDescriptorBuilder {
         descriptor.setName(bug.getName());
         descriptor.setState(bug.getState());
         descriptor.setDescription(bug.getDescription());
+        descriptor.setOptionalNote(bug.getOptionalNote());
         descriptor.setTags(bug.getTags());
         descriptor.setPriority(bug.getPriority());
     }
@@ -58,8 +61,16 @@ public class EditBugDescriptorBuilder {
     /**
      * Sets the {@code Description} of the {@code EditBugDescriptor} that we are building.
      */
-    public EditBugDescriptorBuilder withDescription(String address) {
-        descriptor.setDescription(new Description(address));
+    public EditBugDescriptorBuilder withDescription(String description) {
+        descriptor.setDescription(new Description(description));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Note} of the {@code EditBugDescriptor} that we are building.
+     */
+    public EditBugDescriptorBuilder withNote(String note) {
+        descriptor.setOptionalNote(note.isBlank() ? Optional.empty() : Optional.of(new Note(note)));
         return this;
     }
 

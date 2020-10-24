@@ -3,10 +3,12 @@
     "name": "Alice Pauline",
     "state": "done",
     "description": "123, Jurong West Ave 6, #08-111",
+    "note" : "",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "state": "done",
-    "description": "4th street"
+    "description": "4th street",
+    "note" : ""
   } ]
 }

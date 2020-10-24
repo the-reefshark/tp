@@ -4,42 +4,49 @@
     "name" : "Alice Pauline",
     "state" : "todo",
     "description" : "123, Jurong West Ave 6, #08-111",
+    "note" : "this is a note",
     "priority" : "low",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "state" : "todo",
     "description" : "311, Clementi Ave 2, #02-25",
+    "note" : "this is the second note",
     "priority" : "",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "state" : "done",
     "description" : "wall street",
+    "note" : "this is the third note",
     "priority" : "low",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
     "state" : "ongoing",
     "description" : "10th street",
+    "note" : "this is the fourth note",
     "priority" : "",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "state" : "done",
     "description" : "michegan ave",
+    "note" : "this is the fifth note",
     "priority" : "medium",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "state" : "ongoing",
     "description" : "little tokyo",
+    "note" : "this is the sixth note",
     "priority" : "low",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
     "state" : "backlog",
     "description" : "4th street",
+    "note" : "this is the seventh note",
     "priority" : "high",
     "tagged" : [ ]
   } ]

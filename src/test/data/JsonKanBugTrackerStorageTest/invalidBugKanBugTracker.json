@@ -2,6 +2,7 @@
   "bugs": [ {
     "name": "Bug with invalid name field: Ha!ns Mu@ster",
     "state": "backlog",
-    "description": "Invalid name field bug"
+    "description": "Invalid name field bug",
+    "note": ""
   } ]
 }

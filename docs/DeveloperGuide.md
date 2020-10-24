@@ -135,7 +135,7 @@ The proposed edit tag feature is facilitated by `EditTagCommand`. It extends `Co
 
 Additionally, it implements the following operations:
 
-- `EditTagCommand#execute()`  —  Executes the command. 
+- `EditTagCommand#execute()`  —  Executes the command.
 
 Given below is an example usage scenario and how the edit tag feature behaves at each step.
 
@@ -169,7 +169,7 @@ The proposed edit tag feature is facilitated by `AddTagCommand`. It extends `Com
 
 Additionally, it implements the following operations:
 
-- `AddTagCommand#execute()`  —  Executes the command. 
+- `AddTagCommand#execute()`  —  Executes the command.
 
 Given below is an example usage scenario and how the edit tag feature behaves at each step.
 

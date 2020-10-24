@@ -85,7 +85,6 @@ public class JsonKanBugTrackerStorageTest {
         jsonKanBugTrackerStorage.saveKanBugTracker(original); // file path not specified
         readBack = jsonKanBugTrackerStorage.readKanBugTracker().get(); // file path not specified
         assertEquals(original, new KanBugTracker(readBack));
-
     }
 
     @Test

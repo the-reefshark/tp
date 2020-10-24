@@ -61,7 +61,7 @@ public class MoveCommand extends Command {
 
     protected static Bug createMovedBug(Bug bugToMove, State destination) {
         assert bugToMove != null;
-        return new Bug(bugToMove.getName(), destination, bugToMove.getDescription(),
+        return new Bug(bugToMove.getName(), destination, bugToMove.getDescription(), bugToMove.getOptionalNote(),
                 bugToMove.getTags(), bugToMove.getPriority());
     }
 

@@ -3,12 +3,14 @@
     "name": "Exit command hangs",
     "state": "done",
     "description": "Exit command did not work normally",
+    "note" : "",
     "tagged": [ "Command" ],
     "priority": "low"
   }, {
     "name": "Exit command hangs",
     "state": "done",
     "description": "Need to implement Exit command again",
+    "note" : "",
     "priority": ""
   } ]
 }

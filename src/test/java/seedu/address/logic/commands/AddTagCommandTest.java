@@ -13,6 +13,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Note;
 import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
@@ -72,11 +74,12 @@ public class AddTagCommandTest {
         State bugState = bug.getState();
         Description bugDescription = bug.getDescription();
         Priority bugPriority = bug.getPriority();
+        Optional<Note> optionalNote = bug.getOptionalNote();
         Set<Tag> tagsOfBug = new HashSet<Tag>(bug.getTags());
         tagsOfBug.add(newTag);
 
         //copy bug details to reflect edited bug
-        Bug editedBug = new Bug(bugName, bugState, bugDescription, tagsOfBug, bugPriority);
+        Bug editedBug = new Bug(bugName, bugState, bugDescription, optionalNote, tagsOfBug, bugPriority);
 
         assertEquals(editedBug, AddTagCommand.addTagToBug(bug, newTag));
     }

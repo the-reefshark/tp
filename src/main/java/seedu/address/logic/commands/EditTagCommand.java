@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
@@ -16,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Note;
 import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
@@ -107,8 +109,9 @@ public class EditTagCommand extends Command {
         Description bugDescription = bugToEdit.getDescription();
         Set<Tag> updatedTags = updateTagSet(existingTagSet, oldTag, newTag);
         Priority bugPriority = bugToEdit.getPriority();
+        Optional<Note> updatedNote = bugToEdit.getOptionalNote();
 
-        return new Bug(bugName, bugState, bugDescription, updatedTags, bugPriority);
+        return new Bug(bugName, bugState, bugDescription, updatedNote, updatedTags, bugPriority);
     }
 
     private static Set<Tag> updateTagSet(Set<Tag> existingTagSet, Tag oldTag, Tag newTag) {
@@ -137,6 +140,4 @@ public class EditTagCommand extends Command {
                        && oldTag.equals(e.oldTag)
                        && newTag.equals(e.newTag);
     }
-
-
 }

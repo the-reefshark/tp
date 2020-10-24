@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -23,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Note;
 import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
@@ -43,7 +45,10 @@ public class EditCommand extends Command {
             + "[" + PREFIX_STATE + "STATE] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_PRIORITY + "PRIORITY] "
-            + "[" + PREFIX_TAG + "TAG]"
+            + "[" + PREFIX_NOTE + "NOTE] "
+            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_STATE + "backlog"
             + "[" + PREFIX_COLUMN + "STATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_STATE + "todo";
@@ -98,10 +103,21 @@ public class EditCommand extends Command {
         Name updatedName = editBugDescriptor.getName().orElse(bugToEdit.getName());
         State updatedState = editBugDescriptor.getState().orElse(bugToEdit.getState());
         Description updatedDescription = editBugDescriptor.getDescription().orElse(bugToEdit.getDescription());
+
+        Optional<Note> updatedOptionalNote = null;
+        if (editBugDescriptor.getOptionalNote() == null) {
+            updatedOptionalNote = bugToEdit.getOptionalNote();
+        } else if (editBugDescriptor.getOptionalNote().isEmpty()) {
+            updatedOptionalNote = Optional.empty();
+        } else {
+            updatedOptionalNote = editBugDescriptor.getOptionalNote();
+        }
+
         Set<Tag> updatedTags = editBugDescriptor.getTags().orElse(bugToEdit.getTags());
         Priority updatedPriority = editBugDescriptor.getPriority().orElse(bugToEdit.getPriority());
 
-        return new Bug(updatedName, updatedState, updatedDescription, updatedTags, updatedPriority);
+        return new Bug(updatedName, updatedState, updatedDescription, updatedOptionalNote, updatedTags ,
+                updatedPriority);
     }
 
     @Override
@@ -130,6 +146,7 @@ public class EditCommand extends Command {
         private Name name;
         private State state;
         private Description description;
+        private Optional<Note> note;
         private Set<Tag> tags;
         private Priority priority;
 
@@ -143,6 +160,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setState(toCopy.state);
             setDescription(toCopy.description);
+            setOptionalNote(toCopy.note);
             setTags(toCopy.tags);
             setPriority(toCopy.priority);
         }
@@ -151,7 +169,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, state, description, tags, priority);
+            return CollectionUtil.isAnyNonNull(name, state, description, note, tags, priority);
         }
 
         public void setName(Name name) {
@@ -186,6 +204,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(priority);
         }
 
+        public void setOptionalNote(Optional<Note> note) {
+            this.note = note;
+        }
+
+        public Optional<Note> getOptionalNote() {
+            return this.note;
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -217,11 +243,14 @@ public class EditCommand extends Command {
 
             // state check
             EditBugDescriptor e = (EditBugDescriptor) other;
+            boolean noteEqual = getOptionalNote() == null ? (getOptionalNote() == null && e.getOptionalNote() == null)
+                    : getOptionalNote().equals(e.getOptionalNote());
 
             return getName().equals(e.getName())
                     && getState().equals(e.getState())
                     && getDescription().equals(e.getDescription())
                     && getPriority().equals(e.getPriority())
+                    && noteEqual
                     && getTags().equals(e.getTags());
         }
     }
