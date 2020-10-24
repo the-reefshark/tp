@@ -36,8 +36,8 @@ public class AddTagCommand extends Command {
     public static final String MESSAGE_NOT_ADDED = "Input values cannot be null.";
     public static final String MESSAGE_INVALID_NEW = "The new tag already exists!";
 
-    private Index index;
-    private Tag newTag;
+    protected Index index;
+    protected Tag newTag;
 
     /**
      * Creates a new instance of AddTagCommand
