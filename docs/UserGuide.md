@@ -51,11 +51,13 @@ KanBug Tracker provides two different views that the user can switch between. Th
 1. Ensure that you have `Java 11` or above installed on your computer. If you do not have a suitable version of `Java` installed on your computer, you may head [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) to download the installer for your operating system.
 
 2. Download the latest `KanBugTracker.jar` from our [GitHub](https://github.com/AY2021S1-CS2103T-W17-1/tp/releases)
-![Download](images/KanBugDownload.png)
+  ![Download](images/KanBugDownload.png)
+
+  
 
 3. Copy the `KanBugTracker.jar`file to a folder you want to use as your _home folder_.
-![HomeFolder](images/HomeFolder.png)
-**Add Note here to describe what is going on**
+  ![HomeFolder](images/HomeFolder.png)
+  **Add Note here to describe what is going on**
 
 4. Double-click on the `KanBugTracker.jar`file to launch the application. 
 
@@ -171,3 +173,4 @@ Data is saved into the hard disk everytime a change is made.
 |  **exit**  |                          `exit`                           |
 
 Team Name: AY2021S1-CS2103T-W17-1
+
