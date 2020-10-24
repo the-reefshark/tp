@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OLDTAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
@@ -34,6 +35,7 @@ public class EditTagCommand extends Command {
             + "The existing tag supplied by the user will be replaced with the new tag given"
             + "as input.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_COLUMN + "]"
             + PREFIX_OLDTAG + "OLD_TAG "
             + PREFIX_NEWTAG + "NEW_TAG\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -44,9 +46,9 @@ public class EditTagCommand extends Command {
     public static final String MESSAGE_INVALID_NEW = "The new tag already exists!";
     public static final String MESSAGE_NOT_UPDATED = "Input values cannot be null.";
 
-    private Index index;
-    private Tag oldTag;
-    private Tag newTag;
+    protected Index index;
+    protected Tag oldTag;
+    protected Tag newTag;
 
     /**
      * @param index of the bug in the filtered bug list to edit
@@ -114,7 +116,7 @@ public class EditTagCommand extends Command {
         return new Bug(bugName, bugState, bugDescription, updatedNote, updatedTags, bugPriority);
     }
 
-    private static Set<Tag> updateTagSet(Set<Tag> existingTagSet, Tag oldTag, Tag newTag) {
+    protected static Set<Tag> updateTagSet(Set<Tag> existingTagSet, Tag oldTag, Tag newTag) {
         assert existingTagSet.contains(oldTag);
         Set<Tag> setCopy = new HashSet<>(existingTagSet);
         setCopy.remove(oldTag);
