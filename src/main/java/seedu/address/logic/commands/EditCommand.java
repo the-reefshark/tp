@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
@@ -42,7 +43,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_STATE + "STATE] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_PRIORITY + "PRIORITY] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]"
+            + "[" + PREFIX_COLUMN + "STATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_STATE + "todo";
 
@@ -90,7 +92,7 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Bug} with the details of {@code bugToEdit}
      * edited with {@code editBugDescriptor}.
      */
-    private static Bug createEditedBug(Bug bugToEdit, EditBugDescriptor editBugDescriptor) {
+    protected static Bug createEditedBug(Bug bugToEdit, EditBugDescriptor editBugDescriptor) {
         assert bugToEdit != null;
 
         Name updatedName = editBugDescriptor.getName().orElse(bugToEdit.getName());

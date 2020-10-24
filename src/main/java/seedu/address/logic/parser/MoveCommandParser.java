@@ -2,11 +2,13 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.MoveByStateCommand;
 import seedu.address.logic.commands.MoveCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bug.State;
@@ -23,7 +25,7 @@ public class MoveCommandParser implements Parser<MoveCommand> {
     public MoveCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_STATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_STATE, PREFIX_COLUMN);
 
         Index index;
 
@@ -39,6 +41,10 @@ public class MoveCommandParser implements Parser<MoveCommand> {
 
         State state = ParserUtil.parseState(argMultimap.getValue(PREFIX_STATE).get());
 
+        if (argMultimap.getValue(PREFIX_COLUMN).isPresent()) {
+            State targetState = ParserUtil.parseState(argMultimap.getValue(PREFIX_COLUMN).get());
+            return new MoveByStateCommand(index, state, targetState);
+        }
         return new MoveCommand(index, state);
     }
 

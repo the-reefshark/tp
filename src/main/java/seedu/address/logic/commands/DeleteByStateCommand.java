@@ -39,8 +39,14 @@ public class DeleteByStateCommand extends DeleteCommand {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                   || (other instanceof DeleteCommand // instanceof handles nulls
-                           && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+        if (other == this) {
+            return true; // short circuit if same object
+        } else if (!(other instanceof DeleteByStateCommand)) {
+            return false; // different object
+        }
+        DeleteByStateCommand d = (DeleteByStateCommand) other;
+
+        return targetState.equals(d.targetState)
+            && targetIndex.equals(d.targetIndex);
     }
 }
