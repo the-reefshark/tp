@@ -41,7 +41,9 @@ public class BugCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private FlowPane priority;
+    private Label priority;
+    @FXML
+    private Label note;
 
     /**
      * Creates a {@code BugCard} with the given {@code Bug} and index to display.
@@ -51,26 +53,38 @@ public class BugCard extends UiPart<Region> {
         this.bug = bug;
         id.setText(displayedIndex + ". ");
         name.setText(bug.getName().fullName);
+        name.setMinWidth(Label.USE_PREF_SIZE);
+
         description.setText(bug.getDescription().value);
+        description.setWrapText(true);
         state.setText(bug.getState().toString());
-        //priority.setText(bug.getPriority().priority);
+
         if (!bug.getPriority().isNull()) {
-            Label label = new Label("Priority " + bug.getPriority().getValue());
+            priority.setText("Priority " + bug.getPriority().getValue());
             switch (bug.getPriority().getValue()) {
             case "low":
-                label.setStyle("-fx-background-color: green;");
+                priority.setStyle("-fx-background-color: green;");
                 break;
             case "medium":
-                label.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
-                break;
-            case "high":
-                label.setStyle("-fx-background-color: red;");
+                priority.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
                 break;
             default:
-                label = new Label("Unexpected error has occurred.");
+                priority.setStyle("-fx-background-color: red;");
+                break;
             }
-            priority.getChildren().add(label);
+        } else {
+            priority.setVisible(false);
+            priority.setManaged(false);
         }
+
+        if (bug.getOptionalNote().isPresent()) {
+            note.setText(bug.getOptionalNote().get().value);
+            note.setWrapText(true);
+        } else {
+            note.setVisible(false);
+            note.setManaged(false);
+        }
+
         bug.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
