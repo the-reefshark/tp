@@ -37,7 +37,7 @@ public class BugCardKanban extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private FlowPane priority;
+    private Label priority;
 
     /**
      * Creates a {@code BugCardKanban} with the given {@code Bug} and index to display.
@@ -47,25 +47,29 @@ public class BugCardKanban extends UiPart<Region> {
         this.bug = bug;
         id.setText(displayedIndex + ". ");
         name.setText(bug.getName().fullName);
+        name.setWrapText(true);
         description.setText(bug.getDescription().value);
         description.setWrapText(true);
         if (!bug.getPriority().isNull()) {
-            Label label = new Label(bug.getPriority().getValue().toUpperCase());
-            //bug.getPriority().getValue().toUpperCase()
+            priority.setText(bug.getPriority().getValue().toUpperCase());
+            priority.setWrapText(true);
             switch (bug.getPriority().getValue()) {
             case "low":
-                label.setStyle("-fx-background-color: green;");
+                priority.setStyle("-fx-background-color: green;");
                 break;
             case "medium":
-                label.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
+                priority.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
                 break;
             case "high":
-                label.setStyle("-fx-background-color: red;");
+                priority.setStyle("-fx-background-color: red;");
                 break;
             default:
-                label = new Label("Unexpected error has occurred.");
+                priority.setStyle("-fx-background-color: red;");
+                break;
             }
-            priority.getChildren().add(label);
+        } else {
+            priority.setVisible(false);
+            priority.setManaged(false);
         }
         bug.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
