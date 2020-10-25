@@ -21,11 +21,13 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
     private static final int NUMBER_OF_OLDTAG = 1;
     private static final int NUMBER_OF_NEWTAG = 1;
 
-    //TODO clean up all documentation details for EditTagCommand, EditTagCommandParser,
+    //TODO clean up all documentation details for EditTagCommandParser,
     // AddTagCommand, AddTagCommandParser
     /**
      * Parses the given {@code String} of arguments in the context of the EditTagCommand
      * and returns an EditTagCommand object for execution.
+     *
+     * @param args string to be parsed
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditTagCommand parse(String args) throws ParseException {

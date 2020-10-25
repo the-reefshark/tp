@@ -86,15 +86,31 @@ public class EditTagCommandTest {
     }
 
     @Test
+    public void updateTagInBug_validInputs_success() {
+        Tag newTag = new Tag(VALID_TAG_FRIEND);
+        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
+        Bug initialBug = new BugBuilder().withTags(VALID_TAG_COMPONENT).build();
+        Bug expectedFinalBug = new BugBuilder().withTags(VALID_TAG_FRIEND).build();
+        try {
+            Bug updatedBug = EditTagCommand.updateTagInBug(initialBug, oldTag, newTag);
+            assertEquals(expectedFinalBug, updatedBug);
+        } catch (CommandException e) {
+            assert false;
+        }
+    }
+
+    @Test
     public void updateTagInBug_oldTagDoesNotExist_throwCommandException() {
         Tag newTag = new Tag(VALID_TAG_FRIEND);
         Tag oldTag = new Tag(VALID_TAG_COMPONENT);
         Bug initialBug = model.getFilteredBugList().get(0);
+        String expectedMessage = String.format(EditTagCommand.MESSAGE_INVALID_OLD);
+
         try {
-            Bug tagEditedBug = EditTagCommand.updateTagInBug(initialBug, oldTag, newTag);
+            EditTagCommand.updateTagInBug(initialBug, oldTag, newTag);
             assert false;
         } catch (CommandException e) {
-            assertEquals(e.getMessage(), EditTagCommand.MESSAGE_INVALID_OLD);
+            assertEquals(expectedMessage, e.getMessage());
         }
 
     }
@@ -104,26 +120,26 @@ public class EditTagCommandTest {
         Tag newTag = new Tag(VALID_TAG_FRIEND);
         Tag oldTag = new Tag(VALID_TAG_COMPONENT);
         Bug initialBug = new BugBuilder().withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT).build();
+        String expectedMessage = String.format(EditTagCommand.MESSAGE_INVALID_NEW);
         try {
-            Bug tagEditedBug = EditTagCommand.updateTagInBug(initialBug, oldTag, newTag);
+            EditTagCommand.updateTagInBug(initialBug, oldTag, newTag);
             assert false;
         } catch (CommandException e) {
-            assertEquals(e.getMessage(), EditTagCommand.MESSAGE_INVALID_NEW);
+            assertEquals(expectedMessage, e.getMessage());
         }
 
     }
 
     @Test
     public void updateTagInBug_nullNewTag_throwIllegalArgumentException() {
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
         Tag oldTag = new Tag(VALID_TAG_COMPONENT);
         Bug initialBug = new BugBuilder().withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT).build();
+        String expectedMessage = String.format(EditTagCommand.MESSAGE_NOT_UPDATED);
         try {
-            Bug tagEditedBug = EditTagCommand.updateTagInBug(initialBug, oldTag, null);
-        } catch (IllegalArgumentException e) {
-            assertEquals(e.getMessage(), EditTagCommand.MESSAGE_NOT_UPDATED);
-        } catch (CommandException e) {
+            EditTagCommand.updateTagInBug(initialBug, oldTag, null);
             assert false;
+        } catch (CommandException e) {
+            assertEquals(expectedMessage, e.getMessage());
         }
 
     }
@@ -132,14 +148,13 @@ public class EditTagCommandTest {
     @Test
     public void updateTagInBug_nullOldTag_throwIllegalArgumentException() {
         Tag newTag = new Tag(VALID_TAG_FRIEND);
-        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
         Bug initialBug = new BugBuilder().withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT).build();
+        String expectedMessage = String.format(EditTagCommand.MESSAGE_NOT_UPDATED);
         try {
-            Bug tagEditedBug = EditTagCommand.updateTagInBug(initialBug, null, newTag);
-        } catch (IllegalArgumentException e) {
-            assertEquals(e.getMessage(), EditTagCommand.MESSAGE_NOT_UPDATED);
-        } catch (CommandException e) {
+            EditTagCommand.updateTagInBug(initialBug, null, newTag);
             assert false;
+        } catch (CommandException e) {
+            assertEquals(expectedMessage, e.getMessage());
         }
 
     }
@@ -149,13 +164,12 @@ public class EditTagCommandTest {
     public void updateTagInBug_nullInitialBug_throwIllegalArgumentException() {
         Tag newTag = new Tag(VALID_TAG_FRIEND);
         Tag oldTag = new Tag(VALID_TAG_COMPONENT);
-        Bug initialBug = new BugBuilder().withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT).build();
+        String expectedMessage = String.format(EditTagCommand.MESSAGE_NOT_UPDATED);
         try {
-            Bug tagEditedBug = EditTagCommand.updateTagInBug(null, oldTag, newTag);
-        } catch (IllegalArgumentException e) {
-            assertEquals(e.getMessage(), EditTagCommand.MESSAGE_NOT_UPDATED);
-        } catch (CommandException e) {
+            EditTagCommand.updateTagInBug(null, oldTag, newTag);
             assert false;
+        } catch (CommandException e) {
+            assertEquals(expectedMessage, e.getMessage());
         }
 
     }
