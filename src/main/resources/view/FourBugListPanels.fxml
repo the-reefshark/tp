@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+
+<HBox minHeight="600" minWidth="450" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox alignment="CENTER" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+        <children>
+            <Label fx:id="backlogLabel" contentDisplay="CENTER" text="Backlog" textAlignment="CENTER" styleClass="state" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                <HBox.margin>
+                    <Insets right="5.0" />
+                </HBox.margin>
+            </Label>
+            <StackPane fx:id="bugListPanelPlaceholderBacklog" HBox.Hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
+        </children>
+    </VBox>
+    <Line/>
+    <VBox alignment="CENTER" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+        <children>
+            <Label fx:id="todoLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="state" text="To Do" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                <HBox.margin>
+                    <Insets right="5.0" />
+                </HBox.margin>
+            </Label>
+            <StackPane fx:id="bugListPanelPlaceholderTodo" HBox.Hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
+        </children>
+    </VBox>
+    <Line />
+    <VBox alignment="CENTER" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+        <children>
+            <Label fx:id="ongoingLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="state" text="Ongoing" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                <HBox.margin>
+                    <Insets right="5.0" />
+                </HBox.margin>
+            </Label>
+            <StackPane fx:id="bugListPanelPlaceholderOngoing" HBox.Hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
+        </children>
+    </VBox>
+    <Line />
+    <VBox alignment="CENTER" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+        <children>
+            <Label fx:id="doneLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="state" text="Done" textAlignment="RIGHT" VBox.vgrow="ALWAYS">
+                <HBox.margin>
+                    <Insets right="5.0" />
+                </HBox.margin>
+                <opaqueInsets>
+                    <Insets left="5.0" />
+                </opaqueInsets>
+            </Label>
+            <StackPane fx:id="bugListPanelPlaceholderDone" HBox.Hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
+        </children>
+    </VBox>
+</HBox>
