@@ -2,9 +2,15 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG2;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showBugAtIndex;
 import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
-import static seedu.address.testutil.TypicalIndexes.*;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_BUG;
 
 import org.junit.jupiter.api.Test;
 

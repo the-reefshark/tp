@@ -3,13 +3,20 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COLUMN_TODO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -66,7 +73,7 @@ public class EditByStateCommandTest {
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
     }
-    
+
     @Test
     public void equals() {
         final EditByStateCommand standardCommand = new EditByStateCommand(INDEX_FIRST_BUG,
