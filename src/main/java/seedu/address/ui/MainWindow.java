@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -18,6 +17,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -30,13 +30,12 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private Scene kanbanScene;
 
     // Independent Ui parts residing in this Ui container
     private BugListPanel bugListPanel;
+    private KanbanPanel kanbanPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private KanbanBoard kanbanBoard;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -46,6 +45,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane bugListPanelPlaceholder;
+
+    @FXML
+    private StackPane kanbanPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -69,8 +71,9 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        kanbanBoard = new KanbanBoard(new Stage(), primaryStage, logic);
-        kanbanScene = kanbanBoard.getScene();
+        kanbanPanelPlaceholder.setVisible(false);
+        kanbanPanelPlaceholder.setManaged(false);
+
     }
 
     public Stage getPrimaryStage() {
@@ -117,6 +120,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         bugListPanel = new BugListPanel(logic.getFilteredBugList());
         bugListPanelPlaceholder.getChildren().add(bugListPanel.getRoot());
+
+        kanbanPanel = new KanbanPanel(logic);
+        kanbanPanelPlaceholder.getChildren().add(kanbanPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -170,10 +176,16 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleBoard() {
-        if (!kanbanBoard.isShowing()) {
-            primaryStage.setScene(kanbanScene);
+        if (kanbanPanelPlaceholder.isManaged()) {
+            kanbanPanelPlaceholder.setVisible(false);
+            kanbanPanelPlaceholder.setManaged(false);
+            bugListPanelPlaceholder.setVisible(true);
+            bugListPanelPlaceholder.setManaged(true);
         } else {
-            kanbanBoard.focus();
+            kanbanPanelPlaceholder.setVisible(true);
+            kanbanPanelPlaceholder.setManaged(true);
+            bugListPanelPlaceholder.setVisible(false);
+            bugListPanelPlaceholder.setManaged(false);
         }
     }
 
