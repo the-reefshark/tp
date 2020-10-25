@@ -47,6 +47,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "Logic";
     public static final State VALID_STATE_BUG1 = new State("todo");
     public static final State VALID_STATE_BUG2 = new State("backlog");
+    public static final State VALID_STATE_BUG3 = new State("ongoing");
+    public static final State VALID_STATE_BUG4 = new State("done");
 
     public static final String NAME_DESC_PARSER = " " + PREFIX_NAME + VALID_NAME_PARSER;
     public static final String NAME_DESC_HOMEPAGE = " " + PREFIX_NAME + VALID_NAME_HOMEPAGE;
@@ -121,7 +123,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the bug tracker, filtered bug list and selected bug in {@code actualModel} remain unchanged
+     * - the bug tracker, filtered bug list and selected  bug in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can

@@ -67,7 +67,6 @@ public class AddTagCommandTest {
         } catch (CommandException e) {
             assert false;
         }
-
     }
 
     @Test
@@ -76,24 +75,24 @@ public class AddTagCommandTest {
             Tag newTag = new Tag(VALID_TAG_FRIEND);
             Bug bug = model.getFilteredBugList().get(0);
 
-        Name bugName = bug.getName();
-        State bugState = bug.getState();
-        Description bugDescription = bug.getDescription();
-        Priority bugPriority = bug.getPriority();
-        Optional<Note> optionalNote = bug.getOptionalNote();
-        Set<Tag> tagsOfBug = new HashSet<Tag>(bug.getTags());
-        tagsOfBug.add(newTag);
+            Name bugName = bug.getName();
+            State bugState = bug.getState();
+            Description bugDescription = bug.getDescription();
+            Priority bugPriority = bug.getPriority();
+            Optional<Note> optionalNote = bug.getOptionalNote();
+            Set<Tag> tagsOfBug = new HashSet<Tag>(bug.getTags());
+            tagsOfBug.add(newTag);
 
-        //copy bug details to reflect edited bug
-        Bug editedBug = new Bug(bugName, bugState, bugDescription, optionalNote, tagsOfBug, bugPriority);
-        assertEquals(editedBug, AddTagCommand.addTagToBug(bug, newTag));
+            //copy bug details to reflect edited bug
+            Bug editedBug = new Bug(bugName, bugState, bugDescription, optionalNote, tagsOfBug, bugPriority);
+            assertEquals(editedBug, AddTagCommand.addTagToBug(bug, newTag));
         } catch (CommandException e) {
             assert false;
         }
     }
 
     @Test
-    public void addTagToBug_invalidTag_illegalArgumentExceptionThrown() {
+    public void addTagToBug_invalidTag_commandExceptionThrown() {
         Bug validBug = model.getFilteredBugList().get(0);
         String expectedString = AddTagCommand.MESSAGE_NOT_ADDED;
 
@@ -119,7 +118,7 @@ public class AddTagCommandTest {
     }
 
     @Test
-    public void addTagToBug_invalidBug_illegalArgumentExceptionThrown() {
+    public void addTagToBug_invalidBug_commandExceptionThrown() {
         Tag validTag = new Tag(VALID_TAG_FRIEND);
         String expectedString = AddTagCommand.MESSAGE_NOT_ADDED;
 
@@ -152,6 +151,5 @@ public class AddTagCommandTest {
         assertFalse(addTagCommand.equals(addTagCommandDifferentIndex));
         //different tags
         assertFalse(addTagCommand.equals(addTagCommandDifferentTag));
-
     }
 }

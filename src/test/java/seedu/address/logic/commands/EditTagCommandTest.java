@@ -28,6 +28,8 @@ import seedu.address.testutil.BugBuilder;
 
 public class EditTagCommandTest {
 
+    //Todo refactor this to pulll out all the declarations of new and old tag
+
     private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
 
     @Test
@@ -63,7 +65,6 @@ public class EditTagCommandTest {
         } catch (CommandException e) {
             assert false;
         }
-
     }
 
     @Test
@@ -112,7 +113,6 @@ public class EditTagCommandTest {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
         }
-
     }
 
     @Test
@@ -198,6 +198,5 @@ public class EditTagCommandTest {
         assertFalse(editTagCommand.equals(editTagCommandDifferentIndex));
         //different tags
         assertFalse(editTagCommand.equals(editTagCommandDifferentTags));
-
     }
 }
