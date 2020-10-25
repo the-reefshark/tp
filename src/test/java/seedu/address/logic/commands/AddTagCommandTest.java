@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.AddTagCommand.addTagToBug;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
@@ -37,7 +37,7 @@ import seedu.address.testutil.BugBuilder;
 public class AddTagCommandTest {
 
     private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
-    private Tag newTag = new Tag(VALID_TAG_FRIEND);
+    private Tag newTag = new Tag(VALID_TAG_LOGIC);
 
 
 
@@ -104,11 +104,11 @@ public class AddTagCommandTest {
 
     @Test
     public void addTagToBug_tagAlreadyExists_commandExceptionThrown() {
-        Bug validBug = new BugBuilder().withTags(VALID_TAG_FRIEND).build();
+        Bug validBug = new BugBuilder().withTags(VALID_TAG_LOGIC).build();
         String expectedString = AddTagCommand.MESSAGE_INVALID_NEW;
 
         try {
-            addTagToBug(validBug, new Tag(VALID_TAG_FRIEND));
+            addTagToBug(validBug, new Tag(VALID_TAG_LOGIC));
             assert false;
         } catch (CommandException e) {
             assertEquals(expectedString, e.getMessage());
@@ -129,11 +129,11 @@ public class AddTagCommandTest {
 
     @Test
     public void equals() {
-        AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_FRIEND));
-        AddTagCommand addTagCommandDuplicate = new AddTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_FRIEND));
-        AddTagCommand addTagCommandDifferentIndex = new AddTagCommand(INDEX_SECOND_BUG, new Tag(VALID_TAG_FRIEND));
+        AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_LOGIC));
+        AddTagCommand addTagCommandDuplicate = new AddTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_LOGIC));
+        AddTagCommand addTagCommandDifferentIndex = new AddTagCommand(INDEX_SECOND_BUG, new Tag(VALID_TAG_LOGIC));
         AddTagCommand addTagCommandDifferentTag = new AddTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_COMPONENT));
-        EditTagCommand editTagCommand = new EditTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_FRIEND),
+        EditTagCommand editTagCommand = new EditTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_LOGIC),
                 new Tag(VALID_TAG_COMPONENT));
 
         //same command

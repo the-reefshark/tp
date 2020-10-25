@@ -45,7 +45,7 @@ public class CommandTestUtil {
     public static final String VALID_PRIORITY_PARSER = "medium";
     public static final String VALID_PRIORITY_HOMEPAGE = "high";
     public static final String VALID_TAG_COMPONENT = "UI";
-    public static final String VALID_TAG_FRIEND = "Logic";
+    public static final String VALID_TAG_LOGIC = "Logic";
     public static final String VALID_COLUMN_TODO = "todo";
     public static final State VALID_STATE_BUG1 = new State("todo");
     public static final State VALID_STATE_BUG2 = new State("backlog");
@@ -60,21 +60,21 @@ public class CommandTestUtil {
     public static final String DESCRIPTION_DESC_UI = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_UI;
     public static final String NOTE_DESC_PARSER = " " + PREFIX_NOTE + VALID_NOTE_PARSER;
     public static final String NOTE_DESC_HOMEPAGE = " " + PREFIX_NOTE + VALID_NOTE_HOMEPAGE;
-    public static final String TAG_DESC_FRONTEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
+    public static final String TAG_DESC_FRONTEND = " " + PREFIX_TAG + VALID_TAG_LOGIC;
     public static final String TAG_DESC_BACKEND = " " + PREFIX_TAG + VALID_TAG_COMPONENT;
-    public static final String TAG_DESC_OLD = " " + PREFIX_OLDTAG + VALID_TAG_FRIEND;
+    public static final String TAG_DESC_OLD = " " + PREFIX_OLDTAG + VALID_TAG_LOGIC;
     public static final String TAG_DESC_NEW = " " + PREFIX_NEWTAG + VALID_TAG_COMPONENT;
     public static final String PRIORITY_DESC_PARSER = " " + PREFIX_PRIORITY + VALID_PRIORITY_PARSER;
     public static final String PRIORITY_DESC_HOMEPAGE = " " + PREFIX_PRIORITY + VALID_PRIORITY_HOMEPAGE;
     public static final String COLUMN_DESC_TODO = " " + PREFIX_COLUMN + VALID_COLUMN_TODO;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Bug&"; // '&' not allowed in names
     public static final String INVALID_STATE_DESC = " " + PREFIX_STATE + "backklog"; // typo of backog
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION; // descriptions cannot be empty
     public static final String INVALID_NOTE_DESC = " " + PREFIX_NOTE; // note cannot be empty when bug is being added
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "Ui*"; // '*' not allowed in tags
     public static final String INVALID_TAG_OLD = " " + PREFIX_OLDTAG + "prints.java"; // '.' not allowed in tags
-    public static final String INVALID_TAG_NEW = " " + PREFIX_NEWTAG + "hubs("; // '(' not allowed in tags
+    public static final String INVALID_TAG_NEW = " " + PREFIX_NEWTAG + "Javafs("; // '(' not allowed in tags
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "hig"; // typo of high
     public static final String INVALID_COLUMN_DESC = " " + PREFIX_COLUMN + "todos"; // typo of todo
 
@@ -85,14 +85,23 @@ public class CommandTestUtil {
     public static final EditCommand.EditBugDescriptor DESC_HOMEPAGE;
 
     static {
-        DESC_PARSER = new EditBugDescriptorBuilder().withName(VALID_NAME_PARSER)
-                .withState(VALID_STATE_PARSER).withDescription(VALID_DESCRIPTION_PARSER)
-                .withNote(VALID_NOTE_PARSER).withTags(VALID_TAG_FRIEND)
-                .withPriority(VALID_PRIORITY_PARSER).build();
-        DESC_HOMEPAGE = new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE)
-                .withState(VALID_STATE_HOMEPAGE).withDescription(VALID_DESCRIPTION_HOMEPAGE)
-                .withNote(VALID_NOTE_HOMEPAGE).withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND)
-                .withPriority(VALID_PRIORITY_HOMEPAGE).build();
+        DESC_PARSER = new EditBugDescriptorBuilder()
+                .withName(VALID_NAME_PARSER)
+                .withState(VALID_STATE_PARSER)
+                .withDescription(VALID_DESCRIPTION_PARSER)
+                .withNote(VALID_NOTE_PARSER)
+                .withTags(VALID_TAG_LOGIC)
+                .withPriority(VALID_PRIORITY_PARSER)
+                .build();
+
+        DESC_HOMEPAGE = new EditBugDescriptorBuilder()
+                .withName(VALID_NAME_HOMEPAGE)
+                .withState(VALID_STATE_HOMEPAGE)
+                .withDescription(VALID_DESCRIPTION_HOMEPAGE)
+                .withNote(VALID_NOTE_HOMEPAGE)
+                .withTags(VALID_TAG_COMPONENT, VALID_TAG_LOGIC)
+                .withPriority(VALID_PRIORITY_HOMEPAGE)
+                .build();
     }
 
     /**

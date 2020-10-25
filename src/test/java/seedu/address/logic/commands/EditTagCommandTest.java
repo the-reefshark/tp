@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
@@ -31,7 +31,7 @@ public class EditTagCommandTest {
     //Todo refactor this to pulll out all the declarations of new and old tag
 
     private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
-    private Tag newTag = new Tag(VALID_TAG_FRIEND);
+    private Tag newTag = new Tag(VALID_TAG_LOGIC);
     private Tag oldTag = new Tag(VALID_TAG_COMPONENT);
 
     @Test
@@ -85,7 +85,7 @@ public class EditTagCommandTest {
     @Test
     public void updateTagInBug_validInputs_success() {
         Bug initialBug = new BugBuilder().withTags(VALID_TAG_COMPONENT).build();
-        Bug expectedFinalBug = new BugBuilder().withTags(VALID_TAG_FRIEND).build();
+        Bug expectedFinalBug = new BugBuilder().withTags(VALID_TAG_LOGIC).build();
         try {
             Bug updatedBug = EditTagCommand.updateTagInBug(initialBug, oldTag, newTag);
             assertEquals(expectedFinalBug, updatedBug);
@@ -109,7 +109,7 @@ public class EditTagCommandTest {
 
     @Test
     public void updateTagInBug_newTagAlreadyExists_throwCommandException() {
-        Bug initialBug = new BugBuilder().withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT).build();
+        Bug initialBug = new BugBuilder().withTags(VALID_TAG_LOGIC, VALID_TAG_COMPONENT).build();
         String expectedMessage = String.format(EditTagCommand.MESSAGE_INVALID_NEW);
         try {
             EditTagCommand.updateTagInBug(initialBug, oldTag, newTag);
@@ -122,7 +122,7 @@ public class EditTagCommandTest {
 
     @Test
     public void updateTagInBug_nullNewTag_throwIllegalArgumentException() {
-        Bug initialBug = new BugBuilder().withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT).build();
+        Bug initialBug = new BugBuilder().withTags(VALID_TAG_LOGIC, VALID_TAG_COMPONENT).build();
         String expectedMessage = String.format(EditTagCommand.MESSAGE_NOT_UPDATED);
         try {
             EditTagCommand.updateTagInBug(initialBug, oldTag, null);
@@ -136,7 +136,7 @@ public class EditTagCommandTest {
 
     @Test
     public void updateTagInBug_nullOldTag_throwIllegalArgumentException() {
-        Bug initialBug = new BugBuilder().withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT).build();
+        Bug initialBug = new BugBuilder().withTags(VALID_TAG_LOGIC, VALID_TAG_COMPONENT).build();
         String expectedMessage = String.format(EditTagCommand.MESSAGE_NOT_UPDATED);
         try {
             EditTagCommand.updateTagInBug(initialBug, null, newTag);
@@ -162,14 +162,14 @@ public class EditTagCommandTest {
 
     @Test
     public void equals() {
-        EditTagCommand editTagCommand = new EditTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_FRIEND),
+        EditTagCommand editTagCommand = new EditTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_LOGIC),
                 new Tag(VALID_TAG_COMPONENT));
-        EditTagCommand editTagCommandDuplicate = new EditTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_FRIEND),
+        EditTagCommand editTagCommandDuplicate = new EditTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_LOGIC),
                 new Tag(VALID_TAG_COMPONENT));
-        EditTagCommand editTagCommandDifferentIndex = new EditTagCommand(INDEX_SECOND_BUG, new Tag(VALID_TAG_FRIEND),
+        EditTagCommand editTagCommandDifferentIndex = new EditTagCommand(INDEX_SECOND_BUG, new Tag(VALID_TAG_LOGIC),
                 new Tag(VALID_TAG_COMPONENT));
         EditTagCommand editTagCommandDifferentTags = new EditTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_COMPONENT),
-                new Tag(VALID_TAG_FRIEND));
+                new Tag(VALID_TAG_LOGIC));
         AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_COMPONENT));
 
         //same command

@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_PARSER
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,7 +104,7 @@ public class TypicalBugs {
             .withState(VALID_STATE_PARSER)
             .withDescription(VALID_DESCRIPTION_PARSER)
             .withNote(VALID_NOTE_PARSER)
-            .withTags(VALID_TAG_FRIEND)
+            .withTags(VALID_TAG_LOGIC)
             .withPriority(VALID_PRIORITY_PARSER).build();
 
     public static final Bug BUGELEVEN = new BugBuilder()
@@ -113,7 +113,7 @@ public class TypicalBugs {
             .withDescription(VALID_DESCRIPTION_HOMEPAGE)
             .withNote(VALID_NOTE_HOMEPAGE)
             .withPriority(VALID_PRIORITY_HOMEPAGE)
-            .withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND)
+            .withTags(VALID_TAG_COMPONENT, VALID_TAG_LOGIC)
             .build();
 
     public static final Bug BUGTWELVE = new BugBuilder()
@@ -122,7 +122,7 @@ public class TypicalBugs {
             .withDescription(VALID_DESCRIPTION_HOMEPAGE)
             .withPriority(VALID_PRIORITY_HOMEPAGE)
             .withNote(VALID_NOTE_BLANK)
-            .withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND)
+            .withTags(VALID_TAG_COMPONENT, VALID_TAG_LOGIC)
             .build();
 
     private TypicalBugs() {} // prevents instantiation

@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_OLD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -94,7 +94,7 @@ public class EditTagCommandParserTest {
         Index targetIndex = INDEX_SECOND_BUG;
         String userInput = targetIndex.getOneBased() + TAG_DESC_OLD + TAG_DESC_NEW;
 
-        EditTagCommand expectedCommand = new EditTagCommand(targetIndex, new Tag(VALID_TAG_FRIEND),
+        EditTagCommand expectedCommand = new EditTagCommand(targetIndex, new Tag(VALID_TAG_LOGIC),
                 new Tag(VALID_TAG_COMPONENT));
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -105,7 +105,7 @@ public class EditTagCommandParserTest {
         Index targetIndex = INDEX_SECOND_BUG;
         String userInput = targetIndex.getOneBased() + COLUMN_DESC_TODO + TAG_DESC_OLD + TAG_DESC_NEW;
 
-        EditTagByStateCommand expectedCommand = new EditTagByStateCommand(targetIndex, new Tag(VALID_TAG_FRIEND),
+        EditTagByStateCommand expectedCommand = new EditTagByStateCommand(targetIndex, new Tag(VALID_TAG_LOGIC),
                 new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG1);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -115,10 +115,10 @@ public class EditTagCommandParserTest {
     @Test
     public void parse_multipleRepeatedFieldsWithoutColumn_success() {
         Index targetIndex = INDEX_FIRST_BUG;
-        String userInput = targetIndex.getOneBased() + TAG_DESC_OLD + " " + PREFIX_NEWTAG + VALID_TAG_FRIEND;
+        String userInput = targetIndex.getOneBased() + TAG_DESC_OLD + " " + PREFIX_NEWTAG + VALID_TAG_LOGIC;
 
-        EditTagCommand expectedCommand = new EditTagCommand(targetIndex, new Tag(VALID_TAG_FRIEND),
-                new Tag(VALID_TAG_FRIEND));
+        EditTagCommand expectedCommand = new EditTagCommand(targetIndex, new Tag(VALID_TAG_LOGIC),
+                new Tag(VALID_TAG_LOGIC));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
