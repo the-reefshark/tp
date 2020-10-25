@@ -3,7 +3,10 @@
 
 box UI LOGIC_COLOR_T1
 participant ":KanbanBoard" as KanbanBoard LOGIC_COLOR
-participant "BugListPane" as BugListPane LOGIC_COLOR
+participant "todo:BugListPane" as BugListPane LOGIC_COLOR
+participant "ongoing:BugListPane" as BugListPane2 LOGIC_COLOR
+participant "done:BugListPane" as BugListPane3 LOGIC_COLOR
+participant "backlog:BugListPane" as BugListPane4 LOGIC_COLOR
 
 end box
 
@@ -20,27 +23,36 @@ activate LogicManager
 LogicManager --> KanbanBoard: ObserverableList<Bug>
 
 create BugListPane
-KanbanBoard -> BugListPane: new
-
+KanbanBoard -> BugListPane
+activate BugListPane
+BugListPane --> KanbanBoard
+deactivate BugListPane
 KanbanBoard -> LogicManager : getFilteredBugListByState("todo")
 
 LogicManager --> KanbanBoard: ObserverableList<Bug>
-create BugListPane
-KanbanBoard -> BugListPane: new
-
+create BugListPane2
+KanbanBoard -> BugListPane2
+activate BugListPane2
+BugListPane2 --> KanbanBoard
+deactivate BugListPane2
 KanbanBoard -> LogicManager : getFilteredBugListByState("ongoing")
 
 LogicManager --> KanbanBoard: ObserverableList<Bug>
 
-create BugListPane
-KanbanBoard -> BugListPane: new
-
+create BugListPane3
+KanbanBoard -> BugListPane3
+activate BugListPane3
+BugListPane3 --> KanbanBoard
+deactivate BugListPane3
 KanbanBoard -> LogicManager : getFilteredBugListByState("done")
 
 LogicManager --> KanbanBoard: ObserverableList<Bug>
 
-create BugListPane
-KanbanBoard -> BugListPane: new
+create BugListPane4
+KanbanBoard -> BugListPane4
+activate BugListPane4
+BugListPane4 --> KanbanBoard
+deactivate BugListPane4
 
 deactivate LogicManager
 deactivate KanbanBoard
