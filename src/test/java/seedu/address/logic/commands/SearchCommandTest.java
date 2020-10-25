@@ -5,10 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_BUGS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalBugs.BUGFIVE;
 import static seedu.address.testutil.TypicalBugs.BUGFOUR;
 import static seedu.address.testutil.TypicalBugs.BUGONE;
 import static seedu.address.testutil.TypicalBugs.BUGSEVEN;
+import static seedu.address.testutil.TypicalBugs.BUGSIX;
 import static seedu.address.testutil.TypicalBugs.BUGTHREE;
+import static seedu.address.testutil.TypicalBugs.BUGTWO;
 import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 
 import java.util.Arrays;
@@ -68,41 +71,61 @@ public class SearchCommandTest {
     @Test
     public void execute_oneKeywordQueryString_oneBugFound() {
         String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 1);
-        BugContainsQueryStringPredicate predicate = preparePredicate("Alice");
+        BugContainsQueryStringPredicate predicate = preparePredicate("jar");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredBugList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BUGONE), model.getFilteredBugList());
+        assertEquals(Arrays.asList(BUGSEVEN), model.getFilteredBugList());
+    }
+
+    @Test
+    public void execute_oneMixedCaseKeywordQueryString_oneBugFound() {
+        String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 1);
+        BugContainsQueryStringPredicate predicate = preparePredicate("eXiT");
+        SearchCommand command = new SearchCommand(predicate);
+        expectedModel.updateFilteredBugList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(BUGFIVE), model.getFilteredBugList());
     }
 
     @Test
     public void execute_multipleKeywordsQueryString_oneBugFound() {
         String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 1);
-        BugContainsQueryStringPredicate predicate = preparePredicate("Carl Kurz");
+        BugContainsQueryStringPredicate predicate = preparePredicate("Note rendering");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredBugList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BUGTHREE), model.getFilteredBugList());
+        assertEquals(Arrays.asList(BUGSIX), model.getFilteredBugList());
     }
 
     @Test
     public void execute_oneKeywordQueryString_multipleBugsFound() {
-        String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 3);
-        BugContainsQueryStringPredicate predicate = preparePredicate("street");
+        String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 4);
+        BugContainsQueryStringPredicate predicate = preparePredicate("command");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredBugList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BUGTHREE, BUGFOUR, BUGSEVEN), model.getFilteredBugList());
+        assertEquals(Arrays.asList(BUGONE, BUGTWO, BUGFOUR, BUGFIVE), model.getFilteredBugList());
     }
 
     @Test
-    public void execute_mixedCaseQueryString_multipleBugsFound() {
-        String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 3);
-        BugContainsQueryStringPredicate predicate = preparePredicate("STrEeT");
+    public void execute_oneMixedCaseKeywordQueryString_multipleBugsFound() {
+        String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 4);
+        BugContainsQueryStringPredicate predicate = preparePredicate("cOmMaND");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredBugList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BUGTHREE, BUGFOUR, BUGSEVEN), model.getFilteredBugList());
+        assertEquals(Arrays.asList(BUGONE, BUGTWO, BUGFOUR, BUGFIVE), model.getFilteredBugList());
+    }
+
+    @Test
+    public void execute_multipleMixedCaseKeywordsQueryString_multipleBugsFound() {
+        String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 2);
+        BugContainsQueryStringPredicate predicate = preparePredicate("mAiN wINDow");
+        SearchCommand command = new SearchCommand(predicate);
+        expectedModel.updateFilteredBugList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(BUGTHREE, BUGSIX), model.getFilteredBugList());
     }
 
     /**

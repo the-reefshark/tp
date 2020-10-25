@@ -27,7 +27,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_PARSER
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -114,7 +114,7 @@ public class EditCommandParserTest {
 
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_PARSER)
                 .withState(VALID_STATE_PARSER).withDescription(VALID_DESCRIPTION_PARSER)
-                .withNote(VALID_NOTE_PARSER).withTags(VALID_TAG_COMPONENT, VALID_TAG_FRIEND)
+                .withNote(VALID_NOTE_PARSER).withTags(VALID_TAG_COMPONENT, VALID_TAG_LOGIC)
                 .withPriority(VALID_PRIORITY_PARSER).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -157,7 +157,7 @@ public class EditCommandParserTest {
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRONTEND;
-        descriptor = new EditBugDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        descriptor = new EditBugDescriptorBuilder().withTags(VALID_TAG_LOGIC).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -184,7 +184,7 @@ public class EditCommandParserTest {
 
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder()
                 .withState(VALID_STATE_HOMEPAGE).withDescription(VALID_DESCRIPTION_HOMEPAGE)
-                .withNote(VALID_NOTE_HOMEPAGE).withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT)
+                .withNote(VALID_NOTE_HOMEPAGE).withTags(VALID_TAG_LOGIC, VALID_TAG_COMPONENT)
                 .withPriority(VALID_PRIORITY_HOMEPAGE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
