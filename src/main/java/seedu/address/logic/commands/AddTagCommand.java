@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
@@ -30,6 +31,7 @@ public class AddTagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to the"
             + "bug identified by the index number used in the displayed bug list."
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_COLUMN + "]"
             + PREFIX_NEWTAG + "NEW_TAG\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NEWTAG + "Ui";
@@ -38,11 +40,12 @@ public class AddTagCommand extends Command {
     public static final String MESSAGE_NOT_ADDED = "Input values cannot be null.";
     public static final String MESSAGE_INVALID_NEW = "The new tag already exists!";
 
-    private Index index;
-    private Tag newTag;
+    protected Index index;
+    protected Tag newTag;
 
     /**
-     * Creates a new instance of AddTagCommand
+     * Creates a new instance of AddTagCommand.
+     *
      * @param index of bug to add the tag to
      * @param newTag to add to the bug
      */
@@ -73,14 +76,14 @@ public class AddTagCommand extends Command {
     /**
      * Adds a new tag to the specified bug.
      *
-     * @param bugToEdit bug to add the new tag.
-     * @param newTag to add.
+     * @param bugToEdit bug to add the new tag
+     * @param newTag to add
      * @return updated bug
-     * @throws IllegalArgumentException if {@code bugToEdit} is null or {@code newTag} is null.
+     * @throws CommandException if the {@code newTag} already exists or the inputs are null
      */
-    public static Bug addTagToBug(Bug bugToEdit, Tag newTag) throws CommandException, IllegalArgumentException {
+    public static Bug addTagToBug(Bug bugToEdit, Tag newTag) throws CommandException {
         if (bugToEdit == null || newTag == null) {
-            throw new IllegalArgumentException(MESSAGE_NOT_ADDED);
+            throw new CommandException(MESSAGE_NOT_ADDED);
         }
 
         Set<Tag> existingTagSet = bugToEdit.getTags();

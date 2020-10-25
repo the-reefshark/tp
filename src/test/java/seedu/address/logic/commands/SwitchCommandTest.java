@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
-public class KanbanCommandTest {
+public class SwitchCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
 
     @Test
     public void execute_kanban_success() {
         CommandResult expectedCommandResult = new CommandResult("", false, false, true);
-        assertCommandSuccess(new KanbanCommand(), model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new SwitchCommand(), model, expectedCommandResult, expectedModel);
     }
 }

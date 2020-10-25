@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OLDTAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
@@ -28,12 +29,12 @@ public class EditTagCommand extends Command {
 
     //TODO Update the DG such that only valid tags are used
 
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the tags of "
             + "the bug identified by the index number used in the displayed bug list."
             + "The existing tag supplied by the user will be replaced with the new tag given"
             + "as input.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_COLUMN + "]"
             + PREFIX_OLDTAG + "OLD_TAG "
             + PREFIX_NEWTAG + "NEW_TAG\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -44,11 +45,14 @@ public class EditTagCommand extends Command {
     public static final String MESSAGE_INVALID_NEW = "The new tag already exists!";
     public static final String MESSAGE_NOT_UPDATED = "Input values cannot be null.";
 
-    private Index index;
-    private Tag oldTag;
-    private Tag newTag;
+    protected Index index;
+    protected Tag oldTag;
+    protected Tag newTag;
 
     /**
+     * Creates a new instance of an EditTagCommand with the appropriate {@code index},
+     * {@code oldTag} and {@code newTag}.
+     *
      * @param index of the bug in the filtered bug list to edit
      * @param oldTag to be modified
      * @param newTag to replace old tag
@@ -80,18 +84,18 @@ public class EditTagCommand extends Command {
     }
 
     /**
-     * Updates the old tag in the specified bug to become the new tag.
+     * Updates the old tag in the specified bug and replaces it with the new tag.
      *
-     * @param bugToEdit bug whose tag is to be edited.
-     * @param oldTag to be replaced.
-     * @param newTag to replace the old tag.
+     * @param bugToEdit bug whose tag is to be edited
+     * @param oldTag to be replaced
+     * @param newTag to replace the old tag
      * @return updated bug
-     * @throws CommandException if old tag does not exist or new tag already exists
+     * @throws CommandException if {@code oldTag} does not exist, the {@code newTag} already exists or the inputs are
+     * null
      */
-    public static Bug updateTagInBug(Bug bugToEdit, Tag oldTag, Tag newTag) throws CommandException,
-                                                                                           IllegalArgumentException {
+    public static Bug updateTagInBug(Bug bugToEdit, Tag oldTag, Tag newTag) throws CommandException {
         if (bugToEdit == null || oldTag == null || newTag == null) {
-            throw new IllegalArgumentException(MESSAGE_NOT_UPDATED);
+            throw new CommandException(MESSAGE_NOT_UPDATED);
         }
 
         Set<Tag> existingTagSet = bugToEdit.getTags();
@@ -114,7 +118,7 @@ public class EditTagCommand extends Command {
         return new Bug(bugName, bugState, bugDescription, updatedNote, updatedTags, bugPriority);
     }
 
-    private static Set<Tag> updateTagSet(Set<Tag> existingTagSet, Tag oldTag, Tag newTag) {
+    protected static Set<Tag> updateTagSet(Set<Tag> existingTagSet, Tag oldTag, Tag newTag) {
         assert existingTagSet.contains(oldTag);
         Set<Tag> setCopy = new HashSet<>(existingTagSet);
         setCopy.remove(oldTag);

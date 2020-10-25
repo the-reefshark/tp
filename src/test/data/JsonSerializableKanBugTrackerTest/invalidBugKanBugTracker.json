@@ -2,7 +2,7 @@
   "bugs": [ {
     "name": "Ui display bug",
     "state": "invalid state",
-    "description": "The window application overflowed",
+    "description": "The window application overflows",
     "note" : ""
   } ]
 }
