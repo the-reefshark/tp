@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.logic.commands.AddTagByStateCommand;
+import static seedu.address.logic.commands.CommandTestUtil.COLUMN_DESC_TODO;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_COLUMN_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_NEW;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_OLD;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PARSER;
@@ -8,11 +11,14 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_UI;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_NEW;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_OLD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import seedu.address.logic.commands.EditTagByStateCommand;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import seedu.address.model.bug.State;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_BUG;
@@ -85,7 +91,7 @@ public class EditTagCommandParserTest {
 
 
     @Test
-    public void parse_validValue_success() {
+    public void parse_validValueWithoutColumn_success() {
         Index targetIndex = INDEX_SECOND_BUG;
         String userInput = targetIndex.getOneBased() + TAG_DESC_OLD + TAG_DESC_NEW;
 
@@ -95,9 +101,20 @@ public class EditTagCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
+    @Test
+    public void parse_validValueWithColumn_success() {
+        Index targetIndex = INDEX_SECOND_BUG;
+        String userInput = targetIndex.getOneBased() + COLUMN_DESC_TODO + TAG_DESC_OLD + TAG_DESC_NEW;
+
+        EditTagByStateCommand expectedCommand = new EditTagByStateCommand(targetIndex, new Tag(VALID_TAG_FRIEND),
+                new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG1);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
 
     @Test
-    public void parse_multipleRepeatedFields_success() {
+    public void parse_multipleRepeatedFieldsWithoutColumn_success() {
         Index targetIndex = INDEX_FIRST_BUG;
         String userInput = targetIndex.getOneBased() + TAG_DESC_OLD + " " + PREFIX_NEWTAG + VALID_TAG_FRIEND;
 
@@ -105,6 +122,25 @@ public class EditTagCommandParserTest {
                 new Tag(VALID_TAG_FRIEND));
 
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_validValueWithRepeatedColumn_failure() {
+        Index targetIndex = INDEX_SECOND_BUG;
+        String userInput =
+                targetIndex.getOneBased() + COLUMN_DESC_TODO + TAG_DESC_OLD + TAG_DESC_NEW + COLUMN_DESC_TODO;
+        String expectedString = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTagByStateCommand.MESSAGE_USAGE);
+
+        assertParseFailure(parser, userInput, expectedString);
+    }
+
+    @Test
+    public void parse_invalidColumnValue_failure() {
+        Index targetIndex = INDEX_SECOND_BUG;
+        String userInput = targetIndex.getOneBased() + INVALID_COLUMN_DESC + TAG_DESC_OLD + TAG_DESC_NEW;
+        String expectedString = State.MESSAGE_CONSTRAINTS;
+
+        assertParseFailure(parser, userInput, expectedString);
     }
 
     @Test

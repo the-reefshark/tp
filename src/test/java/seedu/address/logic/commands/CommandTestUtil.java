@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
@@ -45,10 +46,9 @@ public class CommandTestUtil {
     public static final String VALID_PRIORITY_HOMEPAGE = "high";
     public static final String VALID_TAG_COMPONENT = "UI";
     public static final String VALID_TAG_FRIEND = "Logic";
+    public static final String VALID_COLUMN_TODO = "todo";
     public static final State VALID_STATE_BUG1 = new State("todo");
     public static final State VALID_STATE_BUG2 = new State("backlog");
-    public static final State VALID_STATE_BUG3 = new State("ongoing");
-    public static final State VALID_STATE_BUG4 = new State("done");
 
     public static final String NAME_DESC_PARSER = " " + PREFIX_NAME + VALID_NAME_PARSER;
     public static final String NAME_DESC_HOMEPAGE = " " + PREFIX_NAME + VALID_NAME_HOMEPAGE;
@@ -66,6 +66,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_NEW = " " + PREFIX_NEWTAG + VALID_TAG_COMPONENT;
     public static final String PRIORITY_DESC_PARSER = " " + PREFIX_PRIORITY + VALID_PRIORITY_PARSER;
     public static final String PRIORITY_DESC_HOMEPAGE = " " + PREFIX_PRIORITY + VALID_PRIORITY_HOMEPAGE;
+    public static final String COLUMN_DESC_TODO = " " + PREFIX_COLUMN + VALID_COLUMN_TODO;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_STATE_DESC = " " + PREFIX_STATE + "backklog"; // typo of backog
@@ -75,6 +76,7 @@ public class CommandTestUtil {
     public static final String INVALID_TAG_OLD = " " + PREFIX_OLDTAG + "prints.java"; // '.' not allowed in tags
     public static final String INVALID_TAG_NEW = " " + PREFIX_NEWTAG + "hubs("; // '(' not allowed in tags
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "hig"; // typo of high
+    public static final String INVALID_COLUMN_DESC = " " + PREFIX_COLUMN + "todos"; // typo of todo
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
