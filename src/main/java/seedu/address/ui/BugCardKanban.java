@@ -40,7 +40,7 @@ public class BugCardKanban extends UiPart<Region> {
     private FlowPane priority;
 
     /**
-     * Creates a {@code BugCard} with the given {@code Bug} and index to display.
+     * Creates a {@code BugCardKanban} with the given {@code Bug} and index to display.
      */
     public BugCardKanban(Bug bug, int displayedIndex) {
         super(FXML);
@@ -48,10 +48,10 @@ public class BugCardKanban extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(bug.getName().fullName);
         description.setText(bug.getDescription().value);
-        //state.setText(bug.getState().toString());
-        //priority.setText(bug.getPriority().priority);
+        description.setWrapText(true);
         if (!bug.getPriority().isNull()) {
             Label label = new Label(bug.getPriority().getValue().toUpperCase());
+            //bug.getPriority().getValue().toUpperCase()
             switch (bug.getPriority().getValue()) {
             case "low":
                 label.setStyle("-fx-background-color: green;");
@@ -80,7 +80,7 @@ public class BugCardKanban extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof BugCard)) {
+        if (!(other instanceof BugCardKanban)) {
             return false;
         }
 
