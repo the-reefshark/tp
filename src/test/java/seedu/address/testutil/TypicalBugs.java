@@ -76,6 +76,7 @@ public class TypicalBugs {
             .withPriority("low")
             .withTags("JavaFx", "Ui")
             .build();
+
     public static final Bug BUGSEVEN = new BugBuilder()
             .withName("Jar file does not work")
             .withState("backlog")
