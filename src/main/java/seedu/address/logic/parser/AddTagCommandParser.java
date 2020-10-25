@@ -38,7 +38,7 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
         }
         boolean hasExtraPrefixes = argMultimap.getSize() != numberOfPrefixesExpected;
         boolean hasIncorrectNumberOfNewTag = argMultimap.numberOfPrefixElements(PREFIX_NEWTAG) != NUMBER_OF_NEWTAG;
-        boolean hasIncorrectNumberOfColumn =argMultimap.numberOfPrefixElements(PREFIX_COLUMN) > NUMBER_OF_COLUMN;
+        boolean hasIncorrectNumberOfColumn = argMultimap.numberOfPrefixElements(PREFIX_COLUMN) > NUMBER_OF_COLUMN;
         boolean hasIncorrectNumberOfPrefixValues =
                 hasIncorrectNumberOfNewTag || hasIncorrectNumberOfColumn;
 

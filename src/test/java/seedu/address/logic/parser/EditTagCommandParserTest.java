@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import seedu.address.logic.commands.AddTagByStateCommand;
 import static seedu.address.logic.commands.CommandTestUtil.COLUMN_DESC_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COLUMN_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_NEW;
@@ -14,11 +13,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import seedu.address.logic.commands.EditTagByStateCommand;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import seedu.address.model.bug.State;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_BUG;
@@ -26,7 +23,9 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_BUG;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditTagByStateCommand;
 import seedu.address.logic.commands.EditTagCommand;
+import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
 public class EditTagCommandParserTest {

@@ -46,7 +46,7 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         boolean hasExtraPrefixes = argMultimap.getSize() != numberOfPrefixExpected;
         boolean hasIncorrectNumberOfNewTag = argMultimap.numberOfPrefixElements(PREFIX_NEWTAG) != NUMBER_OF_NEWTAG;
         boolean hasIncorrectNumberOfOldTag = argMultimap.numberOfPrefixElements(PREFIX_OLDTAG) != NUMBER_OF_OLDTAG;
-        boolean hasIncorrectNumberOfColumn =argMultimap.numberOfPrefixElements(PREFIX_COLUMN) > NUMBER_OF_COLUMN;
+        boolean hasIncorrectNumberOfColumn = argMultimap.numberOfPrefixElements(PREFIX_COLUMN) > NUMBER_OF_COLUMN;
         boolean hasIncorrectNumberOfPrefixValues =
                 hasIncorrectNumberOfNewTag || hasIncorrectNumberOfOldTag || hasIncorrectNumberOfColumn;
 

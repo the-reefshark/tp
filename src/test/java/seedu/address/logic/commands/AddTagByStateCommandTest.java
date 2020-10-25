@@ -3,9 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import static seedu.address.logic.commands.AddTagCommand.addTagToBug;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG2;
@@ -13,6 +10,18 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
+
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.KanBugTracker;
 import seedu.address.model.Model;
@@ -26,13 +35,6 @@ import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.BugBuilder;
-import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
-
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 public class AddTagByStateCommandTest {
 
@@ -148,8 +150,8 @@ public class AddTagByStateCommandTest {
                 new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG1);
         AddTagByStateCommand addTagByStateCommandDifferentState = new AddTagByStateCommand(INDEX_FIRST_BUG,
                 new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG2);
-        EditTagByStateCommand editTagByStateCommand = new EditTagByStateCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_FRIEND),
-                new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG1);
+        EditTagByStateCommand editTagByStateCommand = new EditTagByStateCommand(INDEX_FIRST_BUG,
+                new Tag(VALID_TAG_FRIEND), new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG1);
 
         //same command
         assertTrue(addTagByStateCommand.equals(addTagByStateCommand));
