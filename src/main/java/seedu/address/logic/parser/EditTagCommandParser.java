@@ -20,12 +20,15 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
     private static final int NUMBER_OF_PREFIXES_EXPECTED = 3;
     private static final int NUMBER_OF_OLDTAG = 1;
     private static final int NUMBER_OF_NEWTAG = 1;
+    private static final int NUMBER_OF_COLUMN = 1;
 
-    //TODO clean up all documentation details for EditTagCommand, EditTagCommandParser,
+    //TODO clean up all documentation details for EditTagCommandParser,
     // AddTagCommand, AddTagCommandParser
     /**
      * Parses the given {@code String} of arguments in the context of the EditTagCommand
      * and returns an EditTagCommand object for execution.
+     *
+     * @param args string to be parsed
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditTagCommand parse(String args) throws ParseException {
@@ -41,9 +44,11 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         }
 
         boolean hasExtraPrefixes = argMultimap.getSize() != numberOfPrefixExpected;
+        boolean hasIncorrectNumberOfNewTag = argMultimap.numberOfPrefixElements(PREFIX_NEWTAG) != NUMBER_OF_NEWTAG;
+        boolean hasIncorrectNumberOfOldTag = argMultimap.numberOfPrefixElements(PREFIX_OLDTAG) != NUMBER_OF_OLDTAG;
+        boolean hasIncorrectNumberOfColumn = argMultimap.numberOfPrefixElements(PREFIX_COLUMN) > NUMBER_OF_COLUMN;
         boolean hasIncorrectNumberOfPrefixValues =
-                argMultimap.numberOfPrefixElements(PREFIX_NEWTAG) != NUMBER_OF_NEWTAG
-                || argMultimap.numberOfPrefixElements(PREFIX_OLDTAG) != NUMBER_OF_OLDTAG;
+                hasIncorrectNumberOfNewTag || hasIncorrectNumberOfOldTag || hasIncorrectNumberOfColumn;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_OLDTAG, PREFIX_NEWTAG, PREFIX_COLUMN)
                     || argMultimap.getPreamble().isEmpty() || hasExtraPrefixes

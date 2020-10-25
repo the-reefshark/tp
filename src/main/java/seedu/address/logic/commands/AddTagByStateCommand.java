@@ -24,6 +24,7 @@ public class AddTagByStateCommand extends AddTagCommand {
      */
     public AddTagByStateCommand(Index index, Tag newTag, State targetState) {
         super(index, newTag);
+        requireNonNull(targetState);
         this.targetState = targetState;
     }
 

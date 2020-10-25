@@ -18,6 +18,7 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
 
     private static final int NUMBER_OF_PREFIXES_EXPECTED = 2;
     private static final int NUMBER_OF_NEWTAG = 1;
+    private static final int NUMBER_OF_COLUMN = 1;
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditTagCommand
@@ -36,8 +37,10 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
             numberOfPrefixesExpected++;
         }
         boolean hasExtraPrefixes = argMultimap.getSize() != numberOfPrefixesExpected;
+        boolean hasIncorrectNumberOfNewTag = argMultimap.numberOfPrefixElements(PREFIX_NEWTAG) != NUMBER_OF_NEWTAG;
+        boolean hasIncorrectNumberOfColumn = argMultimap.numberOfPrefixElements(PREFIX_COLUMN) > NUMBER_OF_COLUMN;
         boolean hasIncorrectNumberOfPrefixValues =
-                argMultimap.numberOfPrefixElements(PREFIX_NEWTAG) != NUMBER_OF_NEWTAG;
+                hasIncorrectNumberOfNewTag || hasIncorrectNumberOfColumn;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NEWTAG)
                 || argMultimap.getPreamble().isEmpty() || hasExtraPrefixes || hasIncorrectNumberOfPrefixValues) {
