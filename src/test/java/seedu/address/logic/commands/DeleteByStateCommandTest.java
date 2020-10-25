@@ -1,12 +1,10 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showBugAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_BUG;
+import static seedu.address.testutil.TypicalIndexes.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -48,6 +46,19 @@ public class DeleteByStateCommandTest {
     }
 
     @Test
+    public void execute_invalidIndexFilteredList_throwsCommandException() {
+        showBugAtIndex(model, INDEX_FIRST_BUG);
+
+        Index outOfBoundIndex = INDEX_SECOND_BUG;
+        // ensures that outOfBoundIndex is still in bounds of bug tracker list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getKanBugTracker().getBugList().size());
+
+        DeleteCommand deleteCommand = new DeleteByStateCommand(outOfBoundIndex, VALID_STATE_BUG1);
+
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
+    }
+
+    @Test
     public void execute_validIndexFilteredListDoneState_success() {
         showBugAtIndex(model, INDEX_THIRD_BUG);
 
@@ -61,6 +72,37 @@ public class DeleteByStateCommandTest {
         showNoBug(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+
+
+    @Test
+    public void equals() {
+        DeleteByStateCommand deleteFirstStateBug1 = new DeleteByStateCommand(INDEX_FIRST_BUG,
+            VALID_STATE_BUG1);
+        DeleteByStateCommand deleteFirstStateBug2 = new DeleteByStateCommand(INDEX_FIRST_BUG,
+            VALID_STATE_BUG2);
+        DeleteByStateCommand deleteSecondStateBug1 = new DeleteByStateCommand(INDEX_SECOND_BUG,
+            VALID_STATE_BUG1);
+
+        // same object -> returns true
+        assertTrue(deleteFirstStateBug1.equals(deleteFirstStateBug1));
+
+        //null -> false
+        assertFalse(deleteFirstStateBug1.equals(null));
+
+        DeleteByStateCommand deleteFirstStateBug1Copy = new DeleteByStateCommand(INDEX_FIRST_BUG,
+            VALID_STATE_BUG1);
+
+        //copy -> true
+        assertTrue(deleteFirstStateBug1.equals(deleteFirstStateBug1Copy));
+
+        //different Index -> false
+        assertFalse(deleteFirstStateBug1.equals(deleteSecondStateBug1));
+
+        //different target state -> flase
+        assertFalse(deleteFirstStateBug1.equals(deleteFirstStateBug2));
+
     }
 
     /**

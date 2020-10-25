@@ -3,18 +3,15 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_PARSER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 
 import org.junit.jupiter.api.Test;
-
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.KanBugTracker;
 import seedu.address.model.Model;
@@ -50,6 +47,26 @@ public class EditByStateCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
+    @Test
+    public void execute_duplicateBugUnfilteredList_failure() {
+        State todo = new State(VALID_COLUMN_TODO);
+        Bug firstBug = model.getFilteredBugListByState(todo).get(INDEX_FIRST_BUG.getZeroBased());
+        EditCommand.EditBugDescriptor descriptor = new EditBugDescriptorBuilder(firstBug).build();
+
+        EditByStateCommand editCommand = new EditByStateCommand(INDEX_SECOND_BUG, descriptor, todo);
+
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_BUG);
+    }
+
+    @Test
+    public void execute_invalidBugIndexUnfilteredList_failure() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugListByState(VALID_STATE_BUG1).size() + 1);
+        EditCommand.EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE).build();
+        EditByStateCommand editCommand = new EditByStateCommand(outOfBoundIndex, descriptor, VALID_STATE_BUG1);
+
+        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
+    }
+    
     @Test
     public void equals() {
         final EditByStateCommand standardCommand = new EditByStateCommand(INDEX_FIRST_BUG,

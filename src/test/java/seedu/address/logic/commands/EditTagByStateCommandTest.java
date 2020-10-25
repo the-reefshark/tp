@@ -118,10 +118,4 @@ public class EditTagByStateCommandTest {
         //different STATE
         assertFalse(editTagByStateCommand.equals(editTagByStateCommandDifferentState));
     }
-
-
-
-
-
-
 }
