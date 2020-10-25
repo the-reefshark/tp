@@ -70,7 +70,6 @@ public class KanbanBoard extends UiPart<Stage> {
         helpWindow = new HelpWindow();
         this.mainWindowStage = mainWindowStage;
         this.mainWindowScene = mainWindowStage.getScene();
-
     }
 
     /**
@@ -81,16 +80,16 @@ public class KanbanBoard extends UiPart<Stage> {
     }
 
     private void fillInner() {
-        BugListPanel bugListPanelBackLog = new BugListPanel(logic.getFilteredBugListByState("backlog"));
+        BugListPanelKanban bugListPanelBackLog = new BugListPanelKanban(logic.getFilteredBugListByState("backlog"));
         bugListPanelPlaceholderBacklog.getChildren().add(bugListPanelBackLog.getRoot());
 
-        BugListPanel bugListPanelTodo = new BugListPanel(logic.getFilteredBugListByState("todo"));
+        BugListPanelKanban bugListPanelTodo = new BugListPanelKanban(logic.getFilteredBugListByState("todo"));
         bugListPanelPlaceholderTodo.getChildren().add(bugListPanelTodo.getRoot());
 
-        BugListPanel bugListPanelOngoing = new BugListPanel(logic.getFilteredBugListByState("ongoing"));
+        BugListPanelKanban bugListPanelOngoing = new BugListPanelKanban(logic.getFilteredBugListByState("ongoing"));
         bugListPanelPlaceholderOngoing.getChildren().add(bugListPanelOngoing.getRoot());
 
-        BugListPanel bugListPanelDone = new BugListPanel(logic.getFilteredBugListByState("done"));
+        BugListPanelKanban bugListPanelDone = new BugListPanelKanban(logic.getFilteredBugListByState("done"));
         bugListPanelPlaceholderDone.getChildren().add(bugListPanelDone.getRoot());
 
         resultDisplay = new ResultDisplay();

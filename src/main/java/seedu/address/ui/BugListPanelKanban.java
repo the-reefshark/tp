@@ -13,8 +13,8 @@ import seedu.address.model.bug.Bug;
 /**
  * Panel containing the list of bugs.
  */
-public class BugListPanel extends UiPart<Region> {
-    private static final String FXML = "BugListPanel.fxml";
+public class BugListPanelKanban extends UiPart<Region> {
+    private static final String FXML = "BugListPanelKanban.fxml";
     private final Logger logger = LogsCenter.getLogger(BugListPanel.class);
 
     @FXML
@@ -23,7 +23,7 @@ public class BugListPanel extends UiPart<Region> {
     /**
      * Creates a {@code BugListPanel} with the given {@code ObservableList}.
      */
-    public BugListPanel(ObservableList<Bug> bugList) {
+    public BugListPanelKanban(ObservableList<Bug> bugList) {
         super(FXML);
         bugListView.setItems(bugList);
         bugListView.setCellFactory(listView -> new BugListViewCell());
@@ -46,3 +46,4 @@ public class BugListPanel extends UiPart<Region> {
         }
     }
 }
+
