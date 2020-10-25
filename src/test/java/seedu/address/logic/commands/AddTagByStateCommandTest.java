@@ -39,15 +39,13 @@ import seedu.address.testutil.BugBuilder;
 public class AddTagByStateCommandTest {
 
     private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
-
-    //TODO EditTagByStateCommandTesT, AddTagParserTest, EditTagParserTest
-    //TODO Refactor CommandTestUtil and replace the state placeholders
+    private State initialState = VALID_STATE_BUG1;
+    private Tag newTag = new Tag(VALID_TAG_FRIEND);
 
     // tests the case where the user inputs the wrong column as well since it would be considered out of bounds.
     @Test
     public void execute_invalidBugIndexFilteredListByState_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugList().size() + 1);
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
         State newState = VALID_STATE_BUG1;
         AddTagByStateCommand addTagByStateCommand = new AddTagByStateCommand(outOfBoundIndex, newTag, newState);
 
@@ -57,7 +55,7 @@ public class AddTagByStateCommandTest {
     @Test
     public void execute_allFieldsSpecifiedFilteredListByState_success() {
         try {
-            Tag newTag = new Tag(VALID_TAG_FRIEND);
+
             State initialState = VALID_STATE_BUG1;
             Bug bug = model.getFilteredBugListByState(initialState).get(0);
 
@@ -78,8 +76,6 @@ public class AddTagByStateCommandTest {
     @Test
     public void addTagToBug_validTag_success() {
         try {
-            Tag newTag = new Tag(VALID_TAG_FRIEND);
-            State initialState = VALID_STATE_BUG1;
             Bug bug = model.getFilteredBugListByState(initialState).get(0);
 
             Name bugName = bug.getName();
@@ -100,7 +96,6 @@ public class AddTagByStateCommandTest {
 
     @Test
     public void addTagToBug_invalidTag_commandExceptionThrown() {
-        State initialState = VALID_STATE_BUG1;
         Bug validBug = model.getFilteredBugListByState(initialState).get(0);
         String expectedString = AddTagCommand.MESSAGE_NOT_ADDED;
 
@@ -127,11 +122,9 @@ public class AddTagByStateCommandTest {
 
     @Test
     public void addTagToBug_invalidBug_commandExceptionThrown() {
-        Tag validTag = new Tag(VALID_TAG_FRIEND);
         String expectedString = AddTagCommand.MESSAGE_NOT_ADDED;
-
         try {
-            addTagToBug(null, validTag);
+            addTagToBug(null, newTag);
             assert false;
         } catch (CommandException e) {
             assertEquals(expectedString, e.getMessage());

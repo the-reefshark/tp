@@ -37,13 +37,13 @@ import seedu.address.testutil.BugBuilder;
 public class AddTagCommandTest {
 
     private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
+    private Tag newTag = new Tag(VALID_TAG_FRIEND);
 
 
 
     @Test
     public void execute_invalidBugIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugList().size() + 1);
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
         AddTagCommand addTagCommand = new AddTagCommand(outOfBoundIndex, newTag);
 
         assertCommandFailure(addTagCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
@@ -52,7 +52,6 @@ public class AddTagCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         try {
-            Tag newTag = new Tag(VALID_TAG_FRIEND);
             Bug bug = model.getFilteredBugList().get(0);
             Bug tagAddedBug = addTagToBug(bug, newTag);
 
@@ -72,7 +71,6 @@ public class AddTagCommandTest {
     @Test
     public void addTagToBug_validTag_success() {
         try {
-            Tag newTag = new Tag(VALID_TAG_FRIEND);
             Bug bug = model.getFilteredBugList().get(0);
 
             Name bugName = bug.getName();
@@ -119,11 +117,10 @@ public class AddTagCommandTest {
 
     @Test
     public void addTagToBug_invalidBug_commandExceptionThrown() {
-        Tag validTag = new Tag(VALID_TAG_FRIEND);
         String expectedString = AddTagCommand.MESSAGE_NOT_ADDED;
 
         try {
-            addTagToBug(null, validTag);
+            addTagToBug(null, newTag);
             assert false;
         } catch (CommandException e) {
             assertEquals(expectedString, e.getMessage());

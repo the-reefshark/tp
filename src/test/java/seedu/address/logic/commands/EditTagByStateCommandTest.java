@@ -29,6 +29,11 @@ import seedu.address.testutil.BugBuilder;
 public class EditTagByStateCommandTest {
 
     private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
+    private State initialStateBacklog = VALID_STATE_BUG2;
+    private State initialStateToDo = VALID_STATE_BUG1;
+    private Tag newTag = new Tag(VALID_TAG_FRIEND);
+    private Tag oldTag = new Tag(VALID_TAG_COMPONENT);
+
 
     //Todo refactor this to pulll out all the declarations of new and old tag
 
@@ -36,34 +41,29 @@ public class EditTagByStateCommandTest {
     @Test
     public void execute_invalidBugIndexFilteredListByState_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugList().size() + 1);
-        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
-        State initialState = VALID_STATE_BUG1;
-        EditTagByStateCommand editTagCommand = new EditTagByStateCommand(outOfBoundIndex, oldTag, newTag, initialState);
+        EditTagByStateCommand editTagCommand = new EditTagByStateCommand(outOfBoundIndex, oldTag, newTag,
+                initialStateToDo);
 
         assertCommandFailure(editTagCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validEditTagInput_success() {
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
-        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
-        State initialState = VALID_STATE_BUG2;
         Bug initialBug = new BugBuilder().withTags(VALID_TAG_COMPONENT).build();
 
         try {
             Bug tagEditedBug = EditTagByStateCommand.updateTagInBug(initialBug, oldTag, newTag);
             EditTagByStateCommand editTagCommand = new EditTagByStateCommand(INDEX_FIRST_BUG, oldTag, newTag,
-                    initialState);
+                    initialStateBacklog);
             String expectedMessage = String.format(EditTagCommand.MESSAGE_EDIT_BUG_SUCCESS, tagEditedBug);
 
             //set initial model
             Model initialModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
-            initialModel.setBug(model.getFilteredBugListByState(initialState).get(0), initialBug);
+            initialModel.setBug(model.getFilteredBugListByState(initialStateBacklog).get(0), initialBug);
 
             //set expected model
             Model expectedModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
-            expectedModel.setBug(model.getFilteredBugListByState(initialState).get(0), tagEditedBug);
+            expectedModel.setBug(model.getFilteredBugListByState(initialStateBacklog).get(0), tagEditedBug);
 
             assertCommandSuccess(editTagCommand, initialModel, expectedMessage, expectedModel);
         } catch (CommandException e) {
@@ -73,21 +73,18 @@ public class EditTagByStateCommandTest {
 
     @Test
     public void execute_invalidEditTagInputTagNotInBug_throwCommandException() {
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
-        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
-        State initialState = VALID_STATE_BUG1;
-        Bug initialBug = model.getFilteredBugListByState(initialState).get(0);
-
-        EditTagByStateCommand editTagCommand = new EditTagByStateCommand(INDEX_FIRST_BUG, oldTag, newTag, initialState);
+        Bug initialBug = model.getFilteredBugListByState(initialStateToDo).get(0);
+        EditTagByStateCommand editTagCommand = new EditTagByStateCommand(INDEX_FIRST_BUG, oldTag, newTag,
+                initialStateToDo);
         String expectedMessage = String.format(EditTagCommand.MESSAGE_INVALID_OLD);
 
         //set initial model
         Model initialModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
-        initialModel.setBug(model.getFilteredBugListByState(initialState).get(0), initialBug);
+        initialModel.setBug(model.getFilteredBugListByState(initialStateToDo).get(0), initialBug);
 
         //set expected model
         Model expectedModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
-        expectedModel.setBug(model.getFilteredBugListByState(initialState).get(0), initialBug);
+        expectedModel.setBug(model.getFilteredBugListByState(initialStateToDo).get(0), initialBug);
         assertCommandFailure(editTagCommand, initialModel, expectedMessage);
     }
 

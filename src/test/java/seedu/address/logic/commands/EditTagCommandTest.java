@@ -31,12 +31,12 @@ public class EditTagCommandTest {
     //Todo refactor this to pulll out all the declarations of new and old tag
 
     private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
+    private Tag newTag = new Tag(VALID_TAG_FRIEND);
+    private Tag oldTag = new Tag(VALID_TAG_COMPONENT);
 
     @Test
     public void execute_invalidBugIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugList().size() + 1);
-        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
         EditTagCommand editTagCommand = new EditTagCommand(outOfBoundIndex, oldTag, newTag);
 
         assertCommandFailure(editTagCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
@@ -44,8 +44,6 @@ public class EditTagCommandTest {
 
     @Test
     public void execute_validEditTagInput_success() {
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
-        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
         Bug initialBug = new BugBuilder().withTags(VALID_TAG_COMPONENT).build();
 
         try {
@@ -69,8 +67,6 @@ public class EditTagCommandTest {
 
     @Test
     public void execute_invalidEditTagInputTagNotInBug_throwCommandException() {
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
-        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
         Bug initialBug = model.getFilteredBugList().get(0);
 
         EditTagCommand editTagCommand = new EditTagCommand(INDEX_FIRST_BUG, oldTag, newTag);
@@ -88,8 +84,6 @@ public class EditTagCommandTest {
 
     @Test
     public void updateTagInBug_validInputs_success() {
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
-        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
         Bug initialBug = new BugBuilder().withTags(VALID_TAG_COMPONENT).build();
         Bug expectedFinalBug = new BugBuilder().withTags(VALID_TAG_FRIEND).build();
         try {
@@ -102,8 +96,6 @@ public class EditTagCommandTest {
 
     @Test
     public void updateTagInBug_oldTagDoesNotExist_throwCommandException() {
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
-        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
         Bug initialBug = model.getFilteredBugList().get(0);
         String expectedMessage = String.format(EditTagCommand.MESSAGE_INVALID_OLD);
 
@@ -117,8 +109,6 @@ public class EditTagCommandTest {
 
     @Test
     public void updateTagInBug_newTagAlreadyExists_throwCommandException() {
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
-        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
         Bug initialBug = new BugBuilder().withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT).build();
         String expectedMessage = String.format(EditTagCommand.MESSAGE_INVALID_NEW);
         try {
@@ -132,7 +122,6 @@ public class EditTagCommandTest {
 
     @Test
     public void updateTagInBug_nullNewTag_throwIllegalArgumentException() {
-        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
         Bug initialBug = new BugBuilder().withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT).build();
         String expectedMessage = String.format(EditTagCommand.MESSAGE_NOT_UPDATED);
         try {
@@ -147,7 +136,6 @@ public class EditTagCommandTest {
 
     @Test
     public void updateTagInBug_nullOldTag_throwIllegalArgumentException() {
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
         Bug initialBug = new BugBuilder().withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT).build();
         String expectedMessage = String.format(EditTagCommand.MESSAGE_NOT_UPDATED);
         try {
@@ -162,8 +150,6 @@ public class EditTagCommandTest {
 
     @Test
     public void updateTagInBug_nullInitialBug_throwIllegalArgumentException() {
-        Tag newTag = new Tag(VALID_TAG_FRIEND);
-        Tag oldTag = new Tag(VALID_TAG_COMPONENT);
         String expectedMessage = String.format(EditTagCommand.MESSAGE_NOT_UPDATED);
         try {
             EditTagCommand.updateTagInBug(null, oldTag, newTag);
