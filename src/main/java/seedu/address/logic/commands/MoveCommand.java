@@ -26,6 +26,7 @@ public class MoveCommand extends Command {
             + PREFIX_STATE + "done";
 
     public static final String MESSAGE_MOVE_BUG_SUCCESS = "Moved Bug: %1$s";
+    public static final String MESSAGE_DUPLICATE_BUG = "This bug already exists in the KanBug Tracker.";
 
     protected final Index index;
     protected final State state;
@@ -62,6 +63,10 @@ public class MoveCommand extends Command {
 
         Bug bugToMove = lastShownList.get(index.getZeroBased());
         Bug movedBug = createMovedBug(bugToMove, state);
+
+        if (model.hasBug(movedBug)) {
+            throw new CommandException(MESSAGE_DUPLICATE_BUG);
+        }
 
         model.setBug(bugToMove, movedBug);
         model.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);
