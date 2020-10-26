@@ -247,11 +247,13 @@ Examples:
 
 ### 3.10 Clearing all bugs : `clear`
 
-<Input the description for search here>
+Clears all bugs from the tracker. This command is applicable to both Kanban and List views.
+
+Format: clear
 
 ### 3.11 Exiting the program : `exit`
 
-End and close the app.
+Ends and closes the app.
 
 Format: `exit`
 
@@ -269,13 +271,13 @@ Data is saved into the hard disk every time a change is made.
 | :---------: | :----------------------------------------------------------: |
 |  **help**   |                            `help`                            |
 |  **list**   |                            `list`                            |
-| **search**  |                   <Fill in implementation>                   |
+| **search**  |                      `search q/QUERYSTRING`                  |
 |   **add**   |   `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG]`   |
 | **delete**  |                        `delete INDEX`                        |
 |  **edit**   | `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NOTE] [t/NEW_TAG]` |
 | **editTag** |       `editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG`       |
 | **addTag**  |             `addTag INDEX [c/COLUMN] nt/NEW_TAG`             |
-|  **clear**  |                   <Fill in implementation>                   |
+|  **clear**  |                            `clear`                           |
 |  **move**   |               `move INDEX [c/COLUMN] s/STATE`                |
 |  **exit**   |                            `exit`                            |
 
