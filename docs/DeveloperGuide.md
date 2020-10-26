@@ -132,6 +132,47 @@ The edit tag feature is facilitated by `EditTagCommandParser`, `EditTagCommand` 
 
 ![EditTagClassStructure](images/EditTagClassStructure.png)
 
+### \[Proposed\] FeatureUI kanban view window
+
+#### Proposed Implementation
+The kanban view window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a Observerable list that contains only the bugs that belong to their respective state. This observerable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
+
+<img src="images/Ui.png" width="450" />
+
+Given below is how the KanbanBoard window will create the 4 BugListpanes
+
+Step 1:
+The user lanches the app and the system initalises the UI.
+
+Step 2:
+MainWindow calls fillInnerParts() on KanbanBoard.
+
+Step 3:
+For each of the 4 states, KanbanBoard would call getFilteredBugListByState on logic manager to get the appropriate lists and create the BugListPane.
+
+Given below is sequence diagram for the creation of the BugListPanes:
+
+<img src= "images/KanbanBoardUI.png">
+
+With the implementation of kanban view window, command such as delete, move and edit that depend on the index would not work as expected. This is because, the Kanban view seperates the bugs and place then in different columns. As such, it would be essential to allow the users to execute these commands in the kanban view as we implement the new window. This can be done by allowing the user to chose which column would be affected by these commands.
+
+This can be done by adding the following classes:
+
+- `DeleteByStateCommand` which extends `DeleteCommand`
+- `MoveBystateCommand` which extends `MoveCommand`
+- `EditByStateCommand` which extends `EditCommand`
+
+These command would take in an extra input to specify which column is being targeted. The list of bugs would then be filtered according to the column specified. The respective parsers would also have to be modified such that the new command could be returned if a column is specifed. The following activity diagram summerizes what happens when the user enters a delete command.(edit and move command parser would act in a similar way)
+
+<img src = "images/DeleteCommandParserActivityDiagram.png">
+
+#### Design consideration:
+
+- **Alternative 1**: Use a prefix "/c" to specify which column we are refering to.(Current choice)
+    - Pros: Easier to implement
+    - Cons: Adds an additional prefix which the user has to remember to the applicatiom
+- **Alternative 2**: Allow the users to specify an active column and execute the commands with respect to that column
+    - Cons: Need to add an additional command to change the active column.
 
 
 `EditTagCommand` extends `Command` and uses **editTag** as its `COMMAND_WORD`  and makes use of the **ot/** and **nt/** prefixes.
@@ -331,30 +372,6 @@ Step 3. When there are a lot of bugs in the tracker, it is difficult for the use
 **Alternative 2**: Use current field prefixes to search
 - Pro: When the user remembers exactly information of a particular field
 - Con: Restricted search
-
-
-
-### \[Proposed\] FeatureUI kanban board window
-
-#### Proposed Implementation
-The kanban board window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a Observerable list that contains only the bugs that belong to their respective state. This observerable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
-
-<img src="images/Ui.png" width="450" />
-
-Given below is how the KanbanBoard window will create the 4 BugListpanes
-
-Step 1:
-The user lanches the app and the system initalises the UI.
-
-Step 2:
-MainWindow calls fillInnerParts() on KanbanBoard.
-
-Step 3:
-For each of the 4 states, KanbanBoard would call getFilteredBugListByState on logic manager to get the appropriate lists and create the BugListPane
-
-Given below is sequence diagram for the creation of the BugListPanes:
-
-<img src= "images/KanbanBoardUI.png">
 
 
 ### \[Proposed\] Note feature
