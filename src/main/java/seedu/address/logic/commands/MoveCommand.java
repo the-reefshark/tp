@@ -46,6 +46,16 @@ public class MoveCommand extends Command {
         requireNonNull(model);
         List<Bug> lastShownList = model.getFilteredBugList();
 
+        return updateList(lastShownList, model);
+    }
+
+    protected static Bug createMovedBug(Bug bugToMove, State destination) {
+        assert bugToMove != null;
+        return new Bug(bugToMove.getName(), destination, bugToMove.getDescription(), bugToMove.getOptionalNote(),
+                bugToMove.getTags(), bugToMove.getPriority());
+    }
+
+    protected CommandResult updateList(List<Bug> lastShownList, Model model) throws CommandException {
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
         }
@@ -57,12 +67,6 @@ public class MoveCommand extends Command {
         model.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);
 
         return new CommandResult(String.format(MESSAGE_MOVE_BUG_SUCCESS, movedBug));
-    }
-
-    protected static Bug createMovedBug(Bug bugToMove, State destination) {
-        assert bugToMove != null;
-        return new Bug(bugToMove.getName(), destination, bugToMove.getDescription(), bugToMove.getOptionalNote(),
-                bugToMove.getTags(), bugToMove.getPriority());
     }
 
     @Override

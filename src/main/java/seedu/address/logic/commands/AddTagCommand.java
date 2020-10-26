@@ -61,6 +61,10 @@ public class AddTagCommand extends Command {
         requireNonNull(model);
         List<Bug> lastShownList = model.getFilteredBugList();
 
+        return updateList(lastShownList, model);
+    }
+
+    protected CommandResult updateList(List<Bug> lastShownList, Model model) throws CommandException {
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
         }
