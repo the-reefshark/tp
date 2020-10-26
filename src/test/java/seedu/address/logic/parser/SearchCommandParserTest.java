@@ -18,6 +18,12 @@ public class SearchCommandParserTest {
     }
 
     @Test
+    public void parse_emptyPrefix_throwsParseException() {
+        assertParseFailure(parser, "search q/  ", String.format(SearchCommand.MESSAGE_EMPTY_QUERY_STRING,
+                SearchCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_valid_returnsSearchCommand() {
         // no leading and trailing whitespaces
         SearchCommand expectedSearchCommand = new SearchCommand(new BugContainsQueryStringPredicate("Ui bug"));
