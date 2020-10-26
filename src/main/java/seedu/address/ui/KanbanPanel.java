@@ -12,8 +12,8 @@ import seedu.address.logic.Logic;
 /**
  * Panel containing the list of bugs.
  */
-public class FourBugListPanels extends UiPart<Region> {
-    private static final String FXML = "FourBugListPanels.fxml";
+public class KanbanPanel extends UiPart<Region> {
+    private static final String FXML = "KanbanPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(BugListPanel.class);
     private final Logic logic;
 
@@ -32,23 +32,23 @@ public class FourBugListPanels extends UiPart<Region> {
     /**
      * Creates a {@code BugListPanel} with the given {@code ObservableList}.
      */
-    public FourBugListPanels(Logic logic) {
+    public KanbanPanel(Logic logic) {
         super(FXML);
         this.logic = logic;
         fillInner();
     }
 
     private void fillInner() {
-        BugListPanel bugListPanelBackLog = new BugListPanel(logic.getFilteredBugListByState("backlog"));
+        BugListPanelKanban bugListPanelBackLog = new BugListPanelKanban(logic.getFilteredBugListByState("backlog"));
         bugListPanelPlaceholderBacklog.getChildren().add(bugListPanelBackLog.getRoot());
 
-        BugListPanel bugListPanelTodo = new BugListPanel(logic.getFilteredBugListByState("todo"));
+        BugListPanelKanban bugListPanelTodo = new BugListPanelKanban(logic.getFilteredBugListByState("todo"));
         bugListPanelPlaceholderTodo.getChildren().add(bugListPanelTodo.getRoot());
 
-        BugListPanel bugListPanelOngoing = new BugListPanel(logic.getFilteredBugListByState("ongoing"));
+        BugListPanelKanban bugListPanelOngoing = new BugListPanelKanban(logic.getFilteredBugListByState("ongoing"));
         bugListPanelPlaceholderOngoing.getChildren().add(bugListPanelOngoing.getRoot());
 
-        BugListPanel bugListPanelDone = new BugListPanel(logic.getFilteredBugListByState("done"));
+        BugListPanelKanban bugListPanelDone = new BugListPanelKanban(logic.getFilteredBugListByState("done"));
         bugListPanelPlaceholderDone.getChildren().add(bugListPanelDone.getRoot());
     }
 

@@ -33,7 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BugListPanel bugListPanel;
-    private FourBugListPanels fourBugListPanels;
+    private KanbanPanel kanbanPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -47,7 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane bugListPanelPlaceholder;
 
     @FXML
-    private StackPane fourBugListPanelsPlaceholder;
+    private StackPane kanbanPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -71,8 +71,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        fourBugListPanelsPlaceholder.setVisible(false);
-        fourBugListPanelsPlaceholder.setManaged(false);
+        kanbanPanelPlaceholder.setVisible(false);
+        kanbanPanelPlaceholder.setManaged(false);
 
     }
 
@@ -121,8 +121,8 @@ public class MainWindow extends UiPart<Stage> {
         bugListPanel = new BugListPanel(logic.getFilteredBugList());
         bugListPanelPlaceholder.getChildren().add(bugListPanel.getRoot());
 
-        fourBugListPanels = new FourBugListPanels(logic);
-        fourBugListPanelsPlaceholder.getChildren().add(fourBugListPanels.getRoot());
+        kanbanPanel = new KanbanPanel(logic);
+        kanbanPanelPlaceholder.getChildren().add(kanbanPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -176,14 +176,14 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleBoard() {
-        if (fourBugListPanelsPlaceholder.isManaged()) {
-            fourBugListPanelsPlaceholder.setVisible(false);
-            fourBugListPanelsPlaceholder.setManaged(false);
+        if (kanbanPanelPlaceholder.isManaged()) {
+            kanbanPanelPlaceholder.setVisible(false);
+            kanbanPanelPlaceholder.setManaged(false);
             bugListPanelPlaceholder.setVisible(true);
             bugListPanelPlaceholder.setManaged(true);
         } else {
-            fourBugListPanelsPlaceholder.setVisible(true);
-            fourBugListPanelsPlaceholder.setManaged(true);
+            kanbanPanelPlaceholder.setVisible(true);
+            kanbanPanelPlaceholder.setManaged(true);
             bugListPanelPlaceholder.setVisible(false);
             bugListPanelPlaceholder.setManaged(false);
         }

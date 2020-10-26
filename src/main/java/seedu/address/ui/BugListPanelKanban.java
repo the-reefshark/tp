@@ -13,9 +13,9 @@ import seedu.address.model.bug.Bug;
 /**
  * Panel containing the list of bugs.
  */
-public class BugListPanel extends UiPart<Region> {
-    private static final String FXML = "BugListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(BugListPanel.class);
+public class BugListPanelKanban extends UiPart<Region> {
+    private static final String FXML = "BugListPanelKanban.fxml";
+    private final Logger logger = LogsCenter.getLogger(BugListPanelKanban.class);
 
     @FXML
     private ListView<Bug> bugListView;
@@ -23,16 +23,16 @@ public class BugListPanel extends UiPart<Region> {
     /**
      * Creates a {@code BugListPanel} with the given {@code ObservableList}.
      */
-    public BugListPanel(ObservableList<Bug> bugList) {
+    public BugListPanelKanban(ObservableList<Bug> bugList) {
         super(FXML);
         bugListView.setItems(bugList);
-        bugListView.setCellFactory(listView -> new BugListViewCell());
+        bugListView.setCellFactory(listView -> new BugListViewCellKanban());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Bug} using a {@code BugCard}.
      */
-    class BugListViewCell extends ListCell<Bug> {
+    class BugListViewCellKanban extends ListCell<Bug> {
         @Override
         protected void updateItem(Bug bug, boolean empty) {
             super.updateItem(bug, empty);
@@ -41,8 +41,9 @@ public class BugListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new BugCard(bug, getIndex() + 1).getRoot());
+                setGraphic(new BugCardKanban(bug, getIndex() + 1).getRoot());
             }
         }
     }
 }
+
