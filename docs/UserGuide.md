@@ -42,28 +42,46 @@ KanBug Tracker provides two different views that the user can switch between. Th
     - Relevant tags
     - Priority of bug
 
-- [Getting Started](#getting-started)
+## Table Of Contents
 
-- [Features](#features)
+<Add description talking about the general flow of the document. A brief overview of each section and why it is structured that way>
 
-  - [Viewing help : **`help`**](#viewing-help--help)
-  - [Listing all bugs : **`list`**](#listing-all-bugs--list)
-  - [Adding a bug : **`add`**](#adding-a-bug--add)
-  - [Deleting a bug : **`delete`**](#deleting-a-bug--delete)
-  - [Editing a bug : **`edit`**](#editing-a-bug--edit)
-  - [Editing a tag of a bug: **`editTag`**](#editing-a-tag-of-a-bug--edittag)
-  - [Adding a tag to a bug : **`addTag`**](#adding-a-tag-to-a-bug--addtag)
-  - [Moving a bug : **`move`**](#moving-a-bug--move)
-  - [Exiting the program :  **`exit`**](#exiting-the-program--exit)
-  - [Saving the data](#saving-the-data)
-  
-- [Command Summary](#command-summary)
+1. [Getting Started](#1-getting-started)
 
-  ------
+2. [Glossary](#2-glossary)
 
-## Getting Started
+3. [Features](#3-features)
+
+   3.1 [Viewing help : **`help`**](#31-viewing-help--help)
+
+   3.2 [Listing all bugs : **`list`**](#32-listing-all-bugs--list)
+
+   3.3 [Searching for bugs: **`search`**](#33-searching-for-bugs--search)
+
+   3.4 [Adding a bug : **`add`**](#34-adding-a-bug--add)
+
+   3.5 [Deleting a bug : **`delete`**](#35-deleting-a-bug--delete)
+
+   3.6 [Editing a bug : **`edit`**](#36-editing-a-bug--edit)
+
+   3.7 [Editing a tag of a bug: **`editTag`**](#37-editing-a-tag-of-a-bug--edittag)
+
+   3.8 [Adding a tag to a bug : **`addTag`**](#38-adding-a-tag-to-a-bug--addtag)
+
+   3.9 [Moving a bug : **`move`**](#39-moving-a-bug--move)
+
+   3.10 [Clearing all bugs: **`clear`**](#310-clearing-all-bugs--clear)
+
+   3.11 [Exiting the program :  **`exit`**](#311-exiting-the-program--exit)
+
+   3.12 [Saving the data](#312-saving-the-data--automatically)
+
+4. [Command Summary](#4-command-summary)#command-summary)
+
+------
+
+## 1. Getting Started
 1. Ensure that you have `Java 11` or above installed on your computer. If you do not have a suitable version of `Java` installed on your computer, you may head [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) to download the installer for your operating system.
-
 2. Download the latest `KanBugTracker.jar` from our [GitHub](https://github.com/AY2021S1-CS2103T-W17-1/tp/releases)
     ![Download](images/KanBugDownload.png)
 
@@ -75,16 +93,33 @@ KanBug Tracker provides two different views that the user can switch between. Th
 
 4. Double-click on the `KanBugTracker.jar`file to launch the application. 
 
-The next section will cover the various features that KanBug Tracker supports.
+    <Insert an image here to show what it will look like upon starting up>
+
+The next section will cover the various terms that you need to be familiar with to get started!
+
+## 2. Glossary
+
+We're sure that you're excited to start using KanBug Tracker! Before that however, there are some terms that you need to be familiar with to make the best out of your KanBug Tracker experience.
+
+What are some things I think we need to explain?
+
+- Columns
+- What is a bug
+  - Bug name
+  - Bug Description
+  - Tags
+  - Priority
+  - Notes
+- Commands
 
 
-## Features
+## 3. Features
 
 - Words in `UPPER_CASE` are parameters to be supplied by the user
 - Items in `[...]` are optional
 - `INDEX ` **must be a positive integer** 1,2,3...
 
-### Viewing help : `help`
+### 3.1 Viewing help : `help`
 
 Gets a list of all commands that can be used.
 
@@ -92,7 +127,7 @@ Format: `help`
 
 - Gets all commands’ syntax and usage.
 
-### Listing all bugs : `list`
+### 3.2 Listing all bugs : `list`
 
 Lists all bugs in the tracker
 
@@ -100,7 +135,11 @@ Format: `list`
 
 - Shows a list of all bugs in the tracker system
 
-### Adding a bug : `add`
+### 3.3 Searching for bugs : `search`
+
+<Input the description for search here>
+
+### 3.4 Adding a bug : `add`
 
 Adds a bug to the list
 
@@ -116,7 +155,7 @@ Examples:
 - `add n/Move bug d/Moves bug to wrong column s/backlog note/This bug is likely caused by issues in multiple classes`, adds a bug with name *Move bug*, Description of *Moves bug to wrong column*, state of *Backlog* and a note of *This bug is likely caused by issues in multiple classes*.
 - `add n/Move bug d/Moves the wrong bug when run`, adds a bug with name *Move bug*, Description of *Moves the wrong bug when run* and default state of *Backlog*.
 
-### Deleting a bug : `delete`
+### 3.5 Deleting a bug : `delete`
 
 Deletes a bug from the list
 
@@ -128,7 +167,7 @@ Example:
 
 - `delete 1`, deletes the bug at index **1** of the bug list.
 
-### Editing a bug : `edit`
+### 3.6 Editing a bug : `edit`
 
 Edits an existing bug in the tracker
 
@@ -149,7 +188,7 @@ Examples:
 - `edit 2 d/When listing items, duplicates are printed note/Tried a fix using iterator, did not work`, edits the description of the 2nd bug to be *When listing items, duplicated are printed*
 - `edit 3 t/Logger t/Logging`, edits/adds the two tags provided *Logger* and *Logging*.
 
-### Editing a tag of a bug : `editTag`
+### 3.7 Editing a tag of a bug : `editTag`
 
 Edits an existing tag of a bug in the tracker
 
@@ -168,7 +207,7 @@ Examples:
 - `editTag 1 ot/UI nt/UserDisplay` edits the bug at index **1** and replaces the tag **UI** with the tag **UserDisplay**.
 - `editTag 1 c/backlog ot/CommandResult nt/CommandParser` filters all bugs and only considers those that have a **state** of **backlog**. It then edits the bug at index **1** of this list and replaces the tag **CommandResult** with the tag **CommandParser**.
 
-### Adding a tag to a bug : `addTag`
+### 3.8 Adding a tag to a bug : `addTag`
 
 Adds a tag to a bug in the tracker
 
@@ -186,7 +225,7 @@ Examples:
 - `addTag 2 nt/UserDisplay` edits the bug at index **2** and adds the tag **UI** to the bug.
 - `addTag 1 c/backlog nt/CommandParser` filters all bugs and only considers those that have a **state** of **backlog**. It then edits the bug at index **1** of this list and adds the tag **CommandParser** to the bug.
 
-### Moving a bug : `move`
+### 3.9 Moving a bug : `move`
 
 Moves an existing bug in the tracker from one state to another
 
@@ -206,7 +245,11 @@ Examples:
 - `move 1 s/todo`, moves the bug at index **1** from its initial state to the “To Do” state.
 - `move 3 s/done`, moves the bug  at index **3** from its initial state to the “Done” state.
 
-### Exiting the program :  `exit`
+### 3.10 Clearing all bugs : `clear`
+
+<Input the description for search here>
+
+### 3.11 Exiting the program : `exit`
 
 End and close the app.
 
@@ -214,25 +257,29 @@ Format: `exit`
 
 - Saves all of the local data and exit.
 
-### Saving the data : automatically
+### 3.12 Saving the data : automatically
 
 Data is saved into the hard disk every time a change is made.
 
 ------
 
-## Command Summary
+## 4. Command Summary
 
-|   Action    |                          Format                           |
-| :---------: | :-------------------------------------------------------: |
-|  **help**   |                          `help`                           |
-|  **list**   |                          `list`                           |
-|   **add**   |       `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG]`        |
-| **delete**  |                      `delete INDEX`                       |
+|   Action    |                            Format                            |
+| :---------: | :----------------------------------------------------------: |
+|  **help**   |                            `help`                            |
+|  **list**   |                            `list`                            |
+| **search**  |                   <Fill in implementation>                   |
+|   **add**   |   `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG]`   |
+| **delete**  |                        `delete INDEX`                        |
 |  **edit**   | `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NOTE] [t/NEW_TAG]` |
-| **editTag** |     `editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG`      |
-| **addTag**  |           `addTag INDEX [c/COLUMN] nt/NEW_TAG`            |
-|  **move**   |                   `move INDEX [c/COLUMN] s/STATE`                    |
-|  **exit**   |                          `exit`                           |
+| **editTag** |       `editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG`       |
+| **addTag**  |             `addTag INDEX [c/COLUMN] nt/NEW_TAG`             |
+|  **clear**  |                   <Fill in implementation>                   |
+|  **move**   |               `move INDEX [c/COLUMN] s/STATE`                |
+|  **exit**   |                            `exit`                            |
+
+[Back to top](#what-is-kanbug-tracker)
 
 Team Name: AY2021S1-CS2103T-W17-1
 
