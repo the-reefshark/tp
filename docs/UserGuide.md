@@ -44,7 +44,7 @@ KanBug Tracker provides two different views that the user can switch between. Th
 
 ## Table Of Contents
 
-<Add description talking about the general flow of the document. A brief overview of each section and why it is structured that way>
+The first step in every journey is the preparation, after that when we have you all set up we will take you through some key points to aid you on your journey through our user guide. After which we will show you everything that you can do with this powerful tracker before we end off with some commands that will help you keep your bugs in order. Thank you for choosing KanBug Tracker!
 
 1. [Getting Started](#1-getting-started)
 
@@ -121,15 +121,15 @@ What are some things I think we need to explain?
 
 ### 3.1 Viewing help : `help`
 
-Gets a list of all commands that can be used.
+Not sure what to do next? Don't worry, just ask for help.
 
 Format: `help`
 
-- Gets all commands’ syntax and usage.
+- Gets all commands’ syntax and usage and link to this User Guide.
 
 ### 3.2 Listing all bugs : `list`
 
-Lists all bugs in the tracker
+Lists all bugs in the tracker for times when you want to quickly look through all the bugs in the tracker.
 
 Format: `list`
 
@@ -169,12 +169,12 @@ Example:
 
 ### 3.6 Editing a bug : `edit`
 
-Edits an existing bug in the tracker
+Made a mistake when adding in a bug or simply changed your mind on what the description should be? Fret not, thats what the edit command is for.
 
 Format: `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NEW_NOTE] [t/NEW_TAG]`
 
 - The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
-  - **Kanban view**: User must supply `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
+  - **Kanban view**: User must supply the `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
   - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
 
 - Edits the specified bug.
@@ -184,8 +184,8 @@ Format: `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NEW_NOTE] 
 
 Examples:
 
-- `edit 1 n/Wrong list numbers when displaying list d/List column printed as all 1's`, edits the name and description of the 1st bug to be *Wrong list numbers when displaying list* and "List column printed as all 1's" respectively.
-- `edit 2 d/When listing items, duplicates are printed note/Tried a fix using iterator, did not work`, edits the description of the 2nd bug to be *When listing items, duplicated are printed*
+- `edit 1 c/backlog n/Wrong list numbers when displaying list d/List column printed as all 1's`, edits the name and description of the 1st bug in the backlog column to *Wrong list numbers when displaying list* and "List column printed as all 1's" respectively.
+- `edit 2 d/When listing items, duplicates are printed note/Tried a fix using iterator, did not work`, edits the description of the 2nd bug to be *When listing items, duplicated are printed* and changes the note to *Tried a fix using iterator, did not work*
 - `edit 3 t/Logger t/Logging`, edits/adds the two tags provided *Logger* and *Logging*.
 
 ### 3.7 Editing a tag of a bug : `editTag`
@@ -271,7 +271,7 @@ Data is saved into the hard disk every time a change is made.
 |  **list**   |                            `list`                            |
 | **search**  |                   <Fill in implementation>                   |
 |   **add**   |   `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG]`   |
-| **delete**  |                        `delete INDEX`                        |
+| **delete**  |                        `delete INDEX [c/COLUMN]`                        |
 |  **edit**   | `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NOTE] [t/NEW_TAG]` |
 | **editTag** |       `editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG`       |
 | **addTag**  |             `addTag INDEX [c/COLUMN] nt/NEW_TAG`             |
@@ -282,4 +282,3 @@ Data is saved into the hard disk every time a change is made.
 [Back to top](#what-is-kanbug-tracker)
 
 Team Name: AY2021S1-CS2103T-W17-1
-
