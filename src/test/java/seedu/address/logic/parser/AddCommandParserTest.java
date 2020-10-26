@@ -28,7 +28,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalBugs.BUGELEVEN;
@@ -53,7 +53,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Bug expectedBug = new BugBuilder(BUGELEVEN).withTags(VALID_TAG_FRIEND).build();
+        Bug expectedBug = new BugBuilder(BUGELEVEN).withTags(VALID_TAG_LOGIC).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE
@@ -81,7 +81,7 @@ public class AddCommandParserTest {
                 new AddCommand(expectedBug));
 
         // multiple tags - all accepted
-        Bug expectedBugMultipleTags = new BugBuilder(BUGELEVEN).withTags(VALID_TAG_FRIEND, VALID_TAG_COMPONENT)
+        Bug expectedBugMultipleTags = new BugBuilder(BUGELEVEN).withTags(VALID_TAG_LOGIC, VALID_TAG_COMPONENT)
                 .build();
         assertParseSuccess(parser, NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + PRIORITY_DESC_HOMEPAGE
                 + DESCRIPTION_DESC_HOMEPAGE + NOTE_DESC_HOMEPAGE + TAG_DESC_BACKEND + TAG_DESC_FRONTEND,
@@ -148,7 +148,7 @@ public class AddCommandParserTest {
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + DESCRIPTION_DESC_HOMEPAGE
-                + NOTE_DESC_HOMEPAGE + PRIORITY_DESC_HOMEPAGE + INVALID_TAG_DESC + VALID_TAG_FRIEND,
+                + NOTE_DESC_HOMEPAGE + PRIORITY_DESC_HOMEPAGE + INVALID_TAG_DESC + VALID_TAG_LOGIC,
                 Tag.MESSAGE_CONSTRAINTS);
 
         // invalid priority

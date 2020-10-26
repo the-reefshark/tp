@@ -2,19 +2,23 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddTagByStateCommand;
 import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
 public class AddTagCommandParser implements Parser<AddTagCommand> {
 
     private static final int NUMBER_OF_PREFIXES_EXPECTED = 2;
     private static final int NUMBER_OF_NEWTAG = 1;
+    private static final int NUMBER_OF_COLUMN = 1;
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditTagCommand
@@ -24,15 +28,19 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
     public AddTagCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NEWTAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NEWTAG, PREFIX_COLUMN);
 
         Index index;
         Tag newTag;
-
-        boolean hasExtraPrefixes = argMultimap.getSize() != NUMBER_OF_PREFIXES_EXPECTED;
+        int numberOfPrefixesExpected = NUMBER_OF_PREFIXES_EXPECTED;
+        if (arePrefixesPresent(argMultimap, PREFIX_COLUMN)) {
+            numberOfPrefixesExpected++;
+        }
+        boolean hasExtraPrefixes = argMultimap.getSize() != numberOfPrefixesExpected;
+        boolean hasIncorrectNumberOfNewTag = argMultimap.numberOfPrefixElements(PREFIX_NEWTAG) != NUMBER_OF_NEWTAG;
+        boolean hasIncorrectNumberOfColumn = argMultimap.numberOfPrefixElements(PREFIX_COLUMN) > NUMBER_OF_COLUMN;
         boolean hasIncorrectNumberOfPrefixValues =
-                argMultimap.numberOfPrefixElements(PREFIX_NEWTAG) != NUMBER_OF_NEWTAG;
-
+                hasIncorrectNumberOfNewTag || hasIncorrectNumberOfColumn;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NEWTAG)
                 || argMultimap.getPreamble().isEmpty() || hasExtraPrefixes || hasIncorrectNumberOfPrefixValues) {
@@ -48,6 +56,11 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
 
+        if (arePrefixesPresent(argMultimap, PREFIX_COLUMN)) {
+            State targetState = ParserUtil.parseState(argMultimap.getValue(PREFIX_COLUMN).get());
+            return new AddTagByStateCommand(index, newTag, targetState);
+        }
+
         return new AddTagCommand(index, newTag);
     }
 
@@ -56,6 +69,6 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
      * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

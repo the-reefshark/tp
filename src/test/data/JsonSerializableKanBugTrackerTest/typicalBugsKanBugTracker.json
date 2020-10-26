@@ -1,51 +1,51 @@
 {
   "_comment": "KanBugTracker save file which contains the same Bug values as in TypicalBugs#getTypicalKanBugTracker()",
   "bugs" : [ {
-    "name" : "Alice Pauline",
+    "name" : "Add command bug",
     "state" : "todo",
-    "description" : "123, Jurong West Ave 6, #08-111",
+    "description" : "Cannot add a bug with multiple tags",
     "note" : "this is a note",
     "priority" : "low",
-    "tagged" : [ "friends" ]
+    "tagged" : ["AddCommand"]
   }, {
-    "name" : "Benson Meier",
+    "name" : "Edit command parsing",
     "state" : "todo",
-    "description" : "311, Clementi Ave 2, #02-25",
+    "description" : "The prefixes of edit command are wrongly parsed",
     "note" : "this is the second note",
     "priority" : "",
-    "tagged" : [ "owesMoney", "friends" ]
+    "tagged" : [ "EditCommand", "backend"]
   }, {
-    "name" : "Carl Kurz",
+    "name" : "Main window overflows",
     "state" : "done",
-    "description" : "wall street",
+    "description" : "If there is a huge number of bugs, the main window cannot display",
     "note" : "this is the third note",
     "priority" : "low",
-    "tagged" : [ ]
+    "tagged" : ["Ui"]
   }, {
-    "name" : "Daniel Meier",
+    "name" : "Search command test",
     "state" : "ongoing",
-    "description" : "10th street",
+    "description" : "Need to add more search test to cover all equivalence partition",
     "note" : "this is the fourth note",
     "priority" : "",
-    "tagged" : [ "friends" ]
+    "tagged" : ["SearchCommand", "backend"]
   }, {
-    "name" : "Elle Meyer",
+    "name" : "Exit command hangs",
     "state" : "done",
-    "description" : "michegan ave",
+    "description" : "Exit command hangs more than 10 seconds",
     "note" : "this is the fifth note",
     "priority" : "medium",
     "tagged" : [ ]
   }, {
-    "name" : "Fiona Kunz",
+    "name" : "Note rendering",
     "state" : "ongoing",
-    "description" : "little tokyo",
+    "description" : "Note field does not show up in the main window",
     "note" : "this is the sixth note",
     "priority" : "low",
-    "tagged" : [ ]
+    "tagged" : ["JavaFx","Ui"]
   }, {
-    "name" : "George Best",
+    "name" : "Jar file does not work",
     "state" : "backlog",
-    "description" : "4th street",
+    "description" : "Current jar file cannot work on Mac OS system",
     "note" : "this is the seventh note",
     "priority" : "high",
     "tagged" : [ ]

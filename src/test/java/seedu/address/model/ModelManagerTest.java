@@ -10,12 +10,10 @@ import static seedu.address.testutil.TypicalBugs.BUGTWO;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.bug.NameContainsKeywordsPredicate;
 import seedu.address.testutil.KanBugTrackerBuilder;
 
 public class ModelManagerTest {
@@ -115,11 +113,6 @@ public class ModelManagerTest {
 
         // different kanBugTracker -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentKanBugTracker, userPrefs)));
-
-        // different filteredList -> returns false
-        String[] keywords = BUGONE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredBugList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(kanBugTracker, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);

@@ -1,0 +1,15 @@
+{
+  "bugs": [ {
+    "name": "Ui bug",
+    "state": "done",
+    "description": "Ui displays the messages wrongly",
+    "note" : "",
+    "tagged": [ "Ui", "frontend", "JavaFx"]
+  }, {
+    "name": "Search command bug",
+    "state": "ongoing",
+    "description": "The prefixes are incorrectly parsed",
+    "tagged": ["Java","backend","Command"],
+    "note" : ""
+  } ]
+}
