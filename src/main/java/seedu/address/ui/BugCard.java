@@ -60,16 +60,16 @@ public class BugCard extends UiPart<Region> {
         state.setText(bug.getState().toString());
 
         if (!bug.getPriority().isNull()) {
-            priority.setText("Priority " + bug.getPriority().getValue());
+            priority.setText("  " + bug.getPriority().getValue().toUpperCase() + "  ");
             switch (bug.getPriority().getValue()) {
             case "low":
-                priority.setStyle("-fx-background-color: green;");
+                priority.setStyle("-fx-background-color: #E3C012;");
                 break;
             case "medium":
-                priority.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
+                priority.setStyle("-fx-background-color: #E15E13;");
                 break;
             default:
-                priority.setStyle("-fx-background-color: red;");
+                priority.setStyle("-fx-background-color: #D81616;");
                 break;
             }
         } else {
