@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -28,13 +27,7 @@ public class DeleteByStateCommand extends DeleteCommand {
         requireNonNull(model);
         List<Bug> lastShownList = model.getFilteredBugListByState(targetState);
 
-        if (super.targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
-        }
-
-        Bug bugToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteBug(bugToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_BUG_SUCCESS, bugToDelete));
+        return updateList(lastShownList, model);
     }
 
     @Override

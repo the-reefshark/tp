@@ -38,13 +38,7 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
         List<Bug> lastShownList = model.getFilteredBugList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
-        }
-
-        Bug bugToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteBug(bugToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_BUG_SUCCESS, bugToDelete));
+        return updateList(lastShownList, model);
     }
 
     @Override
@@ -52,5 +46,14 @@ public class DeleteCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
                 && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+    }
+
+    protected CommandResult updateList(List<Bug> lastShownList, Model model) throws CommandException {
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
+        }
+        Bug bugToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteBug(bugToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_BUG_SUCCESS, bugToDelete));
     }
 }

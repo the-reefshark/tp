@@ -1,11 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -32,17 +30,7 @@ public class EditTagByStateCommand extends EditTagCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Bug> lastShownList = model.getFilteredBugListByState(targetState);
-
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
-        }
-
-        Bug bugToEdit = lastShownList.get(index.getZeroBased());
-        Bug editedBug = updateTagInBug(bugToEdit, oldTag, newTag);
-
-        model.setBug(bugToEdit, editedBug);
-        model.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);
-        return new CommandResult(String.format(MESSAGE_EDIT_BUG_SUCCESS, editedBug));
+        return updateList(lastShownList, model);
     }
 
     @Override
