@@ -27,8 +27,6 @@ public class EditTagCommand extends Command {
 
     public static final String COMMAND_WORD = "editTag";
 
-    //TODO Update the DG such that only valid tags are used
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the tags of "
             + "the bug identified by the index number used in the displayed bug list."
             + "The existing tag supplied by the user will be replaced with the new tag given"

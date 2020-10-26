@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":KanBugTrackerParser" as KanBugTrackerParser LOGIC_COLOR
+participant ":EditTagCommandParser" as EditTagCommandParser LOGIC_COLOR
+participant "e:EditTagCommand" as EditTagCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editTag 1 ot/UI nt/UserDisplay")
+activate LogicManager
+
+LogicManager -> KanBugTrackerParser : parseCommand("editTag 1 ot/UI nt/UserDisplay")
+activate KanBugTrackerParser
+
+create EditTagCommandParser
+KanBugTrackerParser -> EditTagCommandParser
+activate EditTagCommandParser
+
+EditTagCommandParser --> KanBugTrackerParser
+deactivate EditTagCommandParser
+
+KanBugTrackerParser -> EditTagCommandParser : parse("1 ot/UI nt/UserDisplay")
+activate EditTagCommandParser
+
+create EditTagCommand
+EditTagCommandParser -> EditTagCommand
+activate EditTagCommand
+
+EditTagCommand --> EditTagCommandParser : e
+deactivate EditTagCommand
+
+EditTagCommandParser --> KanBugTrackerParser : e
+deactivate EditTagCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditTagCommandParser -[hidden]-> KanBugTrackerParser
+destroy EditTagCommandParser
+
+KanBugTrackerParser --> LogicManager : e
+deactivate KanBugTrackerParser
+
+LogicManager -> EditTagCommand : execute()
+activate EditTagCommand
+
+EditTagCommand -> Model : setBug(bugToEdit, EditedBug)
+activate Model
+
+Model --> EditTagCommand
+deactivate Model
+
+EditTagCommand -> Model : updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS)
+activate Model
+
+Model --> EditTagCommand
+deactivate Model
+
+create CommandResult
+EditTagCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditTagCommand
+deactivate CommandResult
+
+EditTagCommand --> LogicManager : result
+deactivate EditTagCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

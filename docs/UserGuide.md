@@ -40,11 +40,11 @@ KanBug Tracker provides two different views that the user can switch between. Th
   - [Deleting a bug : **`delete`**](#deleting-a-bug--delete)
   - [Editing a bug : **`edit`**](#editing-a-bug--edit)
   - [Editing a tag of a bug: **`editTag`**](#editing-a-tag-of-a-bug--edittag)
-- [Adding a tag to a bug : **`addTag`**](#adding-a-tag-to-a-bug--addtag)
+  - [Adding a tag to a bug : **`addTag`**](#adding-a-tag-to-a-bug--addtag)
   - [Moving a bug : **`move`**](#moving-a-bug--move)
   - [Exiting the program :  **`exit`**](#exiting-the-program--exit)
   - [Saving the data](#saving-the-data)
-
+  
 - [Command Summary](#command-summary)
 
   ------
