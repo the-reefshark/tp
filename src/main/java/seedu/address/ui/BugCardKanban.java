@@ -51,20 +51,16 @@ public class BugCardKanban extends UiPart<Region> {
         description.setText(bug.getDescription().value);
         description.setWrapText(true);
         if (!bug.getPriority().isNull()) {
-            priority.setText(bug.getPriority().getValue().toUpperCase());
-            priority.setWrapText(true);
+            priority.setText("  " + bug.getPriority().getValue().toUpperCase() + "  ");
             switch (bug.getPriority().getValue()) {
             case "low":
-                priority.setStyle("-fx-background-color: green;");
+                priority.setStyle("-fx-background-color: #E3C012;");
                 break;
             case "medium":
-                priority.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
-                break;
-            case "high":
-                priority.setStyle("-fx-background-color: red;");
+                priority.setStyle("-fx-background-color: #E15E13;");
                 break;
             default:
-                priority.setStyle("-fx-background-color: red;");
+                priority.setStyle("-fx-background-color: #D81616;");
                 break;
             }
         } else {

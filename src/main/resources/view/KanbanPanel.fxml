@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<HBox minHeight="600" minWidth="450" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox minWidth="450" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <VBox alignment="CENTER" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
         <children>
             <Label fx:id="backlogLabel" contentDisplay="CENTER" text="Backlog" textAlignment="CENTER" styleClass="state" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
@@ -21,7 +21,7 @@
     <Line/>
     <VBox alignment="CENTER" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
         <children>
-            <Label fx:id="todoLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="state" text="To Do" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+            <Label fx:id="todoLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="state" text="Todo" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                 <HBox.margin>
                     <Insets right="5.0" />
                 </HBox.margin>
