@@ -13,7 +13,8 @@ KanBug Tracker was made to provide a lightweight, offline application for CS2103
 
 
 ## What can users expect?
-KanBug Tracker provides two different views that the user can switch between. The first is the traditional Kanban board style view which aims to allow users to get a high-level overview of the state of bugs in their project. The second view is the To-Do list view which allows users to focus only on the bugs within a particular section of the KanBug Tracker. 
+KanBug Tracker provides two different views that the user can switch between. The first is the traditional Kanban board style view which aims to allow users to get a high-level overview of the state of bugs in their project. The second view is the To-Do list view which allows users to focus only on the bugs within a particular section of the KanBug Tracker.
+
 #### Kanban View:
 
 ![Ui](images/Ui3.png)
@@ -29,7 +30,18 @@ KanBug Tracker provides two different views that the user can switch between. Th
 
 #### List View:
 
-![Ui](images/Ui2.png)
+![Ui](images/Ui4.png)
+
+1. Command Line Interface for users to enter their commands
+2. Display that the application uses to give feedback on commands to the user
+3. Scroll bar to navigate up and down the bug list
+4. Each individual bug will be displayed with the following data listed in order of display from top to bottom:
+    - Name of bug
+    - Short description of bug
+    - Note containing extra information about the bug
+    - Relevant tags
+    - Priority of bug
+
 - [Getting Started](#getting-started)
 
 - [Features](#features)
@@ -40,7 +52,7 @@ KanBug Tracker provides two different views that the user can switch between. Th
   - [Deleting a bug : **`delete`**](#deleting-a-bug--delete)
   - [Editing a bug : **`edit`**](#editing-a-bug--edit)
   - [Editing a tag of a bug: **`editTag`**](#editing-a-tag-of-a-bug--edittag)
-- [Adding a tag to a bug : **`addTag`**](#adding-a-tag-to-a-bug--addtag)
+  - [Adding a tag to a bug : **`addTag`**](#adding-a-tag-to-a-bug--addtag)
   - [Moving a bug : **`move`**](#moving-a-bug--move)
   - [Exiting the program :  **`exit`**](#exiting-the-program--exit)
   - [Saving the data](#saving-the-data)
@@ -92,17 +104,17 @@ Format: `list`
 
 Adds a bug to the list
 
-Format: `add n/NAME d/DESCRIPTION [s/STATE] [t/TAG]`
+Format: `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG]`
 
 - Add a bug with the specified name, description and state to the bottom of the list.
-- The state field is optional, all other fields are needed.
+- The state, note and tag fields are optional, all other fields are needed.
 - If state is not specified, a default state of backlog will be assigned.
 
 Examples:
 
-- `add n/Print bug d/prints the wrong message s/todo t/Ui`, adds a bug with name *Print Bug*, Description of *prints the wrong message*, state of *To do* and a tag of *Ui*.
-- `add n/Move bug d/moves bug to wrong column s/backlog`, adds a bug with name *Move bug*, Description of *moves bug to wrong column* and state of *Backlog*.
-- `add n/Move bug d/UI`, adds a bug with name *move bug*, Description of *UI* and state of *Backlog*.
+- `add n/Print bug d/Prints the wrong message s/todo t/Ui`, adds a bug with name *Print Bug*, Description of *Prints the wrong message*, state of *To do* and a tag of *Ui*.
+- `add n/Move bug d/Moves bug to wrong column s/backlog note/This bug is likely caused by issues in multiple classes`, adds a bug with name *Move bug*, Description of *Moves bug to wrong column*, state of *Backlog* and a note of *This bug is likely caused by issues in multiple classes*.
+- `add n/Move bug d/Moves the wrong bug when run`, adds a bug with name *Move bug*, Description of *Moves the wrong bug when run* and default state of *Backlog*.
 
 ### Deleting a bug : `delete`
 
@@ -120,20 +132,22 @@ Example:
 
 Edits an existing bug in the tracker
 
-Format: `edit INDEX [n/NEW_NAME] [d/NEW_DESCRIPTION] [t/NEW_TAG]`
+Format: `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NEW_NOTE] [t/NEW_TAG]`
 
-- Edits the bug at the specified `INDEX`. The index refers to the index number shown in the displayed list of bugs.
+- The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
+  - **Kanban view**: User must supply `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
+  - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
+
+- Edits the specified bug.
 - At least one of the optional fields must be provided.
 - Existing values will be updated to the input values.
 - **Multiple tags** can be added or edited.
 
 Examples:
 
-- `edit 1 n/Wrong list numbers when displaying list d/List column printed as all 1's`, edits the name and description of the 1st bug to be "Wrong list numbers when displaying list" and "List column printed as all 1's" respectively.
-- `edit 2 d/When listing items, duplicates are printed`, edits the description of the 2nd bug to be "When listing items, duplicated are printed".
+- `edit 1 n/Wrong list numbers when displaying list d/List column printed as all 1's`, edits the name and description of the 1st bug to be *Wrong list numbers when displaying list* and "List column printed as all 1's" respectively.
+- `edit 2 d/When listing items, duplicates are printed note/Tried a fix using iterator, did not work`, edits the description of the 2nd bug to be *When listing items, duplicated are printed*
 - `edit 3 t/Logger t/Logging`, edits/adds the two tags provided *Logger* and *Logging*.
-
-
 
 ### Editing a tag of a bug : `editTag`
 
@@ -176,9 +190,13 @@ Examples:
 
 Moves an existing bug in the tracker from one state to another
 
-Format: `move INDEX s/STATE`
+Format: `move INDEX [c/COLUMN] s/STATE`
 
-- Moves the bug at the specified `INDEX`. The index refers to the index number shown in the displayed list of bugs.
+- The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
+  - **Kanban view**: User must supply `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
+  - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
+
+- Moves the specified bug.
 - The state field is **mandatory** and must be provided.
 - State can either be **backlog, todo, ongoing** or **done**.
 - Existing state will be updated to the new state.
@@ -208,12 +226,12 @@ Data is saved into the hard disk every time a change is made.
 | :---------: | :-------------------------------------------------------: |
 |  **help**   |                          `help`                           |
 |  **list**   |                          `list`                           |
-|   **add**   |       `add n/NAME d/DESCRIPTION [s/STATE] [t/TAG]`        |
+|   **add**   |       `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG]`        |
 | **delete**  |                      `delete INDEX`                       |
-|  **edit**   | `edit INDEX [n/NEW_NAME] [d/NEW_DESCRIPTION] [t/NEW_TAG]` |
+|  **edit**   | `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NOTE] [t/NEW_TAG]` |
 | **editTag** |     `editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG`      |
 | **addTag**  |           `addTag INDEX [c/COLUMN] nt/NEW_TAG`            |
-|  **move**   |                   `move INDEX s/STATE`                    |
+|  **move**   |                   `move INDEX [c/COLUMN] s/STATE`                    |
 |  **exit**   |                          `exit`                           |
 
 Team Name: AY2021S1-CS2103T-W17-1
