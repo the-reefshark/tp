@@ -44,6 +44,9 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private  MenuItem escMenuItem;
+
+    @FXML
     private StackPane bugListPanelPlaceholder;
 
     @FXML
@@ -81,6 +84,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setAccelerators() {
+        setAccelerator(escMenuItem, KeyCombination.valueOf("Esc"));
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
