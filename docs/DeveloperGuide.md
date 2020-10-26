@@ -120,39 +120,56 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.address.commons` package.
 
-### Proposed implementation
-
-=======
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Edit Tag feature
+### Edit Tag feature
 
-#### Proposed Implementation
+#### Implementation
 
-The proposed edit tag feature is facilitated by `EditTagCommand`. It extends `Command` and uses **editTag** as its `COMMAND_WORD`  and makes use of the **ot/** and **nt/** prefixes.
+The edit tag feature is facilitated by `EditTagCommandParser`, `EditTagCommand` and `EditTagByStateCommand`.  The class structure of the implementation is given below.
 
-Additionally, it implements the following operations:
+![EditTagClassStructure](images/EditTagClassStructure.png)
 
-- `EditTagCommand#execute()`  —  Executes the command.
 
-Given below is an example usage scenario and how the edit tag feature behaves at each step.
 
-Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.
+`EditTagCommand` extends `Command` and uses **editTag** as its `COMMAND_WORD`  and makes use of the **ot/** and **nt/** prefixes.
 
-Step 2. The user executes `add n/Print bug d/prints the wrong message s/todo t/Ui.java` command to add a new bug to the kanbug tracker. A new bug with the following information is added:
+The operations that each class implements is given below:
+
+`EditTagCommandParser`
+
+- `EditTagCommandParser#parse(String)`— Parses input 
+
+`EditTagCommand`
+
+- `EditTagCommand#execute(Model)`  —  Executes the command.
+
+- `EditTagCommand#updateTagInBug(Bug, Tag, Tag)` — Replaces the old Tag in Bug with the new Tag.
+
+
+
+#### Usages
+
+There are two possible usages of this feature, depending on whether the user is in the **Kanban view** or **List view**. 
+
+Given below is an example usage scenario in **Kanban View** and how the edit tag feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug tracker state.
+
+Step 2. The user executes `add n/Print bug d/prints the wrong message s/todo t/Ui` command to add a new bug to the KanBug tracker. A new bug with the following information is added:
 
 - name: **Print bug**
 - description: **prints the wrong message**
 - state: **todo**
-- tag: **Ui.java**
+- tag: **Ui**
 
-This bug is added as the 6th bug in the kanbug tracker.
+This bug is added as the 6th bug in the KanBug tracker.
 
 **Note that the index 6 is for illustration purposes only**
 
-Step 3. The user decides that the tag they added is incorrect and would like to modify it. The user executes `editTag 6 ot/Ui.java nt/display`. This will result in the tag of the bug at index 6 being modified such that the new tag is **display** instead of **Ui.java**.
+Step 3. The user decides that the tag they added is incorrect and would like to modify it. The user executes `editTag 6 c/todo ot/Ui nt/display`. This will result in the tag of the bug at index **6** of the **todo** column being modified such that the new tag is **display** instead of **Ui**.
 
 The updated bug is as follows:
 
@@ -161,41 +178,90 @@ The updated bug is as follows:
 - state: **todo**
 - tag: **display**
 
-### [Proposed] Add tag feature
+The following sequence diagram shows how the edit tag operation works in **Kanban view**:
 
-#### Proposed Implementation
 
-The proposed edit tag feature is facilitated by `AddTagCommand`. It extends `Command` and uses **addTag** as its `COMMAND_WORD`  and makes use of the **nt/** prefix.
 
-Additionally, it implements the following operations:
+![EditTagByStateKanBan](images/EditTagByStateSequenceDiagram.png)
 
-- `AddTagCommand#execute()`  —  Executes the command.
+ℹ️ **Note:** The lifeline for `EditTagCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-Given below is an example usage scenario and how the edit tag feature behaves at each step.
+The usage scenario in **List view** is similar to that of **Kanban view** except that the user does not supply a **column** as input. An example of such a command would be `editTag 6 ot/Ui nt/display`. Instead of an `EditTagByStateCommand` , an `EditTagCommand` is returned by `EditTagCommandParser`.
 
-Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.
+The following sequence diagram shows how the edit tag operation works in **List view**:
 
-Step 2. The user executes `add n/Print bug d/prints the wrong message s/todo t/Ui.java` command to add a new bug to the kanbug tracker. A new bug with the following information is added:
+![EditTagByStateKanBan](images/EditTagSequence.png)
+
+ℹ️ **Note:** The lifeline for `EditTagCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+### Add tag feature
+
+#### Implementation
+
+The add tag feature is facilitated by `AddTagCommandParser`, `AddTagCommand` and `AddTagByStateCommand`.  The class structure of the implementation is given below.
+
+![AddTagClassStructure](images/AddTagClassStructure.png)
+
+
+
+`AddTagCommand` extends `Command` and uses **addTag** as its `COMMAND_WORD`  and makes use of the **nt/** prefix.
+
+The operations that each class implements is given below:
+
+`AddTagCommandParser`
+
+- `AddTagCommandParser#parse(String)`— Parses input 
+
+`AddTagCommand`
+
+- `AddTagCommand#execute(Model)`  —  Executes the command.
+- `AddTagCommand#updateTagInBug(Bug, Tag)` — Adds the new Tag to the Bug.
+
+
+
+#### Usages
+
+There are two possible usages of this feature, depending on whether the user is in the **Kanban view** or **List view**. 
+
+Given below is an example usage scenario in **Kanban View** and how the edit tag feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug tracker state.
+
+Step 2. The user executes `add n/Print bug d/prints the wrong message s/todo t/Ui` command to add a new bug to the KanBug tracker. A new bug with the following information is added:
 
 - name: **Print bug**
 - description: **prints the wrong message**
 - state: **todo**
-- tag: **Ui.java**
+- tag: **Ui**
 
-This bug is added as the 6th bug in the kanbug tracker.
+This bug is added as the 6th bug in the KanBug tracker.
 
 **Note that the index 6 is for illustration purposes only**
 
-Step 3. The user decides that the tag they would like to add an additional tag to the bug. The user executes `addTag nt/wrongPrinting`. This will result in the tag of the bug at index 6 being modified such that an additional tag **wrongPrinting** is added to the bug.
+Step 3. The user decides that they would like to add an additional tag to the bug. The user executes `addTag 6 c/todo nt/wrongPrinting`. This will result in a new tag **wrongPrinting** being added to the bug at index **6** of the **todo** column.
 
 The updated bug is as follows:
 
 - name: **Print bug**
 - description: **prints the wrong message**
 - state: **todo**
-- tag: **Ui.java**, **wrongPrinting**
+- tag: **Ui**, **wrongPrinting**
 
-### \[Proposed\] Bug priority
+The following sequence diagram shows how the edit tag operation works in **Kanban view**:
+
+![AddTagByStateKanBan](images/AddTagByStateSequenceDiagram.png)
+
+ℹ️ **Note:** The lifeline for `AddTagCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The usage scenario in **List view** is similar to that of **Kanban view** except that the user does not supply a **column** as input. An example of such a command would be `addTag 6 nt/display`. Instead of an `AddTagByStateCommand` , an `AddTagCommand` is returned by `AddTagCommandParser`.
+
+The following sequence diagram shows how the edit tag operation works in **List view**:
+
+![AddTagKanBan](images/AddTagSequenceDiagram.png)
+
+ℹ️ **Note:** The lifeline for `AddTagCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+### [Proposed\] Bug priority
 
 Feature description: Each bug will now have a priority level (low, medium, high) that will be shown on the GUI. Users
 can add or edit a bug with the priority using the `pr/` tag. The priority is optional, but each bug must have at most
@@ -235,7 +301,7 @@ Design Pattern.
     - Cons: Need to refactor quite a lot in many different places.
 - **Alternative 2**: Create `Priority` as a subclass of `Tag` [rejected]
     - Cons: Break the Liskov Substitution Principle.
- 
+
 ### \[Proposed\] Search feature
 
 #### Proposed Implementation

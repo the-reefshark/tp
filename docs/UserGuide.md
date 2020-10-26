@@ -56,7 +56,7 @@ KanBug Tracker provides two different views that the user can switch between. Th
   - [Moving a bug : **`move`**](#moving-a-bug--move)
   - [Exiting the program :  **`exit`**](#exiting-the-program--exit)
   - [Saving the data](#saving-the-data)
-
+  
 - [Command Summary](#command-summary)
 
   ------

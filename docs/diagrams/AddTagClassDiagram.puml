@@ -1,0 +1,18 @@
+@startuml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+Interface Parser <<Interface>>
+Class "{abstract}\nCommand" as Command
+Class AddTagCommandParser
+Class AddTagCommand
+Class AddTagByStateCommand
+
+AddTagCommandParser .up.|> Parser
+AddTagCommandParser .right.> AddTagCommand: creates >
+AddTagCommand -up-|> Command
+AddTagByStateCommand -up-|> AddTagCommand
+
+
+@enduml

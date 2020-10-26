@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":KanBugTrackerParser" as KanBugTrackerParser LOGIC_COLOR
+participant ":EditTagCommandParser" as EditTagCommandParser LOGIC_COLOR
+participant "e:EditTagByStateCommand" as EditTagByStateCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editTag 1 c/todo ot/UI nt/UserDisplay")
+activate LogicManager
+
+LogicManager -> KanBugTrackerParser : parseCommand("ditTag 1 c/todo ot/UI nt/UserDisplay")
+activate KanBugTrackerParser
+
+create EditTagCommandParser
+KanBugTrackerParser -> EditTagCommandParser
+activate EditTagCommandParser
+
+EditTagCommandParser --> KanBugTrackerParser
+deactivate EditTagCommandParser
+
+KanBugTrackerParser -> EditTagCommandParser : parse("1 c/todo ot/UI nt/UserDisplay")
+activate EditTagCommandParser
+
+create EditTagByStateCommand
+EditTagCommandParser -> EditTagByStateCommand
+activate EditTagByStateCommand
+
+EditTagByStateCommand --> EditTagCommandParser : e
+deactivate EditTagByStateCommand
+
+EditTagCommandParser --> KanBugTrackerParser : e
+deactivate EditTagCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditTagCommandParser -[hidden]-> KanBugTrackerParser
+destroy EditTagCommandParser
+
+KanBugTrackerParser --> LogicManager : e
+deactivate KanBugTrackerParser
+
+LogicManager -> EditTagByStateCommand : execute()
+activate EditTagByStateCommand
+
+EditTagByStateCommand -> Model : setBug(bugToEdit, EditedBug)
+activate Model
+
+Model --> EditTagByStateCommand
+deactivate Model
+
+EditTagByStateCommand -> Model : updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS)
+activate Model
+
+Model --> EditTagByStateCommand
+deactivate Model
+
+create CommandResult
+EditTagByStateCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditTagByStateCommand
+deactivate CommandResult
+
+EditTagByStateCommand --> LogicManager : result
+deactivate EditTagByStateCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

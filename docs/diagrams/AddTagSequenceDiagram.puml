@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":KanBugTrackerParser" as KanBugTrackerParser LOGIC_COLOR
+participant ":AddTagCommandParser" as AddTagCommandParser LOGIC_COLOR
+participant "a:AddTagCommand" as AddTagCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addTag 1 nt/UserDisplay")
+activate LogicManager
+
+LogicManager -> KanBugTrackerParser : parseCommand("addTag 1 nt/UserDisplay")
+activate KanBugTrackerParser
+
+create AddTagCommandParser
+KanBugTrackerParser -> AddTagCommandParser
+activate AddTagCommandParser
+
+AddTagCommandParser --> KanBugTrackerParser
+deactivate AddTagCommandParser
+
+KanBugTrackerParser -> AddTagCommandParser : parse("1 nt/UserDisplay")
+activate AddTagCommandParser
+
+create AddTagCommand
+AddTagCommandParser -> AddTagCommand
+activate AddTagCommand
+
+AddTagCommand --> AddTagCommandParser : a
+deactivate AddTagCommand
+
+AddTagCommandParser --> KanBugTrackerParser : a
+deactivate AddTagCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddTagCommandParser -[hidden]-> KanBugTrackerParser
+destroy AddTagCommandParser
+
+KanBugTrackerParser --> LogicManager : a
+deactivate KanBugTrackerParser
+
+LogicManager -> AddTagCommand : execute()
+activate AddTagCommand
+
+AddTagCommand -> Model : setBug(bugToEdit, EditedBug)
+activate Model
+
+Model --> AddTagCommand
+deactivate Model
+
+AddTagCommand -> Model : updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS)
+activate Model
+
+Model --> AddTagCommand
+deactivate Model
+
+create CommandResult
+AddTagCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddTagCommand
+deactivate CommandResult
+
+AddTagCommand --> LogicManager : result
+deactivate AddTagCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

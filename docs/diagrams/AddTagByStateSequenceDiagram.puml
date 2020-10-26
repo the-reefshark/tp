@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":KanBugTrackerParser" as KanBugTrackerParser LOGIC_COLOR
+participant ":AddTagCommandParser" as AddTagCommandParser LOGIC_COLOR
+participant "a:AddTagByStateCommand" as AddTagByStateCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addTag 1 c/backlog nt/UserDisplay")
+activate LogicManager
+
+LogicManager -> KanBugTrackerParser : parseCommand("addTag 1 c/backlog nt/UserDisplay")
+activate KanBugTrackerParser
+
+create AddTagCommandParser
+KanBugTrackerParser -> AddTagCommandParser
+activate AddTagCommandParser
+
+AddTagCommandParser --> KanBugTrackerParser
+deactivate AddTagCommandParser
+
+KanBugTrackerParser -> AddTagCommandParser : parse("1 c/backlog nt/UserDisplay")
+activate AddTagCommandParser
+
+create AddTagByStateCommand
+AddTagCommandParser -> AddTagByStateCommand
+activate AddTagByStateCommand
+
+AddTagByStateCommand --> AddTagCommandParser : a
+deactivate AddTagByStateCommand
+
+AddTagCommandParser --> KanBugTrackerParser : a
+deactivate AddTagCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddTagCommandParser -[hidden]-> KanBugTrackerParser
+destroy AddTagCommandParser
+
+KanBugTrackerParser --> LogicManager : a
+deactivate KanBugTrackerParser
+
+LogicManager -> AddTagByStateCommand : execute()
+activate AddTagByStateCommand
+
+AddTagByStateCommand -> Model : setBug(bugToEdit, EditedBug)
+activate Model
+
+Model --> AddTagByStateCommand
+deactivate Model
+
+AddTagByStateCommand -> Model : updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS)
+activate Model
+
+Model --> AddTagByStateCommand
+deactivate Model
+
+create CommandResult
+AddTagByStateCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddTagByStateCommand
+deactivate CommandResult
+
+AddTagByStateCommand --> LogicManager : result
+deactivate AddTagByStateCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
