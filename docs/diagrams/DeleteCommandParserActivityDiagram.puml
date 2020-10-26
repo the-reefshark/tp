@@ -1,0 +1,17 @@
+@startuml
+start
+:User enters a delete command;
+: DeleteCommandParser parses the input;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([column is specified])
+    :DeleteBySateCommand
+      is created;
+else ([else])
+    :DeleteCommand is created;
+endif
+: Command is executed an the bug is deleted;
+stop
+@enduml

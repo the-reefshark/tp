@@ -157,9 +157,9 @@ Examples:
 
 ### 3.5 Deleting a bug : `delete`
 
-Deletes a bug from the list
+After a bug is fixed and a project is done, its time to remove the bug from the application.
 
-Format: `delete INDEX`
+Format: `delete INDEX [c/COLUMN]`
 
 - Deletes the bug at the specified index
 
