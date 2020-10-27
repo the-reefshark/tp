@@ -233,7 +233,8 @@ Examples:
 
 ### 3.9 Moving a bug : `move`
 
-Moves an existing bug in the tracker from one state to another
+Whether you begin to work on a bug, finish fixing one or plan to deal with a bug later, you can use `move` to update the 
+progress on dealing with that bug.
 
 Format: `move INDEX [c/COLUMN] s/STATE`
 
@@ -241,15 +242,16 @@ Format: `move INDEX [c/COLUMN] s/STATE`
   - **Kanban view**: User must supply `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
   - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
 
-- Moves the specified bug.
+- Specifically, this command will change the state of the bug.
 - The state field is **mandatory** and must be provided.
 - State can either be **backlog, todo, ongoing** or **done**.
-- Existing state will be updated to the new state.
-
+- If the "destination" state is the same with the initial state of the bug, no change will be made.
+- The bug must exist to be moved (e.g. we cannot move the fifth bug in the List view if there are only four bugs).
 Examples:
 
-- `move 1 s/todo`, moves the bug at index **1** from its initial state to the “To Do” state.
-- `move 3 s/done`, moves the bug  at index **3** from its initial state to the “Done” state.
+- `move 1 s/todo`, moves the first bug in the List view from its initial state to the “Todo” state.
+- `move 3 c/ongoing s/done`, moves the bug third bug in the Ongoing column of Kanban view from its initial state
+ (Ongoing) to the “Done” state.
 
 ### 3.10 Clearing all bugs : `clear`
 
@@ -261,7 +263,8 @@ End and close the app.
 
 Format: `exit`
 
-- Saves all of the local data and exit.
+When you are done with managing your tasks, use this command to saves all of the local data and exit from the app. 
+Alternatively, you can also close the window directly or press Esc key, and the app will do the same thing.
 
 ### 3.12 Saving the data : automatically
 
