@@ -137,7 +137,17 @@ Format: `list`
 
 ### 3.3 Searching for bugs : `search`
 
-<Input the description for search here>
+When there are a lot of bugs in the tracker, the search command is here to help to find out particular bugs you are looking for.
+
+Format: `search q/QUERYSTRING`
+
+- This command sorts out bugs based on your given query-string. The tracker returns all the bugs that has either name or description or tags containing this query-string as a substring. 
+- The query-string cannot be empty and case-insensitive.
+- If there are repetitive `q/` prefixes, the tracker only considers the last one.
+
+Examples:
+
+- `search q/frontend`, returns a list of bugs of which either name or description or tags contains query-string *frontend* (case-insensitive) in the words.
 
 ### 3.4 Adding a bug : `add`
 
@@ -255,9 +265,11 @@ Examples:
 
 ### 3.10 Clearing all bugs : `clear`
 
-Clears all bugs from the tracker. This command is applicable to both Kanban and List views.
+Imagine the project you just finish ends up with a hundred of bug records in the tracker. How to restart? Don't worry! Clear command is here to help you to clear all bugs to reinitialize the application.
 
-Format: clear
+Format: `clear`
+
+- This command is applicable to both Kanban and List views.
 
 ### 3.11 Exiting the program : `exit`
 
