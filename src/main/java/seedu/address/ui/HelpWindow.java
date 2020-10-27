@@ -25,6 +25,8 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String FEATURES_ONE = "Words in UPPER_CASE are parameters to be supplied by the user";
     public static final String FEATURES_TWO = "Items in [...] are optional";
 
+    public static final String SWITCH_ACTION = "switch";
+    public static final String SWITCH_FORMAT = "switch";
     public static final String LIST_ACTION = "list";
     public static final String LIST_FORMAT = "list";
     public static final String SEARCH_ACTION = "search";
@@ -76,6 +78,7 @@ public class HelpWindow extends UiPart<Stage> {
 
     private ObservableList<Table> data =
             FXCollections.observableArrayList(
+                    new Table(SWITCH_ACTION, SWITCH_FORMAT),
                     new Table(LIST_ACTION, LIST_FORMAT),
                     new Table(SEARCH_ACTION, SEARCH_FORMAT),
                     new Table(ADD_ACTION, ADD_FORMAT),

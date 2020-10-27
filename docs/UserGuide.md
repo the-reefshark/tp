@@ -52,29 +52,31 @@ The first step in every journey is the preparation, after that when we have you 
 
 3. [Features](#3-features)
 
-   3.1 [Viewing help : **`help`**](#31-viewing-help--help)
+   3.1 [Switching Views : **`switch`**](#31-switching-views--switch)
 
-   3.2 [Listing all bugs : **`list`**](#32-listing-all-bugs--list)
+   3.2 [Viewing help : **`help`**](#32-viewing-help--help)
 
-   3.3 [Searching for bugs: **`search`**](#33-searching-for-bugs--search)
+   3.3 [Listing all bugs : **`list`**](#33-listing-all-bugs--list)
 
-   3.4 [Adding a bug : **`add`**](#34-adding-a-bug--add)
+   3.4 [Searching for bugs: **`search`**](#34-searching-for-bugs--search)
 
-   3.5 [Deleting a bug : **`delete`**](#35-deleting-a-bug--delete)
+   3.5 [Adding a bug : **`add`**](#35-adding-a-bug--add)
 
-   3.6 [Editing a bug : **`edit`**](#36-editing-a-bug--edit)
+   3.6 [Deleting a bug : **`delete`**](#36-deleting-a-bug--delete)
 
-   3.7 [Editing a tag of a bug: **`editTag`**](#37-editing-a-tag-of-a-bug--edittag)
+   3.7 [Editing a bug : **`edit`**](#37-editing-a-bug--edit)
 
-   3.8 [Adding a tag to a bug : **`addTag`**](#38-adding-a-tag-to-a-bug--addtag)
+   3.8 [Editing a tag of a bug: **`editTag`**](#38-editing-a-tag-of-a-bug--edittag)
 
-   3.9 [Moving a bug : **`move`**](#39-moving-a-bug--move)
+   3.9 [Adding a tag to a bug : **`addTag`**](#39-adding-a-tag-to-a-bug--addtag)
 
-   3.10 [Clearing all bugs: **`clear`**](#310-clearing-all-bugs--clear)
+   3.10 [Moving a bug : **`move`**](#310-moving-a-bug--move)
 
-   3.11 [Exiting the program :  **`exit`**](#311-exiting-the-program--exit)
+   3.11 [Clearing all bugs: **`clear`**](#311-clearing-all-bugs--clear)
 
-   3.12 [Saving the data](#312-saving-the-data--automatically)
+   3.12 [Exiting the program :  **`exit`**](#312-exiting-the-program--exit)
+
+   3.13 [Saving the data](#313-saving-the-data--automatically)
 
 4. [Command Summary](#4-command-summary)
 
@@ -119,7 +121,15 @@ What are some things I think we need to explain?
 - Items in `[...]` are optional
 - `INDEX ` **must be a positive integer** 1,2,3...
 
-### 3.1 Viewing help : `help`
+### 3.1 Switching Views : `switch`
+
+Want to get a high level overview of the bugs in your program or focus only on a particular column? Just switch views!
+
+Format: `switch`
+
+- Switches between **Kanban view** and **List view**
+
+### 3.2 Viewing help : `help`
 
 Not sure what to do next? Don't worry, just ask for help.
 
@@ -127,7 +137,7 @@ Format: `help`
 
 - Gets all commands’ syntax and usage and link to this User Guide.
 
-### 3.2 Listing all bugs : `list`
+### 3.3 Listing all bugs : `list`
 
 Lists all bugs in the tracker for times when you want to quickly look through all the bugs in the tracker.
 
@@ -135,7 +145,7 @@ Format: `list`
 
 - Shows a list of all bugs in the tracker system
 
-### 3.3 Searching for bugs : `search`
+### 3.4 Searching for bugs : `search`
 
 When there are a lot of bugs in the tracker, the search command is here to help to find out particular bugs you are looking for.
 
@@ -149,9 +159,9 @@ Examples:
 
 - `search q/frontend`, returns a list of bugs of which either name or description or tags contains query-string *frontend* (case-insensitive) in the words.
 
-### 3.4 Adding a bug : `add`
+### 3.5 Adding a bug : `add`
 
-When a bug is encountered, the add command is here to help keep track of the bug for furture reference.
+When a bug is encountered, the add command is here to help keep track of the bug for future reference.
 
 Format: `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG] [pr/PRIORITY]`
 
@@ -165,7 +175,7 @@ Examples:
 - `add n/Move bug d/Moves bug to wrong column s/backlog note/This bug is likely caused by issues in multiple classes`, adds a bug with name *Move bug*, Description of *Moves bug to wrong column*, state of *Backlog* and a note of *This bug is likely caused by issues in multiple classes*.
 - `add n/Move bug d/Moves the wrong bug when run pr/high`, adds a bug with name *Move bug*, Description of *Moves the wrong bug when run*, default state of *Backlog* and priority of *high*.
 
-### 3.5 Deleting a bug : `delete`
+### 3.6 Deleting a bug : `delete`
 
 After a bug is fixed and a project is done, its time to remove the bug from the application.
 
@@ -183,9 +193,9 @@ Example:
 - `delete 1`, deletes the bug at index **1** of bug list in main view.
 - `delete 2 c/backlog`, deletes the second bug in the backlog column
 
-### 3.6 Editing a bug : `edit`
+### 3.7 Editing a bug : `edit`
 
-Made a mistake when adding in a bug or simply changed your mind on what the description should be? Fret not, thats what the edit command is for.
+Made a mistake when adding in a bug or simply changed your mind on what the description should be? Fret not, that's what the edit command is for.
 
 Format: `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NEW_NOTE] [t/NEW_TAG]`
 
@@ -204,9 +214,9 @@ Examples:
 - `edit 2 d/When listing items, duplicates are printed note/Tried a fix using iterator, did not work`, edits the description of the 2nd bug to be *When listing items, duplicated are printed* and changes the note to *Tried a fix using iterator, did not work*
 - `edit 3 t/Logger t/Logging`, edits/adds the two tags provided *Logger* and *Logging*.
 
-### 3.7 Editing a tag of a bug : `editTag`
+### 3.8 Editing a tag of a bug : `editTag`
 
-Edits an existing tag of a bug in the tracker
+Made a mistake when adding tags to your bug? With this command, you can easily make amends without having to retype every single tag!
 
 Format: `editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG`
 
@@ -223,9 +233,9 @@ Examples:
 - `editTag 1 ot/UI nt/UserDisplay` edits the bug at index **1** and replaces the tag **UI** with the tag **UserDisplay**.
 - `editTag 1 c/backlog ot/CommandResult nt/CommandParser` filters all bugs and only considers those that have a **state** of **backlog**. It then edits the bug at index **1** of this list and replaces the tag **CommandResult** with the tag **CommandParser**.
 
-### 3.8 Adding a tag to a bug : `addTag`
+### 3.9 Adding a tag to a bug : `addTag`
 
-Adds a tag to a bug in the tracker
+Forgot to add a tag to one of your bugs? Or perhaps you want to add a new one? With this command, adding tags has never been simpler!
 
 Format: `addTag INDEX [c/COLUMN] nt/NEW_TAG`
 
@@ -241,7 +251,7 @@ Examples:
 - `addTag 2 nt/UserDisplay` edits the bug at index **2** and adds the tag **UI** to the bug.
 - `addTag 1 c/backlog nt/CommandParser` filters all bugs and only considers those that have a **state** of **backlog**. It then edits the bug at index **1** of this list and adds the tag **CommandParser** to the bug.
 
-### 3.9 Moving a bug : `move`
+### 3.10 Moving a bug : `move`
 
 Whether you begin to work on a bug, finish fixing one or plan to deal with a bug later, you can use `move` to update the 
 progress on dealing with that bug.
@@ -263,7 +273,7 @@ Examples:
 - `move 3 c/ongoing s/done`, moves the bug third bug in the Ongoing column of Kanban view from its initial state
  (Ongoing) to the “Done” state.
 
-### 3.10 Clearing all bugs : `clear`
+### 3.11 Clearing all bugs : `clear`
 
 Imagine the project you just finish ends up with a hundred of bug records in the tracker. How to restart? Don't worry! Clear command is here to help you to clear all bugs to reinitialize the application.
 
@@ -271,7 +281,7 @@ Format: `clear`
 
 - This command is applicable to both Kanban and List views.
 
-### 3.11 Exiting the program : `exit`
+### 3.12 Exiting the program : `exit`
 
 Ends and closes the app.
 
@@ -280,7 +290,7 @@ Format: `exit`
 When you are done with managing your tasks, use this command to saves all of the local data and exit from the app. 
 Alternatively, you can also close the window directly or press Esc key, and the app will do the same thing.
 
-### 3.12 Saving the data : automatically
+### 3.13 Saving the data : automatically
 
 Data is saved into the hard disk every time a change is made.
 
