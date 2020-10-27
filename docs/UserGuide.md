@@ -21,12 +21,12 @@ KanBug Tracker provides two different views that the user can switch between. Th
 
 1. Command Line Interface for users to enter their commands
 2. Display that the application uses to give feedback on commands to the user
-3. Four of pre-declared states that KanBug Tracker comes with. Each bug will be assigned to one of the four states to aid users in tracking the life cycle of each bug.
-4. Each individual bug will be displayed with the following data listed in order of display from top to bottom:
+3. Each individual bug will be displayed with the following data listed in order of display from top to bottom:
     - Name of bug
-    - Short description of bug
-    - Relevant tags 
     - Priority of bug
+    - Short description of bug
+    - Relevant tags
+4. Four of pre-declared states that KanBug Tracker comes with. Each bug will be assigned to one of the four states to aid users in tracking the life cycle of each bug.
 
 #### List View:
 
@@ -35,12 +35,13 @@ KanBug Tracker provides two different views that the user can switch between. Th
 1. Command Line Interface for users to enter their commands
 2. Display that the application uses to give feedback on commands to the user
 3. Scroll bar to navigate up and down the bug list
-4. Each individual bug will be displayed with the following data listed in order of display from top to bottom:
+4. Each individual bug will be displayed with the following data listed in order of display from top to bottom and left to right:
     - Name of bug
-    - Short description of bug
-    - Note containing extra information about the bug
-    - Relevant tags
     - Priority of bug
+    - State of bug
+    - Short description of bug
+    - Relevant tags
+    - Note containing extra information about the bug
 
 ## Table Of Contents
 
