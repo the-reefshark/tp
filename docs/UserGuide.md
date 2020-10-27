@@ -141,9 +141,9 @@ Format: `list`
 
 ### 3.4 Adding a bug : `add`
 
-Adds a bug to the list
+When a bug is encountered, the add command is here to help keep track of the bug for furture reference.
 
-Format: `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG]`
+Format: `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG] [pr/PRIORITY]`
 
 - Add a bug with the specified name, description and state to the bottom of the list.
 - The state, note and tag fields are optional, all other fields are needed.
@@ -153,7 +153,7 @@ Examples:
 
 - `add n/Print bug d/Prints the wrong message s/todo t/Ui`, adds a bug with name *Print Bug*, Description of *Prints the wrong message*, state of *To do* and a tag of *Ui*.
 - `add n/Move bug d/Moves bug to wrong column s/backlog note/This bug is likely caused by issues in multiple classes`, adds a bug with name *Move bug*, Description of *Moves bug to wrong column*, state of *Backlog* and a note of *This bug is likely caused by issues in multiple classes*.
-- `add n/Move bug d/Moves the wrong bug when run`, adds a bug with name *Move bug*, Description of *Moves the wrong bug when run* and default state of *Backlog*.
+- `add n/Move bug d/Moves the wrong bug when run pr/high`, adds a bug with name *Move bug*, Description of *Moves the wrong bug when run*, default state of *Backlog* and priority of *high*.
 
 ### 3.5 Deleting a bug : `delete`
 
@@ -161,11 +161,17 @@ After a bug is fixed and a project is done, its time to remove the bug from the 
 
 Format: `delete INDEX [c/COLUMN]`
 
+- The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
+  - **Kanban view**: User must supply the `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
+  - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
+
+
 - Deletes the bug at the specified index
 
 Example:
 
-- `delete 1`, deletes the bug at index **1** of the bug list.
+- `delete 1`, deletes the bug at index **1** of bug list in main view.
+- `delete 2 c/backlog`, deletes the second bug in the backlog column
 
 ### 3.6 Editing a bug : `edit`
 
