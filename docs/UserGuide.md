@@ -76,7 +76,7 @@ The first step in every journey is the preparation, after that when we have you 
 
    3.12 [Saving the data](#312-saving-the-data--automatically)
 
-4. [Command Summary](#4-command-summary)#command-summary)
+4. [Command Summary](#4-command-summary)
 
 ------
 
