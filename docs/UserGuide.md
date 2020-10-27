@@ -137,7 +137,17 @@ Format: `list`
 
 ### 3.3 Searching for bugs : `search`
 
-<Input the description for search here>
+When there are a lot of bugs in the tracker, the search command is here to help to find out particular bugs you are looking for.
+
+Format: `search q/QUERYSTRING`
+
+- This command sorts out bugs based on your given query-string. The tracker returns all the bugs that has either name or description or tags containing this query-string as a substring. 
+- The query-string cannot be empty and case-insensitive.
+- If there are repetitive `q/` prefixes, the tracker only considers the last one.
+
+Examples:
+
+- `search q/frontend`, returns a list of bugs of which either name or description or tags contains query-string *frontend* (case-insensitive) in the words.
 
 ### 3.4 Adding a bug : `add`
 
@@ -255,11 +265,15 @@ Examples:
 
 ### 3.10 Clearing all bugs : `clear`
 
-<Input the description for search here>
+Imagine the project you just finish ends up with a hundred of bug records in the tracker. How to restart? Don't worry! Clear command is here to help you to clear all bugs to reinitialize the application.
+
+Format: `clear`
+
+- This command is applicable to both Kanban and List views.
 
 ### 3.11 Exiting the program : `exit`
 
-End and close the app.
+Ends and closes the app.
 
 Format: `exit`
 
@@ -278,13 +292,13 @@ Data is saved into the hard disk every time a change is made.
 | :---------: | :----------------------------------------------------------: |
 |  **help**   |                            `help`                            |
 |  **list**   |                            `list`                            |
-| **search**  |                   <Fill in implementation>                   |
+| **search**  |                      `search q/QUERYSTRING`                  |
 |   **add**   |   `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG]`   |
 | **delete**  |                        `delete INDEX [c/COLUMN]`                        |
 |  **edit**   | `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NOTE] [t/NEW_TAG]` |
 | **editTag** |       `editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG`       |
 | **addTag**  |             `addTag INDEX [c/COLUMN] nt/NEW_TAG`             |
-|  **clear**  |                   <Fill in implementation>                   |
+|  **clear**  |                            `clear`                           |
 |  **move**   |               `move INDEX [c/COLUMN] s/STATE`                |
 |  **exit**   |                            `exit`                            |
 
