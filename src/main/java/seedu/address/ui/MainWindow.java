@@ -44,7 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private  MenuItem escMenuItem;
+    private MenuItem escMenuItem;
 
     @FXML
     private StackPane bugListPanelPlaceholder;

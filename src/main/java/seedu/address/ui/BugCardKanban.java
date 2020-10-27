@@ -50,6 +50,7 @@ public class BugCardKanban extends UiPart<Region> {
         name.setWrapText(true);
         description.setText(bug.getDescription().value);
         description.setWrapText(true);
+        description.setMaxHeight(60);
         if (!bug.getPriority().isNull()) {
             priority.setText("  " + bug.getPriority().getValue().toUpperCase() + "  ");
             switch (bug.getPriority().getValue()) {
