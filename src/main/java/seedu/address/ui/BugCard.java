@@ -44,6 +44,8 @@ public class BugCard extends UiPart<Region> {
     private Label priority;
     @FXML
     private Label note;
+    @FXML
+    private HBox noteContainer;
 
     /**
      * Creates a {@code BugCard} with the given {@code Bug} and index to display.
@@ -53,7 +55,7 @@ public class BugCard extends UiPart<Region> {
         this.bug = bug;
         id.setText(displayedIndex + ". ");
         name.setText(bug.getName().fullName);
-        name.setMinWidth(Label.USE_PREF_SIZE);
+        name.setWrapText(true);
 
         description.setText(bug.getDescription().value);
         description.setWrapText(true);
@@ -81,6 +83,8 @@ public class BugCard extends UiPart<Region> {
             note.setText(bug.getOptionalNote().get().value);
             note.setWrapText(true);
         } else {
+            noteContainer.setVisible(false);
+            noteContainer.setManaged(false);
             note.setVisible(false);
             note.setManaged(false);
         }

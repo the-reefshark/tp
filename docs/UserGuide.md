@@ -44,7 +44,7 @@ KanBug Tracker provides two different views that the user can switch between. Th
 
 ## Table Of Contents
 
-<Add description talking about the general flow of the document. A brief overview of each section and why it is structured that way>
+The first step in every journey is the preparation, after that when we have you all set up we will take you through some key points to aid you on your journey through our user guide. After which we will show you everything that you can do with this powerful tracker before we end off with some commands that will help you keep your bugs in order. Thank you for choosing KanBug Tracker!
 
 1. [Getting Started](#1-getting-started)
 
@@ -121,15 +121,15 @@ What are some things I think we need to explain?
 
 ### 3.1 Viewing help : `help`
 
-Gets a list of all commands that can be used.
+Not sure what to do next? Don't worry, just ask for help.
 
 Format: `help`
 
-- Gets all commands’ syntax and usage.
+- Gets all commands’ syntax and usage and link to this User Guide.
 
 ### 3.2 Listing all bugs : `list`
 
-Lists all bugs in the tracker
+Lists all bugs in the tracker for times when you want to quickly look through all the bugs in the tracker.
 
 Format: `list`
 
@@ -141,9 +141,9 @@ Format: `list`
 
 ### 3.4 Adding a bug : `add`
 
-Adds a bug to the list
+When a bug is encountered, the add command is here to help keep track of the bug for furture reference.
 
-Format: `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG]`
+Format: `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG] [pr/PRIORITY]`
 
 - Add a bug with the specified name, description and state to the bottom of the list.
 - The state, note and tag fields are optional, all other fields are needed.
@@ -153,7 +153,7 @@ Examples:
 
 - `add n/Print bug d/Prints the wrong message s/todo t/Ui`, adds a bug with name *Print Bug*, Description of *Prints the wrong message*, state of *To do* and a tag of *Ui*.
 - `add n/Move bug d/Moves bug to wrong column s/backlog note/This bug is likely caused by issues in multiple classes`, adds a bug with name *Move bug*, Description of *Moves bug to wrong column*, state of *Backlog* and a note of *This bug is likely caused by issues in multiple classes*.
-- `add n/Move bug d/Moves the wrong bug when run`, adds a bug with name *Move bug*, Description of *Moves the wrong bug when run* and default state of *Backlog*.
+- `add n/Move bug d/Moves the wrong bug when run pr/high`, adds a bug with name *Move bug*, Description of *Moves the wrong bug when run*, default state of *Backlog* and priority of *high*.
 
 ### 3.5 Deleting a bug : `delete`
 
@@ -161,20 +161,26 @@ After a bug is fixed and a project is done, its time to remove the bug from the 
 
 Format: `delete INDEX [c/COLUMN]`
 
+- The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
+  - **Kanban view**: User must supply the `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
+  - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
+
+
 - Deletes the bug at the specified index
 
 Example:
 
-- `delete 1`, deletes the bug at index **1** of the bug list.
+- `delete 1`, deletes the bug at index **1** of bug list in main view.
+- `delete 2 c/backlog`, deletes the second bug in the backlog column
 
 ### 3.6 Editing a bug : `edit`
 
-Edits an existing bug in the tracker
+Made a mistake when adding in a bug or simply changed your mind on what the description should be? Fret not, thats what the edit command is for.
 
 Format: `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NEW_NOTE] [t/NEW_TAG]`
 
 - The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
-  - **Kanban view**: User must supply `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
+  - **Kanban view**: User must supply the `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
   - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
 
 - Edits the specified bug.
@@ -184,8 +190,8 @@ Format: `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NEW_NOTE] 
 
 Examples:
 
-- `edit 1 n/Wrong list numbers when displaying list d/List column printed as all 1's`, edits the name and description of the 1st bug to be *Wrong list numbers when displaying list* and "List column printed as all 1's" respectively.
-- `edit 2 d/When listing items, duplicates are printed note/Tried a fix using iterator, did not work`, edits the description of the 2nd bug to be *When listing items, duplicated are printed*
+- `edit 1 c/backlog n/Wrong list numbers when displaying list d/List column printed as all 1's`, edits the name and description of the 1st bug in the backlog column to *Wrong list numbers when displaying list* and "List column printed as all 1's" respectively.
+- `edit 2 d/When listing items, duplicates are printed note/Tried a fix using iterator, did not work`, edits the description of the 2nd bug to be *When listing items, duplicated are printed* and changes the note to *Tried a fix using iterator, did not work*
 - `edit 3 t/Logger t/Logging`, edits/adds the two tags provided *Logger* and *Logging*.
 
 ### 3.7 Editing a tag of a bug : `editTag`
@@ -227,7 +233,8 @@ Examples:
 
 ### 3.9 Moving a bug : `move`
 
-Moves an existing bug in the tracker from one state to another
+Whether you begin to work on a bug, finish fixing one or plan to deal with a bug later, you can use `move` to update the 
+progress on dealing with that bug.
 
 Format: `move INDEX [c/COLUMN] s/STATE`
 
@@ -235,15 +242,16 @@ Format: `move INDEX [c/COLUMN] s/STATE`
   - **Kanban view**: User must supply `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
   - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
 
-- Moves the specified bug.
+- Specifically, this command will change the state of the bug.
 - The state field is **mandatory** and must be provided.
 - State can either be **backlog, todo, ongoing** or **done**.
-- Existing state will be updated to the new state.
-
+- If the "destination" state is the same with the initial state of the bug, no change will be made.
+- The bug must exist to be moved (e.g. we cannot move the fifth bug in the List view if there are only four bugs).
 Examples:
 
-- `move 1 s/todo`, moves the bug at index **1** from its initial state to the “To Do” state.
-- `move 3 s/done`, moves the bug  at index **3** from its initial state to the “Done” state.
+- `move 1 s/todo`, moves the first bug in the List view from its initial state to the “Todo” state.
+- `move 3 c/ongoing s/done`, moves the bug third bug in the Ongoing column of Kanban view from its initial state
+ (Ongoing) to the “Done” state.
 
 ### 3.10 Clearing all bugs : `clear`
 
@@ -257,7 +265,8 @@ Ends and closes the app.
 
 Format: `exit`
 
-- Saves all of the local data and exit.
+When you are done with managing your tasks, use this command to saves all of the local data and exit from the app. 
+Alternatively, you can also close the window directly or press Esc key, and the app will do the same thing.
 
 ### 3.12 Saving the data : automatically
 
@@ -273,7 +282,7 @@ Data is saved into the hard disk every time a change is made.
 |  **list**   |                            `list`                            |
 | **search**  |                      `search q/QUERYSTRING`                  |
 |   **add**   |   `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG]`   |
-| **delete**  |                        `delete INDEX`                        |
+| **delete**  |                        `delete INDEX [c/COLUMN]`                        |
 |  **edit**   | `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NOTE] [t/NEW_TAG]` |
 | **editTag** |       `editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG`       |
 | **addTag**  |             `addTag INDEX [c/COLUMN] nt/NEW_TAG`             |
@@ -284,4 +293,3 @@ Data is saved into the hard disk every time a change is made.
 [Back to top](#what-is-kanbug-tracker)
 
 Team Name: AY2021S1-CS2103T-W17-1
-
