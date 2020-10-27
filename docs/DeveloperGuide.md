@@ -132,7 +132,7 @@ The edit tag feature is facilitated by `EditTagCommandParser`, `EditTagCommand` 
 
 ![EditTagClassStructure](images/EditTagClassStructure.png)
 
-### \[Proposed\] FeatureUI kanban view window
+### FeatureUI kanban view window
 
 #### Proposed Implementation
 The kanban view window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a Observerable list that contains only the bugs that belong to their respective state. This observerable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
@@ -302,7 +302,7 @@ The following sequence diagram shows how the edit tag operation works in **List 
 
 ℹ️ **Note:** The lifeline for `AddTagCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-### [Proposed\] Bug priority
+### Bug priority
 
 Feature description: Each bug will now have a priority level (low, medium, high) that will be shown on the GUI. Users
 can add or edit a bug with the priority using the `pr/` tag. The priority is optional, but each bug must have at most
@@ -343,7 +343,7 @@ Design Pattern.
 - **Alternative 2**: Create `Priority` as a subclass of `Tag` [rejected]
     - Cons: Break the Liskov Substitution Principle.
 
-### \[Proposed\] Search feature
+### Search feature
 
 #### Proposed Implementation
 The proposed search command is facilitated by `logic.command` package. It should have its own class named `SearchCommand` and inherits from the abstract class `Command`. The command then returns an instance of `CommandResult` upon success and prints feedback to the users.
@@ -374,7 +374,7 @@ Step 3. When there are a lot of bugs in the tracker, it is difficult for the use
 - Con: Restricted search
 
 
-### \[Proposed\] Note feature
+### Note feature
 
 #### Proposed Implementation
 The proposed notes feature is facilitated by `Bug`, `AddCommandParser` and `EditCommandParser`. It adds a new `Note` state that can be parsed by the `AddCommandParser` and `EditCommandParser` and stored internally as an `Optional<Note>` object inside `Bug`.
