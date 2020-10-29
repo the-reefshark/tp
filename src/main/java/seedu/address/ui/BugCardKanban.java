@@ -46,11 +46,17 @@ public class BugCardKanban extends UiPart<Region> {
         super(FXML);
         this.bug = bug;
         id.setText(displayedIndex + ". ");
+
+        // Improve the UI of 'name' field
         name.setText(bug.getName().fullName);
         name.setWrapText(true);
+
+        // Improve the UI of 'description' field
         description.setText(bug.getDescription().value);
         description.setWrapText(true);
         description.setMaxHeight(60);
+
+        // Improve the UI of 'priority' field
         if (!bug.getPriority().isNull()) {
             priority.setText("  " + bug.getPriority().getValue().toUpperCase() + "  ");
             switch (bug.getPriority().getValue()) {
@@ -68,6 +74,8 @@ public class BugCardKanban extends UiPart<Region> {
             priority.setVisible(false);
             priority.setManaged(false);
         }
+
+
         bug.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
