@@ -15,6 +15,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditTagCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MoveCommand;
 import seedu.address.logic.commands.SearchCommand;
@@ -82,6 +83,8 @@ public class KanBugTrackerParser {
             return new HelpCommand();
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommand();
+        case ImportCommand.COMMAND_WORD:
+            return new ImportCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

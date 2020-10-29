@@ -49,7 +49,12 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveKanBugTracker(model.getKanBugTracker());
+            if (!model.getKanBugTrackerFilePath().equals(storage.getKanBugTrackerFilePath())) {
+                storage.saveKanBugTracker(model.getKanBugTracker(), model.getKanBugTrackerFilePath());
+            }
+            if (model.getKanBugTrackerFilePath().equals(storage.getKanBugTrackerFilePath())) {
+                storage.saveKanBugTracker(model.getKanBugTracker());
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
