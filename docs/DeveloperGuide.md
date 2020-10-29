@@ -346,9 +346,10 @@ Design Pattern.
 ### Search feature
 
 #### Proposed Implementation
-The proposed search command is facilitated by `logic.command` package. It should have its own class named `SearchCommand` and inherits from the abstract class `Command`. The command then returns an instance of `CommandResult` upon success and prints feedback to the users.
+The proposed search command is facilitated by `ModelManager`. It generates a filtered list (updated by a specified `Predicate<Bug>` as an argument), stored internally as `FilteredList<Bug>`. It should have its own class named `SearchCommand` and inherits from the abstract class `Command`. The command then returns an instance of `CommandResult` upon success and prints feedback to the users.
 Additionally, it implements the following operations:  
 * `SearchCommand#execute()` - Executes the search command.  
+* `ModelManager#updateFilteredBugList(Predicate<Bug>)` - Filters internal data storage via its argument `Predicate<Bug>`   
 
 Given below is an example usage scenario and how the edit tag feature behaves at each step.  
 Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.  
@@ -360,14 +361,18 @@ Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/tod
 - state: **todo**
 - tag: **Ui.java**
 
-Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug. The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`. This results in the information of all the bugs of which name or description or tag contains `Ui bug` as a substring displays in the tracker.
+Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug. The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`. This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance (`BugContainsQueryStringPredicate` in detail). The predicate is internally passed and used to filter `FilteredList<Bug>`. 
+This results in the information of all the bugs of which name or description or tag contains `Ui bug` as a substring displays in the tracker.
 
-**Note that the keyword is case-insensitive**
+![SearchCommandStructure](images/SearchCommandSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: Note: The query-string given by the user cannot be empty and is case-insensitive.
+</div>
 
 #### Design consideration:
 **Alternative 1 (current choice)**: Use `q/` new prefix as a query-string to search
 - Pro: Flexible search
-- Con: The list of results might be large
+- Con: Might be a long list of relevant bugs
 
 **Alternative 2**: Use current field prefixes to search
 - Pro: When the user remembers exactly information of a particular field
