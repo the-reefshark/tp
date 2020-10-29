@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":KanBugTrackerParser" as KanBugTrackerParser LOGIC_COLOR
+participant ":SearchCommandParser" as SearchCommandParser LOGIC_COLOR
+participant ":BugContainsQueryStringPredicate" as BugContainsQueryStringPredicate LOGIC_COLOR
+participant "s:SearchCommand" as SearchCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("search q/Ui bug")
+activate LogicManager
+
+LogicManager -> KanBugTrackerParser : parseCommand("search q/Ui bug")
+activate KanBugTrackerParser
+
+create SearchCommandParser
+KanBugTrackerParser -> SearchCommandParser
+activate SearchCommandParser
+
+SearchCommandParser --> KanBugTrackerParser
+deactivate SearchCommandParser
+
+KanBugTrackerParser -> SearchCommandParser : parse("Ui bug")
+activate SearchCommandParser
+
+create SearchCommand
+SearchCommandParser -> SearchCommand
+activate SearchCommand
+
+SearchCommand --> SearchCommandParser : s
+deactivate SearchCommand
+
+SearchCommandParser --> KanBugTrackerParser : s
+deactivate SearchCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SearchCommandParser -[hidden]-> KanBugTrackerParser
+destroy SearchCommandParser
+
+KanBugTrackerParser --> LogicManager : s
+deactivate KanBugTrackerParser
+
+LogicManager -> SearchCommand : execute()
+activate SearchCommand
+
+create BugContainsQueryStringPredicate
+SearchCommand -> BugContainsQueryStringPredicate
+activate BugContainsQueryStringPredicate
+
+BugContainsQueryStringPredicate --> SearchCommand : predicate
+deactivate BugContainsQueryStringPredicate
+
+SearchCommand -> Model : updateFilteredBugList(Predicate<Bug> predicate)
+activate Model
+
+Model --> SearchCommand
+deactivate Model
+
+create CommandResult
+SearchCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SearchCommand
+deactivate CommandResult
+
+SearchCommand --> LogicManager : result
+deactivate SearchCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
