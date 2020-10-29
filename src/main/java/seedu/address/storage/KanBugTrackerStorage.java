@@ -19,6 +19,12 @@ public interface KanBugTrackerStorage {
     Path getKanBugTrackerFilePath();
 
     /**
+     * Sets the file path of the data file.
+     * @param filePath filePath to new data file.
+     */
+    void setKanBugTrackerFilePath(Path filePath);
+
+    /**
      * Returns KanBugTracker data as a {@link ReadOnlyKanBugTracker}.
      * Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.

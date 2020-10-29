@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -52,6 +54,11 @@ public class StorageManager implements Storage {
     @Override
     public Path getKanBugTrackerFilePath() {
         return kanBugTrackerStorage.getKanBugTrackerFilePath();
+    }
+    @Override
+    public void setKanBugTrackerFilePath(Path filePath) {
+        requireNonNull(filePath);
+        kanBugTrackerStorage.setKanBugTrackerFilePath(filePath);
     }
 
     @Override

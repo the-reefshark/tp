@@ -30,6 +30,11 @@ public class JsonKanBugTrackerStorage implements KanBugTrackerStorage {
     public Path getKanBugTrackerFilePath() {
         return filePath;
     }
+    @Override
+    public void setKanBugTrackerFilePath(Path filePath) {
+        requireNonNull(filePath);
+        this.filePath = filePath;
+    }
 
     @Override
     public Optional<ReadOnlyKanBugTracker> readKanBugTracker() throws DataConversionException {

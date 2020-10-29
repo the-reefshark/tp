@@ -9,6 +9,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyKanBugTracker;
 import seedu.address.storage.JsonKanBugTrackerStorage;
 
+/**
+ * Allows the user to import KanBugTracker data from a different file
+ */
 public class ImportCommand extends Command {
 
     public static final String COMMAND_WORD = "import";
@@ -16,7 +19,8 @@ public class ImportCommand extends Command {
             + "KanBug Tracker";
     public static final String MESSAGE_IMPORT_SUCCESS = "File import successful";
     public static final String MESSAGE_IMPORT_FAILURE = "The selected file is invalid";
-    public static final String FILE_CONSTRAINTS = "Please select a valid .json file";
+    public static final String MESSAGE_BLANK_INPUT = "Please input a valid file name";
+    public static final String MESSAGE_FILE_CONSTRAINTS = "Please select a valid .json file";
 
     private Path filePath;
 
