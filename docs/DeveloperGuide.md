@@ -310,38 +310,54 @@ one priority only.
 
 #### Proposed Implementation
 
-The priority of a bug will be represented by `Priority` in the `seedu.address.model.bug` package. The `Priority` would
-be quite similar to other classes in the same package such as `Description`, `Name`, that is:
-- `Priority` will also have its own `MESSAGE_CONSTRAINTS` and `VALIDATION_REGEX`.
-- We will need to update the `Bug` to include an instance of `Priority`, and also update its constructor.
-- We will need to update `MESSAGE_USAGE` of `AddCommand` and `EditCommand`.
-- We will also need to update `EditCommand.BugDescriptor`.
-- We will add one more prefix constant called `PREFIX_PRIORITY` into `CliSyntax`.
-- We will update the `AddCommandParser#parse` and `EditCommandParser#parse` accordingly to read the `pr/` argument.
-- We will have to create `ParserUtil#parsePriority`.
-- We will need to include an instance of `Priority` into `seedu.address.storage.JsonAdaptedBug`, and update all
-of its methods to deal with priority.
-- We will need to update `seedu.address.ui.BugCard` and `BugListCard.fxml` to include priority.
-
 The followings are notable differences between `Priority` and other fields of `Bug`:
 - The `VALIDATION_REGEX` of `PRIORITY` will be set such that its constructor can only accept the `String` `"low"`, 
 `"medium"`, `"higher"` (either uppercase or lowercase)
-- Aside from the 3 possible states of `Priority` (`"low"`, `"medium"` or `"high"`), it will also have the state `"null"` 
+- Aside from the 3 possible states of `Priority` (`"low"`, `"medium"` or `"high"`), it will also have the state `""` 
 that represent when the bug have no priority indicated. This type of `Priority` will be create using an overload 
-version of the constructor that accept no argument (`new Priority("low")` will create a low priority, but 
-`new Priority()` will create a "null" priority. We will check if the `Priority` is "null" before showing it on the UI.
+version of the constructor that accept no argument: `new Priority("low")` will create a low priority, but 
+`new Priority()` will create an "empty" priority. 
+- We will check if the `Priority` is "empty" before showing it on the UI.
 
-**Note**: This is to simplified the code so that every instance of `Bug` is mandatory and also avoid using `null` (which
-could cause `NullPointerException` and break the app) at the same time. This approach is inspired by the Null Object 
-Design Pattern.
+<div markdown="span" class="alert alert-info">:information_source: Note: This is to simplified the code so that every instance of `Bug` is mandatory and also avoid using `null` (which could cause `NullPointerException` and break the app) at the same time.
+</div>
+
+Here is a diagram show how an AddCommandParser work with priority:
+
+![Priority](images/PrioritySequenceDiagram.png)
+
+Given below is an example usage scenario concerning only the bug's priority when the user add a new
+bug:
+
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial Kanbug Tracker state.
+
+Step 2. The user execute the command "add n/Bug name d/Bug description pr/high"
+
+Step 3. Through `LogicManager` and `KanBugTrackerParser`, an `AddCommandParser` will eventually have to parse `"n/Bug name d/Bug description pr/high"`
+
+Step 4. The process will continue as shown below, after which an `AddCommand` object will be returned and executed:
+
+![PriorityExample](images/PriorityExampleSequenceDiagram.png)
 
 #### Design consideration:
 
-- **Alternative 1**: Create `Priority` as a separate class
+Regarding the Priority class:
+- **Alternative 1**: Create `Priority` as a separate class [current implementation]
     - Pros: Adhere OOP principles
     - Cons: Need to refactor quite a lot in many different places.
 - **Alternative 2**: Create `Priority` as a subclass of `Tag` [rejected]
     - Cons: Break the Liskov Substitution Principle.
+    
+Regarding the situation when the bug's priority is not indicated:
+- **Alternative 1**: Create a special type called "empty" Priority [current implementation]
+    - Pros: Implementation will be similar to other existing fields.
+    - Cons: Need to make sure that this special type will not be shown to users.
+- **Alternative 2**: Use `Optional` [rejected]
+    - Pros: Use imperative programming style, code look neater.
+    - Cons: Harder to implement correctly.
+- **Alternative 3**: Use `null` [rejected]
+    - Pros: Easiest to implement.
+    - Cons: Risky because of possible `NullPointerException`, also code will look complicated because of the need to check whether the object is `null`.
 
 ### Search feature
 
@@ -351,7 +367,7 @@ Additionally, it implements the following operations:
 * `SearchCommand#execute()` - Executes the search command.  
 * `ModelManager#updateFilteredBugList(Predicate<Bug>)` - Filters internal data storage via its argument `Predicate<Bug>`   
 
-Given below is an example usage scenario and how the edit tag feature behaves at each step.  
+Given below is an example usage scenario and how the search feature behaves at each step.  
 Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.  
 
 Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/todo t/Ui.java` command to add a new bug to the kanbug tracker. A new bug with the following information is added:  

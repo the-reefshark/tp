@@ -1,0 +1,43 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant "bug:Bug" as Bug LOGIC_COLOR
+participant "e:AddCommand" as AddCommand LOGIC_COLOR
+end box
+
+[-> AddCommandParser : parse(args)
+activate AddCommandParser
+
+alt Priority argument is indicated
+    create Bug
+    AddCommandParser -> Bug : new Bug(..., parsedPriority, ...)
+    activate Bug
+    note right
+    parsedPriority is a Priority parsed
+    using ParserUtil#parsePriority
+    end note
+    Bug -> AddCommandParser
+    deactivate Bug
+else Priority argument is left empty
+    create Bug
+    AddCommandParser -> Bug : new Bug(..., new Priority(), ...)
+    activate Bug
+    note right
+    new Priority() is an
+    "empty" Priority
+    end note
+    Bug -> AddCommandParser
+    deactivate Bug
+end
+
+create AddCommand
+AddCommandParser -> AddCommand : new AddCommand(bug)
+activate AddCommand
+AddCommand -> AddCommandParser
+deactivate AddCommand
+
+AddCommandParser ->[ : bug
+deactivate AddCommandParser
+@enduml
