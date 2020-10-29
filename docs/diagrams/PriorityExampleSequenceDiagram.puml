@@ -1,0 +1,47 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant "bug:Bug" as Bug LOGIC_COLOR
+participant "e:AddCommand" as AddCommand LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "priority:Priority" as Priority LOGIC_COLOR
+end box
+
+[-> AddCommandParser : parse("n/Bug name d/Bug description pr/high")
+activate AddCommandParser
+
+AddCommandParser -> ParserUtil : parsePriority("high")
+activate ParserUtil
+
+create Priority
+ParserUtil -> Priority : new Priority("high")
+activate Priority
+
+Priority -> ParserUtil
+deactivate Priority
+
+ParserUtil -> AddCommandParser : priority
+deactivate ParserUtil
+
+create Bug
+AddCommandParser -> Bug : new Bug(..., priority, ...)
+activate Bug
+
+Bug -> AddCommandParser
+deactivate Bug
+destroy Bug
+
+create AddCommand
+AddCommandParser -> AddCommand : new AddCommand(bug)
+activate AddCommand
+
+AddCommand -> AddCommandParser
+deactivate AddCommand
+
+AddCommandParser ->[ : e
+deactivate AddCommandParser
+destroy AddCommandParser
+
+@enduml

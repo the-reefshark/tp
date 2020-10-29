@@ -326,6 +326,19 @@ Here is a diagram show how an AddCommandParser work with priority:
 
 ![Priority](images/PrioritySequenceDiagram.png)
 
+Given below is an example usage scenario concerning only the bug's priority when the user add a new
+bug:
+
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial Kanbug Tracker state.
+
+Step 2. The user execute the command "add n/Bug name d/Bug description pr/high"
+
+Step 3. Through `LogicManager` and `KanBugTrackerParser`, an `AddCommandParser` will eventually have to parse `"n/Bug name d/Bug description pr/high"`
+
+Step 4. The process will continue as shown below, after which an `AddCommand` object will be returned and executed:
+
+![PriorityExample](images/PriorityExampleSequenceDiagram.png)
+
 #### Design consideration:
 
 Regarding the Priority class:
@@ -354,7 +367,7 @@ Additionally, it implements the following operations:
 * `SearchCommand#execute()` - Executes the search command.  
 * `ModelManager#updateFilteredBugList(Predicate<Bug>)` - Filters internal data storage via its argument `Predicate<Bug>`   
 
-Given below is an example usage scenario and how the edit tag feature behaves at each step.  
+Given below is an example usage scenario and how the search feature behaves at each step.  
 Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.  
 
 Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/todo t/Ui.java` command to add a new bug to the kanbug tracker. A new bug with the following information is added:  
