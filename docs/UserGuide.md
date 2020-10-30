@@ -153,7 +153,7 @@ The four available states are:
 - **Ongoing** - Bugs you are currently working on.
 - **Done** - Bugs that have been resolved.
 
-<!--- Add note about how the meanings of each state are iffy and users can use them however they feel is best--->
+<Add note about how the meanings of each state are iffy and users can use them however they feel is best>
 
 #### 4 - Description
 
