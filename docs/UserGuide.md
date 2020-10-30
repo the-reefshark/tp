@@ -51,6 +51,10 @@ The first step in every journey is the preparation, after that when we have you 
 
 2. [Glossary](#2-glossary)
 
+   2.1 [What is a bug?](#21-what-is-a-bug)
+
+   2.2 [What are commands?](#22-what-are-commands)
+
 3. [Features](#3-features)
 
    3.1 [Switching Views : **`switch`**](#31-switching-views--switch)
@@ -88,15 +92,29 @@ The first step in every journey is the preparation, after that when we have you 
 2. Download the latest `KanBugTracker.jar` from our [GitHub](https://github.com/AY2021S1-CS2103T-W17-1/tp/releases)
     ![Download](images/KanBugDownload.png)
 
+
+
+
+
+
+
   
 
-3. Copy the `KanBugTracker.jar`file to a folder you want to use as your _home folder_.
+3. Copy the `KanBugTracker.jar` file to a folder you want to use as your _root folder_.
     ![HomeFolder](images/HomeFolder.png)
-    **Add Note here to describe what is going on**
+    
+<div markdown="span" class="alert alert-info">:information_source: Note: In this instance, <b>Home Folder</b> acts as our <i>root folder</i>. Users are free to name their <i>root folder</i> however they wish. 
+    </div>
 
-4. Double-click on the `KanBugTracker.jar`file to launch the application. 
 
-    <Insert an image here to show what it will look like upon starting up>
+
+
+
+4. Double-click on the `KanBugTracker.jar`file to launch the application. You should see something similar.
+
+   ![HomeFolder](images/Ui2.png)
+
+
 
 The next section will cover the various terms that you need to be familiar with to get started!
 
@@ -104,16 +122,68 @@ The next section will cover the various terms that you need to be familiar with 
 
 We're sure that you're excited to start using KanBug Tracker! Before that however, there are some terms that you need to be familiar with to make the best out of your KanBug Tracker experience.
 
-What are some things I think we need to explain?
+We have divided this section into two. The first section introduces what a **bug is and explains its various parts**. The second section focuses on how the **user interacts with the application** and introduces some key ideas that users need to know.
 
-- Columns
-- What is a bug
-  - Bug name
-  - Bug Description
-  - Tags
-  - Priority
-  - Notes
-- Commands
+### 2.1 What is a bug?
+
+Bugs take centre stage in this application, after all, our purpose is to help you manage them! 
+
+Let's look at the various parts of a bug to understand how they are represented in the application. 
+
+![BugImage](images/Ui5.png)
+
+​	
+
+#### 1 - Bug Name
+
+You get to choose what you want to name each bug you enter into the KanBug Tracker.
+
+#### 2 - Priority
+
+When adding bugs to the KanBug Tracker, you can include a priority level for the bug. Priority levels help give you an indication of how urgently a particular bug has to be fixed. You choose from three pre-defined priority levels - LOW, MEDIUM and HIGH. 
+
+#### 3 - State
+
+Bugs in the KanBug Tracker can have one of four pre-defined states. States help you track which part of the bug's lifecycle a particular bug is in. 
+
+The four available states are:
+
+- **Backlog** - Bugs you have discovered but do not have the time to work on yet.
+- **Todo** - Bugs you intend to work on now.
+- **Ongoing** - Bugs you are currently working on.
+- **Done** - Bugs that have been resolved.
+
+<Add note about how the meanings of each state are iffy and users can use them however they feel is best>
+
+#### 4 - Description
+
+A short description detailing some key parts of the bug. Useful in helping you remember what the bug is about at a glance.
+
+#### 5 - Tag
+
+Multiple user-defined tags can be attached to each bug. Tags aid in helping you draw connections between multiple bugs. For instance, two bugs with the same tag "Ui" indicates that both bugs are related to the user-interface.
+
+#### 6 - Notes
+
+Notes are longer versions of descriptions. They are meant to provide more depth and can be used to log key pieces of information about the bug.
+
+### 2.2 What are commands?
+
+Commands are how you interact with the KanBug Tracker. The various commands will be covered in detail in the next [section](#3-features). However, there are some key parts of commands that you should take note of!
+
+#### Columns
+
+Some commands require users to include the column that a bug is in. Don't fret, columns simply refer to the state of a particular bug. In Kanban view, we can tell which column a bug is in easily. 
+
+#### Index
+
+The index of a bug is the position of that bug in the list.
+
+#### Prefixes
+
+Some commands require the use of prefixes to indicate user input. Every command will have its own specific format so do pay close attention to the command's requirements!
+
+
 
 
 ## 3. Features
