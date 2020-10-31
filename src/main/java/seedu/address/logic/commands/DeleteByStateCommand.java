@@ -19,6 +19,8 @@ public class DeleteByStateCommand extends DeleteCommand {
      */
     public DeleteByStateCommand(Index targetIndex, State targetState) {
         super(targetIndex);
+        requireNonNull(targetState);
+        requireNonNull(targetIndex);
         this.targetState = targetState;
     }
 

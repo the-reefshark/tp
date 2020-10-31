@@ -20,6 +20,7 @@ public class EditByStateCommand extends EditCommand {
      */
     public EditByStateCommand(Index index, EditBugDescriptor editBugDescriptor, State targetState) {
         super(index, editBugDescriptor);
+        requireNonNull(index);
         this.targetState = targetState;
     }
 
