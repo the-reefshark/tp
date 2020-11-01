@@ -12,6 +12,9 @@ import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -90,6 +93,9 @@ public class EditTagByStateCommandTest {
 
     @Test
     public void equals() {
+        Set<Tag> tagsToAddLogic = new HashSet<>();
+        tagsToAddLogic.add(new Tag(VALID_TAG_COMPONENT));
+
         EditTagByStateCommand editTagByStateCommand = new EditTagByStateCommand(INDEX_FIRST_BUG,
                 new Tag(VALID_TAG_LOGIC), new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG1);
         EditTagByStateCommand editTagByStateCommandDuplicate = new EditTagByStateCommand(INDEX_FIRST_BUG,
@@ -101,7 +107,7 @@ public class EditTagByStateCommandTest {
         EditTagByStateCommand editTagByStateCommandDifferentState = new EditTagByStateCommand(INDEX_FIRST_BUG,
                 new Tag(VALID_TAG_COMPONENT), new Tag(VALID_TAG_LOGIC), VALID_STATE_BUG2);
         AddTagByStateCommand addTagByStateCommand = new AddTagByStateCommand(INDEX_FIRST_BUG,
-                new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG1);
+                tagsToAddLogic, VALID_STATE_BUG1);
 
         //same command
         assertTrue(editTagByStateCommand.equals(editTagByStateCommand));
