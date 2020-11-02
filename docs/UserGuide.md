@@ -140,7 +140,13 @@ You get to choose what you want to name each bug you enter into the KanBug Track
 
 #### 2 - Priority
 
-When adding bugs to the KanBug Tracker, you can include a priority level for the bug. Priority levels help give you an indication of how urgently a particular bug has to be fixed. You choose from three pre-defined priority levels - LOW, MEDIUM and HIGH. 
+When adding bugs to the KanBug Tracker, you can include a priority level for the bug. Priority levels help give you an indication of how urgently a particular bug has to be fixed. 
+
+You choose from three pre-defined priority levels:
+
+- **LOW**
+- **MEDIUM**
+- **HIGH**
 
 #### 3 - State
 
@@ -153,7 +159,7 @@ The four available states are:
 - **Ongoing** - Bugs you are currently working on.
 - **Done** - Bugs that have been resolved.
 
-[//]: # (-Add note about how the meanings of each state are iffy and users can use them however they feel is best)
+[//]: # "-Add note about how the meanings of each state are iffy and users can use them however they feel is best"
 
 #### 4 - Description
 
