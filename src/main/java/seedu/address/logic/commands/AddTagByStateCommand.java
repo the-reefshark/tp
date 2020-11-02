@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,11 +18,11 @@ public class AddTagByStateCommand extends AddTagCommand {
      * Creates a new instance of AddTagCommand
      *
      * @param index  of bug to add the tag to
-     * @param newTag to add to the bug
+     * @param newTags to add to the bug
      * @param  targetState which indicates which state to modify
      */
-    public AddTagByStateCommand(Index index, Tag newTag, State targetState) {
-        super(index, newTag);
+    public AddTagByStateCommand(Index index, Set<Tag> newTags, State targetState) {
+        super(index, newTags);
         requireNonNull(targetState);
         this.targetState = targetState;
     }
@@ -48,7 +49,7 @@ public class AddTagByStateCommand extends AddTagCommand {
         // state check
         AddTagByStateCommand e = (AddTagByStateCommand) other;
         return index.equals(e.index)
-                   && newTag.equals(e.newTag)
+                   && newTags.equals(e.newTags)
                    && targetState.equals(e.targetState);
     }
 }
