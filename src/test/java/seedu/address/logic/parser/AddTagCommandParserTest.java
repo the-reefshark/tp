@@ -14,8 +14,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_BUG;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +29,10 @@ import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
+
 public class AddTagCommandParserTest {
+
+    //TODO Add in test for multiple tags being added
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE);
@@ -38,9 +45,14 @@ public class AddTagCommandParserTest {
         Index targetIndex = INDEX_SECOND_BUG;
         String userInputOne = targetIndex.getOneBased() + TAG_DESC_NEW + TAG_DESC_NEW + NAME_DESC_UI;
         String userInputTwo = targetIndex.getOneBased() + TAG_DESC_NEW + NAME_DESC_UI + TAG_DESC_NEW;
+        String userInputThree = targetIndex.getOneBased() + NAME_DESC_UI + TAG_DESC_NEW;
+
         // since n/ is not a valid prefix for this command, it is read together with the earlier input
-        assertParseFailure(parser, userInputOne, MESSAGE_INVALID_FORMAT);
-        assertParseFailure(parser, userInputTwo, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, userInputOne, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, userInputTwo, Tag.MESSAGE_CONSTRAINTS);
+
+        // n/ will be read before tag, together with prefix.
+        assertParseFailure(parser, userInputThree, MESSAGE_INVALID_INDEX);
     }
 
     @Test
@@ -84,16 +96,20 @@ public class AddTagCommandParserTest {
     public void parse_validValueWithoutColumn_success() {
         Index targetIndex = INDEX_SECOND_BUG;
         String userInput = targetIndex.getOneBased() + TAG_DESC_NEW;
-        AddTagCommand expectedCommand = new AddTagCommand(targetIndex, new Tag(VALID_TAG_COMPONENT));
+        Set<Tag> tagsToAddLogic = new HashSet<>();
+        tagsToAddLogic.add(new Tag(VALID_TAG_COMPONENT));
+        AddTagCommand expectedCommand = new AddTagCommand(targetIndex, tagsToAddLogic);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_validValueWithColumn_success() {
+        Set<Tag> tagsToAddLogic = new HashSet<>();
+        tagsToAddLogic.add(new Tag(VALID_TAG_COMPONENT));
         Index targetIndex = INDEX_SECOND_BUG;
         String userInput = targetIndex.getOneBased() + COLUMN_DESC_TODO + TAG_DESC_NEW;
-        AddTagByStateCommand expectedCommand = new AddTagByStateCommand(targetIndex, new Tag(VALID_TAG_COMPONENT),
+        AddTagByStateCommand expectedCommand = new AddTagByStateCommand(targetIndex, tagsToAddLogic,
                 VALID_STATE_BUG1);
 
         assertParseSuccess(parser, userInput, expectedCommand);
