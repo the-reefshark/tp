@@ -11,6 +11,9 @@ import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -23,6 +26,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.BugBuilder;
+
 
 
 
@@ -162,6 +166,9 @@ public class EditTagCommandTest {
 
     @Test
     public void equals() {
+        Set<Tag> tagsToAddLogic = new HashSet<>();
+        tagsToAddLogic.add(new Tag(VALID_TAG_COMPONENT));
+
         EditTagCommand editTagCommand = new EditTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_LOGIC),
                 new Tag(VALID_TAG_COMPONENT));
         EditTagCommand editTagCommandDuplicate = new EditTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_LOGIC),
@@ -170,7 +177,7 @@ public class EditTagCommandTest {
                 new Tag(VALID_TAG_COMPONENT));
         EditTagCommand editTagCommandDifferentTags = new EditTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_COMPONENT),
                 new Tag(VALID_TAG_LOGIC));
-        AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST_BUG, new Tag(VALID_TAG_COMPONENT));
+        AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST_BUG, tagsToAddLogic);
 
         //same command
         assertTrue(editTagCommand.equals(editTagCommand));
