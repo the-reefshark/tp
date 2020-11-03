@@ -60,6 +60,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
+        ModelManager.setListViewWindow();
         assertCommandException(deleteCommand, MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
     }
 

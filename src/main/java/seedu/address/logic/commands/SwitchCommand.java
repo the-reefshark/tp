@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 
 public class SwitchCommand extends Command {
 
@@ -8,6 +9,7 @@ public class SwitchCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
+        ModelManager.switchWindow();
         return new CommandResult("", false, false, true);
     }
 }

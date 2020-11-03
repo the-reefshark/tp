@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_PROVIDE_COLUMN;
+import static seedu.address.commons.core.Messages.MESSAGE_REMOVE_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -20,6 +22,7 @@ import seedu.address.logic.commands.EditByStateCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditBugDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ModelManager;
 import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
@@ -76,8 +79,15 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
         if (argMultimap.getValue(PREFIX_COLUMN).isPresent()) {
+            if (!ModelManager.isKanban()) {
+                throw new ParseException(MESSAGE_REMOVE_COLUMN);
+            }
             State targetState = ParserUtil.parseState(argMultimap.getValue(PREFIX_COLUMN).get());
             return new EditByStateCommand(index, editBugDescriptor, targetState);
+        }
+
+        if (ModelManager.isKanban()) {
+            throw new ParseException(MESSAGE_PROVIDE_COLUMN);
         }
 
         return new EditCommand(index, editBugDescriptor);

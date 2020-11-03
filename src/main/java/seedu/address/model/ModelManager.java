@@ -20,10 +20,11 @@ import seedu.address.model.bug.State;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private static boolean isKanban = false;
+
     private final KanBugTracker kanBugTracker;
     private final UserPrefs userPrefs;
     private final FilteredList<Bug> filteredBugs;
-
     /**
      * Initializes a ModelManager with the given kanBugTracker and userPrefs.
      */
@@ -40,6 +41,22 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new KanBugTracker(), new UserPrefs());
+    }
+
+    public static boolean isKanban() {
+        return isKanban;
+    }
+
+    public static void setListViewWindow() {
+        isKanban = false;
+    }
+
+    public static void setKanbanWindow() {
+        isKanban = true;
+    }
+
+    public static void switchWindow() {
+        isKanban = !isKanban;
     }
 
     //=========== UserPrefs ==================================================================================

@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.AddTagCommand.addTagToBug;
+import static seedu.address.logic.commands.AddTagCommand.addTagsToBug;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
@@ -40,14 +40,18 @@ public class AddTagByStateCommandTest {
 
     private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
     private State initialState = VALID_STATE_BUG1;
-    private Tag newTag = new Tag(VALID_TAG_LOGIC);
+    private Tag newTagLogic = new Tag(VALID_TAG_LOGIC);
+    private Tag newTagComponent = new Tag(VALID_TAG_COMPONENT);
 
     // tests the case where the user inputs the wrong column as well since it would be considered out of bounds.
     @Test
     public void execute_invalidBugIndexFilteredListByState_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugList().size() + 1);
         State newState = VALID_STATE_BUG1;
-        AddTagByStateCommand addTagByStateCommand = new AddTagByStateCommand(outOfBoundIndex, newTag, newState);
+        Set<Tag> tagsToAdd = new HashSet<>();
+        tagsToAdd.add(newTagLogic);
+
+        AddTagByStateCommand addTagByStateCommand = new AddTagByStateCommand(outOfBoundIndex, tagsToAdd, newState);
 
         assertCommandFailure(addTagByStateCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
     }
@@ -58,9 +62,11 @@ public class AddTagByStateCommandTest {
 
             State initialState = VALID_STATE_BUG1;
             Bug bug = model.getFilteredBugListByState(initialState).get(0);
-
-            Bug tagAddedBug = addTagToBug(bug, newTag);
-            AddTagByStateCommand addTagByStateCommand = new AddTagByStateCommand(INDEX_FIRST_BUG, newTag, initialState);
+            Set<Tag> tagsToAdd = new HashSet<>();
+            tagsToAdd.add(newTagLogic);
+            Bug tagAddedBug = addTagsToBug(bug, tagsToAdd);
+            AddTagByStateCommand addTagByStateCommand = new AddTagByStateCommand(INDEX_FIRST_BUG, tagsToAdd,
+                    initialState);
 
             String expectedMessage = String.format(AddTagCommand.MESSAGE_ADD_BUG_SUCCESS, tagAddedBug);
 
@@ -84,11 +90,13 @@ public class AddTagByStateCommandTest {
             Priority bugPriority = bug.getPriority();
             Optional<Note> optionalNote = bug.getOptionalNote();
             Set<Tag> tagsOfBug = new HashSet<Tag>(bug.getTags());
-            tagsOfBug.add(newTag);
+            tagsOfBug.add(newTagLogic);
+            Set<Tag> tagsToAdd = new HashSet<>();
+            tagsToAdd.add(newTagLogic);
 
             //copy bug details to reflect edited bug
             Bug editedBug = new Bug(bugName, bugState, bugDescription, optionalNote, tagsOfBug, bugPriority);
-            assertEquals(editedBug, AddTagCommand.addTagToBug(bug, newTag));
+            assertEquals(editedBug, AddTagCommand.addTagsToBug(bug, tagsToAdd));
         } catch (CommandException e) {
             assert false;
         }
@@ -100,7 +108,7 @@ public class AddTagByStateCommandTest {
         String expectedString = AddTagCommand.MESSAGE_NOT_ADDED;
 
         try {
-            addTagToBug(validBug, null);
+            addTagsToBug(validBug, null);
             assert false;
         } catch (CommandException e) {
             assertEquals(expectedString, e.getMessage());
@@ -108,12 +116,14 @@ public class AddTagByStateCommandTest {
     }
 
     @Test
-    public void addTagToBug_tagAlreadyExists_commandExceptionThrown() {
+    public void addTagsToBug_tagAlreadyExists_commandExceptionThrown() {
         Bug validBug = new BugBuilder().withTags(VALID_TAG_LOGIC).build();
         String expectedString = AddTagCommand.MESSAGE_INVALID_NEW;
+        Set<Tag> tagsToAdd = new HashSet<>();
+        tagsToAdd.add(newTagLogic);
 
         try {
-            addTagToBug(validBug, new Tag(VALID_TAG_LOGIC));
+            addTagsToBug(validBug, tagsToAdd);
             assert false;
         } catch (CommandException e) {
             assertEquals(expectedString, e.getMessage());
@@ -123,8 +133,10 @@ public class AddTagByStateCommandTest {
     @Test
     public void addTagToBug_invalidBug_commandExceptionThrown() {
         String expectedString = AddTagCommand.MESSAGE_NOT_ADDED;
+        Set<Tag> tagsToAdd = new HashSet<>();
+        tagsToAdd.add(newTagLogic);
         try {
-            addTagToBug(null, newTag);
+            addTagsToBug(null, tagsToAdd);
             assert false;
         } catch (CommandException e) {
             assertEquals(expectedString, e.getMessage());
@@ -133,16 +145,22 @@ public class AddTagByStateCommandTest {
 
     @Test
     public void equals() {
+        Set<Tag> tagsToAddLogic = new HashSet<>();
+        Set<Tag> tagsToAddComponent = new HashSet<>();
+
+        tagsToAddLogic.add(newTagLogic);
+        tagsToAddComponent.add(newTagComponent);
+
         AddTagByStateCommand addTagByStateCommand = new AddTagByStateCommand(INDEX_FIRST_BUG,
-                new Tag(VALID_TAG_LOGIC), VALID_STATE_BUG1);
+                tagsToAddLogic, VALID_STATE_BUG1);
         AddTagByStateCommand addTagByStateCommandDuplicate = new AddTagByStateCommand(INDEX_FIRST_BUG,
-                new Tag(VALID_TAG_LOGIC), VALID_STATE_BUG1);
+                tagsToAddLogic, VALID_STATE_BUG1);
         AddTagByStateCommand addTagByStateCommandDifferentIndex = new AddTagByStateCommand(INDEX_SECOND_BUG,
-                new Tag(VALID_TAG_LOGIC), VALID_STATE_BUG1);
+                tagsToAddLogic, VALID_STATE_BUG1);
         AddTagByStateCommand addTagByStateCommandDifferentTag = new AddTagByStateCommand(INDEX_FIRST_BUG,
-                new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG1);
+                tagsToAddComponent, VALID_STATE_BUG1);
         AddTagByStateCommand addTagByStateCommandDifferentState = new AddTagByStateCommand(INDEX_FIRST_BUG,
-                new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG2);
+                tagsToAddComponent, VALID_STATE_BUG2);
         EditTagByStateCommand editTagByStateCommand = new EditTagByStateCommand(INDEX_FIRST_BUG,
                 new Tag(VALID_TAG_LOGIC), new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG1);
 
@@ -162,7 +180,4 @@ public class AddTagByStateCommandTest {
         assertFalse(addTagByStateCommand.equals(addTagByStateCommandDifferentState));
 
     }
-
-
-
 }
