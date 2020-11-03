@@ -180,7 +180,4 @@ public class AddTagByStateCommandTest {
         assertFalse(addTagByStateCommand.equals(addTagByStateCommandDifferentState));
 
     }
-
-
-
 }
