@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddTagByStateCommand;
 import seedu.address.logic.commands.AddTagCommand;
+import seedu.address.model.ModelManager;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
@@ -94,6 +95,7 @@ public class AddTagCommandParserTest {
 
     @Test
     public void parse_validValueWithoutColumn_success() {
+        ModelManager.setListViewWindow();
         Index targetIndex = INDEX_SECOND_BUG;
         String userInput = targetIndex.getOneBased() + TAG_DESC_NEW;
         Set<Tag> tagsToAddLogic = new HashSet<>();
@@ -126,6 +128,7 @@ public class AddTagCommandParserTest {
 
     @Test
     public void parse_invalidColumnValue_failure() {
+        ModelManager.setKanbanWindow();
         Index targetIndex = INDEX_SECOND_BUG;
         String userInput = targetIndex.getOneBased() + INVALID_COLUMN_DESC + TAG_DESC_NEW;
         String expectedString = State.MESSAGE_CONSTRAINTS;

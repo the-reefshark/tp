@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_PROVIDE_COLUMN;
+import static seedu.address.commons.core.Messages.MESSAGE_REMOVE_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 
@@ -15,6 +17,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddTagByStateCommand;
 import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ModelManager;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
@@ -52,8 +55,15 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
         Set<Tag> tagsToAdd = parseTagsForEdit(argMultimap.getAllValues(PREFIX_NEWTAG)).get();
 
         if (arePrefixesPresent(argMultimap, PREFIX_COLUMN)) {
+            if (!ModelManager.isKanban()) {
+                throw new ParseException(MESSAGE_REMOVE_COLUMN);
+            }
             State targetState = ParserUtil.parseState(argMultimap.getValue(PREFIX_COLUMN).get());
             return new AddTagByStateCommand(index, tagsToAdd, targetState);
+        }
+
+        if (ModelManager.isKanban()) {
+            throw new ParseException(MESSAGE_PROVIDE_COLUMN);
         }
 
         return new AddTagCommand(index, tagsToAdd);
