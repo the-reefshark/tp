@@ -84,7 +84,7 @@ class MoveCommandTest {
 
         MoveCommand moveCommand = new MoveCommand(Index.fromZeroBased(1), bugInList.getState());
 
-        assertCommandFailure(moveCommand, model, MoveCommand.MESSAGE_DUPLICATE_BUG);
+        assertCommandFailure(moveCommand, model, MoveCommand.MESSAGE_DUPLICATE_STATE);
     }
 
     @Test
