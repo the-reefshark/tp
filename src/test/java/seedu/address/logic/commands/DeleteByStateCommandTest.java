@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BACKLOG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_DONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_ONGOING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBugAtIndex;
@@ -26,29 +28,44 @@ import seedu.address.model.bug.State;
 public class DeleteByStateCommandTest {
     private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
 
-    @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        ObservableList<Bug> todoList = model.getFilteredBugListByState(new State("todo"));
-        Index outOfBoundIndex = Index.fromOneBased(todoList.size() + 1);
-        DeleteByStateCommand deleteCommand = new DeleteByStateCommand(outOfBoundIndex, new State("todo"));
-
+    private void executeInvalidIndex(State state) {
+        ObservableList<Bug> list = model.getFilteredBugListByState(state);
+        Index outOfBoundIndex = Index.fromOneBased(list.size() + 1);
+        DeleteByStateCommand deleteCommand = new DeleteByStateCommand(outOfBoundIndex, state);
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
     }
-
     @Test
-    public void execute_validIndexFilteredListTodoState_success() {
-        showBugAtIndex(model, INDEX_FIRST_BUG);
+    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+        //delete a bug from state todo
+        executeInvalidIndex(VALID_STATE_TODO);
+        //delete a bug from state ongoing
+        executeInvalidIndex(VALID_STATE_ONGOING);
+        //delete a bug from state done
+        executeInvalidIndex(VALID_STATE_DONE);
+        //delete a bug from state backlog
+        executeInvalidIndex(VALID_STATE_BACKLOG);
+    }
 
-        Bug bugToDelete = model.getFilteredBugListByState(new State("todo")).get(INDEX_FIRST_BUG.getZeroBased());
-        DeleteByStateCommand deleteCommand = new DeleteByStateCommand(INDEX_FIRST_BUG, new State("todo"));
+    private void executeValidIndex(State state) {
+        Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
+        Bug bugToDelete = model.getFilteredBugListByState(state).get(INDEX_FIRST_BUG.getZeroBased());
+        DeleteByStateCommand deleteCommand = new DeleteByStateCommand(INDEX_FIRST_BUG, state);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_BUG_SUCCESS, bugToDelete);
 
         Model expectedModel = new ModelManager(model.getKanBugTracker(), new UserPrefs());
         expectedModel.deleteBug(bugToDelete);
-        showNoBug(expectedModel);
+        //showNoBug(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validUnfilteredListTodoState_success() {
+        executeValidIndex(VALID_STATE_BACKLOG);
+        executeValidIndex(VALID_STATE_DONE);
+        executeValidIndex(VALID_STATE_TODO);
+        executeValidIndex(VALID_STATE_ONGOING);
     }
 
     @Test
@@ -59,7 +76,7 @@ public class DeleteByStateCommandTest {
         // ensures that outOfBoundIndex is still in bounds of bug tracker list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getKanBugTracker().getBugList().size());
 
-        DeleteCommand deleteCommand = new DeleteByStateCommand(outOfBoundIndex, VALID_STATE_BUG1);
+        DeleteCommand deleteCommand = new DeleteByStateCommand(outOfBoundIndex, VALID_STATE_TODO);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
     }
@@ -80,16 +97,14 @@ public class DeleteByStateCommandTest {
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
-
-
     @Test
     public void equals() {
         DeleteByStateCommand deleteFirstStateBug1 = new DeleteByStateCommand(INDEX_FIRST_BUG,
-            VALID_STATE_BUG1);
+            VALID_STATE_TODO);
         DeleteByStateCommand deleteFirstStateBug2 = new DeleteByStateCommand(INDEX_FIRST_BUG,
-            VALID_STATE_BUG2);
+            VALID_STATE_BACKLOG);
         DeleteByStateCommand deleteSecondStateBug1 = new DeleteByStateCommand(INDEX_SECOND_BUG,
-            VALID_STATE_BUG1);
+            VALID_STATE_TODO);
 
         // same object -> returns true
         assertTrue(deleteFirstStateBug1.equals(deleteFirstStateBug1));
@@ -98,7 +113,7 @@ public class DeleteByStateCommandTest {
         assertFalse(deleteFirstStateBug1.equals(null));
 
         DeleteByStateCommand deleteFirstStateBug1Copy = new DeleteByStateCommand(INDEX_FIRST_BUG,
-            VALID_STATE_BUG1);
+            VALID_STATE_TODO);
 
         //copy -> true
         assertTrue(deleteFirstStateBug1.equals(deleteFirstStateBug1Copy));
