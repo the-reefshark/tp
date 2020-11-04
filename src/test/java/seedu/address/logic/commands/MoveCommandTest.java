@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BACKLOG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBugAtIndex;
@@ -63,7 +63,7 @@ class MoveCommandTest {
     @Test
     public void execute_invalidBugIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugList().size() + 1);
-        MoveCommand moveCommand = new MoveCommand(outOfBoundIndex, VALID_STATE_BUG1);
+        MoveCommand moveCommand = new MoveCommand(outOfBoundIndex, VALID_STATE_TODO);
 
         assertCommandFailure(moveCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
     }
@@ -79,10 +79,10 @@ class MoveCommandTest {
 
     @Test
     public void equals() {
-        final MoveCommand standardCommand = new MoveCommand(INDEX_FIRST_BUG, VALID_STATE_BUG1);
+        final MoveCommand standardCommand = new MoveCommand(INDEX_FIRST_BUG, VALID_STATE_TODO);
 
         // same values -> returns true
-        MoveCommand commandWithSameValues = new MoveCommand(INDEX_FIRST_BUG, VALID_STATE_BUG1);
+        MoveCommand commandWithSameValues = new MoveCommand(INDEX_FIRST_BUG, VALID_STATE_TODO);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -95,9 +95,9 @@ class MoveCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new MoveCommand(INDEX_SECOND_BUG, VALID_STATE_BUG1)));
+        assertFalse(standardCommand.equals(new MoveCommand(INDEX_SECOND_BUG, VALID_STATE_TODO)));
 
         // different state -> returns false
-        assertFalse(standardCommand.equals(new MoveCommand(INDEX_FIRST_BUG, VALID_STATE_BUG2)));
+        assertFalse(standardCommand.equals(new MoveCommand(INDEX_FIRST_BUG, VALID_STATE_BACKLOG)));
     }
 }

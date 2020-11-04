@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BACKLOG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -32,8 +32,8 @@ import seedu.address.testutil.BugBuilder;
 public class EditTagByStateCommandTest {
 
     private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
-    private State initialStateBacklog = VALID_STATE_BUG2;
-    private State initialStateToDo = VALID_STATE_BUG1;
+    private State initialStateBacklog = VALID_STATE_BACKLOG;
+    private State initialStateToDo = VALID_STATE_TODO;
     private Tag newTag = new Tag(VALID_TAG_LOGIC);
     private Tag oldTag = new Tag(VALID_TAG_COMPONENT);
 
@@ -97,17 +97,17 @@ public class EditTagByStateCommandTest {
         tagsToAddLogic.add(new Tag(VALID_TAG_COMPONENT));
 
         EditTagByStateCommand editTagByStateCommand = new EditTagByStateCommand(INDEX_FIRST_BUG,
-                new Tag(VALID_TAG_LOGIC), new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG1);
+                new Tag(VALID_TAG_LOGIC), new Tag(VALID_TAG_COMPONENT), VALID_STATE_TODO);
         EditTagByStateCommand editTagByStateCommandDuplicate = new EditTagByStateCommand(INDEX_FIRST_BUG,
-                new Tag(VALID_TAG_LOGIC), new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG1);
+                new Tag(VALID_TAG_LOGIC), new Tag(VALID_TAG_COMPONENT), VALID_STATE_TODO);
         EditTagByStateCommand editTagByStateCommandDifferentIndex = new EditTagByStateCommand(INDEX_SECOND_BUG,
-                new Tag(VALID_TAG_LOGIC), new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG1);
+                new Tag(VALID_TAG_LOGIC), new Tag(VALID_TAG_COMPONENT), VALID_STATE_TODO);
         EditTagByStateCommand editTagByStateCommandDifferentTags = new EditTagByStateCommand(INDEX_FIRST_BUG,
-                new Tag(VALID_TAG_COMPONENT), new Tag(VALID_TAG_LOGIC), VALID_STATE_BUG1);
+                new Tag(VALID_TAG_COMPONENT), new Tag(VALID_TAG_LOGIC), VALID_STATE_TODO);
         EditTagByStateCommand editTagByStateCommandDifferentState = new EditTagByStateCommand(INDEX_FIRST_BUG,
-                new Tag(VALID_TAG_COMPONENT), new Tag(VALID_TAG_LOGIC), VALID_STATE_BUG2);
+                new Tag(VALID_TAG_COMPONENT), new Tag(VALID_TAG_LOGIC), VALID_STATE_BACKLOG);
         AddTagByStateCommand addTagByStateCommand = new AddTagByStateCommand(INDEX_FIRST_BUG,
-                tagsToAddLogic, VALID_STATE_BUG1);
+                tagsToAddLogic, VALID_STATE_TODO);
 
         //same command
         assertTrue(editTagByStateCommand.equals(editTagByStateCommand));
