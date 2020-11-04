@@ -30,6 +30,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_COLUMN);
+
         String trimmedIndex = argMultimap.getPreamble().trim();
         if (trimmedIndex.contains(" ")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -39,7 +40,6 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
 
         try {
-
             Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
             if (arePrefixesPresent(argMultimap, PREFIX_COLUMN)) {
                 if (!ModelManager.isKanban()) {

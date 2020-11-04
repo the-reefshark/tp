@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MoveByStateCommand;
 import seedu.address.logic.commands.MoveCommand;
@@ -31,6 +32,14 @@ public class MoveCommandParser implements Parser<MoveCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_STATE, PREFIX_COLUMN);
 
         Index index;
+
+        String trimmedIndex = argMultimap.getPreamble().trim();
+        if (trimmedIndex.contains(" ")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MoveCommand.MESSAGE_USAGE));
+        }
+        if (trimmedIndex.length() >= Integer.toString(Integer.MAX_VALUE - 1).length()) {
+            throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
+        }
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
