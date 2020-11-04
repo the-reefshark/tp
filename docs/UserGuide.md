@@ -400,8 +400,8 @@ Data is saved into the hard disk every time a change is made.
 |  **edit**   | `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]` |
 | **editTag** |       `editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG`       |
 | **addTag**  |             `addTag INDEX [c/COLUMN] nt/NEW_TAG`             |
-|  **clear**  |                            `clear`                           |
 |  **move**   |               `move INDEX [c/COLUMN] s/STATE`                |
+|  **clear**  |                            `clear`                           |
 |  **exit**   |                            `exit`                            |
 
 [Back to top](#what-is-kanbug-tracker)
