@@ -65,7 +65,7 @@ public class MoveCommand extends Command {
         Bug bugToMove = lastShownList.get(index.getZeroBased());
         Bug movedBug = createMovedBug(bugToMove, state);
 
-        if (model.hasBug(movedBug)) {
+        if (!willChangeState(bugToMove)) {
             throw new CommandException(MESSAGE_DUPLICATE_STATE);
         }
 
@@ -91,5 +91,9 @@ public class MoveCommand extends Command {
         MoveCommand e = (MoveCommand) other;
         return index.equals(e.index)
                 && state.equals(e.state);
+    }
+
+    private boolean willChangeState(Bug currentBug) {
+        return !this.state.equals(currentBug.getState());
     }
 }
