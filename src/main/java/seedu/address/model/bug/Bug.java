@@ -68,7 +68,7 @@ public class Bug {
     }
 
     /**
-     * Returns true if both bugs of the same name have at least one other identity field that is the same.
+     * Returns true if both bugs have the same name.
      * This defines a weaker notion of equality between two bugs.
      */
     public boolean isSameBug(Bug otherBug) {
@@ -77,8 +77,7 @@ public class Bug {
         }
 
         return otherBug != null
-                && otherBug.getName().equals(getName())
-                && otherBug.getState().equals(getState());
+                && otherBug.getName().equals(getName());
     }
 
     /**
