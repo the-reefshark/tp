@@ -70,24 +70,6 @@ class MoveCommandTest {
     }
 
     @Test
-    public void execute_createDuplicateBugs_failure() {
-        Bug bugInList = model.getFilteredBugList().get(INDEX_FIRST_BUG.getZeroBased());
-
-        // make sure that this bug is different from a bug in the model only in state
-        Bug bugWithDifferentState = new BugBuilder(bugInList)
-                .withState(bugInList.getState().getStringOfValue().equals(VALID_STATE_HOMEPAGE)
-                        ? VALID_STATE_PARSER : VALID_STATE_HOMEPAGE).build();
-
-        // set the 2nd bug as the bugWithDifferentState
-        Model newModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
-        newModel.setBug(model.getFilteredBugList().get(1), bugWithDifferentState);
-
-        MoveCommand moveCommand = new MoveCommand(Index.fromZeroBased(1), bugInList.getState());
-
-        assertCommandFailure(moveCommand, model, MoveCommand.MESSAGE_DUPLICATE_BUG);
-    }
-
-    @Test
     public void equals() {
         final MoveCommand standardCommand = new MoveCommand(INDEX_FIRST_BUG, VALID_STATE_BUG1);
 

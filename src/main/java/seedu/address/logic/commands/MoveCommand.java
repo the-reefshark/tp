@@ -64,10 +64,6 @@ public class MoveCommand extends Command {
         Bug bugToMove = lastShownList.get(index.getZeroBased());
         Bug movedBug = createMovedBug(bugToMove, state);
 
-        if (model.hasBug(movedBug)) {
-            throw new CommandException(MESSAGE_DUPLICATE_BUG);
-        }
-
         model.setBug(bugToMove, movedBug);
         model.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);
 

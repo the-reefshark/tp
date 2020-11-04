@@ -34,20 +34,17 @@ public class BugTest {
         // null -> returns false
         assertFalse(BUGONE.isSameBug(null));
 
-        // different state -> returns false
-        Bug editedBugOne = new BugBuilder(BUGONE).withState(VALID_STATE_HOMEPAGE).build();
-        assertFalse(BUGONE.isSameBug(editedBugOne));
-
         // different name -> returns false
-        editedBugOne = new BugBuilder(BUGONE).withName(VALID_NAME_HOMEPAGE).build();
+        Bug editedBugOne = new BugBuilder(BUGONE).withName(VALID_NAME_HOMEPAGE).build();
         assertFalse(BUGONE.isSameBug(editedBugOne));
 
-        // same name, same state, different attributes -> returns true
-        editedBugOne = new BugBuilder(BUGONE).withDescription(VALID_DESCRIPTION_HOMEPAGE)
-                .withTags(VALID_TAG_COMPONENT).withPriority(VALID_PRIORITY_HOMEPAGE).build();
+        // same name, different attributes -> returns true
+        editedBugOne = new BugBuilder(BUGONE).withState(VALID_STATE_HOMEPAGE)
+                .withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_COMPONENT)
+                .withPriority(VALID_PRIORITY_HOMEPAGE).build();
         assertTrue(BUGONE.isSameBug(editedBugOne));
 
-        // same name, state and attributes -> returns true
+        // same name and attributes -> returns true
         editedBugOne = new BugBuilder(BUGONE).build();
         assertTrue(BUGONE.isSameBug(editedBugOne));
     }
