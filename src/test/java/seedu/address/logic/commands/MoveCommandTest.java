@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -66,6 +67,15 @@ class MoveCommandTest {
         MoveCommand moveCommand = new MoveCommand(outOfBoundIndex, VALID_STATE_BUG1);
 
         assertCommandFailure(moveCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_moveSameState_failure() {
+        Bug bugInList = model.getFilteredBugList().get(INDEX_FIRST_BUG.getZeroBased());
+
+        MoveCommand moveCommand = new MoveCommand(Index.fromZeroBased(1), bugInList.getState());
+
+        assertCommandFailure(moveCommand, model, MoveCommand.MESSAGE_DUPLICATE_STATE);
     }
 
     @Test
