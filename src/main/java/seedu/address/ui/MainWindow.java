@@ -75,8 +75,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        kanbanPanelPlaceholder.setVisible(false);
-        kanbanPanelPlaceholder.setManaged(false);
+        bugListPanelPlaceholder.setVisible(false);
+        bugListPanelPlaceholder.setManaged(false);
 
     }
 
@@ -185,16 +185,16 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleBoard() {
-        if (kanbanPanelPlaceholder.isManaged()) {
-            kanbanPanelPlaceholder.setVisible(false);
-            kanbanPanelPlaceholder.setManaged(false);
-            bugListPanelPlaceholder.setVisible(true);
-            bugListPanelPlaceholder.setManaged(true);
-        } else {
+        if (bugListPanelPlaceholder.isManaged()) {
             kanbanPanelPlaceholder.setVisible(true);
             kanbanPanelPlaceholder.setManaged(true);
             bugListPanelPlaceholder.setVisible(false);
             bugListPanelPlaceholder.setManaged(false);
+        } else {
+            kanbanPanelPlaceholder.setVisible(false);
+            kanbanPanelPlaceholder.setManaged(false);
+            bugListPanelPlaceholder.setVisible(true);
+            bugListPanelPlaceholder.setManaged(true);
         }
     }
 

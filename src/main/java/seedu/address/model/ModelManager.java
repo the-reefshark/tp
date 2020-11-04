@@ -20,7 +20,7 @@ import seedu.address.model.bug.State;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private static boolean isKanban = false;
+    private static boolean isKanban = true;
 
     private final KanBugTracker kanBugTracker;
     private final UserPrefs userPrefs;

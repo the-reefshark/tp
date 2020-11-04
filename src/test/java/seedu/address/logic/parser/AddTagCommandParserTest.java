@@ -14,7 +14,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_BUG;
 
@@ -53,7 +52,7 @@ public class AddTagCommandParserTest {
         assertParseFailure(parser, userInputTwo, Tag.MESSAGE_CONSTRAINTS);
 
         // n/ will be read before tag, together with prefix.
-        assertParseFailure(parser, userInputThree, MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, userInputThree, MESSAGE_INVALID_FORMAT);
     }
 
     @Test

@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OLDTAG;
 
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditTagByStateCommand;
 import seedu.address.logic.commands.EditTagCommand;
@@ -38,6 +39,15 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_OLDTAG, PREFIX_NEWTAG, PREFIX_COLUMN);
+
+        String trimmedIndex = argMultimap.getPreamble().trim();
+        if (trimmedIndex.contains(" ")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTagCommand.MESSAGE_USAGE));
+        }
+        if (trimmedIndex.length() >= Integer.toString(Integer.MAX_VALUE - 1).length()) {
+            throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
+        }
+
         int numberOfPrefixExpected = NUMBER_OF_PREFIXES_EXPECTED;
         Index index;
         Tag oldTag;

@@ -10,6 +10,7 @@ import seedu.address.model.ReadOnlyKanBugTracker;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
+import seedu.address.model.bug.Note;
 import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
@@ -22,22 +23,27 @@ public class SampleDataUtil {
         return new Bug[]{
             new Bug(new Name("UI Homepage bug"), new State("backlog"),
                 new Description("Homepage UI does not scale correctly"),
-                Optional.empty(), getTagSet("UI"), new Priority()),
+                Optional.of(new Note("Tried to resize in JavaFX did not work. First spotted when switching modes and"
+                        + "making screen larger")), getTagSet("UI"), new Priority("low")),
             new Bug(new Name("AddCommandParser"), new State("todo"),
                 new Description("Parser to add command insert incorrect input"),
-                Optional.empty(), getTagSet("Parser", "Add"), new Priority()),
+                Optional.empty(), getTagSet("Parser", "Add"), new Priority("medium")),
             new Bug(new Name("Delete command"), new State("done"),
                 new Description("Delete command removes incorrect index"),
-                Optional.empty(), getTagSet("Delete"), new Priority()),
+                Optional.of(new Note("Command accidentally removes the first bug every time command is executed "
+                        + "instead of the bug provided")), getTagSet("Delete"), new Priority("high")),
             new Bug(new Name("Exit command"), new State("ongoing"),
                 new Description("Data is not being saved"),
-                Optional.empty(), getTagSet("Storage", "Exit"), new Priority()),
+                Optional.empty(), getTagSet("Storage", "Exit"), new Priority("high")),
             new Bug(new Name("Help Command"), new State("done"),
                 new Description("Help command does not appear when executed"),
-                Optional.empty(), getTagSet("help"), new Priority()),
+                Optional.empty(), getTagSet("help"), new Priority("low")),
             new Bug(new Name("List command"), new State("backlog"),
                 new Description("List command does not show the full list"),
-                Optional.empty(), getTagSet("List"), new Priority())
+                Optional.empty(), getTagSet("List"), new Priority("medium")),
+            new Bug(new Name("Load file error"), new State("backlog"),
+                new Description("Unable to load files from previous run"),
+                Optional.empty(), getTagSet("Load", "Storage"), new Priority("high"))
         };
     }
 
