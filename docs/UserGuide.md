@@ -104,7 +104,7 @@ The first step in every journey is the preparation, after that when we have you 
     ![HomeFolder](images/HomeFolder.png)
     
 <div markdown="span" class="alert alert-info">:information_source: Note: In this instance, <b>Home Folder</b> acts as our <i>root folder</i>. Users are free to name their <i>root folder</i> however they wish. 
-    </div>
+</div>
 
 
 
@@ -189,8 +189,13 @@ The index of a bug is the position of that bug in the list.
 
 Some commands require the use of prefixes to indicate user input. Every command will have its own specific format so do pay close attention to the command's requirements!
 
+<div markdown="span" class="alert alert-info">:information_source: Note: If you accidentally include multiple copies of the same prefix, the programme will use the prefix that appears last.
+Eg. <code>edit 1 n/firstname n/secondname</code> will result in the name of Bug 1 being editted to <b>secondname</b>.
+</div>
 
-
+<div markdown="span" class="alert alert-warning">:warning: WARNING: Using a prefix inside another prefix will result in it not being recognised by the application.
+Eg. <code>d/t/Location</code> will result in the description field of the Bug being set to <code>t/Location</code>. 
+</div>
 
 ## 3. Features
 
@@ -253,6 +258,9 @@ Examples:
 - `add n/Move bug d/Moves bug to wrong column s/backlog note/This bug is likely caused by issues in multiple classes`, adds a bug with name *Move bug*, Description of *Moves bug to wrong column*, state of *Backlog* and a note of *This bug is likely caused by issues in multiple classes*.
 - `add n/Move bug d/Moves the wrong bug when run pr/high`, adds a bug with name *Move bug*, Description of *Moves the wrong bug when run*, default state of *Backlog* and priority of *high*.
 
+<div markdown="span" class="alert alert-warning">:warning: WARNING: Take note that the following commands (Section 3.6 - 3.10) have to include the <code>c/COLUMN</code> prefix when used in the <b>Kanban View</b> which should be omitted when using it in the <b>List View</b>.
+</div>
+
 ### 3.6 Deleting a bug : `delete`
 
 After a bug is fixed and a project is done, its time to remove the bug from the application.
@@ -275,7 +283,7 @@ Example:
 
 Made a mistake when adding in a bug or simply changed your mind on what the description should be? Fret not, that's what the edit command is for.
 
-Format: `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NEW_NOTE] [t/NEW_TAG]`
+Format: `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]`
 
 - The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
   - **Kanban view**: User must supply the `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
@@ -287,11 +295,15 @@ Format: `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NEW_NOTE] 
 - **Multiple tags** can be added or edited.
 - The command will fail if the operation results in duplicated bugs (bugs with the same name).
 
+<div markdown="span" class="alert alert-info">:information_source: Note: To remove optional fields such as <code>Priority</code> and <code>Note</code> simply type the prefix without providing anything after.
+Eg. <code>edit 1 pr/</code> will remove the assigned priority of the Bug if there is one present.
+</div>
+
 Examples:
 
-- `edit 1 c/backlog n/Wrong list numbers when displaying list d/List column printed as all 1's`, edits the name and description of the 1st bug in the backlog column to *Wrong list numbers when displaying list* and "List column printed as all 1's" respectively.
-- `edit 2 d/When listing items, duplicates are printed note/Tried a fix using iterator, did not work`, edits the description of the 2nd bug to be *When listing items, duplicated are printed* and changes the note to *Tried a fix using iterator, did not work*
-- `edit 3 t/Logger t/Logging`, edits/adds the two tags provided *Logger* and *Logging*.
+- `edit 1 c/backlog n/Wrong list numbers when displaying list d/List column printed as all 1's pr/high`, edits the name and description of the 1st bug in the backlog column to `Wrong list numbers when displaying list` and `List column printed as all 1's` and sets the priority to `high` respectively.
+- `edit 2 d/When listing items, duplicates are printed note/Tried a fix using iterator, did not work`, edits the description of the 2nd bug to be "When listing items, duplicated are printed" and changes the note to "Tried a fix using iterator, did not work"
+- `edit 3 t/Logger t/Logging`, edits/adds the two tags provided "Logger" and "Logging".
 
 ### 3.8 Editing a tag of a bug : `editTag`
 
@@ -383,9 +395,9 @@ Data is saved into the hard disk every time a change is made.
 |  **help**   |                            `help`                            |
 |  **list**   |                            `list`                            |
 | **search**  |                      `search q/QUERYSTRING`                  |
-|   **add**   |   `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG]`   |
+|   **add**   |   `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG] [pr/PRIORITY]`   |
 | **delete**  |                        `delete INDEX [c/COLUMN]`                        |
-|  **edit**   | `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NOTE] [t/NEW_TAG]` |
+|  **edit**   | `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]` |
 | **editTag** |       `editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG`       |
 | **addTag**  |             `addTag INDEX [c/COLUMN] nt/NEW_TAG`             |
 |  **clear**  |                            `clear`                           |
