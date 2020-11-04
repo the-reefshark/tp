@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
