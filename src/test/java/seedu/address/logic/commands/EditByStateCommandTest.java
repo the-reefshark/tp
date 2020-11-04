@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COLUMN_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -67,9 +67,9 @@ public class EditByStateCommandTest {
 
     @Test
     public void execute_invalidBugIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugListByState(VALID_STATE_BUG1).size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugListByState(VALID_STATE_TODO).size() + 1);
         EditCommand.EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE).build();
-        EditByStateCommand editCommand = new EditByStateCommand(outOfBoundIndex, descriptor, VALID_STATE_BUG1);
+        EditByStateCommand editCommand = new EditByStateCommand(outOfBoundIndex, descriptor, VALID_STATE_TODO);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
     }
@@ -77,7 +77,7 @@ public class EditByStateCommandTest {
     @Test
     public void equals() {
         final EditByStateCommand standardCommand = new EditByStateCommand(INDEX_FIRST_BUG,
-                            DESC_PARSER, VALID_STATE_BUG1);
+                            DESC_PARSER, VALID_STATE_TODO);
         EditCommand.EditBugDescriptor copyDescriptor = new EditCommand.EditBugDescriptor(DESC_PARSER);
         EditByStateCommand commandWithSameValues = new EditByStateCommand(INDEX_FIRST_BUG,
             copyDescriptor, new State("todo"));

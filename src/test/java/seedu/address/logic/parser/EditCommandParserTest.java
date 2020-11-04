@@ -42,6 +42,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditBugDescriptor;
+import seedu.address.model.ModelManager;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
 import seedu.address.model.bug.Priority;
@@ -204,6 +205,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
+        ModelManager.setListViewWindow();
         Index targetIndex = INDEX_THIRD_BUG;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
@@ -213,7 +215,8 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
-    @Test void parse_resetPriority_success() {
+    @Test
+    public void parse_resetPriority_success() {
         Index targetIndex = INDEX_THIRD_BUG;
         String userInput = targetIndex.getOneBased() + PRIORITY_EMPTY;
 
