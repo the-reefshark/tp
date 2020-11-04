@@ -136,7 +136,7 @@ Let's look at the various parts of a bug to understand how they are represented 
 
 #### 1 - Bug Name
 
-You get to choose what you want to name each bug you enter into the KanBug Tracker.
+You get to choose what you want to name each bug you enter into the KanBug Tracker. No two bugs can have the same name.
 
 #### 2 - Priority
 
@@ -245,6 +245,7 @@ Format: `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG] [pr/PRIORITY]`
 - Add a bug with the specified name, description and state to the bottom of the list.
 - The state, note and tag fields are optional, all other fields are needed.
 - If state is not specified, a default state of backlog will be assigned.
+- The command will fail if a bug with the same name already exists.
 
 Examples:
 
@@ -284,6 +285,7 @@ Format: `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NEW_NOTE] 
 - At least one of the optional fields must be provided.
 - Existing values will be updated to the input values.
 - **Multiple tags** can be added or edited.
+- The command will fail if the operation results in duplicated bugs (bugs with the same name).
 
 Examples:
 
@@ -344,6 +346,7 @@ Format: `move INDEX [c/COLUMN] s/STATE`
 - State can either be **backlog, todo, ongoing** or **done**.
 - If the "destination" state is the same with the initial state of the bug, no change will be made.
 - The bug must exist to be moved (e.g. we cannot move the fifth bug in the List view if there are only four bugs).
+
 Examples:
 
 - `move 1 s/todo`, moves the first bug in the List view from its initial state to the “Todo” state.
