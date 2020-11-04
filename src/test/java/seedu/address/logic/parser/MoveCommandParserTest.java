@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MoveCommand;
+import seedu.address.model.ModelManager;
 import seedu.address.model.bug.State;
 
 class MoveCommandParserTest {
@@ -56,6 +57,7 @@ class MoveCommandParserTest {
 
     @Test
     public void parse_correctIndexAndState_success() {
+        ModelManager.setListViewWindow();
         Index targetIndex = INDEX_SECOND_BUG;
         String userInput = targetIndex.getOneBased() + STATE_DESC_PARSER;
 

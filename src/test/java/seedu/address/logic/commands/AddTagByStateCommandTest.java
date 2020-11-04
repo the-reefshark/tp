@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.AddTagCommand.addTagsToBug;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BACKLOG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -39,7 +39,7 @@ import seedu.address.testutil.BugBuilder;
 public class AddTagByStateCommandTest {
 
     private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
-    private State initialState = VALID_STATE_BUG1;
+    private State initialState = VALID_STATE_TODO;
     private Tag newTagLogic = new Tag(VALID_TAG_LOGIC);
     private Tag newTagComponent = new Tag(VALID_TAG_COMPONENT);
 
@@ -47,7 +47,7 @@ public class AddTagByStateCommandTest {
     @Test
     public void execute_invalidBugIndexFilteredListByState_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugList().size() + 1);
-        State newState = VALID_STATE_BUG1;
+        State newState = VALID_STATE_TODO;
         Set<Tag> tagsToAdd = new HashSet<>();
         tagsToAdd.add(newTagLogic);
 
@@ -60,7 +60,7 @@ public class AddTagByStateCommandTest {
     public void execute_allFieldsSpecifiedFilteredListByState_success() {
         try {
 
-            State initialState = VALID_STATE_BUG1;
+            State initialState = VALID_STATE_TODO;
             Bug bug = model.getFilteredBugListByState(initialState).get(0);
             Set<Tag> tagsToAdd = new HashSet<>();
             tagsToAdd.add(newTagLogic);
@@ -152,17 +152,17 @@ public class AddTagByStateCommandTest {
         tagsToAddComponent.add(newTagComponent);
 
         AddTagByStateCommand addTagByStateCommand = new AddTagByStateCommand(INDEX_FIRST_BUG,
-                tagsToAddLogic, VALID_STATE_BUG1);
+                tagsToAddLogic, VALID_STATE_TODO);
         AddTagByStateCommand addTagByStateCommandDuplicate = new AddTagByStateCommand(INDEX_FIRST_BUG,
-                tagsToAddLogic, VALID_STATE_BUG1);
+                tagsToAddLogic, VALID_STATE_TODO);
         AddTagByStateCommand addTagByStateCommandDifferentIndex = new AddTagByStateCommand(INDEX_SECOND_BUG,
-                tagsToAddLogic, VALID_STATE_BUG1);
+                tagsToAddLogic, VALID_STATE_TODO);
         AddTagByStateCommand addTagByStateCommandDifferentTag = new AddTagByStateCommand(INDEX_FIRST_BUG,
-                tagsToAddComponent, VALID_STATE_BUG1);
+                tagsToAddComponent, VALID_STATE_TODO);
         AddTagByStateCommand addTagByStateCommandDifferentState = new AddTagByStateCommand(INDEX_FIRST_BUG,
-                tagsToAddComponent, VALID_STATE_BUG2);
+                tagsToAddComponent, VALID_STATE_BACKLOG);
         EditTagByStateCommand editTagByStateCommand = new EditTagByStateCommand(INDEX_FIRST_BUG,
-                new Tag(VALID_TAG_LOGIC), new Tag(VALID_TAG_COMPONENT), VALID_STATE_BUG1);
+                new Tag(VALID_TAG_LOGIC), new Tag(VALID_TAG_COMPONENT), VALID_STATE_TODO);
 
         //same command
         assertTrue(addTagByStateCommand.equals(addTagByStateCommand));

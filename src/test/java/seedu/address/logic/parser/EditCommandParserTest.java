@@ -1,47 +1,17 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_PARSER;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRIORITY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_STATE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PARSER;
-import static seedu.address.logic.commands.CommandTestUtil.NOTE_DESC_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.NOTE_DESC_PARSER;
-import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_PARSER;
-import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.STATE_DESC_PARSER;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BACKEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRONTEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_PARSER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PARSER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_PARSER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_PARSER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_HOMEPAGE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_BUG;
+import static seedu.address.testutil.TypicalIndexes.*;
 
 import org.junit.jupiter.api.Test;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditBugDescriptor;
+import seedu.address.model.ModelManager;
 import seedu.address.model.bug.Description;
 import seedu.address.model.bug.Name;
 import seedu.address.model.bug.Priority;
@@ -204,6 +174,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
+        ModelManager.setListViewWindow();
         Index targetIndex = INDEX_THIRD_BUG;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 

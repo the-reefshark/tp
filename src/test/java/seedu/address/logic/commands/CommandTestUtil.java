@@ -47,8 +47,10 @@ public class CommandTestUtil {
     public static final String VALID_TAG_COMPONENT = "UI";
     public static final String VALID_TAG_LOGIC = "Logic";
     public static final String VALID_COLUMN_TODO = "todo";
-    public static final State VALID_STATE_BUG1 = new State("todo");
-    public static final State VALID_STATE_BUG2 = new State("backlog");
+    public static final State VALID_STATE_TODO = new State("todo");
+    public static final State VALID_STATE_BACKLOG = new State("backlog");
+    public static final State VALID_STATE_ONGOING = new State("ongoing");
+    public static final State VALID_STATE_DONE = new State("done");
 
     public static final String NAME_DESC_PARSER = " " + PREFIX_NAME + VALID_NAME_PARSER;
     public static final String NAME_DESC_HOMEPAGE = " " + PREFIX_NAME + VALID_NAME_HOMEPAGE;

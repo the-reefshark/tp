@@ -10,7 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_UI;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_NEW;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_OLD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PARSER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BUG1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -112,7 +112,7 @@ public class AddTagCommandParserTest {
         Index targetIndex = INDEX_SECOND_BUG;
         String userInput = targetIndex.getOneBased() + COLUMN_DESC_TODO + TAG_DESC_NEW;
         AddTagByStateCommand expectedCommand = new AddTagByStateCommand(targetIndex, tagsToAddLogic,
-                VALID_STATE_BUG1);
+            VALID_STATE_TODO);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
