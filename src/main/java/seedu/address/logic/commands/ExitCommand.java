@@ -14,7 +14,6 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        ModelManager.setListViewWindow();
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, false);
     }
 
