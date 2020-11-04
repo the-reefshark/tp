@@ -124,14 +124,6 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Edit Tag feature
-
-#### Implementation
-
-The edit tag feature is facilitated by `EditTagCommandParser`, `EditTagCommand` and `EditTagByStateCommand`.  The class structure of the implementation is given below.
-
-![EditTagClassStructure](images/EditTagClassStructure.png)
-
 ### FeatureUI kanban view window
 
 #### Proposed Implementation
@@ -152,7 +144,7 @@ For each of the 4 states, KanbanBoard would call getFilteredBugListByState on lo
 
 Given below is sequence diagram for the creation of the BugListPanes:
 
-<img src= "images/KanbanBoardUI.png">
+<img src= "images/KanbanBoardUI.png" width = "400">
 
 With the implementation of kanban view window, command such as delete, move and edit that depend on the index would not work as expected. This is because, the Kanban view seperates the bugs and place then in different columns. As such, it would be essential to allow the users to execute these commands in the kanban view as we implement the new window. This can be done by allowing the user to chose which column would be affected by these commands.
 
@@ -164,7 +156,7 @@ This can be done by adding the following classes:
 
 These command would take in an extra input to specify which column is being targeted. The list of bugs would then be filtered according to the column specified. The respective parsers would also have to be modified such that the new command could be returned if a column is specifed. The following activity diagram summerizes what happens when the user enters a delete command.(edit and move command parser would act in a similar way)
 
-<img src = "images/DeleteCommandParserActivityDiagram.png">
+<img src = "images/DeleteCommandParserActivityDiagram.png" width ="400">
 
 #### Design consideration:
 
@@ -174,6 +166,13 @@ These command would take in an extra input to specify which column is being targ
 - **Alternative 2**: Allow the users to specify an active column and execute the commands with respect to that column
     - Cons: Need to add an additional command to change the active column.
 
+### Edit Tag feature
+
+#### Implementation
+
+The edit tag feature is facilitated by `EditTagCommandParser`, `EditTagCommand` and `EditTagByStateCommand`.  The class structure of the implementation is given below.
+
+![EditTagClassStructure](images/EditTagClassStructure.png)
 
 `EditTagCommand` extends `Command` and uses **editTag** as its `COMMAND_WORD`  and makes use of the **ot/** and **nt/** prefixes.
 
