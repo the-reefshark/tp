@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BACKLOG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBugAtIndex;

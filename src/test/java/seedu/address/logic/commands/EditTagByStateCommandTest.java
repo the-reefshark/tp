@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BACKLOG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;

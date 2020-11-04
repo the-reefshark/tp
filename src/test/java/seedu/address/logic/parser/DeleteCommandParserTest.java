@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.*;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_PROVIDE_COLUMN;
+import static seedu.address.commons.core.Messages.MESSAGE_REMOVE_COLUMN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -32,7 +34,7 @@ public class DeleteCommandParserTest {
     public void parse_invalidArgs_throwsParseExceptionListView() {
         ModelManager.setListViewWindow();
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "1 c/todo",MESSAGE_REMOVE_COLUMN);
+        assertParseFailure(parser, "1 c/todo", MESSAGE_REMOVE_COLUMN);
     }
 
     @Test
@@ -44,7 +46,8 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseExceptionKanbanView() {
         ModelManager.setKanbanWindow();
-        assertParseFailure(parser, "b c/todo", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "b c/todo",
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         assertParseFailure(parser, "1", MESSAGE_PROVIDE_COLUMN);
     }
 }
