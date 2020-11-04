@@ -15,7 +15,7 @@ KanBug Tracker was made to provide a lightweight, offline application for CS2103
 ## What can users expect?
 KanBug Tracker provides two different views that the user can switch between. The first is the traditional Kanban board style view which aims to allow users to get a high-level overview of the state of bugs in their project. The second view is the To-Do list view which allows users to focus only on the bugs within a particular section of the KanBug Tracker.
 
-#### Kanban View:
+#### Kanban View (default):
 
 ![Ui](images/Ui3.png)
 
