@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditByStateCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -41,7 +42,16 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_STATE,
                 PREFIX_DESCRIPTION, PREFIX_NOTE, PREFIX_TAG, PREFIX_PRIORITY, PREFIX_COLUMN);
+
         Index index;
+        String trimmedIndex = argMultimap.getPreamble().trim();
+        if (trimmedIndex.contains(" ")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        if (trimmedIndex.length() >= Integer.toString(Integer.MAX_VALUE - 1).length()) {
+            throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
+        }
+
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
