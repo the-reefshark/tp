@@ -103,7 +103,7 @@ The first step in every journey is the preparation, after that when we have you 
 3. Copy the `KanBugTracker.jar` file to a folder you want to use as your _root folder_.
     ![HomeFolder](images/HomeFolder.png)
     
-<div markdown="span" class="alert alert-info">:information_source: Note: In this instance, <b>Home Folder</b> acts as our <i>root folder</i>. Users are free to name their <i>root folder</i> however they wish. 
+<div markdown="span" class="alert alert-info">:information_source: Note: In this instance, <b>Home Folder</b> acts as our <b>root folder</b>. Users are free to name their <b>root folder</b> however they wish. 
 </div>
 
 
@@ -167,7 +167,7 @@ A short description detailing some key parts of the bug. Useful in helping you r
 
 #### 5 - Tag
 
-Multiple user-defined tags can be attached to each bug. Tags aid in helping you draw connections between multiple bugs. For instance, two bugs with the same tag "Ui" indicates that both bugs are related to the user-interface.
+Multiple user-defined tags can be attached to each bug. Tags aid in helping you draw connections between multiple bugs. For instance, two bugs with the same tag **Ui** indicates that both bugs are related to the user-interface.
 
 #### 6 - Notes
 
@@ -239,7 +239,7 @@ Format: `search q/QUERYSTRING`
 
 Examples:
 
-- `search q/frontend`, returns a list of bugs of which either name or description or tags contains query-string *frontend* (case-insensitive) in the words.
+- `search q/frontend`, returns a list of bugs of which either name or description or tags contains query-string **frontend** (case-insensitive) in the words.
 
 ### 3.5 Adding a bug : `add`
 
@@ -254,9 +254,9 @@ Format: `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG] [pr/PRIORITY]`
 
 Examples:
 
-- `add n/Print bug d/Prints the wrong message s/todo t/Ui`, adds a bug with name *Print Bug*, Description of *Prints the wrong message*, state of *To do* and a tag of *Ui*.
-- `add n/Move bug d/Moves bug to wrong column s/backlog note/This bug is likely caused by issues in multiple classes`, adds a bug with name *Move bug*, Description of *Moves bug to wrong column*, state of *Backlog* and a note of *This bug is likely caused by issues in multiple classes*.
-- `add n/Move bug d/Moves the wrong bug when run pr/high`, adds a bug with name *Move bug*, Description of *Moves the wrong bug when run*, default state of *Backlog* and priority of *high*.
+- `add n/Print bug d/Prints the wrong message s/todo t/Ui`, adds a bug with name **Print Bug**, Description of **Prints the wrong message**, state of **To do** and a tag of **Ui**.
+- `add n/Move bug d/Moves bug to wrong column s/backlog note/This bug is likely caused by issues in multiple classes`, adds a bug with name **Move bug**, Description of **Moves bug to wrong column**, state of **Backlog** and a note of **This bug is likely caused by issues in multiple classes**.
+- `add n/Move bug d/Moves the wrong bug when run pr/high`, adds a bug with name **Move bug**, Description of **Moves the wrong bug when run**, default state of **Backlog** and priority of **high**.
 
 <div markdown="span" class="alert alert-warning">:warning: WARNING: Take note that the following commands (Section 3.6 - 3.10) have to include the <code>c/COLUMN</code> prefix when used in the <b>Kanban View</b> which should be omitted when using it in the <b>List View</b>.
 </div>
@@ -301,9 +301,9 @@ Eg. <code>edit 1 pr/</code> will remove the assigned priority of the Bug if ther
 
 Examples:
 
-- `edit 1 c/backlog n/Wrong list numbers when displaying list d/List column printed as all 1's pr/high`, edits the name and description of the 1st bug in the backlog column to `Wrong list numbers when displaying list` and `List column printed as all 1's` and sets the priority to `high` respectively.
-- `edit 2 d/When listing items, duplicates are printed note/Tried a fix using iterator, did not work`, edits the description of the 2nd bug to be "When listing items, duplicated are printed" and changes the note to "Tried a fix using iterator, did not work"
-- `edit 3 t/Logger t/Logging`, edits/adds the two tags provided "Logger" and "Logging".
+- `edit 1 c/backlog n/Wrong list numbers when displaying list d/List column printed as all 1's pr/high`, edits the name and description of the 1st bug in the backlog column to **Wrong list numbers when displaying list** and **List column printed as all 1's** and sets the priority to **high** respectively.
+- `edit 2 d/When listing items, duplicates are printed note/Tried a fix using iterator, did not work`, edits the description of the 2nd bug to be **When listing items, duplicated are printed** and changes the note to **Tried a fix using iterator, did not work**
+- `edit 3 t/Logger t/Logging`, edits/adds the two tags provided **Logger** and **Logging**.
 
 ### 3.8 Editing a tag of a bug : `editTag`
 
@@ -356,14 +356,14 @@ Format: `move INDEX [c/COLUMN] s/STATE`
 - Specifically, this command will change the state of the bug.
 - The state field is **mandatory** and must be provided.
 - State can either be **backlog, todo, ongoing** or **done**.
-- If the "destination" state is the same with the initial state of the bug, no change will be made.
+- If the **destination** state is the same with the initial state of the bug, no change will be made.
 - The bug must exist to be moved (e.g. we cannot move the fifth bug in the List view if there are only four bugs).
 
 Examples:
 
-- `move 1 s/todo`, moves the first bug in the List view from its initial state to the “Todo” state.
+- `move 1 s/todo`, moves the first bug in the List view from its initial state to the **Todo** state.
 - `move 3 c/ongoing s/done`, moves the bug third bug in the Ongoing column of Kanban view from its initial state
- (Ongoing) to the “Done” state.
+ (Ongoing) to the **Done** state.
 
 ### 3.11 Clearing all bugs : `clear`
 
