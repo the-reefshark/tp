@@ -47,10 +47,10 @@ public class CommandTestUtil {
     public static final String VALID_TAG_COMPONENT = "UI";
     public static final String VALID_TAG_LOGIC = "Logic";
     public static final String VALID_COLUMN_TODO = "todo";
-    public static final State VALID_STATE_TODO = new State("todo");
-    public static final State VALID_STATE_BACKLOG = new State("backlog");
-    public static final State VALID_STATE_ONGOING = new State("ongoing");
-    public static final State VALID_STATE_DONE = new State("done");
+    public static final String VALID_STATE_VALUE_TODO = "todo";
+    public static final String VALID_STATE_VALUE_BACKLOG = "backlog";
+    public static final String VALID_STATE_VALUE_ONGOING = "ongoing";
+    public static final String VALID_STATE_VALUE_DONE = "done";
 
     public static final String NAME_DESC_PARSER = " " + PREFIX_NAME + VALID_NAME_PARSER;
     public static final String NAME_DESC_HOMEPAGE = " " + PREFIX_NAME + VALID_NAME_HOMEPAGE;
@@ -85,6 +85,11 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditBugDescriptor DESC_PARSER;
     public static final EditCommand.EditBugDescriptor DESC_HOMEPAGE;
+
+    public static final State VALID_STATE_TODO = new State("todo");
+    public static final State VALID_STATE_BACKLOG = new State("backlog");
+    public static final State VALID_STATE_ONGOING = new State("ongoing");
+    public static final State VALID_STATE_DONE = new State("done");
 
     static {
         DESC_PARSER = new EditBugDescriptorBuilder()

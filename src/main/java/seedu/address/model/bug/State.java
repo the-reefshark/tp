@@ -43,13 +43,23 @@ public class State {
     }
 
     /**
-     * Returns if a given string is a valid state.
+     * Returns true if a given string is a valid state.
+     *
+     * @param test String to test.
+     * @return True if {@code test} is valid, false otherwise.
      */
     public static boolean isValidState(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public Value getValueOfState(String state) {
+    /**
+     * Matches input argument with the appropriate state.
+     *
+     * @param state input to match.
+     * @return Value of input.
+     * @throws IllegalArgumentException if input does not match any valid Value.
+     */
+    public static Value getValueOfState(String state) throws IllegalArgumentException {
         switch (state) {
         case "backlog" :
             return Value.BACKLOG;
@@ -64,7 +74,7 @@ public class State {
         }
     }
 
-    public String getStringOfValue() {
+    private String getStringOfValue() throws IllegalArgumentException {
         switch (value) {
         case BACKLOG:
             return "backlog";
