@@ -15,6 +15,7 @@ Class BugListPanel
 Class BugCard
 Class StatusBarFooter
 Class CommandBox
+Class KanbanPanel
 }
 
 package Model <<Rectangle>> {
@@ -34,9 +35,11 @@ MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> BugListPanel
+MainWindow *-down-> KanbanPanel
 MainWindow *-down-> StatusBarFooter
 
 BugListPanel -down-> BugCard
+KanbanPanel -down-> "4" BugListPanel
 
 MainWindow -left-|> UiPart
 

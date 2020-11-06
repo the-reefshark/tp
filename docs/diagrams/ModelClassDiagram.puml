@@ -21,6 +21,8 @@ Class Description
 Class State
 Class Name
 Class UniqueBugList
+Class Note
+Class Priority
 }
 
 Package Tag {
@@ -44,6 +46,8 @@ UniqueBugList o--> "*" Bug
 Bug *--> Name
 Bug *--> State
 Bug *--> Description
+Bug *--> Note
+Bug *--> Priority
 Bug *--> "*" Tag
 
 ModelManager -->"1" Bug : filtered list
