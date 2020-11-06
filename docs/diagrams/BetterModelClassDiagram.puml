@@ -17,4 +17,6 @@ Bug -up-> "*" Tag
 Bug *--> Name
 Bug *--> State
 Bug *--> Description
+Bug *--> Note
+Bug *--> Priority
 @enduml

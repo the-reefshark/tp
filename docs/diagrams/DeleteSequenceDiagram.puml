@@ -48,7 +48,7 @@ deactivate KanBugTrackerParser
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteCommand -> Model : deleteBug(bugToDelete)
 activate Model
 
 Model --> DeleteCommand
