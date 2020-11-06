@@ -22,7 +22,7 @@ KanBug Tracker is a lightweight, easy to use bug management tool that aims to em
 * **New Feature**: I implemented the ability to search bugs based on the given query-string via `search` command.  
   
   * What it does: The feature provides the user with the ability to sort out a list of bugs that contain your given input. 
-  * Justification: This feature improves Kanbug Tracker remarkably since the users now have a direct and fast method to find out a particular bug. Without this feature, users might have to manually find out the bug among a very long list of existing bugs, which is very time-consuming. Therefore, this saves the users invaluable time, helping them to enhance the efficiency and productivity.   
+  * Justification: This feature improves Kanbug Tracker remarkably since the users now have a direct and fast method to find out a particular bug. Without this feature, users might have to manually find a bug among a very long list of existing bugs, which is very time-consuming. Therefore, this saves the users invaluable time, helping them to enhance the efficiency and productivity.   
   
 * **New Feature**: I partially implemented the ability to move a bug to another state via `move` command.
 
@@ -35,7 +35,7 @@ KanBug Tracker is a lightweight, easy to use bug management tool that aims to em
 
     * **Enhancements to existing features**:
          * Separate the code implementations between Kanban board view and List view.  
-         * Improve the Ui visuals of Kanban board view.  
+         * Improve the UI visuals of Kanban board view.  
          
     * **Project management**:
          * As in-charge of Scheduling and Tracking, I set up four milestones with appropriate delivery for each, created required labels/tags, monitored to create and assign Github issues to relevant members. Additionally, I ensured that no issues are expired in a specified milestone. To achieve this, I would inform my teammates when they had not finished the assigned tasks right after the internal deadline.  
