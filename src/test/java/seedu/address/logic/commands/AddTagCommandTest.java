@@ -50,20 +50,20 @@ public class AddTagCommandTest {
     @Test
     public void execute_invalidAddTagInputInvalidIndex_failure() {
         Index index = Index.fromOneBased(defaultModel.getFilteredBugList().size() + 1);
-        String oldTag = VALID_TAG_COMPONENT;
+        String existingTag = VALID_TAG_COMPONENT;
         String newTag = VALID_TAG_LOGIC;
         String expectedMessage = Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX;
-        assertExecuteFailure(index, oldTag, expectedMessage, newTag);
+        assertExecuteFailure(index, existingTag, expectedMessage, newTag);
     }
 
     @Test
     public void execute_invalidAddTagInputInvalidNewTags_failure() {
         Index index = INDEX_FIRST_BUG;
-        String oldTag = VALID_TAG_COMPONENT;
+        String existingTag = VALID_TAG_COMPONENT;
         String newTag = VALID_TAG_LOGIC;
         String newTagSecond = VALID_TAG_COMPONENT;
         String expectedMessage = AddTagCommand.MESSAGE_INVALID_NEW;
-        assertExecuteFailure(index, oldTag, expectedMessage, newTag, newTagSecond);
+        assertExecuteFailure(index, existingTag, expectedMessage, newTag, newTagSecond);
     }
 
     @Test
@@ -120,11 +120,11 @@ public class AddTagCommandTest {
         assertCommandSuccess(addTagCommand, initialModel, expectedMessage, expectedModel);
     }
 
-    private void assertExecuteFailure(Index index, String oldTag, String expectedMessageContent,
+    private void assertExecuteFailure(Index index, String existingTag, String expectedMessageContent,
                                       String... newTags) {
 
-        String[] finalTags = getTagArray(oldTag, newTags);
-        Bug initialBug = new BugBuilder().withTags(oldTag).build();
+        String[] finalTags = getTagArray(existingTag, newTags);
+        Bug initialBug = new BugBuilder().withTags(existingTag).build();
         Bug tagEditedBug = new BugBuilder().withTags(finalTags).build();
         Set<Tag> tagsToAdd = getTagSet(newTags);
 

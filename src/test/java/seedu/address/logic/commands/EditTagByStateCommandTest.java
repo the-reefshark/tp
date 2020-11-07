@@ -37,7 +37,7 @@ public class EditTagByStateCommandTest {
     private Model defaultModel = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
 
     @Test
-    public void execute_validEditTagInput_success() {
+    public void execute_validEditTagByStateInput_success() {
         Index index = INDEX_FIRST_BUG;
         String oldTagInBug = VALID_TAG_COMPONENT;
         String newTagInBug = VALID_TAG_LOGIC;
@@ -69,7 +69,7 @@ public class EditTagByStateCommandTest {
     }
 
     @Test
-    public void execute_invalidEditTagInputTagNotInBug_throwCommandException() {
+    public void execute_invalidEditTagByStateInputTagNotInBug_throwCommandException() {
         Index index = INDEX_FIRST_BUG;
         String oldTagInBug = VALID_TAG_COMPONENT;
         String newTagInBug = VALID_TAG_LOGIC;
@@ -82,7 +82,7 @@ public class EditTagByStateCommandTest {
     }
 
     @Test
-    public void execute_invalidEditTagInputNewTagAlreadyInBug_throwCommandException() {
+    public void execute_invalidEditTagByStateInputNewTagAlreadyInBug_throwCommandException() {
         Index index = INDEX_FIRST_BUG;
         String oldTagInBug = VALID_TAG_COMPONENT;
         String oldTagClashWithNewTag = VALID_TAG_LOGIC;
