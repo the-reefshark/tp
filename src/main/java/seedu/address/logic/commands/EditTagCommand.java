@@ -25,7 +25,7 @@ public class EditTagCommand extends Command {
             + "The existing tag supplied by the user will be replaced with the new tag given "
             + "as input.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_COLUMN + "] "
+            + "[" + PREFIX_COLUMN + "COLUMN] "
             + PREFIX_OLDTAG + "OLD_TAG "
             + PREFIX_NEWTAG + "NEW_TAG\n"
             + "Example: " + COMMAND_WORD + " 1 "
