@@ -9,9 +9,9 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.DeleteByStateCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.parser.exceptions.ColumnNotFoundException;
 import seedu.address.logic.parser.exceptions.ExtraColumnException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -31,16 +31,16 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     public DeleteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_COLUMN);
 
-        String trimmedIndex = argMultimap.getPreamble().trim();
-        if (trimmedIndex.contains(" ")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        String preambleIndex = argMultimap.getPreamble();
+        if (!StringUtil.isNumber(preambleIndex)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        if (trimmedIndex.length() >= Integer.toString(Integer.MAX_VALUE - 1).length()) {
+        if (StringUtil.isIndexOverflow(preambleIndex)) {
             throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
         }
 
         try {
-            Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            Index index = ParserUtil.parseIndex(preambleIndex);
             if (arePrefixesPresent(argMultimap, PREFIX_COLUMN)) {
                 if (!ModelManager.isKanban()) {
                     throw new ExtraColumnException();

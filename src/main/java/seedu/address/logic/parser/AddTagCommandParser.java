@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddTagByStateCommand;
 import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -38,11 +39,11 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NEWTAG, PREFIX_COLUMN);
 
         Index index;
-        String trimmedIndex = argMultimap.getPreamble().trim();
-        if (trimmedIndex.contains(" ")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
+        String preambleIndex = argMultimap.getPreamble();
+        if (!StringUtil.isNumber(preambleIndex)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagByStateCommand.MESSAGE_USAGE));
         }
-        if (trimmedIndex.length() >= Integer.toString(Integer.MAX_VALUE - 1).length()) {
+        if (StringUtil.isIndexOverflow(preambleIndex)) {
             throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
         }
 
