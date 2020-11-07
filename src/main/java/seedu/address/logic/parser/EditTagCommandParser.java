@@ -21,10 +21,10 @@ import seedu.address.model.tag.Tag;
 
 public class EditTagCommandParser implements Parser<EditTagCommand> {
 
-    private static final int NUMBER_OF_PREFIXES_EXPECTED = 3;
-    private static final int NUMBER_OF_OLDTAG = 1;
-    private static final int NUMBER_OF_NEWTAG = 1;
-    private static final int NUMBER_OF_COLUMN = 1;
+    private static final int TOTAL_NUMBER_OF_PREFIXES_EXPECTED = 3;
+    private static final int NUMBER_OF_OLDTAG_PREFIXES_EXPECTED = 1;
+    private static final int NUMBER_OF_NEWTAG_PREFIXES_EXPECTED = 1;
+    private static final int NUMBER_OF_COLUMN_PREFIXES_EXPECTED = 1;
 
     //TODO clean up all documentation details for EditTagCommandParser,
     // AddTagCommand, AddTagCommandParser
@@ -40,26 +40,39 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_OLDTAG, PREFIX_NEWTAG, PREFIX_COLUMN);
 
-        String trimmedIndex = argMultimap.getPreamble().trim();
-        if (trimmedIndex.contains(" ")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTagCommand.MESSAGE_USAGE));
-        }
-        if (trimmedIndex.length() >= Integer.toString(Integer.MAX_VALUE - 1).length()) {
-            throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
-        }
+        ensureValidPreamble(argMultimap);
+        ensureValidNumberOfPrefixes(argMultimap);
 
-        int numberOfPrefixExpected = NUMBER_OF_PREFIXES_EXPECTED;
-        Index index;
-        Tag oldTag;
-        Tag newTag;
+        assert argMultimap.getValue(PREFIX_OLDTAG).isPresent();
+        assert argMultimap.getValue(PREFIX_NEWTAG).isPresent();
+
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        Tag oldTag = getTagFromMultiMap(argMultimap, PREFIX_OLDTAG);
+        Tag newTag = getTagFromMultiMap(argMultimap, PREFIX_NEWTAG);
+
+        boolean isColumnSupplied = arePrefixesPresent(argMultimap, PREFIX_COLUMN);
+
+        if (isColumnSupplied) {
+            return editTagsByState(argMultimap, index, oldTag, newTag);
+        } else {
+            return editTagsWithoutState(index, oldTag, newTag);
+        }
+    }
+
+    private void ensureValidNumberOfPrefixes(ArgumentMultimap argMultimap) throws ParseException {
+        int numberOfPrefixExpected = TOTAL_NUMBER_OF_PREFIXES_EXPECTED;
+
         if (arePrefixesPresent(argMultimap, PREFIX_COLUMN)) {
             numberOfPrefixExpected++;
         }
 
         boolean hasExtraPrefixes = argMultimap.getSize() != numberOfPrefixExpected;
-        boolean hasIncorrectNumberOfNewTag = argMultimap.numberOfPrefixElements(PREFIX_NEWTAG) != NUMBER_OF_NEWTAG;
-        boolean hasIncorrectNumberOfOldTag = argMultimap.numberOfPrefixElements(PREFIX_OLDTAG) != NUMBER_OF_OLDTAG;
-        boolean hasIncorrectNumberOfColumn = argMultimap.numberOfPrefixElements(PREFIX_COLUMN) > NUMBER_OF_COLUMN;
+        boolean hasIncorrectNumberOfNewTag = argMultimap.numberOfPrefixElements(PREFIX_NEWTAG)
+                                                     != NUMBER_OF_NEWTAG_PREFIXES_EXPECTED;
+        boolean hasIncorrectNumberOfOldTag = argMultimap.numberOfPrefixElements(PREFIX_OLDTAG)
+                                                     != NUMBER_OF_OLDTAG_PREFIXES_EXPECTED;
+        boolean hasIncorrectNumberOfColumn = argMultimap.numberOfPrefixElements(PREFIX_COLUMN)
+                                                     > NUMBER_OF_COLUMN_PREFIXES_EXPECTED;
         boolean hasIncorrectNumberOfPrefixValues =
                 hasIncorrectNumberOfNewTag || hasIncorrectNumberOfOldTag || hasIncorrectNumberOfColumn;
 
@@ -68,25 +81,38 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
                     || hasIncorrectNumberOfPrefixValues) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTagCommand.MESSAGE_USAGE));
         }
-        assert argMultimap.getValue(PREFIX_OLDTAG).isPresent();
-        assert argMultimap.getValue(PREFIX_NEWTAG).isPresent();
+    }
 
-        index = ParserUtil.parseIndex(argMultimap.getPreamble());
+    private void ensureValidPreamble(ArgumentMultimap argMultimap) throws ParseException {
+        String trimmedIndex = argMultimap.getPreamble().trim();
+        if (trimmedIndex.contains(" ")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTagCommand.MESSAGE_USAGE));
+        }
+        if (trimmedIndex.length() >= Integer.toString(Integer.MAX_VALUE - 1).length()) {
+            throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
+        }
+    }
 
+    private Tag getTagFromMultiMap(ArgumentMultimap argMultimap, Prefix tagPrefix) throws ParseException {
         try {
-            oldTag = new Tag(argMultimap.getValue(PREFIX_OLDTAG).get());
-            newTag = new Tag(argMultimap.getValue(PREFIX_NEWTAG).get());
+            return new Tag(argMultimap.getValue(tagPrefix).get());
         } catch (IllegalArgumentException e) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
+    }
 
-        if (arePrefixesPresent(argMultimap, PREFIX_COLUMN)) {
-            if (!ModelManager.isKanban()) {
-                throw new ParseException(MESSAGE_REMOVE_COLUMN);
-            }
-            State targetState = ParserUtil.parseState(argMultimap.getValue(PREFIX_COLUMN).get());
-            return new EditTagByStateCommand(index, oldTag, newTag, targetState);
+    private EditTagByStateCommand editTagsByState(ArgumentMultimap argMultimap, Index index, Tag oldTag, Tag newTag)
+            throws ParseException {
+        if (!ModelManager.isKanban()) {
+            throw new ParseException(MESSAGE_REMOVE_COLUMN);
         }
+        State targetState = ParserUtil.parseState(argMultimap.getValue(PREFIX_COLUMN).get());
+        return new EditTagByStateCommand(index, oldTag, newTag, targetState);
+    }
+
+    private EditTagCommand editTagsWithoutState(Index index, Tag oldTag,
+                                                       Tag newTag)
+            throws ParseException {
         if (ModelManager.isKanban()) {
             throw new ParseException(MESSAGE_PROVIDE_COLUMN);
         }
