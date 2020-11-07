@@ -41,7 +41,7 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
         Index index;
         String preambleIndex = argMultimap.getPreamble();
         if (!StringUtil.isNumber(preambleIndex)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagByStateCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
         }
         if (StringUtil.isIndexOverflow(preambleIndex)) {
             throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);

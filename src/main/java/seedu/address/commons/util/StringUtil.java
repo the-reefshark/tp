@@ -53,7 +53,7 @@ public class StringUtil {
     }
 
     /**
-     * Returns true if the {@code index} if formed by digits only.
+     * Returns true if the {@code index} is formed by digits only.
      * @param index cannot be null.
      */
     public static boolean isNumber(String index) {
@@ -62,7 +62,7 @@ public class StringUtil {
     }
 
     /**
-     * Returns true if the index is over MAX_INT.
+     * Returns true if the {@code index} is over MAX_INT.
      * @param index cannot be null.
      */
     public static boolean isIndexOverflow(String index) {
