@@ -25,6 +25,7 @@ public class BugCard extends UiPart<Region> {
      */
 
     public final Bug bug;
+    public final int displayedIndex;
 
     @FXML
     private HBox cardPane;
@@ -53,17 +54,36 @@ public class BugCard extends UiPart<Region> {
     public BugCard(Bug bug, int displayedIndex) {
         super(FXML);
         this.bug = bug;
+        this.displayedIndex = displayedIndex;
 
+        setId();
+        setName();
+        setDescription();
+        setState();
+        setPriority();
+        setNote();
+        setTags();
+    }
+
+    protected void setId() {
         id.setText(displayedIndex + ". ");
+    }
 
+    protected void setName() {
         name.setText(bug.getName().fullName);
         name.setWrapText(true);
+    }
 
+    protected void setDescription() {
         description.setText(bug.getDescription().value);
         description.setWrapText(true);
+    }
 
+    protected void setState() {
         state.setText(bug.getState().toString());
+    }
 
+    protected void setPriority() {
         if (bug.getPriority().isNotIndicated()) {
             priority.setManaged(false);
         } else {
@@ -73,7 +93,9 @@ public class BugCard extends UiPart<Region> {
 
             priority.getStyleClass().add(styleClassName);
         }
+    }
 
+    protected void setNote() {
         if (bug.getOptionalNote().isPresent()) {
             note.setText(bug.getOptionalNote().get().value);
             note.setWrapText(true);
@@ -81,7 +103,9 @@ public class BugCard extends UiPart<Region> {
             noteContainer.setManaged(false);
             note.setManaged(false);
         }
+    }
 
+    protected void setTags() {
         bug.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
