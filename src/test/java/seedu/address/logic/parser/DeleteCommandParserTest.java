@@ -27,6 +27,7 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommandListView() {
+        ModelManager.setListViewWindow();
         assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_BUG));
     }
 
