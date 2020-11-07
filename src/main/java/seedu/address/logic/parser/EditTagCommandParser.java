@@ -44,7 +44,7 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         String preambleIndex = argMultimap.getPreamble();
         if (!StringUtil.isNumber(preambleIndex)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditTagByStateCommand.MESSAGE_USAGE));
+                    EditTagCommand.MESSAGE_USAGE));
         }
         if (StringUtil.isIndexOverflow(preambleIndex)) {
             throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);

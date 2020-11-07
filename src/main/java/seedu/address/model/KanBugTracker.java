@@ -9,7 +9,7 @@ import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.UniqueBugList;
 
 /**
- * Wraps all data at the kanbug-tracker level
+ * Wraps all data at the KanBugTracker level
  * Duplicates are not allowed (by .isSameBug comparison)
  */
 public class KanBugTracker implements ReadOnlyKanBugTracker {
@@ -63,6 +63,7 @@ public class KanBugTracker implements ReadOnlyKanBugTracker {
      */
     public boolean hasBug(Bug bug) {
         requireNonNull(bug);
+
         return bugs.contains(bug);
     }
 
@@ -70,8 +71,8 @@ public class KanBugTracker implements ReadOnlyKanBugTracker {
      * Adds a bug to the KanBug Tracker.
      * The bug must not already exist in the KanBug Tracker.
      */
-    public void addBug(Bug p) {
-        bugs.add(p);
+    public void addBug(Bug bug) {
+        bugs.add(bug);
     }
 
     /**
@@ -86,24 +87,23 @@ public class KanBugTracker implements ReadOnlyKanBugTracker {
     }
 
     /**
-     * Removes {@code key} from this {@code KanBugTracker}.
-     * {@code key} must exist in the KanBug Tracker.
+     * Removes {@code bug} from this {@code KanBugTracker}.
+     * {@code bug} must exist in the KanBug Tracker.
      */
-    public void removeBug(Bug key) {
-        bugs.remove(key);
+    public void removeBug(Bug bug) {
+        bugs.remove(bug);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return bugs.asUnmodifiableObservableList().size() + " bugs";
-        // TODO: refine later
+        return bugs.setUnmodifiableObservableList().size() + " bugs";
     }
 
     @Override
     public ObservableList<Bug> getBugList() {
-        return bugs.asUnmodifiableObservableList();
+        return bugs.setUnmodifiableObservableList();
     }
 
     @Override
