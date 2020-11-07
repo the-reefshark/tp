@@ -360,11 +360,14 @@ Regarding the situation when the bug's priority is not indicated:
 
 ### Search feature
 
-#### Proposed Implementation
+#### Implementation
 The proposed search command is facilitated by `ModelManager`. It generates a filtered list (updated by a specified `Predicate<Bug>` as an argument), stored internally as `FilteredList<Bug>`. It should have its own class named `SearchCommand` and inherits from the abstract class `Command`. The command then returns an instance of `CommandResult` upon success and prints feedback to the users.
 Additionally, it implements the following operations:  
 * `SearchCommand#execute()` - Executes the search command.  
 * `ModelManager#updateFilteredBugList(Predicate<Bug>)` - Filters internal data storage via its argument `Predicate<Bug>`   
+
+The following class diagram shows the structure of the search command implementation:
+![SearchCommandClassDiagram](images/SearchCommandClassDiagram.png)
 
 Given below is an example usage scenario and how the search feature behaves at each step.  
 Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.  
@@ -376,10 +379,14 @@ Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/tod
 - state: **todo**
 - tag: **Ui.java**
 
-Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug. The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`. This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance (`BugContainsQueryStringPredicate` in detail). The predicate is internally passed and used to filter `FilteredList<Bug>`. 
+Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug.
+The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`.
+This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance (`BugContainsQueryStringPredicate` in detail).
+The predicate is internally passed and used to filter `FilteredList<Bug>`.
 This results in the information of all the bugs of which name or description or tag contains `Ui bug` as a substring displays in the tracker.
 
-![SearchCommandStructure](images/SearchCommandSequenceDiagram.png)
+The following sequence diagram summarizes what happens when a user executes the search command:
+![SearchCommandSequenceDiagram](images/SearchCommandSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: Note: The query-string given by the user cannot be empty and is case-insensitive.
 </div>
@@ -390,8 +397,9 @@ This results in the information of all the bugs of which name or description or 
 - Con: Might be a long list of relevant bugs
 
 **Alternative 2**: Use current field prefixes to search
-- Pro: When the user remembers exactly information of a particular field
+- Pro: Might be complicated because the user needs to remember exactly some information of a particular field
 - Con: Restricted search
+
 
 
 ### Note feature
@@ -582,13 +590,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+1.  KanBug Tracker should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3.  KanBug Tracker should be able to hold up to 10000 **Bug** items without a remarkable sluggishness in performance for typical usage.
+4.  KanBug Tracker should work on both 32-bit and 64-bit environments.
+5.  The size of the compiled JAR file (KanBugTracker.jar) should be less than 100Mb.
+6.  KanBug Tracker should be intentionally designed for a single-user (i.e. KanBug Tracker should not be a multi-user application).
+7.  KanBug Tracker should be developed incrementally over the project duration.
+8.  The software’s codebase should adhere to OOP principles.
 
 ### Glossary
-
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private bug fixing progress detail**: A bug fixing progress detail that is not meant to be shared with others
+* **Command Line Interface (CLI)**: Text-based user interface that is used to view and manage device files.
+* **Graphical User Interface (GUI)**: A visual way of interacting with a device using a variety of items (e.g. windows, tables, icons, etc.).
+* **OOP**: Object-Oriented Programming.
+* **Prefix**: A set of characters placed before a specified parameter when typing a command.
+* **Query-string**: The user keyword input to find matches when the search command is executed.
+
+We provides more glossaries for non-technical terms of KanBug Tracker in [Glossary of the User Guide](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#2-glossary).
+
 
 --------------------------------------------------------------------------------------------------------------------
 
