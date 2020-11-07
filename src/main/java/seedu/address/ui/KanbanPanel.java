@@ -9,6 +9,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.model.bug.State;
 
 
 /**
@@ -42,13 +43,13 @@ public class KanbanPanel extends UiPart<Region> {
     }
 
     private void fillKanban() {
-        fillColumn(backlogColumn, "backlog");
+        fillColumn(backlogColumn, State.BACKLOG_VALUE);
 
-        fillColumn(todoColumn, "todo");
+        fillColumn(todoColumn, State.TODO_VALUE);
 
-        fillColumn(ongoingColumn, "ongoing");
+        fillColumn(ongoingColumn, State.ONGOING_VALUE);
 
-        fillColumn(doneColumn, "done");
+        fillColumn(doneColumn, State.DONE_VALUE);
     }
 
     private void fillColumn(VBox column, String state) {
