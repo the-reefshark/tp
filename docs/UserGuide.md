@@ -224,6 +224,7 @@ Eg. <code>d/t/Location</code> will result in the description field of the Bug be
 Want to get a high level overview of the bugs in your program or focus only on a particular column? Just switch views!
 
 Format: `switch`
+(Any parameters entered are ignored)
 
 - Switches between **Kanban view** and **List view**
 
@@ -231,17 +232,39 @@ Format: `switch`
 
 Not sure what to do next? Don't worry, just ask for help.
 
-Format: `help`
+Format: `help` 
+(Any parameters entered are ignored)
 
-- Gets all commands’ syntax and usage and link to this User Guide.
+- Gets all commands’ syntax and the link to this User Guide.
+
+Example: Stuck? Or just forgot what the commands are? Don't worry just do this:
+
+![HomeFolder](images/HelpExample1.png)
+
+Just type `help` and hit `Enter`
+
+![HomeFolder](images/HelpExample2.png)
+
+This creates a popup (the Help Window) with a command guide that you can refer to.
 
 ### 3.3 Listing all bugs : `list`
 
-Lists all bugs in the tracker for times when you want to quickly look through all the bugs in the tracker.
+After running the search command you might want to see all the bugs you have in your Kanbug Tracker at one glance. Thats where the `list` can be used.
 
 Format: `list`
+(Any parameters entered are ignored)
 
-- Shows a list of all bugs in the tracker system
+- Shows all the bugs in your Kanbug Tracker
+
+Example: Lets say you have just completed a search for bugs related to `list` using the command `search q/list` and now you want to view all your bugs again. Just do this:
+
+![HomeFolder](images/ListExample1.png)
+
+Just type `list` and hit `Enter`
+
+![HomeFolder](images/ListExample2.png)
+
+The result display will then indicate the result of your command, and the Kanbug Tracker will display all your bugs
 
 ### 3.4 Searching for bugs : `search`
 
@@ -321,7 +344,7 @@ You can type `edit 6 n/Wrong list numbers when displaying list d/List column pri
 
 ![HomeFolder](images/EditExample2.png)
 
-Once the command has been entered, the `Result Display` shows the result of your command and the Kanbug tracker has been updated with the updated name, description as well as priority.
+Once the command has been entered, the result display shows the result of your command and the Kanbug tracker has been updated with the updated name, description as well as priority.
 
 Example 2: Perhaps then you tried some ways to fix it that didn't work so you want to add a `note` of **Tried a fix using iterator, did not work**. This is how you can do it:
 
@@ -331,7 +354,7 @@ Type `edit 6 note/Tried a fix using iterator, did not work` as input and press `
 
 ![HomeFolder](images/EditExample4.png)
 
-Once the command has been entered, the `Result Display` shows the result of your command and the Kanbug tracker has been updated with the updated note.
+Once the command has been entered, the result display shows the result of your command and the Kanbug tracker has been updated with the updated note.
 
 Example 3: After toiling away at the bug, you realise that you have solved it! So now you want to remove the `priority` of the Bug. This is how you can do it:
 
@@ -341,7 +364,7 @@ Type `edit 6 pr/` as input and press `Enter`.
 
 ![HomeFolder](images/EditExample6.png)
 
-Once the command has been entered, the `Result Display` shows the result of your command and the Kanbug tracker has been updated with the priority of the bug removed.
+Once the command has been entered, the result display shows the result of your command and the Kanbug tracker has been updated with the priority of the bug removed.
 
 ### 3.8 Editing a tag of a bug : `editTag`
 
@@ -408,6 +431,7 @@ Examples:
 Imagine the project you just finish ends up with a hundred of bug records in the tracker. How to restart? Don't worry! Clear command is here to help you to clear all bugs to reinitialize the application.
 
 Format: `clear`
+(Any parameters entered are ignored)
 
 - This command is applicable to both Kanban and List views.
 
@@ -416,6 +440,7 @@ Format: `clear`
 Ends and closes the app.
 
 Format: `exit`
+(Any parameters entered are ignored)
 
 When you are done with managing your tasks, use this command to saves all of the local data and exit from the app. 
 Alternatively, you can also close the window directly or press Esc key, and the app will do the same thing.
