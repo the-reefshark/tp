@@ -8,6 +8,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUG;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ModelManager;
 import seedu.address.model.bug.Bug;
 import seedu.address.testutil.BugBuilder;
 import seedu.address.testutil.BugUtil;
@@ -27,6 +29,12 @@ import seedu.address.testutil.EditBugDescriptorBuilder;
 public class KanBugTrackerParserTest {
 
     private final KanBugTrackerParser parser = new KanBugTrackerParser();
+
+    @BeforeAll
+    public static void setModelState() {
+        ModelManager.setListViewWindow();
+    }
+
 
     @Test
     public void parseCommand_add() throws Exception {

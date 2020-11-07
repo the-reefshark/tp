@@ -35,8 +35,6 @@ import seedu.address.model.tag.Tag;
 
 public class AddTagCommandParserTest {
 
-    //TODO Add in test for multiple tags being added
-
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE);
     private static boolean isKanbanView = ModelManager.isKanban();
