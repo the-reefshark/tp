@@ -1,11 +1,13 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_EXTRA_ARGUMENTS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUERYSTRING;
 
 import java.util.stream.Stream;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bug.BugContainsQueryStringPredicate;
@@ -25,10 +27,13 @@ public class SearchCommandParser implements Parser<SearchCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
         }
 
+        if (!StringUtil.isEmptyArgument(argMultimap.getPreamble())) {
+            throw new ParseException(MESSAGE_EXTRA_ARGUMENTS);
+        }
+
         String queryString = ParserUtil.parseQueryString(argMultimap.getValue(PREFIX_QUERYSTRING).get());
-        if (queryString.trim().isEmpty()) {
-            throw new ParseException(String.format(SearchCommand.MESSAGE_EMPTY_QUERY_STRING,
-                    SearchCommand.MESSAGE_USAGE));
+        if (StringUtil.isEmptyArgument(queryString)) {
+            throw new ParseException(SearchCommand.MESSAGE_EMPTY_QUERY_STRING);
         }
         return new SearchCommand(new BugContainsQueryStringPredicate(queryString));
     }
