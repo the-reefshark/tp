@@ -85,12 +85,12 @@ public class AddTagCommandTest {
             State bugState = bug.getState();
             Description bugDescription = bug.getDescription();
             Priority bugPriority = bug.getPriority();
-            Optional<Note> optionalNote = bug.getOptionalNote();
+            Optional<Note> bugOptionalNote = bug.getOptionalNote();
             Set<Tag> tagsOfBug = new HashSet<Tag>(bug.getTags());
             tagsOfBug.add(newTagLogic);
 
             //copy bug details to reflect edited bug
-            Bug editedBug = new Bug(bugName, bugState, bugDescription, optionalNote, tagsOfBug, bugPriority);
+            Bug editedBug = new Bug(bugName, bugState, bugDescription, bugOptionalNote, tagsOfBug, bugPriority);
             assertEquals(editedBug, AddTagCommand.addTagsToBug(bug, tagsToAdd));
         } catch (CommandException e) {
             assert false;

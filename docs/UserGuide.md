@@ -179,7 +179,20 @@ Commands are how you interact with the KanBug Tracker. The various commands will
 
 #### Columns
 
-Some commands require users to include the column that a bug is in. Don't fret, columns simply refer to the state of a particular bug. In Kanban view, we can tell which column a bug is in easily. 
+You may have noticed that some commands require you to provide the column that the bug is in. Don't fret, columns in the Kanban View simply refer to the state of a particular bug.
+
+<div markdown="span" class="alert alert-info">:information_source: Note: You only need to tell us the column when you are in <b>Kanban View</b>.
+<br>
+    • <b>List view:</b> You should not supply the <code>COLUMN</code>. The bug at the specified <code>INDEX</code> is edited. The index refers to the index number shown in the displayed list of bugs.<br>
+    • <b>Kanban view:</b> Remember to supply the <code>COLUMN</code> when using this view! The bug you have chosen at <code>INDEX</code> in the <b>chosen column</b> is deleted.<br>
+<br>
+Example: <br>
+<img src="images/ListViewDelete.png"> <br>
+The <b>highlighted bug is deleted</b> when command <code>delete 1</code> is executed <br>
+<br>
+<img src="images/KanbanViewDelete.png"> <br>
+The <b>highlighted bug is deleted</b> when command <code>delete 1 c/backlog</code> is executed<br>
+</div>
 
 #### Index
 
@@ -200,14 +213,16 @@ Eg. <code>d/t/Location</code> will result in the description field of the Bug be
 ## 3. Features
 
 - Words in `UPPER_CASE` are parameters to be supplied by the user
-- Items in `[...]` are optional
-- `INDEX ` **must be a positive integer** 1,2,3...
+- Items in `[...]` are **optional**
+- Items in `(...)` are only required in **KanBan View**
+- `INDEX` **must be a positive integer** 1,2,3...
 
 ### 3.1 Switching Views : `switch`
 
 Want to get a high level overview of the bugs in your program or focus only on a particular column? Just switch views!
 
 Format: `switch`
+(Any parameters entered are ignored)
 
 - Switches between **Kanban view** and **List view**
 
@@ -215,17 +230,39 @@ Format: `switch`
 
 Not sure what to do next? Don't worry, just ask for help.
 
-Format: `help`
+Format: `help` 
+(Any parameters entered are ignored)
 
-- Gets all commands’ syntax and usage and link to this User Guide.
+- Gets all commands’ syntax and the link to this User Guide.
+
+Example: Stuck? Or just forgot what the commands are? Don't worry just do this:
+
+![HomeFolder](images/HelpExample1.png)
+
+Just type `help` and hit `Enter`
+
+![HomeFolder](images/HelpExample2.png)
+
+This creates a popup (the Help Window) with a command guide that you can refer to.
 
 ### 3.3 Listing all bugs : `list`
 
-Lists all bugs in the tracker for times when you want to quickly look through all the bugs in the tracker.
+After running the search command you might want to see all the bugs you have in your Kanbug Tracker at one glance. Thats where the `list` can be used.
 
 Format: `list`
+(Any parameters entered are ignored)
 
-- Shows a list of all bugs in the tracker system
+- Shows all the bugs in your Kanbug Tracker
+
+Example: Lets say you have just completed a search for bugs related to `list` using the command `search q/list` and now you want to view all your bugs again. Just do this:
+
+![HomeFolder](images/ListExample1.png)
+
+Just type `list` and hit `Enter`
+
+![HomeFolder](images/ListExample2.png)
+
+The result display will then indicate the result of your command, and the Kanbug Tracker will display all your bugs
 
 ### 3.4 Searching for bugs : `search`
 
@@ -258,7 +295,7 @@ Examples:
 - `add n/Move bug d/Moves bug to wrong column s/backlog note/This bug is likely caused by issues in multiple classes`, adds a bug with name **Move bug**, Description of **Moves bug to wrong column**, state of **Backlog** and a note of **This bug is likely caused by issues in multiple classes**.
 - `add n/Move bug d/Moves the wrong bug when run pr/high`, adds a bug with name **Move bug**, Description of **Moves the wrong bug when run**, default state of **Backlog** and priority of **high**.
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: Take note that the following commands (Section 3.6 - 3.10) have to include the <code>c/COLUMN</code> prefix when used in the <b>Kanban View</b> which should be omitted when using it in the <b>List View</b>.
+<div markdown="span" class="alert alert-warning">:warning: WARNING: Do note that for the following commands (Section 3.6 - 3.10) you have to include the <code>c/COLUMN</code> prefix when using it in the <b>Kanban View</b> which should not be added when using it in the <b>List View</b>.
 </div>
 
 ### 3.6 Deleting a bug : `delete`
@@ -283,11 +320,7 @@ Example:
 
 Made a mistake when adding in a bug or simply changed your mind on what the description should be? Fret not, that's what the edit command is for.
 
-Format: `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]`
-
-- The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
-  - **Kanban view**: User must supply the `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
-  - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
+Format: `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]`
 
 - Edits the specified bug.
 - At least one of the optional fields must be provided.
@@ -301,9 +334,35 @@ Eg. <code>edit 1 pr/</code> will remove the assigned priority of the Bug if ther
 
 Examples:
 
-- `edit 1 c/backlog n/Wrong list numbers when displaying list d/List column printed as all 1's pr/high`, edits the name and description of the 1st bug in the backlog column to **Wrong list numbers when displaying list** and **List column printed as all 1's** and sets the priority to **high** respectively.
-- `edit 2 d/When listing items, duplicates are printed note/Tried a fix using iterator, did not work`, edits the description of the 2nd bug to be **When listing items, duplicated are printed** and changes the note to **Tried a fix using iterator, did not work**
-- `edit 3 t/Logger t/Logging`, edits/adds the two tags provided **Logger** and **Logging**.
+Example 1: Suppose you incorrectly named a bug and provided it with an inaccurate description as well as priority and want to change the name of the bug to **Wrong list numbers when displaying list**, the description to **List column printed as all 1's** and priority to **high**:
+
+![HomeFolder](images/EditExample1.png)
+
+You can type `edit 6 n/Wrong list numbers when displaying list d/List column printed as all 1's pr/high` and press `Enter`.
+
+![HomeFolder](images/EditExample2.png)
+
+Once the command has been entered, the result display shows the result of your command and the Kanbug tracker has been updated with the updated name, description as well as priority.
+
+Example 2: Perhaps then you tried some ways to fix it that didn't work so you want to add a `note` of **Tried a fix using iterator, did not work**. This is how you can do it:
+
+![HomeFolder](images/EditExample3.png)
+
+Type `edit 6 note/Tried a fix using iterator, did not work` as input and press `Enter`.
+
+![HomeFolder](images/EditExample4.png)
+
+Once the command has been entered, the result display shows the result of your command and the Kanbug tracker has been updated with the updated note.
+
+Example 3: After toiling away at the bug, you realise that you have solved it! So now you want to remove the `priority` of the Bug. This is how you can do it:
+
+![HomeFolder](images/EditExample5.png)
+
+Type `edit 6 pr/` as input and press `Enter`.
+
+![HomeFolder](images/EditExample6.png)
+
+Once the command has been entered, the result display shows the result of your command and the Kanbug tracker has been updated with the priority of the bug removed.
 
 ### 3.8 Editing a tag of a bug : `editTag`
 
@@ -370,6 +429,7 @@ Examples:
 Imagine the project you just finish ends up with a hundred of bug records in the tracker. How to restart? Don't worry! Clear command is here to help you to clear all bugs to reinitialize the application.
 
 Format: `clear`
+(Any parameters entered are ignored)
 
 - This command is applicable to both Kanban and List views.
 
@@ -378,6 +438,7 @@ Format: `clear`
 Ends and closes the app.
 
 Format: `exit`
+(Any parameters entered are ignored)
 
 When you are done with managing your tasks, use this command to saves all of the local data and exit from the app. 
 Alternatively, you can also close the window directly or press Esc key, and the app will do the same thing.
@@ -396,11 +457,11 @@ Data is saved into the hard disk every time a change is made.
 |  **list**   |                            `list`                            |
 | **search**  |                      `search q/QUERYSTRING`                  |
 |   **add**   |   `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG] [pr/PRIORITY]`   |
-| **delete**  |                        `delete INDEX [c/COLUMN]`                        |
-|  **edit**   | `edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]` |
-| **editTag** |       `editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG`       |
-| **addTag**  |             `addTag INDEX [c/COLUMN] nt/NEW_TAG`             |
-|  **move**   |               `move INDEX [c/COLUMN] s/STATE`                |
+| **delete**  |                        `delete INDEX (c/COLUMN)`                        |
+|  **edit**   | `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]` |
+| **editTag** |       `editTag INDEX (c/COLUMN) ot/OLD_TAG nt/NEW_TAG`       |
+| **addTag**  |             `addTag INDEX (c/COLUMN) nt/NEW_TAG`             |
+|  **move**   |               `move INDEX (c/COLUMN) s/STATE`                |
 |  **clear**  |                            `clear`                           |
 |  **exit**   |                            `exit`                            |
 
