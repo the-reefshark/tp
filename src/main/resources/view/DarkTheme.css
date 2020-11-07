@@ -394,4 +394,16 @@
     -fx-opacity: 0.9;
 }
 
+#noteContainer {
+    -fx-background-color: #cccfeb;
+    -fx-background-radius: 8;
+    -fx-padding: 2 2 2 2;
+}
+
+#note {
+    -fx-text-fill: black;
+    -fx-font-family: Segoe UI Light;
+    -fx-font-size: 13;
+}
+
 
