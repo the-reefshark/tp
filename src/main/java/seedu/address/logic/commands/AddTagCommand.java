@@ -5,28 +5,20 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 
-import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
-import seedu.address.model.bug.Description;
-import seedu.address.model.bug.Name;
-import seedu.address.model.bug.Note;
-import seedu.address.model.bug.Priority;
-import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
 public class AddTagCommand extends Command {
 
     public static final String COMMAND_WORD = "addTag";
-
-    //TODO Update the DG such that only valid tags are used
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to the"
             + " bug identified by the index number used in the displayed bug list."
@@ -37,8 +29,8 @@ public class AddTagCommand extends Command {
             + PREFIX_NEWTAG + "Ui";
 
     public static final String MESSAGE_ADD_BUG_SUCCESS = "Added Tag: %1$s";
-    public static final String MESSAGE_NOT_ADDED = "Input values cannot be null.";
     public static final String MESSAGE_INVALID_NEW = "The new tag already exists!";
+    protected static final Logger LOGGER = LogsCenter.getLogger(AddTagCommand.class);
 
     protected Index index;
     protected Set<Tag> newTags;
@@ -59,57 +51,26 @@ public class AddTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        LOGGER.info("----------------[ADD TAG COMMAND][Bug at index: " + index.getZeroBased()
+                            + ". Attempting to add " + newTags.size() + " tags.]");
+
         List<Bug> lastShownList = model.getFilteredBugList();
 
         return updateList(lastShownList, model);
     }
 
     protected CommandResult updateList(List<Bug> lastShownList, Model model) throws CommandException {
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
-        }
+        ensureValidIndex(index, lastShownList);
 
         Bug bugToEdit = lastShownList.get(index.getZeroBased());
-        Bug editedBug = addTagsToBug(bugToEdit, newTags);
-
+        Bug editedBug = new ModifyTagUtility(bugToEdit).addTagsToBug(newTags);
         model.setBug(bugToEdit, editedBug);
         model.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);
+
+        LOGGER.info("----------------[ADD TAG COMMAND][Updated bug at index: " + index.getZeroBased()
+                            + ". Successfully added " + newTags.size() + " tags.]");
+
         return new CommandResult(String.format(MESSAGE_ADD_BUG_SUCCESS, editedBug));
-    }
-
-    /**
-     * Adds a new tag to the specified bug.
-     *
-     * @param bugToEdit bug to add the new tag
-     * @param newTags to add
-     * @return updated bug
-     * @throws CommandException if the {@code newTag} already exists or the inputs are null
-     */
-    public static Bug addTagsToBug(Bug bugToEdit, Set<Tag> newTags) throws CommandException {
-        if (bugToEdit == null || newTags == null) {
-            throw new CommandException(MESSAGE_NOT_ADDED);
-        }
-
-        Set<Tag> existingTagSet = bugToEdit.getTags();
-
-        if (existingTagSet.stream().anyMatch(newTags::contains)) {
-            throw new CommandException(MESSAGE_INVALID_NEW);
-        }
-
-        Name bugName = bugToEdit.getName();
-        State bugState = bugToEdit.getState();
-        Description bugDescription = bugToEdit.getDescription();
-        Set<Tag> updatedTags = addTagsToSet(existingTagSet, newTags);
-        Priority bugPriority = bugToEdit.getPriority();
-        Optional<Note> updatedNote = bugToEdit.getOptionalNote();
-
-        return new Bug(bugName, bugState, bugDescription, updatedNote, updatedTags, bugPriority);
-    }
-
-    private static Set<Tag> addTagsToSet(Set<Tag> existingTagSet, Set<Tag> newTags) {
-        Set<Tag> setCopy = new HashSet<>(existingTagSet);
-        setCopy.addAll(newTags);
-        return setCopy;
     }
 
     @Override
@@ -129,4 +90,5 @@ public class AddTagCommand extends Command {
         return index.equals(e.index)
                        && newTags.equals(e.newTags);
     }
+
 }

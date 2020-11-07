@@ -22,6 +22,10 @@ public class State {
             + "3. ongoing\n"
             + "4. done\n";
 
+    public static final String BACKLOG_VALUE = "backlog";
+    public static final String TODO_VALUE = "todo";
+    public static final String ONGOING_VALUE = "ongoing";
+    public static final String DONE_VALUE = "done";
     private static final String BACKLOG_REGEX = "((?i)\\bbacklog\\b)";
     private static final String TODO_REGEX = "((?i)\\btodo\\b)";
     private static final String ONGOING_REGEX = "((?i)\\bongoing\\b)";
@@ -43,37 +47,47 @@ public class State {
     }
 
     /**
-     * Returns if a given string is a valid state.
+     * Returns true if a given string is a valid state.
+     *
+     * @param test String to test.
+     * @return True if {@code test} is valid, false otherwise.
      */
     public static boolean isValidState(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public Value getValueOfState(String state) {
+    /**
+     * Matches input argument with the appropriate state.
+     *
+     * @param state input to match.
+     * @return Value of input.
+     * @throws IllegalArgumentException if input does not match any valid Value.
+     */
+    public static Value getValueOfState(String state) throws IllegalArgumentException {
         switch (state) {
-        case "backlog" :
+        case BACKLOG_VALUE :
             return Value.BACKLOG;
-        case "todo":
+        case TODO_VALUE:
             return Value.TODO;
-        case "ongoing":
+        case ONGOING_VALUE:
             return Value.ONGOING;
-        case "done":
+        case DONE_VALUE:
             return Value.DONE;
         default:
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
     }
 
-    public String getStringOfValue() {
+    private String getStringOfValue() throws IllegalArgumentException {
         switch (value) {
         case BACKLOG:
-            return "backlog";
+            return BACKLOG_VALUE;
         case TODO:
-            return "todo";
+            return TODO_VALUE;
         case ONGOING:
-            return "ongoing";
+            return ONGOING_VALUE;
         case DONE:
-            return "done";
+            return DONE_VALUE;
         default:
             throw new IllegalArgumentException("Illegal state object!");
         }

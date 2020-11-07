@@ -47,10 +47,11 @@ public class CommandTestUtil {
     public static final String VALID_TAG_COMPONENT = "UI";
     public static final String VALID_TAG_LOGIC = "Logic";
     public static final String VALID_COLUMN_TODO = "todo";
-    public static final State VALID_STATE_TODO = new State("todo");
-    public static final State VALID_STATE_BACKLOG = new State("backlog");
-    public static final State VALID_STATE_ONGOING = new State("ongoing");
-    public static final State VALID_STATE_DONE = new State("done");
+    public static final String VALID_COLUMN_BACKLOG = "backlog";
+    public static final String VALID_STATE_VALUE_TODO = "todo";
+    public static final String VALID_STATE_VALUE_BACKLOG = "backlog";
+    public static final String VALID_STATE_VALUE_ONGOING = "ongoing";
+    public static final String VALID_STATE_VALUE_DONE = "done";
 
     public static final String NAME_DESC_PARSER = " " + PREFIX_NAME + VALID_NAME_PARSER;
     public static final String NAME_DESC_HOMEPAGE = " " + PREFIX_NAME + VALID_NAME_HOMEPAGE;
@@ -66,9 +67,11 @@ public class CommandTestUtil {
     public static final String TAG_DESC_BACKEND = " " + PREFIX_TAG + VALID_TAG_COMPONENT;
     public static final String TAG_DESC_OLD = " " + PREFIX_OLDTAG + VALID_TAG_LOGIC;
     public static final String TAG_DESC_NEW = " " + PREFIX_NEWTAG + VALID_TAG_COMPONENT;
+    public static final String TAG_DESC_NEW_ALTERNATIVE = " " + PREFIX_NEWTAG + VALID_TAG_LOGIC;
     public static final String PRIORITY_DESC_PARSER = " " + PREFIX_PRIORITY + VALID_PRIORITY_PARSER;
     public static final String PRIORITY_DESC_HOMEPAGE = " " + PREFIX_PRIORITY + VALID_PRIORITY_HOMEPAGE;
     public static final String COLUMN_DESC_TODO = " " + PREFIX_COLUMN + VALID_COLUMN_TODO;
+    public static final String COLUMN_DESC_BACKLOG = " " + PREFIX_COLUMN + VALID_COLUMN_BACKLOG;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Bug&"; // '&' not allowed in names
     public static final String INVALID_STATE_DESC = " " + PREFIX_STATE + "backklog"; // typo of backog
@@ -85,6 +88,11 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditBugDescriptor DESC_PARSER;
     public static final EditCommand.EditBugDescriptor DESC_HOMEPAGE;
+
+    public static final State VALID_STATE_TODO = new State("todo");
+    public static final State VALID_STATE_BACKLOG = new State("backlog");
+    public static final State VALID_STATE_ONGOING = new State("ongoing");
+    public static final State VALID_STATE_DONE = new State("done");
 
     static {
         DESC_PARSER = new EditBugDescriptorBuilder()
