@@ -30,11 +30,11 @@ public class EditTagCommand extends Command {
     public static final String COMMAND_WORD = "editTag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the tags of "
-            + "the bug identified by the index number used in the displayed bug list."
-            + "The existing tag supplied by the user will be replaced with the new tag given"
+            + "the bug identified by the index number used in the displayed bug list. "
+            + "The existing tag supplied by the user will be replaced with the new tag given "
             + "as input.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_COLUMN + "]"
+            + "[" + PREFIX_COLUMN + "] "
             + PREFIX_OLDTAG + "OLD_TAG "
             + PREFIX_NEWTAG + "NEW_TAG\n"
             + "Example: " + COMMAND_WORD + " 1 "

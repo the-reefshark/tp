@@ -47,6 +47,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_COMPONENT = "UI";
     public static final String VALID_TAG_LOGIC = "Logic";
     public static final String VALID_COLUMN_TODO = "todo";
+    public static final String VALID_COLUMN_BACKLOG = "backlog";
     public static final String VALID_STATE_VALUE_TODO = "todo";
     public static final String VALID_STATE_VALUE_BACKLOG = "backlog";
     public static final String VALID_STATE_VALUE_ONGOING = "ongoing";
@@ -69,6 +70,7 @@ public class CommandTestUtil {
     public static final String PRIORITY_DESC_PARSER = " " + PREFIX_PRIORITY + VALID_PRIORITY_PARSER;
     public static final String PRIORITY_DESC_HOMEPAGE = " " + PREFIX_PRIORITY + VALID_PRIORITY_HOMEPAGE;
     public static final String COLUMN_DESC_TODO = " " + PREFIX_COLUMN + VALID_COLUMN_TODO;
+    public static final String COLUMN_DESC_BACKLOG = " " + PREFIX_COLUMN + VALID_COLUMN_BACKLOG;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Bug&"; // '&' not allowed in names
     public static final String INVALID_STATE_DESC = " " + PREFIX_STATE + "backklog"; // typo of backog

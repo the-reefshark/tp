@@ -8,8 +8,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OLDTAG;
 
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditTagByStateCommand;
@@ -25,6 +27,7 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
     private static final int NUMBER_OF_OLDTAG_PREFIXES_EXPECTED = 1;
     private static final int NUMBER_OF_NEWTAG_PREFIXES_EXPECTED = 1;
     private static final int NUMBER_OF_COLUMN_PREFIXES_EXPECTED = 1;
+    private static final Logger LOGGER = LogsCenter.getLogger(EditTagCommandParser.class);
 
     //TODO clean up all documentation details for EditTagCommandParser,
     // AddTagCommand, AddTagCommandParser
@@ -36,6 +39,7 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditTagCommand parse(String args) throws ParseException {
+        LOGGER.info("----------------[EDIT TAG COMMAND PARSER][Parsing: " + args + "]");
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_OLDTAG, PREFIX_NEWTAG, PREFIX_COLUMN);
@@ -79,6 +83,7 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_OLDTAG, PREFIX_NEWTAG, PREFIX_COLUMN)
                     || argMultimap.getPreamble().isEmpty() || hasExtraPrefixes
                     || hasIncorrectNumberOfPrefixValues) {
+            LOGGER.info("----------------[EDIT TAG COMMAND PARSER][Incorrect number of prefixes]");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTagCommand.MESSAGE_USAGE));
         }
     }
@@ -86,9 +91,11 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
     private void ensureValidPreamble(ArgumentMultimap argMultimap) throws ParseException {
         String trimmedIndex = argMultimap.getPreamble().trim();
         if (trimmedIndex.contains(" ")) {
+            LOGGER.info("----------------[EDIT TAG COMMAND PARSER][Invalid preamble, extra arguments!]");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTagCommand.MESSAGE_USAGE));
         }
         if (trimmedIndex.length() >= Integer.toString(Integer.MAX_VALUE - 1).length()) {
+            LOGGER.info("----------------[EDIT TAG COMMAND PARSER][Invalid preamble, invalid value]");
             throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
         }
     }
@@ -97,6 +104,7 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         try {
             return new Tag(argMultimap.getValue(tagPrefix).get());
         } catch (IllegalArgumentException e) {
+            LOGGER.info("----------------[EDIT TAG COMMAND PARSER][Tags are in invalid format]");
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
     }
@@ -104,6 +112,7 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
     private EditTagByStateCommand editTagsByState(ArgumentMultimap argMultimap, Index index, Tag oldTag, Tag newTag)
             throws ParseException {
         if (!ModelManager.isKanban()) {
+            LOGGER.info("----------------[EDIT TAG COMMAND PARSER][Illegal column supplied]");
             throw new ParseException(MESSAGE_REMOVE_COLUMN);
         }
         State targetState = ParserUtil.parseState(argMultimap.getValue(PREFIX_COLUMN).get());
@@ -114,6 +123,7 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
                                                        Tag newTag)
             throws ParseException {
         if (ModelManager.isKanban()) {
+            LOGGER.info("----------------[EDIT TAG COMMAND PARSER][Column not supplied]");
             throw new ParseException(MESSAGE_PROVIDE_COLUMN);
         }
         return new EditTagCommand(index, oldTag, newTag);
