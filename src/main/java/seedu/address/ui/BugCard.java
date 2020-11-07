@@ -53,39 +53,32 @@ public class BugCard extends UiPart<Region> {
     public BugCard(Bug bug, int displayedIndex) {
         super(FXML);
         this.bug = bug;
+
         id.setText(displayedIndex + ". ");
+
         name.setText(bug.getName().fullName);
         name.setWrapText(true);
 
         description.setText(bug.getDescription().value);
         description.setWrapText(true);
+
         state.setText(bug.getState().toString());
 
-        if (!bug.getPriority().isNotIndicated()) {
-            priority.setText("  " + bug.getPriority().getValue().toUpperCase() + "  ");
-            switch (bug.getPriority().getValue()) {
-            case "low":
-                priority.setStyle("-fx-background-color: #E3C012;");
-                break;
-            case "medium":
-                priority.setStyle("-fx-background-color: #E15E13;");
-                break;
-            default:
-                priority.setStyle("-fx-background-color: #D81616;");
-                break;
-            }
-        } else {
-            priority.setVisible(false);
+        if (bug.getPriority().isNotIndicated()) {
             priority.setManaged(false);
+        } else {
+            priority.setText("  " + bug.getPriority().getValue().toUpperCase() + "  ");
+
+            String styleClassName = bug.getPriority().getValue() + "-priority";
+
+            priority.getStyleClass().add(styleClassName);
         }
 
         if (bug.getOptionalNote().isPresent()) {
             note.setText(bug.getOptionalNote().get().value);
             note.setWrapText(true);
         } else {
-            noteContainer.setVisible(false);
             noteContainer.setManaged(false);
-            note.setVisible(false);
             note.setManaged(false);
         }
 

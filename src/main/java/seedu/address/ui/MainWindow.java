@@ -90,6 +90,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
         });
+
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
