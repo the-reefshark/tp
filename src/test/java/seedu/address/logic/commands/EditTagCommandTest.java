@@ -149,7 +149,6 @@ public class EditTagCommandTest {
 
         EditTagCommand editTagCommand = new EditTagCommand(index, oldTag, newTag);
         String expectedMessage = String.format(expectedMessageContent, tagEditedBug);
-        System.out.println(expectedMessage);
 
         assertCommandFailure(editTagCommand, initialModel, expectedMessage);
 
