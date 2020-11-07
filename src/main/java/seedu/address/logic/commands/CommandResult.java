@@ -12,21 +12,22 @@ public class CommandResult {
     private final String feedbackToUser;
 
     /** Help information should be shown to the user. */
-    private final boolean showHelp;
+    private final boolean isHelp;
 
     /** The application should exit. */
-    private final boolean exit;
+    private final boolean isExit;
 
-    private final boolean showBoard;
+    /** The applicaton should switch view. */
+    private final boolean isSwitch;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showBoard) {
+    public CommandResult(String feedbackToUser, boolean isHelp, boolean isExit, boolean isSwitch) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.showBoard = showBoard;
+        this.isHelp = isHelp;
+        this.isExit = isExit;
+        this.isSwitch = isSwitch;
     }
 
     /**
@@ -41,16 +42,16 @@ public class CommandResult {
         return feedbackToUser;
     }
 
-    public boolean isShowHelp() {
-        return showHelp;
+    public boolean isHelp() {
+        return isHelp;
     }
 
     public boolean isExit() {
-        return exit;
+        return isExit;
     }
 
-    public boolean isShowBoard() {
-        return showBoard;
+    public boolean isSwitch() {
+        return isSwitch;
     }
 
     @Override
@@ -66,13 +67,13 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && isHelp == otherCommandResult.isHelp
+                && isExit == otherCommandResult.isExit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, isHelp, isExit);
     }
 
 }

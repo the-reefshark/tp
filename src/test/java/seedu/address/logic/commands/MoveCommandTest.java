@@ -30,34 +30,37 @@ class MoveCommandTest {
 
     private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
 
-    @Test
-    public void execute_fieldsSpecifiedUnfilteredList_success() {
-        Bug movedBug = new BugBuilder(model.getFilteredBugList().get(0))
-                .withState(VALID_STATE_PARSER).build();
-        MoveCommand moveCommand = new MoveCommand(INDEX_FIRST_BUG, movedBug.getState());
+
+    /**
+     * Check if moving the bug at {@code index} to {@code validState} in the {@code model} is success.
+     * @param model A Model that can be either filtered or unfiltered.
+     * @param index A valid index in the {@code model}.
+     * @param validState A valid State.
+     */
+    private void execute_anyList_success(Model model, Index index, String validState) {
+        Bug bugAtIndex = model.getFilteredBugList().get(index.getZeroBased());
+
+        Bug movedBug = new BugBuilder(bugAtIndex).withState(validState).build();
+
+        MoveCommand moveCommand = new MoveCommand(index, movedBug.getState());
 
         String expectedMessage = String.format(MoveCommand.MESSAGE_MOVE_BUG_SUCCESS, movedBug);
 
         Model expectedModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
-        expectedModel.setBug(model.getFilteredBugList().get(0), movedBug);
+        expectedModel.setBug(model.getFilteredBugList().get(index.getZeroBased()), movedBug);
 
         assertCommandSuccess(moveCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
+    public void execute_fieldsSpecifiedUnfilteredList_success() {
+        execute_anyList_success(model, INDEX_FIRST_BUG, VALID_STATE_PARSER);
+    }
+
+    @Test
     public void execute_filteredList_success() {
         showBugAtIndex(model, INDEX_FIRST_BUG);
-
-        Bug bugInFilteredList = model.getFilteredBugList().get(INDEX_FIRST_BUG.getZeroBased());
-        Bug movedBug = new BugBuilder(bugInFilteredList).withState(VALID_STATE_PARSER).build();
-        MoveCommand moveCommand = new MoveCommand(INDEX_FIRST_BUG, movedBug.getState());
-
-        String expectedMessage = String.format(MoveCommand.MESSAGE_MOVE_BUG_SUCCESS, movedBug);
-
-        Model expectedModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
-        expectedModel.setBug(model.getFilteredBugList().get(0), movedBug);
-
-        assertCommandSuccess(moveCommand, model, expectedMessage, expectedModel);
+        execute_anyList_success(model, INDEX_FIRST_BUG, VALID_STATE_PARSER);
     }
 
     @Test
