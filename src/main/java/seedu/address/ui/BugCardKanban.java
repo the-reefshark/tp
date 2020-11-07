@@ -14,7 +14,7 @@ import seedu.address.model.bug.Bug;
  */
 public class BugCardKanban extends UiPart<Region> {
 
-    private static final String FXML = "BugListCardKanban.fxml";
+    protected static final String FXML = "BugListCardKanban.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -47,7 +47,17 @@ public class BugCardKanban extends UiPart<Region> {
         super(FXML);
         this.bug = bug;
         this.displayedIndex = displayedIndex;
+        setFields();
+    }
 
+    protected BugCardKanban(Bug bug, int displayedIndex, String fxml) {
+        super(fxml);
+        this.bug = bug;
+        this.displayedIndex = displayedIndex;
+        setFields();
+    }
+
+    private void setFields() {
         setIndex();
         setName();
         setDescription();
@@ -59,6 +69,7 @@ public class BugCardKanban extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
     }
 
+    //@@author PhongTran98
     protected void setName() {
         name.setText(bug.getName().fullName);
         name.setWrapText(true);
@@ -81,6 +92,7 @@ public class BugCardKanban extends UiPart<Region> {
             priority.getStyleClass().add(styleClassName);
         }
     }
+    //@@author
 
     protected void setTags() {
         bug.getTags().stream()
