@@ -24,6 +24,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditBugDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModelManager;
+import seedu.address.model.bug.Note;
 import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
@@ -77,9 +78,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             String editedNoteContent = argMultimap.getValue(PREFIX_NOTE).get();
             if (editedNoteContent.isBlank()) {
                 editBugDescriptor.setOptionalNote(Optional.empty());
-            }
-            if (!editedNoteContent.isBlank()) {
-                editBugDescriptor.setOptionalNote(Optional.of(ParserUtil.parseNote(editedNoteContent)));
+            } else {
+                Optional<Note> parsedOptionalNote = Optional.of(ParserUtil.parseNote(editedNoteContent));
+                editBugDescriptor.setOptionalNote(parsedOptionalNote);
             }
         }
 

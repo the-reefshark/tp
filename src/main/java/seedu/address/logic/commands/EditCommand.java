@@ -150,7 +150,7 @@ public class EditCommand extends Command {
         private Name name;
         private State state;
         private Description description;
-        private Optional<Note> note;
+        private Optional<Note> optionalNote;
         private Set<Tag> tags;
         private Priority priority;
 
@@ -164,7 +164,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setState(toCopy.state);
             setDescription(toCopy.description);
-            setOptionalNote(toCopy.note);
+            setOptionalNote(toCopy.optionalNote);
             setTags(toCopy.tags);
             setPriority(toCopy.priority);
         }
@@ -173,7 +173,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, state, description, note, tags, priority);
+            return CollectionUtil.isAnyNonNull(name, state, description, optionalNote, tags, priority);
         }
 
         public void setName(Name name) {
@@ -208,12 +208,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(priority);
         }
 
-        public void setOptionalNote(Optional<Note> note) {
-            this.note = note;
+        public void setOptionalNote(Optional<Note> optionalNote) {
+            this.optionalNote = optionalNote;
         }
 
         public Optional<Note> getOptionalNote() {
-            return this.note;
+            return this.optionalNote;
         }
 
         /**
@@ -247,8 +247,14 @@ public class EditCommand extends Command {
 
             // state check
             EditBugDescriptor e = (EditBugDescriptor) other;
-            boolean noteEqual = getOptionalNote() == null ? (getOptionalNote() == null && e.getOptionalNote() == null)
-                    : getOptionalNote().equals(e.getOptionalNote());
+            boolean thisOptionalNoteIsNull = getOptionalNote() == null;
+            boolean noteEqual;
+            if (thisOptionalNoteIsNull) {
+                boolean otherOptionalNoteisNull = e.getOptionalNote() == null;
+                noteEqual = otherOptionalNoteisNull;
+            } else {
+                noteEqual = getOptionalNote().equals(e.getOptionalNote());
+            }
 
             return getName().equals(e.getName())
                     && getState().equals(e.getState())

@@ -62,7 +62,8 @@ class JsonAdaptedBug {
         description = source.getDescription().value;
 
         Optional<Note> tempNote = source.getOptionalNote();
-        this.note = (tempNote != null && tempNote.isPresent()) ? tempNote.get().value : "";
+        boolean tempNotePresent = tempNote != null && tempNote.isPresent();
+        this.note = tempNotePresent ? tempNote.get().value : "";
 
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -84,7 +85,7 @@ class JsonAdaptedBug {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidNote(name)) {
+        if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
