@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.EditTagByStateCommand;
 import seedu.address.logic.commands.EditTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -40,11 +41,12 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_OLDTAG, PREFIX_NEWTAG, PREFIX_COLUMN);
 
-        String trimmedIndex = argMultimap.getPreamble().trim();
-        if (trimmedIndex.contains(" ")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTagCommand.MESSAGE_USAGE));
+        String preambleIndex = argMultimap.getPreamble();
+        if (!StringUtil.isNumber(preambleIndex)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditTagByStateCommand.MESSAGE_USAGE));
         }
-        if (trimmedIndex.length() >= Integer.toString(Integer.MAX_VALUE - 1).length()) {
+        if (StringUtil.isIndexOverflow(preambleIndex)) {
             throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
         }
 
