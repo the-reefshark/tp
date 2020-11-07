@@ -31,8 +31,8 @@
       </HBox>
       <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
       <FlowPane fx:id="tags"/>
-      <HBox fx:id="noteContainer" style="-fx-background-color: #cccfeb; -fx-background-radius: 8; -fx-padding: 2 2 2 2;">
-        <Label fx:id="note" style="-fx-text-fill: black; -fx-font-family: Segoe UI Light; -fx-font-size: 13; "/>
+      <HBox id="noteContainer" fx:id="noteContainer">
+        <Label id="note" fx:id="note"/>
       </HBox>
     </VBox>
   </GridPane>

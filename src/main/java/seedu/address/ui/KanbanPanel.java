@@ -3,8 +3,10 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 
@@ -18,16 +20,17 @@ public class KanbanPanel extends UiPart<Region> {
     private final Logic logic;
 
     @FXML
-    private StackPane bugListPanelPlaceholderBacklog;
+    private VBox backlogColumn;
 
     @FXML
-    private StackPane bugListPanelPlaceholderTodo;
+    private VBox todoColumn;
 
     @FXML
-    private StackPane bugListPanelPlaceholderOngoing;
+    private VBox ongoingColumn;
 
     @FXML
-    private StackPane bugListPanelPlaceholderDone;
+    private VBox doneColumn;
+
 
     /**
      * Creates a {@code BugListPanel} with the given {@code ObservableList}.
@@ -35,21 +38,27 @@ public class KanbanPanel extends UiPart<Region> {
     public KanbanPanel(Logic logic) {
         super(FXML);
         this.logic = logic;
-        fillInner();
+        fillKanban();
     }
 
-    private void fillInner() {
-        BugListPanelKanban bugListPanelBackLog = new BugListPanelKanban(logic.getFilteredBugListByState("backlog"));
-        bugListPanelPlaceholderBacklog.getChildren().add(bugListPanelBackLog.getRoot());
+    private void fillKanban() {
+        fillColumn(backlogColumn, "backlog");
 
-        BugListPanelKanban bugListPanelTodo = new BugListPanelKanban(logic.getFilteredBugListByState("todo"));
-        bugListPanelPlaceholderTodo.getChildren().add(bugListPanelTodo.getRoot());
+        fillColumn(todoColumn, "todo");
 
-        BugListPanelKanban bugListPanelOngoing = new BugListPanelKanban(logic.getFilteredBugListByState("ongoing"));
-        bugListPanelPlaceholderOngoing.getChildren().add(bugListPanelOngoing.getRoot());
+        fillColumn(ongoingColumn, "ongoing");
 
-        BugListPanelKanban bugListPanelDone = new BugListPanelKanban(logic.getFilteredBugListByState("done"));
-        bugListPanelPlaceholderDone.getChildren().add(bugListPanelDone.getRoot());
+        fillColumn(doneColumn, "done");
+    }
+
+    private void fillColumn(VBox column, String state) {
+        Label label = new Label(state);
+        label.getStyleClass().add("state");
+
+        BugListPanelKanban bugListPanel = new BugListPanelKanban(logic.getFilteredBugListByState(state));
+        VBox.setVgrow(bugListPanel.getRoot(), Priority.ALWAYS);
+
+        column.getChildren().addAll(label, bugListPanel.getRoot());
     }
 
 }

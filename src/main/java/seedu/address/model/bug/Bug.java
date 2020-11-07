@@ -122,7 +122,7 @@ public class Bug {
             builder.append(" Note: ")
                    .append(getOptionalNote().get().toString());
         }
-        if (!getPriority().isNull()) {
+        if (!getPriority().isNotIndicated()) {
             builder.append(" Priority: ")
                    .append(getPriority());
         }
