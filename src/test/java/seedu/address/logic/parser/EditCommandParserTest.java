@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_PROVIDE_COLUMN;
+import static seedu.address.commons.core.Messages.MESSAGE_REMOVE_COLUMN;
+import static seedu.address.logic.commands.CommandTestUtil.COLUMN_DESC_BACKLOG;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
@@ -63,6 +66,8 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_missingParts_failure() {
+        //set window to listview
+        ModelManager.setListViewWindow();
         // no index specified
         assertParseFailure(parser, VALID_NAME_PARSER, MESSAGE_INVALID_FORMAT);
 
@@ -75,6 +80,8 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidPreamble_failure() {
+        //set window to listview
+        ModelManager.setListViewWindow();
         // negative index
         assertParseFailure(parser, "-5" + NAME_DESC_PARSER, MESSAGE_INVALID_FORMAT);
 
@@ -90,6 +97,8 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
+        //set window to listview
+        ModelManager.setListViewWindow();
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_STATE_DESC, State.MESSAGE_CONSTRAINTS); // invalid state
         assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS); // invalid address
@@ -109,14 +118,16 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
+        //set window to listview
+        ModelManager.setListViewWindow();
         Index targetIndex = INDEX_SECOND_BUG;
         String userInput = targetIndex.getOneBased() + TAG_DESC_BACKEND + PRIORITY_DESC_PARSER
                 + STATE_DESC_PARSER + DESCRIPTION_DESC_PARSER + NOTE_DESC_PARSER + NAME_DESC_PARSER + TAG_DESC_FRONTEND;
 
         EditBugDescriptor descriptor = new EditBugDescriptorBuilder().withName(VALID_NAME_PARSER)
-                .withState(VALID_STATE_PARSER).withDescription(VALID_DESCRIPTION_PARSER)
-                .withNote(VALID_NOTE_PARSER).withTags(VALID_TAG_COMPONENT, VALID_TAG_LOGIC)
-                .withPriority(VALID_PRIORITY_PARSER).build();
+                                           .withState(VALID_STATE_PARSER).withDescription(VALID_DESCRIPTION_PARSER)
+                                           .withNote(VALID_NOTE_PARSER).withTags(VALID_TAG_COMPONENT, VALID_TAG_LOGIC)
+                                           .withPriority(VALID_PRIORITY_PARSER).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -124,6 +135,8 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
+        //set window to listview
+        ModelManager.setListViewWindow();
         Index targetIndex = INDEX_FIRST_BUG;
         String userInput = targetIndex.getOneBased() + STATE_DESC_PARSER + PRIORITY_DESC_PARSER;
 
@@ -136,6 +149,8 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_oneFieldSpecified_success() {
+        //set window to listview
+        ModelManager.setListViewWindow();
         // name
         Index targetIndex = INDEX_THIRD_BUG;
         String userInput = targetIndex.getOneBased() + NAME_DESC_PARSER;
@@ -177,6 +192,8 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
+        //set window to listview
+        ModelManager.setListViewWindow();
         Index targetIndex = INDEX_FIRST_BUG;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_PARSER + PRIORITY_DESC_PARSER
                 + NOTE_DESC_PARSER + STATE_DESC_PARSER + TAG_DESC_FRONTEND + DESCRIPTION_DESC_PARSER
@@ -194,6 +211,8 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_validValue_success() {
+        //set window to listview
+        ModelManager.setListViewWindow();
         // other valid values specified
         Index targetIndex = INDEX_FIRST_BUG;
         String userInput = targetIndex.getOneBased() + STATE_DESC_HOMEPAGE + DESCRIPTION_DESC_HOMEPAGE;
@@ -205,6 +224,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
+        //set window to listview
         ModelManager.setListViewWindow();
         Index targetIndex = INDEX_THIRD_BUG;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
@@ -217,6 +237,8 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetPriority_success() {
+        //set window to listview
+        ModelManager.setListViewWindow();
         Index targetIndex = INDEX_THIRD_BUG;
         String userInput = targetIndex.getOneBased() + PRIORITY_EMPTY;
 
@@ -227,6 +249,8 @@ public class EditCommandParserTest {
     }
 
     @Test void parse_resetNote_success() {
+        //set window to listview
+        ModelManager.setListViewWindow();
         Index targetIndex = INDEX_THIRD_BUG;
         String userInput = targetIndex.getOneBased() + NOTE_EMPTY;
 
@@ -238,6 +262,8 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedPriorityIncludingEmpty_acceptsLast() {
+        //set window to listview
+        ModelManager.setListViewWindow();
         // empty priority is the last priority
         Index targetIndex = INDEX_FIRST_BUG;
         String userInput = targetIndex.getOneBased() + PRIORITY_DESC_HOMEPAGE + PRIORITY_EMPTY;
@@ -254,4 +280,22 @@ public class EditCommandParserTest {
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
+    @Test
+    public void parse_incorrectWindowFailure() {
+        //set window to KanbanView
+        ModelManager.setKanbanWindow();
+
+        Index targetIndex = INDEX_SECOND_BUG;
+        String userInput = targetIndex.getOneBased() + TAG_DESC_BACKEND + PRIORITY_DESC_PARSER
+                               + STATE_DESC_PARSER + DESCRIPTION_DESC_PARSER + NOTE_DESC_PARSER + NAME_DESC_PARSER
+                               + TAG_DESC_FRONTEND;
+        assertParseFailure(parser, userInput, MESSAGE_PROVIDE_COLUMN);
+
+        //add column to user input
+        userInput += COLUMN_DESC_BACKLOG;
+        ModelManager.setListViewWindow();
+
+        assertParseFailure(parser, userInput, MESSAGE_REMOVE_COLUMN);
+    }
+
 }
