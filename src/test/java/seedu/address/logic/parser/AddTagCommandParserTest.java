@@ -1,27 +1,30 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_PROVIDE_COLUMN;
+import static seedu.address.commons.core.Messages.MESSAGE_REMOVE_COLUMN;
+import static seedu.address.logic.commands.CommandTestUtil.COLUMN_DESC_BACKLOG;
 import static seedu.address.logic.commands.CommandTestUtil.COLUMN_DESC_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COLUMN_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_NEW;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_OLD;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PARSER;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_UI;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_NEW;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_OLD;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PARSER;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_NEW_ALTERNATIVE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_BUG;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddTagByStateCommand;
 import seedu.address.logic.commands.AddTagCommand;
@@ -32,18 +35,76 @@ import seedu.address.model.tag.Tag;
 
 public class AddTagCommandParserTest {
 
-    //TODO Add in test for multiple tags being added
-
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE);
-
+    private static boolean isKanbanView = ModelManager.isKanban();
     private AddTagCommandParser parser = new AddTagCommandParser();
 
+    @AfterAll
+    public static void resetModelManager() {
+        if (isKanbanView) {
+            ModelManager.setKanbanWindow();
+        } else {
+            ModelManager.setListViewWindow();
+        }
+    }
+
+    @Test
+    public void parse_validInputs_success() {
+        Index targetIndex = INDEX_SECOND_BUG;
+        Tag newTagFirst = new Tag(VALID_TAG_LOGIC);
+        Tag newTagSecond = new Tag(VALID_TAG_COMPONENT);
+        Set<Tag> newTags = new HashSet<>();
+        newTags.add(newTagFirst);
+        newTags.add(newTagSecond);
+
+
+        // Testing valid input in list view
+        ModelManager.setListViewWindow();
+        String userInputWithoutColumn = targetIndex.getOneBased() + TAG_DESC_NEW + TAG_DESC_NEW_ALTERNATIVE;
+        AddTagCommand editTagCommand = new AddTagCommand(targetIndex, newTags);
+
+        assertParseSuccess(parser, userInputWithoutColumn, editTagCommand);
+
+        // Testing valid input in kanban view
+        ModelManager.setKanbanWindow();
+        String userInputWithColumn = targetIndex.getOneBased() + COLUMN_DESC_TODO + TAG_DESC_NEW
+                                             + TAG_DESC_NEW_ALTERNATIVE;
+        AddTagByStateCommand editTagByStateCommand = new AddTagByStateCommand(targetIndex, newTags,
+                VALID_STATE_TODO);
+
+        assertParseSuccess(parser, userInputWithColumn, editTagByStateCommand);
+    }
+
+    @Test
+    public void parse_invalidPreamble_failure() {
+        ModelManager.setListViewWindow();
+        // negative index
+        assertParseFailure(parser, "-5" + TAG_DESC_NEW, MESSAGE_INVALID_FORMAT);
+
+        // zero index
+        assertParseFailure(parser, "0" + TAG_DESC_NEW, MESSAGE_INVALID_INDEX);
+
+        // beyond max int
+        assertParseFailure(parser, "2147483648" + TAG_DESC_NEW,
+                Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
+
+        // invalid arguments being parsed as preamble
+        assertParseFailure(parser, "1 some random string" + TAG_DESC_NEW, MESSAGE_INVALID_FORMAT);
+
+        // invalid prefix being parsed as preamble
+        assertParseFailure(parser, "1 i/ string" + TAG_DESC_NEW, MESSAGE_INVALID_FORMAT);
+
+        // blank preamble
+        assertParseFailure(parser, "" + TAG_DESC_NEW, MESSAGE_INVALID_FORMAT);
+
+    }
 
     @Test
     public void parse_extraPrefixes_failure() {
+        ModelManager.setListViewWindow();
         Index targetIndex = INDEX_SECOND_BUG;
-        String userInputOne = targetIndex.getOneBased() + TAG_DESC_NEW + TAG_DESC_NEW + NAME_DESC_UI;
+        String userInputOne = targetIndex.getOneBased() + TAG_DESC_NEW + TAG_DESC_NEW_ALTERNATIVE + NAME_DESC_UI;
         String userInputTwo = targetIndex.getOneBased() + TAG_DESC_NEW + NAME_DESC_UI + TAG_DESC_NEW;
         String userInputThree = targetIndex.getOneBased() + NAME_DESC_UI + TAG_DESC_NEW;
 
@@ -57,8 +118,9 @@ public class AddTagCommandParserTest {
 
     @Test
     public void parse_missingParts_failure() {
+        ModelManager.setListViewWindow();
         // no index specified
-        assertParseFailure(parser, VALID_NAME_PARSER, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, TAG_DESC_NEW, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
@@ -66,63 +128,33 @@ public class AddTagCommandParserTest {
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
 
-        // missing new tag
-        assertParseFailure(parser, "1" + INVALID_TAG_OLD, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
-    public void parse_invalidPreamble_failure() {
-        // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_PARSER, MESSAGE_INVALID_FORMAT);
-
-        // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_PARSER, MESSAGE_INVALID_FORMAT);
-
-        // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
-
-        // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
-    }
-
-    @Test
-    public void parse_invalidValueCorrectFormat_failure() {
-        assertParseFailure(parser, "1" + INVALID_TAG_NEW, Tag.MESSAGE_CONSTRAINTS); // invalid tag
-        assertParseFailure(parser, "1" + " nt/print array", Tag.MESSAGE_CONSTRAINTS); // invalid tag
-    }
-
-
-    @Test
-    public void parse_validValueWithoutColumn_success() {
+    public void parse_invalidTagValueCorrectFormat_failure() {
         ModelManager.setListViewWindow();
-        Index targetIndex = INDEX_SECOND_BUG;
-        String userInput = targetIndex.getOneBased() + TAG_DESC_NEW;
-        Set<Tag> tagsToAddLogic = new HashSet<>();
-        tagsToAddLogic.add(new Tag(VALID_TAG_COMPONENT));
-        AddTagCommand expectedCommand = new AddTagCommand(targetIndex, tagsToAddLogic);
+        // invalid new tag
+        assertParseFailure(parser, "1" + INVALID_TAG_NEW, Tag.MESSAGE_CONSTRAINTS);
 
-        assertParseSuccess(parser, userInput, expectedCommand);
+        // invalid new tag followed by valid new tag
+        assertParseFailure(parser, "1" + INVALID_TAG_NEW + TAG_DESC_NEW, Tag.MESSAGE_CONSTRAINTS);
+
+        ModelManager.setKanbanWindow();
+        // invalid new tag in kanban view
+        assertParseFailure(parser, "1" + COLUMN_DESC_TODO + INVALID_TAG_NEW, Tag.MESSAGE_CONSTRAINTS);
+
+        // invalid new tag followed by valid new tag in kanban view
+        assertParseFailure(parser, "1" + COLUMN_DESC_TODO + INVALID_TAG_NEW + TAG_DESC_NEW, Tag.MESSAGE_CONSTRAINTS);
+
     }
 
     @Test
-    public void parse_validValueWithColumn_success() {
-        Set<Tag> tagsToAddLogic = new HashSet<>();
-        tagsToAddLogic.add(new Tag(VALID_TAG_COMPONENT));
-        Index targetIndex = INDEX_SECOND_BUG;
-        String userInput = targetIndex.getOneBased() + COLUMN_DESC_TODO + TAG_DESC_NEW;
-        AddTagByStateCommand expectedCommand = new AddTagByStateCommand(targetIndex, tagsToAddLogic,
-            VALID_STATE_TODO);
+    public void parse_multipleRepeatedFields_failure() {
+        ModelManager.setKanbanWindow();
 
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
-    public void parse_validValueWithRepeatedColumn_failure() {
-        Index targetIndex = INDEX_SECOND_BUG;
-        String userInput = targetIndex.getOneBased() + COLUMN_DESC_TODO + TAG_DESC_NEW + COLUMN_DESC_TODO;
-        String expectedString = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagByStateCommand.MESSAGE_USAGE);
-
-        assertParseFailure(parser, userInput, expectedString);
+        // multiple column inputs
+        assertParseFailure(parser, "1" + COLUMN_DESC_TODO + COLUMN_DESC_BACKLOG + TAG_DESC_NEW,
+                MESSAGE_INVALID_FORMAT);
     }
 
     @Test
@@ -136,13 +168,17 @@ public class AddTagCommandParserTest {
     }
 
     @Test
-    public void parse_invalidUserInputs_throwParseExeception() {
-        Index targetIndex = INDEX_THIRD_BUG;
-        String userInputOne = targetIndex.getOneBased() + "";
-        String userInputTwo = targetIndex.getOneBased() + TAG_DESC_OLD;
+    public void parse_incorrectlySuppliedColumn_failure() {
+        Index targetIndex = INDEX_SECOND_BUG;
 
-        assertParseFailure(parser, userInputOne, MESSAGE_INVALID_FORMAT);
-        assertParseFailure(parser, userInputTwo, MESSAGE_INVALID_FORMAT);
+        ModelManager.setListViewWindow();
+        // Column supplied when not needed
+        assertParseFailure(parser, targetIndex.getOneBased() + COLUMN_DESC_TODO + TAG_DESC_NEW,
+                MESSAGE_REMOVE_COLUMN);
+
+        ModelManager.setKanbanWindow();
+        // Column not supplied when needed
+        assertParseFailure(parser, targetIndex.getOneBased() + TAG_DESC_NEW, MESSAGE_PROVIDE_COLUMN);
     }
 
 }

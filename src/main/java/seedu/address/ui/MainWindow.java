@@ -131,8 +131,6 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         bugListPanel = new BugListPanel(logic.getFilteredBugList());
         bugListPanelPlaceholder.getChildren().add(bugListPanel.getRoot());
-        bugListPanelPlaceholder.setVisible(false);
-        bugListPanelPlaceholder.setManaged(false);
 
         kanbanPanel = new KanbanPanel(logic);
         kanbanPanelPlaceholder.getChildren().add(kanbanPanel.getRoot());
@@ -227,7 +225,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
+            if (commandResult.isHelp()) {
                 handleHelp();
             }
 
@@ -235,7 +233,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isShowBoard()) {
+            if (commandResult.isSwitch()) {
                 handleSwitch();
             }
 

@@ -27,6 +27,7 @@ class MoveCommandParserTest {
 
     @Test
     public void parse_missingParts_failureListView() {
+        //set view as listView
         ModelManager.setListViewWindow();
         // no index specified
         assertParseFailure(parser, "s/backlog", MESSAGE_INVALID_FORMAT);
@@ -43,6 +44,8 @@ class MoveCommandParserTest {
 
     @Test
     public void parse_invalidPreamble_failureListView() {
+        //set view as listView
+        ModelManager.setListViewWindow();
         // negative index
         assertParseFailure(parser, "-5" + NAME_DESC_PARSER, MESSAGE_INVALID_FORMAT);
 
@@ -58,6 +61,8 @@ class MoveCommandParserTest {
 
     @Test
     public void parse_invalidState_failure() {
+        //set view as listView
+        ModelManager.setListViewWindow();
         assertParseFailure(parser, "1" + INVALID_STATE_DESC, State.MESSAGE_CONSTRAINTS); // invalid state
     }
 
@@ -76,6 +81,7 @@ class MoveCommandParserTest {
 
     @Test
     public void parse_correctIndexAndState_successListView() {
+        //set view as listView
         ModelManager.setListViewWindow();
         Index targetIndex = INDEX_SECOND_BUG;
         String userInput = targetIndex.getOneBased() + STATE_DESC_PARSER;

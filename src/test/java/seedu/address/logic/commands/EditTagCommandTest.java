@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
@@ -18,7 +17,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.KanBugTracker;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -27,141 +25,63 @@ import seedu.address.model.bug.Bug;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.BugBuilder;
 
-
-
-
 public class EditTagCommandTest {
 
-    //Todo refactor this to pulll out all the declarations of new and old tag
+    private Model defaultModel = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
 
-    private Model model = new ModelManager(getTypicalKanBugTracker(), new UserPrefs());
-    private Tag newTag = new Tag(VALID_TAG_LOGIC);
-    private Tag oldTag = new Tag(VALID_TAG_COMPONENT);
-
-    @Test
-    public void execute_invalidBugIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBugList().size() + 1);
-        EditTagCommand editTagCommand = new EditTagCommand(outOfBoundIndex, oldTag, newTag);
-
-        assertCommandFailure(editTagCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
-    }
 
     @Test
     public void execute_validEditTagInput_success() {
-        Bug initialBug = new BugBuilder().withTags(VALID_TAG_COMPONENT).build();
+        Index index = INDEX_FIRST_BUG;
+        String oldTagInBug = VALID_TAG_COMPONENT;
+        String newTagInBug = VALID_TAG_LOGIC;
+        String commandOldTag = VALID_TAG_COMPONENT;
+        String commandNewTag = VALID_TAG_LOGIC;
+        String expectedMessageContent = EditTagCommand.MESSAGE_EDIT_BUG_SUCCESS;
 
-        try {
-            Bug tagEditedBug = EditTagCommand.updateTagInBug(initialBug, oldTag, newTag);
-            EditTagCommand editTagCommand = new EditTagCommand(INDEX_FIRST_BUG, oldTag, newTag);
-            String expectedMessage = String.format(EditTagCommand.MESSAGE_EDIT_BUG_SUCCESS, tagEditedBug);
 
-            //set initial model
-            Model initialModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
-            initialModel.setBug(model.getFilteredBugList().get(0), initialBug);
-
-            //set expected model
-            Model expectedModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
-            expectedModel.setBug(model.getFilteredBugList().get(0), tagEditedBug);
-
-            assertCommandSuccess(editTagCommand, initialModel, expectedMessage, expectedModel);
-        } catch (CommandException e) {
-            assert false;
-        }
+        assertExecuteSuccess(index, newTagInBug, commandOldTag, commandNewTag, expectedMessageContent,
+                 oldTagInBug);
     }
 
     @Test
     public void execute_invalidEditTagInputTagNotInBug_throwCommandException() {
-        Bug initialBug = model.getFilteredBugList().get(0);
+        Index index = INDEX_FIRST_BUG;
+        String oldTagInBug = VALID_TAG_COMPONENT;
+        String newTagInBug = VALID_TAG_LOGIC;
+        String commandOldTag = "InvalidTag";
+        String commandNewTag = VALID_TAG_LOGIC;
+        String expectedMessageContent = EditTagCommand.MESSAGE_INVALID_OLD;
 
-        EditTagCommand editTagCommand = new EditTagCommand(INDEX_FIRST_BUG, oldTag, newTag);
-        String expectedMessage = String.format(EditTagCommand.MESSAGE_INVALID_OLD);
-
-        //set initial model
-        Model initialModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
-        initialModel.setBug(model.getFilteredBugList().get(0), initialBug);
-
-        //set expected model
-        Model expectedModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
-        expectedModel.setBug(model.getFilteredBugList().get(0), initialBug);
-        assertCommandFailure(editTagCommand, initialModel, expectedMessage);
+        assertExecuteFailure(index, newTagInBug, commandOldTag, commandNewTag, expectedMessageContent,
+                oldTagInBug);
     }
 
     @Test
-    public void updateTagInBug_validInputs_success() {
-        Bug initialBug = new BugBuilder().withTags(VALID_TAG_COMPONENT).build();
-        Bug expectedFinalBug = new BugBuilder().withTags(VALID_TAG_LOGIC).build();
-        try {
-            Bug updatedBug = EditTagCommand.updateTagInBug(initialBug, oldTag, newTag);
-            assertEquals(expectedFinalBug, updatedBug);
-        } catch (CommandException e) {
-            assert false;
-        }
+    public void execute_invalidEditTagInputNewTagAlreadyInBug_throwCommandException() {
+        Index index = INDEX_FIRST_BUG;
+        String oldTagInBug = VALID_TAG_COMPONENT;
+        String oldTagClashWithNewTag = VALID_TAG_LOGIC;
+        String newTagInBug = VALID_TAG_LOGIC;
+        String commandOldTag = VALID_TAG_COMPONENT;
+        String commandNewTag = VALID_TAG_LOGIC;
+        String expectedMessageContent = EditTagCommand.MESSAGE_INVALID_NEW;
+
+        assertExecuteFailure(index, newTagInBug, commandOldTag, commandNewTag, expectedMessageContent,
+                 oldTagInBug, oldTagClashWithNewTag);
     }
 
     @Test
-    public void updateTagInBug_oldTagDoesNotExist_throwCommandException() {
-        Bug initialBug = model.getFilteredBugList().get(0);
-        String expectedMessage = String.format(EditTagCommand.MESSAGE_INVALID_OLD);
+    public void execute_invalidBugIndexUnfilteredList_throwCommandException() {
+        Index outOfBoundIndexHigherThanValid = Index.fromOneBased(defaultModel.getFilteredBugList().size() + 1);
+        String oldTagInBug = VALID_TAG_COMPONENT;
+        String newTagInBug = VALID_TAG_LOGIC;
+        String commandOldTag = VALID_TAG_COMPONENT;
+        String commandNewTag = VALID_TAG_LOGIC;
+        String expectedMessageContent = Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX;
 
-        try {
-            EditTagCommand.updateTagInBug(initialBug, oldTag, newTag);
-            assert false;
-        } catch (CommandException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
-    }
-
-    @Test
-    public void updateTagInBug_newTagAlreadyExists_throwCommandException() {
-        Bug initialBug = new BugBuilder().withTags(VALID_TAG_LOGIC, VALID_TAG_COMPONENT).build();
-        String expectedMessage = String.format(EditTagCommand.MESSAGE_INVALID_NEW);
-        try {
-            EditTagCommand.updateTagInBug(initialBug, oldTag, newTag);
-            assert false;
-        } catch (CommandException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
-
-    }
-
-    @Test
-    public void updateTagInBug_nullNewTag_throwIllegalArgumentException() {
-        Bug initialBug = new BugBuilder().withTags(VALID_TAG_LOGIC, VALID_TAG_COMPONENT).build();
-        String expectedMessage = String.format(EditTagCommand.MESSAGE_NOT_UPDATED);
-        try {
-            EditTagCommand.updateTagInBug(initialBug, oldTag, null);
-            assert false;
-        } catch (CommandException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
-
-    }
-
-
-    @Test
-    public void updateTagInBug_nullOldTag_throwIllegalArgumentException() {
-        Bug initialBug = new BugBuilder().withTags(VALID_TAG_LOGIC, VALID_TAG_COMPONENT).build();
-        String expectedMessage = String.format(EditTagCommand.MESSAGE_NOT_UPDATED);
-        try {
-            EditTagCommand.updateTagInBug(initialBug, null, newTag);
-            assert false;
-        } catch (CommandException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
-
-    }
-
-
-    @Test
-    public void updateTagInBug_nullInitialBug_throwIllegalArgumentException() {
-        String expectedMessage = String.format(EditTagCommand.MESSAGE_NOT_UPDATED);
-        try {
-            EditTagCommand.updateTagInBug(null, oldTag, newTag);
-            assert false;
-        } catch (CommandException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
-
+        assertExecuteFailure(outOfBoundIndexHigherThanValid, newTagInBug, commandOldTag, commandNewTag,
+                expectedMessageContent, oldTagInBug);
     }
 
     @Test
@@ -191,5 +111,46 @@ public class EditTagCommandTest {
         assertFalse(editTagCommand.equals(editTagCommandDifferentIndex));
         //different tags
         assertFalse(editTagCommand.equals(editTagCommandDifferentTags));
+    }
+
+    private void assertExecuteSuccess(Index index, String newTagName, String commandOldTag, String commandNewTag,
+                                        String expectedMessageContent, String... oldTags) {
+
+        Bug initialBug = new BugBuilder().withTags(oldTags).build();
+        Bug tagEditedBug = new BugBuilder().withTags(newTagName).build();
+        Tag oldTag = new Tag(commandOldTag);
+        Tag newTag = new Tag(commandNewTag);
+
+        //Set the first bug of the initial model to be the initial bug
+        Model initialModel = new ModelManager(new KanBugTracker(defaultModel.getKanBugTracker()), new UserPrefs());
+        initialModel.setBug(defaultModel.getFilteredBugList().get(0), initialBug);
+
+        //Set the first bug of the expected model to be the expected edited bug
+        Model expectedModel = new ModelManager(new KanBugTracker(initialModel.getKanBugTracker()), new UserPrefs());
+        expectedModel.setBug(initialModel.getFilteredBugList().get(0), tagEditedBug);
+
+        EditTagCommand editTagCommand = new EditTagCommand(index, oldTag, newTag);
+        String expectedMessage = String.format(expectedMessageContent, tagEditedBug);
+
+        assertCommandSuccess(editTagCommand, initialModel, expectedMessage, expectedModel);
+    }
+
+    private void assertExecuteFailure(Index index, String newTagName, String commandOldTag, String commandNewTag,
+                                      String expectedMessageContent, String... oldTags) {
+
+        Bug initialBug = new BugBuilder().withTags(oldTags).build();
+        Bug tagEditedBug = new BugBuilder().withTags(newTagName).build();
+        Tag oldTag = new Tag(commandOldTag);
+        Tag newTag = new Tag(commandNewTag);
+
+        //Set the first bug of the initial model to be the initial bug
+        Model initialModel = new ModelManager(new KanBugTracker(defaultModel.getKanBugTracker()), new UserPrefs());
+        initialModel.setBug(defaultModel.getFilteredBugList().get(0), initialBug);
+
+        EditTagCommand editTagCommand = new EditTagCommand(index, oldTag, newTag);
+        String expectedMessage = String.format(expectedMessageContent, tagEditedBug);
+
+        assertCommandFailure(editTagCommand, initialModel, expectedMessage);
+
     }
 }
