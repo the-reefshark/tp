@@ -4,11 +4,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BACKLOG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_DONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_ONGOING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_VALUE_BACKLOG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_VALUE_DONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_VALUE_ONGOING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_VALUE_TODO;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 public class StateTest {
+
+    private State stateBacklogOne = VALID_STATE_BACKLOG;
+    private State stateBacklogTwo = new State(VALID_STATE_VALUE_BACKLOG);
+    private State stateTodoOne = VALID_STATE_TODO;
+    private State stateTodoTwo = new State(VALID_STATE_VALUE_TODO);
+    private State stateOngoingOne = VALID_STATE_ONGOING;
+    private State stateOngoingTwo = new State(VALID_STATE_VALUE_ONGOING);
+    private State stateDoneOne = VALID_STATE_DONE;
+    private State stateDoneTwo = new State(VALID_STATE_VALUE_DONE);
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -36,19 +53,36 @@ public class StateTest {
         assertFalse(State.isValidState("ongoin")); // incomplete word
         assertFalse(State.isValidState("tod")); // incomplete word
 
-        // invalid inputs
-        assertFalse(State.isValidState("backlog todo")); // multiple valid words should be invalid
-        assertFalse(State.isValidState("backlog done")); // multiple valid words should be invalid
-        assertFalse(State.isValidState("backlog ongoing")); // multiple valid words should be invalid
-        assertFalse(State.isValidState("todo done")); // multiple valid words should be invalid
-        assertFalse(State.isValidState("todo backlog")); // multiple valid words should be invalid
-        assertFalse(State.isValidState("todo ongoing")); // multiple valid words should be invalid
-        assertFalse(State.isValidState("done backlog")); // multiple valid words should be invalid
-        assertFalse(State.isValidState("done todo")); // multiple valid words should be invalid
-        assertFalse(State.isValidState("done ongoing")); // multiple valid words should be invalid
-        assertFalse(State.isValidState("ongoing todo")); // multiple valid words should be invalid
-        assertFalse(State.isValidState("ongoing done")); // multiple valid words should be invalid
-        assertFalse(State.isValidState("ongoing backlog")); // multiple valid words should be invalid
+        // valid stateS
+        assertTrue(State.isValidState(VALID_STATE_VALUE_BACKLOG)); // minimal valid word
+        assertTrue(State.isValidState(VALID_STATE_VALUE_TODO)); // minimal valid word
+        assertTrue(State.isValidState(VALID_STATE_VALUE_ONGOING)); // minimal valid word
+        assertTrue(State.isValidState(VALID_STATE_VALUE_DONE)); // minimal valid word
+        assertTrue(State.isValidState("Backlog")); // valid word with upper case character
+        assertTrue(State.isValidState("toDo")); // valid word with upper case character
+        assertTrue(State.isValidState("onGoinG")); // valid word with upper case character
+        assertTrue(State.isValidState("DonE")); // valid word with upper case character
+
+        // ------------------------------------- invalid inputs --------------------------------------
+
+        // multiple valid words should be invalid
+        assertFalse(State.isValidState(VALID_STATE_VALUE_BACKLOG + " " + VALID_STATE_VALUE_TODO));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_BACKLOG + " " + VALID_STATE_VALUE_DONE));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_BACKLOG + " " + VALID_STATE_VALUE_ONGOING));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_BACKLOG + " " + VALID_STATE_VALUE_BACKLOG));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_TODO + " " + VALID_STATE_VALUE_DONE));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_TODO + " " + VALID_STATE_VALUE_BACKLOG));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_TODO + " " + VALID_STATE_VALUE_ONGOING));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_TODO + " " + VALID_STATE_VALUE_TODO));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_DONE + " " + VALID_STATE_VALUE_BACKLOG));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_DONE + " " + VALID_STATE_VALUE_TODO));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_DONE + " " + VALID_STATE_VALUE_ONGOING));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_DONE + " " + VALID_STATE_VALUE_DONE));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_ONGOING + " " + VALID_STATE_VALUE_TODO));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_ONGOING + " " + VALID_STATE_VALUE_DONE));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_ONGOING + " " + VALID_STATE_VALUE_BACKLOG));
+        assertFalse(State.isValidState(VALID_STATE_VALUE_ONGOING + " " + VALID_STATE_VALUE_ONGOING));
+
         assertFalse(State.isValidState(" backlog")); //leading space
         assertFalse(State.isValidState("backlog ")); //trailing space
         assertFalse(State.isValidState(" backlog ")); //leading and trailing space
@@ -57,65 +91,53 @@ public class StateTest {
         assertFalse(State.isValidState("fillertextbacklogfillertext")); //sandwiched valid word
         assertFalse(State.isValidState("backlogtododoneongoing")); //valid words in invalid string
 
-
-        // valid state
-        assertTrue(State.isValidState("backlog")); // minimal valid word
-        assertTrue(State.isValidState("todo")); // minimal valid word
-        assertTrue(State.isValidState("ongoing")); // minimal valid word
-        assertTrue(State.isValidState("done")); // minimal valid word
-        assertTrue(State.isValidState("Backlog")); // valid word with upper case character
-        assertTrue(State.isValidState("toDo")); // valid word with upper case character
-        assertTrue(State.isValidState("onGoinG")); // valid word with upper case character
-        assertTrue(State.isValidState("DonE")); // valid word with upper case character
     }
 
     @Test
     public void isEqualState() {
-        State s1 = new State("backlog");
-        State s2 = new State("backlog");
-        State s3 = new State("todo");
-        State s4 = new State("todo");
-        State s5 = new State("ongoing");
-        State s6 = new State("ongoing");
-        State s7 = new State("done");
-        State s8 = new State("done");
-        assertEquals(s1, s1); // same object
-        assertEquals(s1, s2); // same value
-        assertEquals(s3, s3); // same object
-        assertEquals(s3, s4); // same value
-        assertEquals(s5, s5); // same object
-        assertEquals(s5, s6); // same value
-        assertEquals(s7, s7); // same object
-        assertEquals(s7, s8); // same value
+        assertEquals(stateBacklogOne, stateBacklogOne); // same object
+        assertEquals(stateBacklogOne, stateBacklogTwo); // same value
+        assertEquals(stateTodoOne, stateTodoOne); // same object
+        assertEquals(stateTodoOne, stateTodoTwo); // same value
+        assertEquals(stateOngoingOne, stateOngoingOne); // same object
+        assertEquals(stateOngoingOne, stateOngoingTwo); // same value
+        assertEquals(stateDoneOne, stateDoneOne); // same object
+        assertEquals(stateDoneOne, stateDoneTwo); // same value
     }
 
     @Test
     public void isNotEqualState() {
-        State s1 = new State("backlog");
-        State s2 = new State("backlog");
-        State s3 = new State("todo");
-        State s4 = new State("todo");
-        State s5 = new State("ongoing");
-        State s6 = new State("ongoing");
-        State s7 = new State("done");
-        State s8 = new State("done");
-        assertNotEquals(s1, s3); // different object
-        assertNotEquals(s1, s6); // different object
-        assertNotEquals(s1, s8); // different object
-        assertNotEquals(s3, s8); // different object
-        assertNotEquals(s3, s2); // different object
-        assertNotEquals(s3, s5); // different object
-        assertNotEquals(s5, s1); // different object
-        assertNotEquals(s5, s4); // different object
-        assertNotEquals(s5, s8); //// different object
+        assertNotEquals(stateBacklogOne, stateTodoOne); // different object value
+        assertNotEquals(stateBacklogOne, stateOngoingTwo); // different object value
+        assertNotEquals(stateBacklogOne, stateDoneTwo); // different object value
+        assertNotEquals(stateTodoOne, stateBacklogTwo); // different object value
+        assertNotEquals(stateTodoOne, stateOngoingOne); // different object value
+        assertNotEquals(stateTodoOne, stateDoneTwo); // different object value
+        assertNotEquals(stateOngoingOne, stateBacklogOne); // different object value
+        assertNotEquals(stateOngoingOne, stateTodoTwo); // different object value
+        assertNotEquals(stateOngoingOne, stateDoneOne); // different object value
     }
 
     @Test
     public void isCorrectStateValue() {
-        State testState = new State("backlog"); // just to give me access to the method used below
-        assertEquals(State.Value.BACKLOG, testState.getValueOfState("backlog"));
-        assertEquals(State.Value.TODO, testState.getValueOfState("todo"));
-        assertEquals(State.Value.ONGOING, testState.getValueOfState("ongoing"));
-        assertEquals(State.Value.DONE, testState.getValueOfState("done"));
+        String expectedErrorMessage = State.MESSAGE_CONSTRAINTS;
+
+        //Valid States
+        assertEquals(State.Value.BACKLOG, State.getValueOfState(VALID_STATE_VALUE_BACKLOG));
+        assertEquals(State.Value.TODO, State.getValueOfState(VALID_STATE_VALUE_TODO));
+        assertEquals(State.Value.ONGOING, State.getValueOfState(VALID_STATE_VALUE_ONGOING));
+        assertEquals(State.Value.DONE, State.getValueOfState(VALID_STATE_VALUE_DONE));
+
+        //Invalid State
+        assertThrows(IllegalArgumentException.class, expectedErrorMessage, () -> State.getValueOfState("invalidState"));
     }
+
+    @Test
+    public void isCorrectStateValueString() {
+        assertEquals(VALID_STATE_VALUE_BACKLOG, stateBacklogOne.toString());
+        assertEquals(VALID_STATE_VALUE_TODO, stateTodoOne.toString());
+        assertEquals(VALID_STATE_VALUE_ONGOING, stateOngoingOne.toString());
+        assertEquals(VALID_STATE_VALUE_DONE, stateDoneOne.toString());
+    }
+
 }
