@@ -57,7 +57,7 @@ public class BugCardKanban extends UiPart<Region> {
         description.setMaxHeight(60);
 
         // Improve the UI of 'priority' field
-        if (!bug.getPriority().isNull()) {
+        if (!bug.getPriority().isNotIndicated()) {
             priority.setText("  " + bug.getPriority().getValue().toUpperCase() + "  ");
             switch (bug.getPriority().getValue()) {
             case "low":

@@ -61,7 +61,7 @@ public class BugCard extends UiPart<Region> {
         description.setWrapText(true);
         state.setText(bug.getState().toString());
 
-        if (!bug.getPriority().isNull()) {
+        if (!bug.getPriority().isNotIndicated()) {
             priority.setText("  " + bug.getPriority().getValue().toUpperCase() + "  ");
             switch (bug.getPriority().getValue()) {
             case "low":
