@@ -63,6 +63,12 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         }
     }
 
+    /**
+     * Ensures the appropriate number of prefixes were given as input.
+     *
+     * @param argMultimap argument multimap of prefix values
+     * @throws ParseException if an invalid number of prefixes were supplied
+     */
     private void ensureValidNumberOfPrefixes(ArgumentMultimap argMultimap) throws ParseException {
         int numberOfPrefixExpected = TOTAL_NUMBER_OF_PREFIXES_EXPECTED;
 
@@ -88,6 +94,12 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         }
     }
 
+    /**
+     * Ensures the preamble is valid.
+     *
+     * @param argMultimap argument multimap of prefix values
+     * @throws ParseException if preamble is invalid
+     */
     private void ensureValidPreamble(ArgumentMultimap argMultimap) throws ParseException {
         String trimmedIndex = argMultimap.getPreamble().trim();
         if (trimmedIndex.contains(" ")) {
@@ -100,6 +112,14 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         }
     }
 
+    /**
+     * Retrieves specific tag value from {@code argMultimap} and returns a {@Tag}.
+     *
+     * @param argMultimap argument multimap of prefix values
+     * @param tagPrefix prefix of the specific tag value to retrieve
+     * @return Tag with value supplied prefix
+     * @throws ParseException if {@Tag} value is invalid
+     */
     private Tag getTagFromMultiMap(ArgumentMultimap argMultimap, Prefix tagPrefix) throws ParseException {
         try {
             return new Tag(argMultimap.getValue(tagPrefix).get());
@@ -109,6 +129,16 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         }
     }
 
+    /**
+     * Creates an EditTagByStateCommand object with the given arguments
+     *
+     * @param argMultimap argument multimap of prefix values
+     * @param index index of bug to edit
+     * @param oldTag to edit
+     * @param newTag of bug
+     * @return EditTagByStateCommand with the appropriate values
+     * @throws ParseException if no column value is found in argMultimap
+     */
     private EditTagByStateCommand editTagsByState(ArgumentMultimap argMultimap, Index index, Tag oldTag, Tag newTag)
             throws ParseException {
         if (!ModelManager.isKanban()) {
@@ -119,6 +149,15 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         return new EditTagByStateCommand(index, oldTag, newTag, targetState);
     }
 
+    /**
+     * Creates an EditTagByStateCommand object with the given arguments
+     *
+     * @param index index of bug to edit
+     * @param oldTag to edit
+     * @param newTag of bug
+     * @return EditTagCommand with the appropriate values
+     * @throws ParseException if column value is found in argMultimap
+     */
     private EditTagCommand editTagsWithoutState(Index index, Tag oldTag,
                                                        Tag newTag)
             throws ParseException {
