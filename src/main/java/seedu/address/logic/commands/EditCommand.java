@@ -105,8 +105,14 @@ public class EditCommand extends Command {
         assert bugToEdit != null;
 
         Name updatedName = editBugDescriptor.getName().orElse(bugToEdit.getName());
+
         State updatedState = editBugDescriptor.getState().orElse(bugToEdit.getState());
+
         Description updatedDescription = editBugDescriptor.getDescription().orElse(bugToEdit.getDescription());
+
+        Set<Tag> updatedTags = editBugDescriptor.getTags().orElse(bugToEdit.getTags());
+
+        Priority updatedPriority = editBugDescriptor.getPriority().orElse(bugToEdit.getPriority());
 
         Optional<Note> updatedOptionalNote = null;
         if (editBugDescriptor.getOptionalNote() == null) {
@@ -117,8 +123,6 @@ public class EditCommand extends Command {
             updatedOptionalNote = editBugDescriptor.getOptionalNote();
         }
 
-        Set<Tag> updatedTags = editBugDescriptor.getTags().orElse(bugToEdit.getTags());
-        Priority updatedPriority = editBugDescriptor.getPriority().orElse(bugToEdit.getPriority());
 
         return new Bug(updatedName, updatedState, updatedDescription, updatedOptionalNote, updatedTags ,
                 updatedPriority);
