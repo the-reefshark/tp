@@ -36,7 +36,7 @@ public class Priority {
         priority = Priority.EMPTY_PRIORITY;
     }
 
-    public boolean isNull() {
+    public boolean isNotIndicated() {
         return priority.equals(Priority.EMPTY_PRIORITY);
     }
 
@@ -45,7 +45,7 @@ public class Priority {
     }
 
     public String getValue() {
-        return isNull() ? "" : priority;
+        return isNotIndicated() ? EMPTY_PRIORITY : priority;
     }
 
     @Override

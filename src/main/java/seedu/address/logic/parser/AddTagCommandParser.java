@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddTagByStateCommand;
 import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -123,11 +124,11 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
      */
     private void ensureValidPreamble(ArgumentMultimap argMultimap) throws ParseException {
         String trimmedIndex = argMultimap.getPreamble().trim();
-        if (trimmedIndex.contains(" ")) {
+        if (!StringUtil.isNumber(trimmedIndex)) {
             LOGGER.info("----------------[ADD TAG COMMAND PARSER][Invalid preamble, extra arguments!]");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
         }
-        if (trimmedIndex.length() >= Integer.toString(Integer.MAX_VALUE - 1).length()) {
+        if (StringUtil.isIndexOverflow(trimmedIndex)) {
             LOGGER.info("----------------[ADD TAG COMMAND PARSER][Invalid preamble, invalid value]");
             throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
         }

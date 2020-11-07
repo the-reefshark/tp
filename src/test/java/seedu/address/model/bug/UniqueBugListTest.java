@@ -168,6 +168,6 @@ public class UniqueBugListTest {
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-            -> uniqueBugList.asUnmodifiableObservableList().remove(0));
+            -> uniqueBugList.setUnmodifiableObservableList().remove(0));
     }
 }

@@ -14,7 +14,7 @@ import seedu.address.model.bug.Bug;
  */
 public class BugCardKanban extends UiPart<Region> {
 
-    private static final String FXML = "BugListCardKanban.fxml";
+    protected static final String FXML = "BugListCardKanban.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -25,6 +25,7 @@ public class BugCardKanban extends UiPart<Region> {
      */
 
     public final Bug bug;
+    public final int displayedIndex;
 
     @FXML
     private HBox cardPane;
@@ -45,37 +46,55 @@ public class BugCardKanban extends UiPart<Region> {
     public BugCardKanban(Bug bug, int displayedIndex) {
         super(FXML);
         this.bug = bug;
-        id.setText(displayedIndex + ". ");
+        this.displayedIndex = displayedIndex;
+        setFields();
+    }
 
-        // Improve the UI of 'name' field
+    protected BugCardKanban(Bug bug, int displayedIndex, String fxml) {
+        super(fxml);
+        this.bug = bug;
+        this.displayedIndex = displayedIndex;
+        setFields();
+    }
+
+    private void setFields() {
+        setIndex();
+        setName();
+        setDescription();
+        setPriority();
+        setTags();
+    }
+
+    protected void setIndex() {
+        id.setText(displayedIndex + ". ");
+    }
+
+    //@@author PhongTran98
+    protected void setName() {
         name.setText(bug.getName().fullName);
         name.setWrapText(true);
+    }
 
-        // Improve the UI of 'description' field
+    protected void setDescription() {
         description.setText(bug.getDescription().value);
         description.setWrapText(true);
         description.setMaxHeight(60);
+    }
 
-        // Improve the UI of 'priority' field
-        if (!bug.getPriority().isNull()) {
-            priority.setText("  " + bug.getPriority().getValue().toUpperCase() + "  ");
-            switch (bug.getPriority().getValue()) {
-            case "low":
-                priority.setStyle("-fx-background-color: #E3C012;");
-                break;
-            case "medium":
-                priority.setStyle("-fx-background-color: #E15E13;");
-                break;
-            default:
-                priority.setStyle("-fx-background-color: #D81616;");
-                break;
-            }
-        } else {
-            priority.setVisible(false);
+    protected void setPriority() {
+        if (bug.getPriority().isNotIndicated()) {
             priority.setManaged(false);
+        } else {
+            priority.setText("  " + bug.getPriority().getValue().toUpperCase() + "  ");
+
+            String styleClassName = bug.getPriority().getValue() + "-priority";
+
+            priority.getStyleClass().add(styleClassName);
         }
+    }
+    //@@author
 
-
+    protected void setTags() {
         bug.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
