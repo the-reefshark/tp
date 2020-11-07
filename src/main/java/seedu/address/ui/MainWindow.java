@@ -131,8 +131,6 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         bugListPanel = new BugListPanel(logic.getFilteredBugList());
         bugListPanelPlaceholder.getChildren().add(bugListPanel.getRoot());
-        bugListPanelPlaceholder.setVisible(false);
-        bugListPanelPlaceholder.setManaged(false);
 
         kanbanPanel = new KanbanPanel(logic);
         kanbanPanelPlaceholder.getChildren().add(kanbanPanel.getRoot());
