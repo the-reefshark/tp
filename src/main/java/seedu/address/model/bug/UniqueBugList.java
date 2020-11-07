@@ -100,7 +100,7 @@ public class UniqueBugList implements Iterable<Bug> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Bug> asUnmodifiableObservableList() {
+    public ObservableList<Bug> setUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
