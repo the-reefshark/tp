@@ -74,13 +74,13 @@ public class EditTagCommandParserTest {
     public void parse_invalidPreamble_failure() {
         ModelManager.setListViewWindow();
         // negative index
-        assertParseFailure(parser, "-5" + TAG_DESC_OLD + TAG_DESC_NEW, MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, "-5" + TAG_DESC_OLD + TAG_DESC_NEW, MESSAGE_INVALID_FORMAT);
 
         // zero index
         assertParseFailure(parser, "0" + TAG_DESC_OLD + TAG_DESC_NEW, MESSAGE_INVALID_INDEX);
 
         // beyond max int
-        assertParseFailure(parser, (Integer.MAX_VALUE + 1) + TAG_DESC_OLD + TAG_DESC_NEW,
+        assertParseFailure(parser, "2147483648" + TAG_DESC_OLD + TAG_DESC_NEW,
                 Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
 
         // invalid arguments being parsed as preamble
