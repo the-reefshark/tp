@@ -67,6 +67,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_BACKEND = " " + PREFIX_TAG + VALID_TAG_COMPONENT;
     public static final String TAG_DESC_OLD = " " + PREFIX_OLDTAG + VALID_TAG_LOGIC;
     public static final String TAG_DESC_NEW = " " + PREFIX_NEWTAG + VALID_TAG_COMPONENT;
+    public static final String TAG_DESC_NEW_ALTERNATIVE = " " + PREFIX_NEWTAG + VALID_TAG_LOGIC;
     public static final String PRIORITY_DESC_PARSER = " " + PREFIX_PRIORITY + VALID_PRIORITY_PARSER;
     public static final String PRIORITY_DESC_HOMEPAGE = " " + PREFIX_PRIORITY + VALID_PRIORITY_HOMEPAGE;
     public static final String COLUMN_DESC_TODO = " " + PREFIX_COLUMN + VALID_COLUMN_TODO;

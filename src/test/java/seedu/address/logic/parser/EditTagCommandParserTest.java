@@ -60,6 +60,7 @@ public class EditTagCommandParserTest {
         EditTagCommand editTagCommand = new EditTagCommand(targetIndex, oldTag, newTag);
 
         assertParseSuccess(parser, userInputWithoutColumn, editTagCommand);
+
         // Testing valid input in kanban view
         ModelManager.setKanbanWindow();
         String userInputWithColumn = targetIndex.getOneBased() + COLUMN_DESC_TODO + TAG_DESC_OLD + TAG_DESC_NEW;

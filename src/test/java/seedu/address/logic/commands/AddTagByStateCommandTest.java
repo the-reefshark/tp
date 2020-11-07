@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_BACKLOG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_TODO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_VALUE_BACKLOG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_VALUE_DONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_VALUE_ONGOING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATE_VALUE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
@@ -41,16 +44,29 @@ public class AddTagByStateCommandTest {
         String newTag = VALID_TAG_COMPONENT;
         String newTagSecond = VALID_TAG_LOGIC;
         String expectedMessage = AddTagCommand.MESSAGE_ADD_BUG_SUCCESS;
+        String backlogState = VALID_STATE_VALUE_BACKLOG;
         String todoState = VALID_STATE_VALUE_TODO;
+        String ongoingState = VALID_STATE_VALUE_ONGOING;
+        String doneState = VALID_STATE_VALUE_DONE;
+
 
         // One tag supplied
+        assertExecuteSuccess(index, expectedMessage, backlogState, newTag);
         assertExecuteSuccess(index, expectedMessage, todoState, newTag);
+        assertExecuteSuccess(index, expectedMessage, ongoingState, newTag);
+        assertExecuteSuccess(index, expectedMessage, doneState, newTag);
 
         // Two tags supplied
+        assertExecuteSuccess(index, expectedMessage, backlogState, newTag, newTagSecond);
         assertExecuteSuccess(index, expectedMessage, todoState, newTag, newTagSecond);
+        assertExecuteSuccess(index, expectedMessage, ongoingState, newTag, newTagSecond);
+        assertExecuteSuccess(index, expectedMessage, doneState, newTag, newTagSecond);
 
         // Multiple repeated tags will only be added once
+        assertExecuteSuccess(index, expectedMessage, backlogState, newTag, newTag);
         assertExecuteSuccess(index, expectedMessage, todoState, newTag, newTag);
+        assertExecuteSuccess(index, expectedMessage, ongoingState, newTag, newTag);
+        assertExecuteSuccess(index, expectedMessage, doneState, newTag, newTag);
 
     }
 
