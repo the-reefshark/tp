@@ -60,7 +60,7 @@ public class AddTagCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         LOGGER.info("----------------[ADD TAG COMMAND][Bug at index: " + index.getZeroBased()
-                            + ". Attempting to add " + newTags.size() + "tags.");
+                            + ". Attempting to add " + newTags.size() + " tags.]");
 
         List<Bug> lastShownList = model.getFilteredBugList();
 
@@ -71,70 +71,14 @@ public class AddTagCommand extends Command {
         ensureValidIndex(index, lastShownList);
 
         Bug bugToEdit = lastShownList.get(index.getZeroBased());
-        Bug editedBug = addTagsToBug(bugToEdit, newTags);
+        Bug editedBug = new ModifyTagUtility(bugToEdit).addTagsToBug(newTags);
         model.setBug(bugToEdit, editedBug);
         model.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);
 
         LOGGER.info("----------------[ADD TAG COMMAND][Updated bug at index: " + index.getZeroBased()
-                            + ". Successfully added " + newTags.size() + "tags.");
+                            + ". Successfully added " + newTags.size() + " tags.]");
 
         return new CommandResult(String.format(MESSAGE_ADD_BUG_SUCCESS, editedBug));
-    }
-
-    /**
-     * Adds a new tag to the specified bug.
-     *
-     * @param bugToEdit bug to add the new tag
-     * @param newTags to add
-     * @return updated bug
-     * @throws CommandException if the {@code newTag} already exists or the inputs are null
-     */
-    private Bug addTagsToBug(Bug bugToEdit, Set<Tag> newTags) throws CommandException {
-        if (bugToEdit == null || newTags == null) {
-            throw new CommandException(MESSAGE_NOT_ADDED);
-        }
-
-        Set<Tag> existingTagSet = bugToEdit.getTags();
-        ensureNoDuplicateTags(newTags, existingTagSet);
-
-        return duplicateBugWithAddedTags(bugToEdit);
-    }
-
-    /**
-     * Compares both sets and ensures that no duplicate tags exist.
-     *
-     * @param newTags Set of new tags
-     * @param existingTagSet Set of existing tags in bug
-     * @throws CommandException if a duplicate tag exists
-     */
-    private void ensureNoDuplicateTags(Set<Tag> newTags, Set<Tag> existingTagSet) throws CommandException {
-        if (existingTagSet.stream().anyMatch(newTags::contains)) {
-            throw new CommandException(MESSAGE_INVALID_NEW);
-        }
-    }
-
-    /**
-     * Duplicates bug given as input and adds all tags in the set of new tags to it.
-     *
-     * @param bugToDuplicate Bug to be duplicated
-     * @return Returns a copy of the duplicated bug with all the new tags added to its tag set
-     */
-    private Bug duplicateBugWithAddedTags(Bug bugToDuplicate) {
-        Name bugName = bugToDuplicate.getName();
-        State bugState = bugToDuplicate.getState();
-        Set<Tag> existingTagSet = bugToDuplicate.getTags();
-        Description bugDescription = bugToDuplicate.getDescription();
-        Priority bugPriority = bugToDuplicate.getPriority();
-        Optional<Note> updatedNote = bugToDuplicate.getOptionalNote();
-        Set<Tag> updatedTags = addTagsToSet(existingTagSet, newTags);
-
-        return new Bug(bugName, bugState, bugDescription, updatedNote, updatedTags, bugPriority);
-    }
-
-    private Set<Tag> addTagsToSet(Set<Tag> existingTagSet, Set<Tag> newTags) {
-        Set<Tag> setCopy = new HashSet<>(existingTagSet);
-        setCopy.addAll(newTags);
-        return setCopy;
     }
 
     @Override
@@ -154,4 +98,5 @@ public class AddTagCommand extends Command {
         return index.equals(e.index)
                        && newTags.equals(e.newTags);
     }
+
 }

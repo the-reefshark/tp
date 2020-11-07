@@ -7,10 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OLDTAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -18,11 +15,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
-import seedu.address.model.bug.Description;
-import seedu.address.model.bug.Name;
-import seedu.address.model.bug.Note;
-import seedu.address.model.bug.Priority;
-import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
 public class EditTagCommand extends Command {
@@ -89,7 +81,7 @@ public class EditTagCommand extends Command {
         ensureValidIndex(index, lastShownList);
 
         Bug bugToEdit = lastShownList.get(index.getZeroBased());
-        Bug editedBug = new EditBugTagsDescriptor(bugToEdit, oldTag, newTag).updateTagInBug();
+        Bug editedBug = new ModifyTagUtility(bugToEdit).updateTagInBug(oldTag, newTag);
         model.setBug(bugToEdit, editedBug);
         model.updateFilteredBugList(PREDICATE_SHOW_ALL_BUGS);
 
@@ -116,74 +108,5 @@ public class EditTagCommand extends Command {
         return index.equals(e.index)
                        && oldTag.equals(e.oldTag)
                        && newTag.equals(e.newTag);
-    }
-
-    public static class EditBugTagsDescriptor {
-        private Bug bugToEdit;
-        private Tag oldTag;
-        private Tag newTag;
-
-        /**
-         * Creates an EditBugTagsDescriptor object with the given input.
-         *
-         * @param bugToEdit the bug that is to be edited
-         * @param oldTag in the bug to be edited
-         * @param newTag to replace the old tag
-         */
-        public EditBugTagsDescriptor(Bug bugToEdit, Tag oldTag, Tag newTag) {
-            requireAllNonNull(bugToEdit, oldTag, newTag);
-            this.bugToEdit = bugToEdit;
-            this.oldTag = oldTag;
-            this.newTag = newTag;
-        }
-
-        /**
-         * Updates the old tag in the specified bug and replaces it with the new tag.
-         *
-         * @return updated bug
-         * @throws CommandException if {@code oldTag} does not exist, the {@code newTag} already exists or the inputs
-         * are null
-         */
-        public Bug updateTagInBug() throws CommandException {
-
-            Set<Tag> existingTagsOfBug = bugToEdit.getTags();
-            ensureEditIsValid(existingTagsOfBug, oldTag, newTag);
-            Set<Tag> updatedTagsOfBug = updateTagSet(existingTagsOfBug);
-
-            return duplicateBugWithNewTagSet(updatedTagsOfBug);
-        }
-
-        private Bug duplicateBugWithNewTagSet(Set<Tag> newTagSet) {
-            Name bugName = bugToEdit.getName();
-            State bugState = bugToEdit.getState();
-            Description bugDescription = bugToEdit.getDescription();
-            Priority bugPriority = bugToEdit.getPriority();
-            Optional<Note> updatedNote = bugToEdit.getOptionalNote();
-
-            return new Bug(bugName, bugState, bugDescription, updatedNote, newTagSet, bugPriority);
-        }
-
-        private Set<Tag> updateTagSet(Set<Tag> existingTagsOfBug) {
-            assert existingTagsOfBug.contains(oldTag);
-            assert !existingTagsOfBug.contains(newTag);
-
-            Set<Tag> setCopy = new HashSet<>(existingTagsOfBug);
-            setCopy.remove(oldTag);
-            setCopy.add(newTag);
-            return setCopy;
-        }
-
-        private void ensureEditIsValid(Set<Tag> existingTagsOfBug, Tag oldTag, Tag newTag) throws CommandException {
-
-            //Ensure that the bug contains the tag to be updated
-            if (!existingTagsOfBug.contains(oldTag)) {
-                throw new CommandException((MESSAGE_INVALID_OLD));
-            }
-
-            //Ensure that the update will not result in a duplicate tag
-            if (existingTagsOfBug.contains(newTag)) {
-                throw new CommandException((MESSAGE_INVALID_NEW));
-            }
-        }
     }
 }
