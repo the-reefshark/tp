@@ -19,20 +19,19 @@ public class SearchCommandParserTest {
 
     @Test
     public void parse_emptyPrefix_throwsParseException() {
-        assertParseFailure(parser, "search q/  ", String.format(SearchCommand.MESSAGE_EMPTY_QUERY_STRING,
-                SearchCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " q/ ", SearchCommand.MESSAGE_EMPTY_QUERY_STRING);
     }
 
     @Test
     public void parse_valid_returnsSearchCommand() {
         // no leading and trailing whitespaces
         SearchCommand expectedSearchCommand = new SearchCommand(new BugContainsQueryStringPredicate("Ui bug"));
-        assertParseSuccess(parser, "search q/Ui bug", expectedSearchCommand);
+        assertParseSuccess(parser, " q/Ui bug", expectedSearchCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " search  q/ Ui bug     ", expectedSearchCommand);
+        assertParseSuccess(parser, " q/ Ui bug     ", expectedSearchCommand);
 
         // multiple repetitive prefixes
-        assertParseSuccess(parser, " search q/Skip q/Skip q/Ui bug", expectedSearchCommand);
+        assertParseSuccess(parser, "  q/Skip q/Skip q/Ui bug", expectedSearchCommand);
     }
 }

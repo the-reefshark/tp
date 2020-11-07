@@ -71,6 +71,15 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if the {@code preamble} is empty after being trimmed.
+     * @param preamble cannot be null.
+     */
+    public static boolean isEmptyArgument(String preamble) {
+        String trimmedPreamble = preamble.trim();
+        return trimmedPreamble.isEmpty();
+    }
+
+    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {
