@@ -97,10 +97,10 @@ class PriorityTest {
 
     @Test
     public void isNull() {
-        assertFalse(new Priority("low").isNull());
-        assertFalse(new Priority("medium").isNull());
-        assertFalse(new Priority("high").isNull());
+        assertFalse(new Priority("low").isNotIndicated());
+        assertFalse(new Priority("medium").isNotIndicated());
+        assertFalse(new Priority("high").isNotIndicated());
 
-        assertTrue(new Priority().isNull());
+        assertTrue(new Priority().isNotIndicated());
     }
 }
