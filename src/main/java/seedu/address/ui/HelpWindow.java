@@ -24,6 +24,7 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String USERGUIDE_URL = "https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html";
     public static final String FEATURES_ONE = "Words in UPPER_CASE are parameters to be supplied by the user";
     public static final String FEATURES_TWO = "Items in [...] are optional";
+    public static final String FEATURES_THREE = "Items in (...) are only required in Kanban View";
 
     public static final String SWITCH_ACTION = "switch";
     public static final String SWITCH_FORMAT = "switch";
@@ -34,22 +35,22 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String ADD_ACTION = "add";
     public static final String ADD_FORMAT = "add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG]";
     public static final String DELETE_ACTION = "delete";
-    public static final String DELETE_FORMAT = "delete INDEX [c/COLUMN]";
+    public static final String DELETE_FORMAT = "delete INDEX (c/COLUMN)";
     public static final String EDIT_ACTION = "edit";
-    public static final String EDIT_FORMAT = "edit INDEX [c/COLUMN] [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NOTE] "
+    public static final String EDIT_FORMAT = "edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NOTE] "
                                                      + "[t/TAG]";
     public static final String EDIT_TAG_ACTION = "editTag";
-    public static final String EDIT_TAG_FORMAT = "editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG";
+    public static final String EDIT_TAG_FORMAT = "editTag INDEX (c/COLUMN) ot/OLD_TAG nt/NEW_TAG";
     public static final String ADD_TAG_ACTION = "addTag";
-    public static final String ADD_TAG_FORMAT = "addTag INDEX [c/COLUMN] nt/NEW_TAG";
+    public static final String ADD_TAG_FORMAT = "addTag INDEX (c/COLUMN) nt/NEW_TAG";
     public static final String CLEAR_ACTION = "clear";
     public static final String CLEAR_FORMAT = "clear";
     public static final String MOVE_ACTION = "move";
-    public static final String MOVE_FORMAT = "move INDEX [c/COLUMN] s/STATE";
+    public static final String MOVE_FORMAT = "move INDEX (c/COLUMN) s/STATE";
     public static final String EXIT_ACTION = "exit";
     public static final String EXIT_FORMAT = "exit";
 
-    public static final String HELP_MESSAGE_HEADER = FEATURES_ONE + "\n" + FEATURES_TWO;
+    public static final String HELP_MESSAGE_HEADER = FEATURES_ONE + "\n" + FEATURES_TWO + "\n" + FEATURES_THREE;
 
     public static final String HELP_MESSAGE_FOOTER =
             "For a more detailed guide, refer to: " + USERGUIDE_URL;
