@@ -19,6 +19,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUG;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -33,8 +34,18 @@ public class EditTagCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTagCommand.MESSAGE_USAGE);
-
+    private static boolean isKanbanView = ModelManager.isKanban();
     private EditTagCommandParser parser = new EditTagCommandParser();
+
+
+    @AfterAll
+    public static void resetModelManager() {
+        if (isKanbanView) {
+            ModelManager.setKanbanWindow();
+        } else {
+            ModelManager.setListViewWindow();
+        }
+    }
 
 
     @Test
