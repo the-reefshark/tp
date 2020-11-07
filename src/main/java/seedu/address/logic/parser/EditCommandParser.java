@@ -19,11 +19,13 @@ import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.EditByStateCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditBugDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModelManager;
+import seedu.address.model.bug.Note;
 import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
@@ -44,16 +46,17 @@ public class EditCommandParser implements Parser<EditCommand> {
                 PREFIX_DESCRIPTION, PREFIX_NOTE, PREFIX_TAG, PREFIX_PRIORITY, PREFIX_COLUMN);
 
         Index index;
-        String trimmedIndex = argMultimap.getPreamble().trim();
-        if (trimmedIndex.contains(" ")) {
+        String preambleIndex = argMultimap.getPreamble();
+        if (!StringUtil.isNumber(preambleIndex)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        if (trimmedIndex.length() >= Integer.toString(Integer.MAX_VALUE - 1).length()) {
+        if (StringUtil.isIndexOverflow(preambleIndex)) {
             throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
         }
+        assert preambleIndex != null;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            index = ParserUtil.parseIndex(preambleIndex);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
@@ -77,9 +80,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             String editedNoteContent = argMultimap.getValue(PREFIX_NOTE).get();
             if (editedNoteContent.isBlank()) {
                 editBugDescriptor.setOptionalNote(Optional.empty());
-            }
-            if (!editedNoteContent.isBlank()) {
-                editBugDescriptor.setOptionalNote(Optional.of(ParserUtil.parseNote(editedNoteContent)));
+            } else {
+                Optional<Note> parsedOptionalNote = Optional.of(ParserUtil.parseNote(editedNoteContent));
+                editBugDescriptor.setOptionalNote(parsedOptionalNote);
             }
         }
 
