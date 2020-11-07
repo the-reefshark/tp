@@ -5,9 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -16,11 +14,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.bug.Bug;
-import seedu.address.model.bug.Description;
-import seedu.address.model.bug.Name;
-import seedu.address.model.bug.Note;
-import seedu.address.model.bug.Priority;
-import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
 
 public class AddTagCommand extends Command {
@@ -36,7 +29,6 @@ public class AddTagCommand extends Command {
             + PREFIX_NEWTAG + "Ui";
 
     public static final String MESSAGE_ADD_BUG_SUCCESS = "Added Tag: %1$s";
-    public static final String MESSAGE_NOT_ADDED = "Input values cannot be null.";
     public static final String MESSAGE_INVALID_NEW = "The new tag already exists!";
     protected static final Logger LOGGER = LogsCenter.getLogger(AddTagCommand.class);
 

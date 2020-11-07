@@ -4,6 +4,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.commands.EditTagCommand.MESSAGE_INVALID_NEW;
 import static seedu.address.logic.commands.EditTagCommand.MESSAGE_INVALID_OLD;
 
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.bug.Bug;
 import seedu.address.model.bug.Description;
@@ -12,10 +16,6 @@ import seedu.address.model.bug.Note;
 import seedu.address.model.bug.Priority;
 import seedu.address.model.bug.State;
 import seedu.address.model.tag.Tag;
-
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 public class ModifyTagUtility {
     private Bug bugToEdit;

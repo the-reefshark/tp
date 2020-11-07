@@ -5,6 +5,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -18,6 +21,7 @@ public class ModifyTagUtilityTest {
     public static final String INVALID_NEW_TAG_VALUE = VALID_TAG_LOGIC;
     public static final String VALID_OLD_TAG_VALUE = VALID_TAG_COMPONENT;
     public static final String INVALID_OLD_TAG_VALUE = "InvalidOldTag";
+
     private Bug testBug = new BugBuilder().withTags(VALID_TAG_COMPONENT, VALID_TAG_LOGIC).build();
 
     @Test
@@ -53,68 +57,53 @@ public class ModifyTagUtilityTest {
 
     //-----------------------------------REDO---------------------------------
     @Test
-    public void addTagToBug_validTag_success() {
-//        Set<Tag> tagsToAdd = new HashSet<>();
-//        tagsToAdd.add(newTagLogic);
-//
-//        try {
-//            Bug bug = model.getFilteredBugList().get(0);
-//
-//            Name bugName = bug.getName();
-//            State bugState = bug.getState();
-//            Description bugDescription = bug.getDescription();
-//            Priority bugPriority = bug.getPriority();
-//            Optional<Note> bugOptionalNote = bug.getOptionalNote();
-//            Set<Tag> tagsOfBug = new HashSet<Tag>(bug.getTags());
-//            tagsOfBug.add(newTagLogic);
-//
-//            //copy bug details to reflect edited bug
-//            Bug editedBug = new Bug(bugName, bugState, bugDescription, bugOptionalNote, tagsOfBug, bugPriority);
-//            assertEquals(editedBug, AddTagCommand.addTagsToBug(bug, tagsToAdd));
-//        } catch (CommandException e) {
-//            assert false;
-//        }
+    public void addTagToBug_validTag_success() throws CommandException {
+        ModifyTagUtility modifyTagUtility = new ModifyTagUtility(testBug);
+
+        String firstTagValue = "validNewTag";
+        String secondTagValue = "validNewTagSecond";
+        String thirdTagValue = "validNewTagThird";
+
+        Tag newTagFirst = new Tag("validNewTag");
+        Tag newTagSecond = new Tag("validNewTagSecond");
+        Tag newTagThird = new Tag("validNewTagThird");
+
+        Set<Tag> newTags = new HashSet<>();
+
+
+        // add one tag
+        newTags.add(newTagFirst);
+        Bug updatedBug = modifyTagUtility.addTagsToBug(newTags);
+        Bug expectedBug = new BugBuilder().withTags(VALID_TAG_COMPONENT, VALID_TAG_LOGIC, firstTagValue).build();
+        assertEquals(updatedBug, expectedBug);
+
+        // add two tags
+        newTags.add(newTagSecond);
+        Bug updatedBugSecond = modifyTagUtility.addTagsToBug(newTags);
+        Bug expectedBugSecond = new BugBuilder().withTags(VALID_TAG_COMPONENT, VALID_TAG_LOGIC, firstTagValue,
+                secondTagValue).build();
+        assertEquals(updatedBugSecond, expectedBugSecond);
+
+
+        // add three tags
+        newTags.add(newTagThird);
+        Bug updatedBugThird = modifyTagUtility.addTagsToBug(newTags);
+        Bug expectedBugThird = new BugBuilder().withTags(VALID_TAG_COMPONENT, VALID_TAG_LOGIC, firstTagValue,
+                secondTagValue, thirdTagValue).build();
+        assertEquals(updatedBugThird, expectedBugThird);
+
     }
 
-    @Test
-    public void addTagToBug_invalidTag_commandExceptionThrown() {
-//        Bug validBug = model.getFilteredBugList().get(0);
-//        String expectedString = AddTagCommand.MESSAGE_NOT_ADDED;
-//
-//        try {
-//            addTagsToBug(validBug, null);
-//            assert false;
-//        } catch (CommandException e) {
-//            assertEquals(expectedString, e.getMessage());
-//        }
-    }
 
     @Test
-    public void addTagToBug_tagAlreadyExists_commandExceptionThrown() {
-//        Bug validBug = new BugBuilder().withTags(VALID_TAG_LOGIC).build();
-//        String expectedString = AddTagCommand.MESSAGE_INVALID_NEW;
-//        Set<Tag> tagsToAdd = new HashSet<>();
-//        tagsToAdd.add(newTagLogic);
-//
-//        try {
-//            addTagsToBug(validBug, tagsToAdd);
-//            assert false;
-//        } catch (CommandException e) {
-//            assertEquals(expectedString, e.getMessage());
-//        }
+    public void addTagToBug_newTagAlreadyExists_commandExceptionThrown() {
+        ModifyTagUtility modifyTagUtility = new ModifyTagUtility(testBug);
+        Tag duplicateTag = new Tag(VALID_TAG_COMPONENT);
+        Set<Tag> newTags = new HashSet<>();
+        newTags.add(duplicateTag);
+        String expectedMessage = AddTagCommand.MESSAGE_INVALID_NEW;
+
+        assertThrows(CommandException.class, expectedMessage, () -> modifyTagUtility.addTagsToBug(newTags));
     }
 
-    @Test
-    public void addTagToBug_invalidBug_commandExceptionThrown() {
-//        String expectedString = AddTagCommand.MESSAGE_NOT_ADDED;
-//        Set<Tag> tagsToAdd = new HashSet<>();
-//        tagsToAdd.add(newTagLogic);
-//
-//        try {
-//            addTagsToBug(null, tagsToAdd);
-//            assert false;
-//        } catch (CommandException e) {
-//            assertEquals(expectedString, e.getMessage());
-//        }
-    }
 }

@@ -62,7 +62,7 @@ public class AddTagCommandTest {
         String oldTag = VALID_TAG_COMPONENT;
         String newTag = VALID_TAG_LOGIC;
         String newTagSecond = VALID_TAG_COMPONENT;
-        String expectedMessage = Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX;
+        String expectedMessage = AddTagCommand.MESSAGE_INVALID_NEW;
         assertExecuteFailure(index, oldTag, expectedMessage, newTag, newTagSecond);
     }
 
