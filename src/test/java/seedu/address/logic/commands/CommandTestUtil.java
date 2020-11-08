@@ -53,6 +53,9 @@ public class CommandTestUtil {
     public static final String VALID_STATE_VALUE_BACKLOG = "backlog";
     public static final String VALID_STATE_VALUE_ONGOING = "ongoing";
     public static final String VALID_STATE_VALUE_DONE = "done";
+    public static final String VALID_PRIORITY_LOW = "low";
+    public static final String VALID_PRIORITY_MEDIUM = "medium";
+    public static final String VALID_PRIORITY_HIGH = "high";
     public static final String VALID_QUERY_STRING_ONE = "first";
     public static final String VALID_QUERY_STRING_TWO = "second";
     public static final String VALID_QUERY_STRING_THREE = "No data";
