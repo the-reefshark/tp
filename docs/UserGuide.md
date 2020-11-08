@@ -293,6 +293,9 @@ Just type `help` and hit `Enter`
 
 This creates a popup (the Help Window) with a command guide that you can refer to.
 
+<div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the F1 key to open the Help window. Try it!
+</div>
+
 ### 5.3 Listing all bugs : `list`
 
 After running the search command you might want to see all the bugs you have in your Kanbug Tracker at one glance. Thats where the `list` can be used.
@@ -376,7 +379,7 @@ Once the command has been entered, the result display shows the result of your c
 
 Made a mistake when adding in a bug or simply changed your mind on what the description should be? Fret not, that's what the edit command is for.
 
-Format: `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]`
+Format: `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]`
 
 - Edits the specified bug.
 - At least one of the optional fields must be provided.
@@ -493,7 +496,9 @@ Format: `exit`
 (Any parameters entered are ignored)
 
 When you are done with managing your tasks, use this command to saves all of the local data and exit from the app. 
-Alternatively, you can also close the window directly or press Esc key, and the app will do the same thing.
+
+<div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the Esc key to close the window. Try it!
+</div>
 
 ### 5.13 Saving the data : automatically
 
@@ -510,7 +515,7 @@ Data is saved into the hard disk every time a change is made.
 | **search**  |                      `search q/QUERYSTRING`                  |
 |   **add**   |   `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG] [pr/PRIORITY]`   |
 | **delete**  |                        `delete INDEX (c/COLUMN)`                        |
-|  **edit**   | `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]` |
+|  **edit**   | `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]` |
 | **editTag** |       `editTag INDEX (c/COLUMN) ot/OLD_TAG nt/NEW_TAG`       |
 | **addTag**  |             `addTag INDEX (c/COLUMN) nt/NEW_TAG`             |
 |  **move**   |               `move INDEX (c/COLUMN) s/STATE`                |
