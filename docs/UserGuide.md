@@ -346,8 +346,9 @@ You can type `add n/Ui bug d/Homepage not loading properly s/backlog pr/low` and
 Once the command has been entered, the result display shows the result of your command and KanBug Tracker
 add the bug to the bottom of the list.
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: Do note that for the following commands (Section 5.6 - 5.10) you have to include the <code>c/COLUMN</code> prefix when using it in the <b>Kanban View</b> which should not be added when using it in the <b>List View</b>.
-</div>
+### A word of caution
+
+<div markdown="span" class="alert alert-warning">:warning: WARNING: Do note that for the following commands (Section 5.6 - 5.10) you have to include the <code>c/COLUMN</code> argument when in <b>Kanban View</b>. The <code>c/COLUMN</code> argument should <b>not</b> be used when in <b>List View</b>. <br><br> If you are unsure about what this means, an explanation on columns and how to navigate commands in Kanban view was provided <a href = https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#43-what-are-commands"">here</a>. <br><br> Additionally, all walkthroughs will only be given for command usage in <b>List View</b> as the only difference in <b>Kanban View</b> is the need to supply <code>c/COLUMN</code>.</div>
 
 ### 5.6 Deleting a bug : `delete`
 
@@ -414,42 +415,107 @@ Type `edit 6 pr/` as input and press `Enter`.
 
 ![HomeFolder](images/EditExample6.png)
 
-Once the command has been entered, the result display shows the result of your command and the Kanbug tracker has been updated with the priority of the bug removed.
+Once the command has been entered, the result display shows the result of your command and the KanBug Tracker has been updated with the priority of the bug removed.
 
 ### 5.8 Editing a tag of a bug : `editTag`
 
-Made a mistake when adding tags to your bug? With this command, you can easily make amends without having to retype every single tag!
+Made a mistake when adding tags to your bug? With this command, you can easily make amends without having to recreate the bug again!
 
-Format: `editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG`
+<div markdown="span" class="alert alert-success">:bulb: Tip: You might be wondering why you can't just use the <code>edit</code> command. Using the <code>edit</code> command would require you to retype every single existing tag on top of the tag you want to edit. With the <code>editTag</code> command, you only need to concern yourself with the tag you want to edit!
+</div>
 
-- The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
-  - **Kanban view**: User must supply `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
-  - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
+Format: `editTag INDEX (c/COLUMN) ot/OLD_TAG nt/NEW_TAG`
+
 - The `OLD_TAG` supplied must be an existing tag.
 - The `NEW_TAG` supplied must **not** be an existing tag.
 - The `OLD_TAG` will be updated to the `NEW_TAG`
 
 Examples:
 
-- `editTag 1 ot/UI nt/UserDisplay` edits the bug at index **1** and replaces the tag **UI** with the tag **UserDisplay**.
-- `editTag 1 c/backlog ot/CommandResult nt/CommandParser` filters all bugs and only considers those that have a **state** of **backlog**. It then edits the bug at index **1** of this list and replaces the tag **CommandResult** with the tag **CommandParser**.
+Example 1:
+
+You've made a mistake when creating the bug at index **1** of the list and you wish to edit its tag. The tag should be **UserDisplay** instead of **UI**.
+
+![EditTagMain](images/EditTagMain.png)
+
+
+
+Since you want to edit the tag of the first bug from **UI** to **UserDisplay**, you can enter the command:
+
+ `editTag 1 ot/UI nt/UserDisplay`
+
+
+
+![EditTagMain](images/EditTagEdited1.png)
+
+
+
+The **UI** tag of the bug at index **1** is edited and is now **UserDisplay**. The display at the bottom of the screen confirms that the command has been executed successfully.
+
+Example 2 (No walkthrough provided) :
+
+You are in **Kanban View** and want to edit the **CommandResult** tag of the bug at index **1** of the **backlog column** to **CommandParser**.
+
+You would enter the following command:
+
+`editTag 1 c/backlog ot/CommandResult nt/CommandParser`
+
+<div markdown="span" class="alert alert-info">:information_source: Note: Since this example takes place in <b>Kanban View</b>, you need to supply a <code>c/COLUMN</code> value.
+</div>
 
 ### 5.9 Adding a tag to a bug : `addTag`
 
-Forgot to add a tag to one of your bugs? Or perhaps you want to add a new one? With this command, adding tags has never been simpler!
+Oh no! You've forgotten to add a tag to one of your bugs! Or perhaps you want to add a new one? With this command, adding tags has never been simpler!
 
-Format: `addTag INDEX [c/COLUMN] nt/NEW_TAG`
+<div markdown="span" class="alert alert-success">:bulb: Tip: You might be wondering why you can't just use the <code>edit</code> command. Using the <code>edit</code> command would require you to retype every single existing tag on top of the tags you want to add. With the <code>addTag</code> command, you only need to concern yourself with the tags you want to add!
+</div>
 
-- The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
-  - **Kanban view**: User must supply `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
-  - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
+Format: `addTag INDEX (c/COLUMN) nt/NEW_TAG`
+
 - The `NEW_TAG` supplied must **not** be an existing tag.
+
 - The `NEW_TAG` will be added to the bug.
+
+- Users can add **multiple tags** by supplying multiple instances of  `nt/NEW_TAG`.
+
+  <div markdown="span" class="alert alert-warning">:warning: WARNING: Duplicate new tags will only be added once. For instance, suppose the tag <b>UiError</b> is a valid tag that can be added to a particular bug.
+  Executing the following command: <br>
+  <code>addTag 1 nt/UiError nt/UiError</code> <br> <br>
+  Will result in the tag <b>UiError</b> only being added to the bug <b>once</b>.
+  </div>
 
 Examples:
 
-- `addTag 2 nt/UserDisplay` edits the bug at index **2** and adds the tag **UI** to the bug.
-- `addTag 1 c/backlog nt/CommandParser` filters all bugs and only considers those that have a **state** of **backlog**. It then edits the bug at index **1** of this list and adds the tag **CommandParser** to the bug.
+Example 1:
+
+You've decided that you want to add two new tags, **JavaFx** and **switch** to the bug at index **1** of the list.
+
+![AddTagMain](images/AddTagMain.png)
+
+
+
+Since you want to add two tags, **JavaFX** and **switch**, to the bug at index **1**, you can enter the command:
+
+`addTag 1 nt/JavaFX nt/switch`
+
+
+
+![AddTagAdded](images/AddTagAdded1.png)
+
+
+
+Two new tags, **JavaFX** and **switch** have now been added to the bug at index **1**. The display at the bottom of the screen confirms that the command has been executed successfully.
+
+Example 2 (No walkthrough provided) :
+
+You are in **Kanban View** and want to add the tag **CommandParser** to the bug at index **1**  of the **backlog column**.
+
+You would enter the following command:
+
+`addTag 1 c/backlog nt/CommandParser`
+
+<div markdown="span" class="alert alert-info">:information_source: Note: Since this example takes place in <b>Kanban View</b>, you need to supply a <code>c/COLUMN</code> value.
+</div>
 
 ### 5.10 Moving a bug : `move`
 
