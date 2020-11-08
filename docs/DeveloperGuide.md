@@ -59,7 +59,7 @@ The sections below give more details of each component.
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BugListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-DeveloperThe `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2021S1-CS2103T-W17-1/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2021S1-CS2103T-W17-1/tp/blob/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2021S1-CS2103T-W17-1/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2021S1-CS2103T-W17-1/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -382,7 +382,7 @@ Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/tod
 Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug.
 The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`.
 
-Step 4. This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance (`BugContainsQueryStringPredicate` in detail).
+Step 4. This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance.
 The predicate is internally passed and used to filter `FilteredList<Bug>`.  
 This results in the information of all the bugs of which name or description or tag contains `Ui bug` as a substring displays in the tracker.
 
