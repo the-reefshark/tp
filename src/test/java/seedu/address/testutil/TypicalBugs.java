@@ -186,7 +186,7 @@ public class TypicalBugs {
             .build();
 
     private TypicalBugs() {} // prevents instantiation
-    
+
     /**
      * Returns an {@code KanBugTracker} with all the typical bugs.
      */
@@ -202,3 +202,4 @@ public class TypicalBugs {
         return new ArrayList<>(Arrays.asList(BUGONE, BUGTWO, BUGTHREE, BUGFOUR, BUGFIVE, BUGSIX, BUGSEVEN));
     }
 }
+
