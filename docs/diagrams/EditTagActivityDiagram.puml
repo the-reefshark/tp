@@ -1,0 +1,23 @@
+@startuml
+start
+:User executes editTag command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([User is in Kanban View])
+    :Bug at the given index of the
+    appropriate column is retrieved;
+else ([else])
+    :Bug at the given index is retrieved;
+endif
+if () then ([The editTag operation is valid])
+    :Tag of the bug is updated and
+    the bug is updated in the GUI;
+    :A success message is displayed to the user;
+else ([else])
+    :An error message is displayed to the user;
+endif
+
+stop
+@enduml
