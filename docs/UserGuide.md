@@ -444,7 +444,7 @@ Example 1:
 
 You've made a mistake when creating the bug at index **1** of the list and you wish to edit its tag. The tag should be **UserDisplay** instead of **UI**.
 
-![EditTagMain](images/EditTagMain.png)
+![EditTagMain](images/editTagMain.png)
 
 
 
@@ -454,7 +454,7 @@ Since you want to edit the tag of the first bug from **UI** to **UserDisplay**, 
 
 
 
-![EditTagMain](images/EditTagEdited1.png)
+![EditTagMain](images/editTagEdited1.png)
 
 
 
