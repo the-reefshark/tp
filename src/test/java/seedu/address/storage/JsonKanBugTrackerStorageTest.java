@@ -3,9 +3,9 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBugs.BUGEIGHT;
-import static seedu.address.testutil.TypicalBugs.BUGNINE;
-import static seedu.address.testutil.TypicalBugs.BUGONE;
+import static seedu.address.testutil.TypicalBugs.BUG_EIGHT;
+import static seedu.address.testutil.TypicalBugs.BUG_NINE;
+import static seedu.address.testutil.TypicalBugs.BUG_ONE;
 import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 
 import java.io.IOException;
@@ -74,14 +74,14 @@ public class JsonKanBugTrackerStorageTest {
         assertEquals(original, new KanBugTracker(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addBug(BUGEIGHT);
-        original.removeBug(BUGONE);
+        original.addBug(BUG_EIGHT);
+        original.removeBug(BUG_ONE);
         jsonKanBugTrackerStorage.saveKanBugTracker(original, filePath);
         readBack = jsonKanBugTrackerStorage.readKanBugTracker(filePath).get();
         assertEquals(original, new KanBugTracker(readBack));
 
         // Save and read without specifying file path
-        original.addBug(BUGNINE);
+        original.addBug(BUG_NINE);
         jsonKanBugTrackerStorage.saveKanBugTracker(original); // file path not specified
         readBack = jsonKanBugTrackerStorage.readKanBugTracker().get(); // file path not specified
         assertEquals(original, new KanBugTracker(readBack));

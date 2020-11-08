@@ -3,8 +3,8 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedBug.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBugs.BUGTEN;
-import static seedu.address.testutil.TypicalBugs.BUGTWO;
+import static seedu.address.testutil.TypicalBugs.BUG_TEN;
+import static seedu.address.testutil.TypicalBugs.BUG_TWO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,22 +26,22 @@ public class JsonAdaptedBugTest {
     private static final String INVALID_TAG = "#Command";
     private static final String INVALID_PRIORITY = "loww";
 
-    private static final String VALID_NAME = BUGTWO.getName().toString();
-    private static final String VALID_STATE = BUGTWO.getState().toString();
-    private static final String VALID_DESCRIPTION = BUGTWO.getDescription().toString();
-    private static final String VALID_NOTE = BUGTWO.getOptionalNote().get().toString();
-    private static final String VALID_PRIORITY = BUGTEN.getPriority().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BUGTWO.getTags().stream()
+    private static final String VALID_NAME = BUG_TWO.getName().toString();
+    private static final String VALID_STATE = BUG_TWO.getState().toString();
+    private static final String VALID_DESCRIPTION = BUG_TWO.getDescription().toString();
+    private static final String VALID_NOTE = BUG_TWO.getOptionalNote().get().toString();
+    private static final String VALID_PRIORITY = BUG_TEN.getPriority().toString();
+    private static final List<JsonAdaptedTag> VALID_TAGS = BUG_TWO.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validBugDetails_returnsBug() throws Exception {
-        JsonAdaptedBug bug = new JsonAdaptedBug(BUGTWO);
-        assertEquals(BUGTWO, bug.toModelType());
+        JsonAdaptedBug bug = new JsonAdaptedBug(BUG_TWO);
+        assertEquals(BUG_TWO, bug.toModelType());
 
-        bug = new JsonAdaptedBug(BUGTEN);
-        assertEquals(BUGTEN, bug.toModelType());
+        bug = new JsonAdaptedBug(BUG_TEN);
+        assertEquals(BUG_TEN, bug.toModelType());
     }
 
     @Test

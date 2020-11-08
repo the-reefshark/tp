@@ -124,7 +124,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### FeatureUI kanban view window
+### Kanban view window feature
 
 #### Proposed Implementation
 The kanban view window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a Observerable list that contains only the bugs that belong to their respective state. This observerable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
@@ -752,7 +752,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a bug while all bugs are being shown.
 
-1. Prerequisites: List all bugs using the `list` command. Multiple bugs in the list.
+1. Prerequisites: List all bugs using the `list` command. Multiple bugs in the list, at least one is in `todo`.
 
 1. Test case 1:
 
@@ -768,7 +768,7 @@ testers are expected to do more *exploratory* testing.
       Expected: No bug is deleted. The app should response with "The bug index provided is invalid". 
 
    1. Execute `delete 1 c/backlog`<br>
-      Expected: No bug is deleted. The app should response with "Please do not provide column..." 
+      Expected: No bug is deleted. The app should response with "Please do not provide column in List view window" 
 
 1. Test case 2:
     
@@ -780,7 +780,7 @@ testers are expected to do more *exploratory* testing.
        Expected: First bug is deleted from the `todo` column. Details of the deleted bug shown in the status message.
     
     1. Execute `delete 1`<br>
-       Expected: No bug is deleted. The app should response with "Please provide column...".
+       Expected: No bug is deleted. The app should response with "Please provide column in Kanban view window".
 
 ### Editing bugs
 
@@ -790,7 +790,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Test case 1:
 
-    1. Switch to List view.
+    1. Switch to List view and ensure that there is at least one bug.
     
     1. Execute `edit 1 t/tag1 pr/low note/some note`<br>
        Expected: The first bug will have a new tag, priority and note according to the command.
@@ -800,12 +800,14 @@ testers are expected to do more *exploratory* testing.
        Expected: The first bug will have its priority, note and tags removed. Details
        of the bug is shown in the status message.
 
+    1. Execute `edit n/name c/todo`<br>
+       Expected: No bug is edited. The app should response with "Please do not provide column in List view window".
 1. Test case 2:
 
-    1. Switch to Kanban view.
+    1. Switch to Kanban view and ensure that there is one bug with state of todo.
     
     1. Execute `edit 1 d/desc`<br>
-       Expected: No bug is edited. The app response with "Please provide column...".
+       Expected: No bug is edited. The app response with "Please provide column in Kanban view window".
        
     1. Execute `edit 1 c/todo d/desc`<br>
        Expected: The first bug in the `todo` column is edited. Details of the
@@ -815,18 +817,36 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding tags to a bug without removing the original ones.
 
-1. Prerequisite: The first bug in the List view have at least one tag.
+1. Prerequisite: The first bug in the List view have at least one tag and at least one bug with state of `backlog`.
 
-1. Test case:
+1. Test case 1:
 
-    1. Switch to List view.
+    1. Switch to List view and remove all the tags for index 1.
     
     1. Execute `addTag 1 nt/tag3 nt/tag4`<br>
        Expected: The first bug has two more tags along with the original ones.
        Details of the bug is shown in the status message.
        
-    1. Execute `addTag 1 nt/tag4 nt/tag5`<br>
+    1. Execute `addTag 1 nt/tag4`<br>
        Expected: No tags will be added. The app should response with "The new tag already exists".
+
+    1. Execute `addTag 1 nt/tag5 c/backlog`<br>
+       Expected: No tags will be added. The app should response with "Please do not provide column in List view window".
+
+1. Test case 2:
+    1. Switch to Kanban view.
+
+    1. Ensure that first bug in backlog as no tags.
+       
+    1. Execute `addTag 1 nt/tag5 c/backlog`<br>
+       Expected: First bug in backlog will have an addition tag of "tag5"
+
+    1. Execute `addTag 1 nt/tag5 c/backlog` again<br>
+       Expected: No tags will be added. The app should response with "The new tag already exists".
+
+    1. Execute `addTag 1 nt/tag6`<br>
+       Expected: No tags will be added. The app should response with "Please provide column in Kanban view window".
+    
 
 ### Editing a single tag
 
@@ -834,7 +854,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Prerequisite: The first bug in the List view has two tags "tag1" and "tag2".
 
-1. Test case:
+1. Test case 1:
 
     1. Switch to List view.
     
@@ -846,6 +866,21 @@ testers are expected to do more *exploratory* testing.
        
     1. Execute `editTag 1 ot/tag2 nt/tag3`<br>
        Expected: No tags will be edited. The app should response with "The new tag already exists!".
+
+    1. Execute `editTag 1 ot/tag2 nt/tag4 c/backlog`<br>
+       Expected: No tags will be edited. The app should response with "Please do not provide column in List view window".
+  
+
+1. Test case 2:
+    
+    1. Switch to Kanban view.
+
+    1. Ensure that first bug in backlog has has two tags "tag1".
+
+    1. Execute `editTag 1 ot/tag1 nt/tag2`<br>
+       Expected: No tags will be edited. The app should response with "Please provide column in Kanban view window".
+    1. Execute `editTag 1 ot/tag1 nt/tag2 c/backlog`<br>
+       Expected: The tag "tag1" of the first bug in backlog is rename to "tag2". 
        
 ### Moving a bug to a new state
 

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOMEPAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBugs.BUGONE;
+import static seedu.address.testutil.TypicalBugs.BUG_ONE;
 import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 
 import java.util.Arrays;
@@ -47,9 +47,9 @@ public class KanBugTrackerTest {
     public void resetData_withDuplicateBugs_throwsDuplicateBugException() {
         // Two bugs with the same identity fields
         Bug editedAlice =
-                new BugBuilder(BUGONE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_COMPONENT)
+                new BugBuilder(BUG_ONE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_COMPONENT)
                 .build();
-        List<Bug> newBugs = Arrays.asList(BUGONE, editedAlice);
+        List<Bug> newBugs = Arrays.asList(BUG_ONE, editedAlice);
         KanBugTrackerStub newData = new KanBugTrackerStub(newBugs);
 
         assertThrows(DuplicateBugException.class, () -> kanBugTracker.resetData(newData));
@@ -62,20 +62,20 @@ public class KanBugTrackerTest {
 
     @Test
     public void hasBug_bugNotInKanBugTracker_returnsFalse() {
-        assertFalse(kanBugTracker.hasBug(BUGONE));
+        assertFalse(kanBugTracker.hasBug(BUG_ONE));
     }
 
     @Test
     public void hasBug_bugInKanBugTracker_returnsTrue() {
-        kanBugTracker.addBug(BUGONE);
-        assertTrue(kanBugTracker.hasBug(BUGONE));
+        kanBugTracker.addBug(BUG_ONE);
+        assertTrue(kanBugTracker.hasBug(BUG_ONE));
     }
 
     @Test
     public void hasBug_bugWithSameIdentityFieldsInKanBugTracker_returnsTrue() {
-        kanBugTracker.addBug(BUGONE);
+        kanBugTracker.addBug(BUG_ONE);
         Bug editedAlice =
-                new BugBuilder(BUGONE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_COMPONENT)
+                new BugBuilder(BUG_ONE).withDescription(VALID_DESCRIPTION_HOMEPAGE).withTags(VALID_TAG_COMPONENT)
                 .build();
         assertTrue(kanBugTracker.hasBug(editedAlice));
     }

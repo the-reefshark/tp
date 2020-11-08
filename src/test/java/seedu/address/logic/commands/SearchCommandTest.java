@@ -14,13 +14,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_SI
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_THREE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_TWO;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalBugs.BUGFIVE;
-import static seedu.address.testutil.TypicalBugs.BUGFOUR;
-import static seedu.address.testutil.TypicalBugs.BUGONE;
-import static seedu.address.testutil.TypicalBugs.BUGSEVEN;
-import static seedu.address.testutil.TypicalBugs.BUGSIX;
-import static seedu.address.testutil.TypicalBugs.BUGTHREE;
-import static seedu.address.testutil.TypicalBugs.BUGTWO;
+import static seedu.address.testutil.TypicalBugs.BUG_FIVE;
+import static seedu.address.testutil.TypicalBugs.BUG_FOUR;
+import static seedu.address.testutil.TypicalBugs.BUG_ONE;
+import static seedu.address.testutil.TypicalBugs.BUG_SEVEN;
+import static seedu.address.testutil.TypicalBugs.BUG_SIX;
+import static seedu.address.testutil.TypicalBugs.BUG_THREE;
+import static seedu.address.testutil.TypicalBugs.BUG_TWO;
 import static seedu.address.testutil.TypicalBugs.getTypicalKanBugTracker;
 
 import java.util.Arrays;
@@ -77,7 +77,7 @@ public class SearchCommandTest {
         SearchCommand command = getSearchCommand(VALID_QUERY_STRING_FOUR);
         expectedModel.updateFilteredBugList(getQueryStringPredicate(VALID_QUERY_STRING_FOUR));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BUGSEVEN), model.getFilteredBugList());
+        assertEquals(Arrays.asList(BUG_SEVEN), model.getFilteredBugList());
     }
 
     @Test
@@ -86,7 +86,7 @@ public class SearchCommandTest {
         SearchCommand command = getSearchCommand(VALID_QUERY_STRING_FIVE);
         expectedModel.updateFilteredBugList(getQueryStringPredicate(VALID_QUERY_STRING_FIVE));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BUGFIVE), model.getFilteredBugList());
+        assertEquals(Arrays.asList(BUG_FIVE), model.getFilteredBugList());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class SearchCommandTest {
         SearchCommand command = getSearchCommand(VALID_QUERY_STRING_SIX);
         expectedModel.updateFilteredBugList(getQueryStringPredicate(VALID_QUERY_STRING_SIX));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BUGSIX), model.getFilteredBugList());
+        assertEquals(Arrays.asList(BUG_SIX), model.getFilteredBugList());
     }
 
     @Test
@@ -104,7 +104,7 @@ public class SearchCommandTest {
         SearchCommand command = getSearchCommand(VALID_QUERY_STRING_SEVEN);
         expectedModel.updateFilteredBugList(getQueryStringPredicate(VALID_QUERY_STRING_SEVEN));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BUGONE, BUGTWO, BUGFOUR, BUGFIVE), model.getFilteredBugList());
+        assertEquals(Arrays.asList(BUG_ONE, BUG_TWO, BUG_FOUR, BUG_FIVE), model.getFilteredBugList());
     }
 
     @Test
@@ -113,7 +113,7 @@ public class SearchCommandTest {
         SearchCommand command = getSearchCommand(VALID_QUERY_STRING_EIGHT);
         expectedModel.updateFilteredBugList(getQueryStringPredicate(VALID_QUERY_STRING_EIGHT));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BUGONE, BUGTWO, BUGFOUR, BUGFIVE), model.getFilteredBugList());
+        assertEquals(Arrays.asList(BUG_ONE, BUG_TWO, BUG_FOUR, BUG_FIVE), model.getFilteredBugList());
     }
 
     @Test
@@ -122,7 +122,7 @@ public class SearchCommandTest {
         SearchCommand command = getSearchCommand(VALID_QUERY_STRING_NINE);
         expectedModel.updateFilteredBugList(getQueryStringPredicate(VALID_QUERY_STRING_NINE));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BUGTHREE, BUGSIX), model.getFilteredBugList());
+        assertEquals(Arrays.asList(BUG_THREE, BUG_SIX), model.getFilteredBugList());
     }
 
     /**

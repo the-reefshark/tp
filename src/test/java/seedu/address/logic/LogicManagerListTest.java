@@ -2,15 +2,15 @@ package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalBugs.BUGEIGHT;
-import static seedu.address.testutil.TypicalBugs.BUGFIVE;
-import static seedu.address.testutil.TypicalBugs.BUGFOUR;
-import static seedu.address.testutil.TypicalBugs.BUGNINE;
-import static seedu.address.testutil.TypicalBugs.BUGONE;
-import static seedu.address.testutil.TypicalBugs.BUGSEVEN;
-import static seedu.address.testutil.TypicalBugs.BUGSIX;
-import static seedu.address.testutil.TypicalBugs.BUGTEN;
-import static seedu.address.testutil.TypicalBugs.BUGTHREE;
+import static seedu.address.testutil.TypicalBugs.BUG_EIGHT;
+import static seedu.address.testutil.TypicalBugs.BUG_FIVE;
+import static seedu.address.testutil.TypicalBugs.BUG_FOUR;
+import static seedu.address.testutil.TypicalBugs.BUG_NINE;
+import static seedu.address.testutil.TypicalBugs.BUG_ONE;
+import static seedu.address.testutil.TypicalBugs.BUG_SEVEN;
+import static seedu.address.testutil.TypicalBugs.BUG_SIX;
+import static seedu.address.testutil.TypicalBugs.BUG_TEN;
+import static seedu.address.testutil.TypicalBugs.BUG_THREE;
 
 import java.nio.file.Path;
 
@@ -45,15 +45,15 @@ public class LogicManagerListTest {
 
     @BeforeEach
     public void addBugs() {
-        model.addBug(BUGONE);
-        model.addBug(BUGTHREE);
-        model.addBug(BUGFOUR);
-        model.addBug(BUGFIVE);
-        model.addBug(BUGSIX);
-        model.addBug(BUGSEVEN);
-        model.addBug(BUGEIGHT);
-        model.addBug(BUGNINE);
-        model.addBug(BUGTEN);
+        model.addBug(BUG_ONE);
+        model.addBug(BUG_THREE);
+        model.addBug(BUG_FOUR);
+        model.addBug(BUG_FIVE);
+        model.addBug(BUG_SIX);
+        model.addBug(BUG_SEVEN);
+        model.addBug(BUG_EIGHT);
+        model.addBug(BUG_NINE);
+        model.addBug(BUG_TEN);
     }
 
     @Test
