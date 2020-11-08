@@ -405,28 +405,27 @@ The following sequence diagram summarizes what happens when a user executes the 
 
 ### Note feature
 
-#### Proposed Implementation
-The proposed notes feature is facilitated by `Bug`, `AddCommandParser` and `EditCommandParser`. It adds a new `Note` state that can be parsed by the `AddCommandParser` and `EditCommandParser` and stored internally as an `Optional<Note>` object inside `Bug`.
+#### Implementation
+The note feature is facilitated by `Bug`, `AddCommandParser` and `EditCommandParser`. It adds a new `Note` state that can be parsed by the `AddCommandParser` and `EditCommandParser` and stored internally as an `Optional<Note>` object inside `Bug`. This is done to give the user the option to remove the note section if they do not intend on using it.
 
 The added operations by `Note` are internal operations that are handled by the `AddCommandParser` and `EditCommandParser` and as a result their functionality is not required elsewhere.
 
 Given below is an example usage scenario and how the `Note` mechanism behaves at each step when used with `AddCommandParser` and `EditCommandParser`.
 
-Step 1: The user launches the application and executes the add command and provides a `Note` input using the `nt/` prefix. The `AddCommandParser` then executes and splits the input String into its respective components asccording to the given prefix.
+Step 1: The user launches the application and executes the add command and provides a `Note` input using the `note/` prefix. The `AddCommandParser` then executes and splits the input String into its respective components asccording to the given prefix.
 
-Step 2: The `AddCommandParser` then wraps the string following the `nt/` prefix in an `Optional<Note>` object which is then stored inside the new `Bug` that has been created.
+Step 2: The `AddCommandParser` then wraps the string following the `note/` prefix in an `Optional<Note>` object which is then stored inside the new `Bug` that has been created.
 
 The following activity diagram summarizes what happens when a user executes the add command:
 
 <img src="images/NoteAddActivityDiagram.png" width="350">
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `nt/` command is not followed by a String, it will result in a message to the user that their input should not be blank.
-
+<div markdown="span" class="alert alert-info">:information_source: <b>Note:</b> If the <code>note/</code> command is not followed by a String, it will result in a message to the user that their input should not be blank.
 </div>
 
-Step 3: The user then decides to change the `Note` in the bug that he has just added using the `edit` commmand accompanied with the `nt/` prefix. The `EditCommandParser` then executes and splits the input String into its respective components according to the given prefix.
+Step 3: The user then decides to change the `Note` in the bug that he has just added using the `edit` commmand accompanied with the `note/` prefix. The `EditCommandParser` then executes and splits the input String into its respective components according to the given prefix.
 
-Step 4: The `EditCommandParser` then copies the unchanged information from the original `Bug` into a new `Bug` while modifying the `Note` section by wrapping the given input String into an `Optional<Note>` object and storing it in the new `Bug` that has been created. This new `Bug` object then replace the original object in the KanBug Tracker.
+Step 4: The `EditCommandParser` then copies the unchanged information from the original `Bug` into a new `Bug` while also modifying the `Note` state by wrapping the given input String into an `Optional<Note>` object and storing it in the new `Bug` that has been created. This new `Bug` object then replaces the original object in the KanBug Tracker.
 
 The following activity diagram summarizes what happens when a user executes the edit command:
 
@@ -436,13 +435,13 @@ The following activity diagram summarizes what happens when a user executes the 
 
 ##### Aspect: How notes are stored and accessed
 
-* **Alternative 1 (current choice):** Saves the Note inside an Optional<Note> object in Bug.
-  * Pros: Prevents a null pointer exception and is a safer implementation while allowing the notes field to be optional
+* **Alternative 1 (current choice):** Saves the Note object as an Optional<Note> object in Bug.
+  * Pros: Prevents a null pointer exception and is a safer implementation while allowing the note field to be optional
   * Cons: Difficult to implement
 
-* **Alternative 2:** Saves the Note directly in Bug
+* **Alternative 2:** Saves the Note object directly in Bug
   * Pros: Easy to implement.
-  * Cons: Will run into null pointer exceptions that are hard to trace if the user chooses not to add notes
+  * Cons: Will run into null pointer exceptions that are hard to trace if the user chooses not to add a note
 
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -474,14 +473,25 @@ The following activity diagram summarizes what happens when a user executes the 
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new bug              |                                                                        |
-| `* * *`  | user                                       | delete a bug                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | add notes to specific bugs   | quickly remeber details about the bug|
-| `* * *`  | user                                       | keep track of the number of issues | keep track of the number of issues in my code|
-| `* * *`  | user                                       | see all the bugs             | Know what are the bugs in my program|
+| Priority | As a …​            | I want to …​                        | So that I can…​                                                          |
+| -------- | ------------------| ---------------------------------- | ----------------------------------------------------------------------- |
+| `* * *`  | new user          | see usage instructions             | refer to instructions when I forget how to use the App                  |
+| `* * *`  | user              | add a new bug                      | keep track of the bugs in my code                                       |
+| `* * *`  | user              | delete a bug                       | remove entries that I no longer need                                    |
+| `* * *`  | user              | add notes to specific bugs         | quickly remeber details about the bug                                   |
+| `* * *`  | user              | add tags to specific bugs          | easily find related bugs                                                |
+| `* * *`  | user              | add a priority to specific bugs    | see which bugs I need to fix first                                      |
+| `* * *`  | user              | keep track of the number of bugs   | keep track of the number of bugs in my code                             |
+| `* * *`  | user              | see all the bugs                   | know what the bugs in my program are                                    |
+| `* * *`  | user              | search for bugs                    | find the bug(s) that I am looking for                                   |
+| `* * *`  | user              | change the state of a bug          | track my bug fixing progress                                            |
+|  `* *`   | user              | add deadlines to bugs              | know which bugs I need to fix before the deadline                       |
+|  `* *`   | experienced user  | import and export my bugs          | bring my bug tracking data over to a different computer                 |
+|  `* *`   | experienced user  | switch between different projects  | track bugs for multiple projects simultaneously                         |
+|  `* *`   | experienced user  | link bugs together                 | understand interconnected problems in my code                           | 
+|   `*`    | experienced user  | customise commands freely          | change the name of the commands to make them easier to remember and use |
+|   `*`    | experienced user  | perform actions on multiple bugs   | update multiple bugs at the same time                                   |
+|   `*`    | experienced user  | generate bug reports               | review the process I used to fix the bugs                               |
 
 ### Use cases
 
@@ -706,15 +716,15 @@ testers are expected to do more *exploratory* testing.
 
     1. Switch to List View.
     
-    1. Press F1<br>
-       Expected: the `help` window should be opened.
+    1. Press `F1`<br>
+       Expected: the `help` window should have opened.
     
-    1. Focus on the app's main window (either using mouse of Alt + Tab).
+    1. Select the app's main window (either using your `mouse` or by pressing `Alt + Tab` on your keyboard).
     
-    1. Press F1 again<br>
-       Expected: the `help` window should be focused again.
+    1. Press `F1` again<br>
+       Expected: the `help` window should be selected again.
     
-    1. Press Esc<br>
+    1. Press `Esc`<br>
        Expected: only the `help` window will be closed.
 
 ### Adding a bug
@@ -750,26 +760,26 @@ testers are expected to do more *exploratory* testing.
 
 1. Searching bugs using the `search` command.
 
-1. Prerequisite: he app have 3 bugs: a bug name "name1" and 
-    description "des1", a bug name "me12" and description "description", a bug name "bug12" 
-    and description "description".
+1. Prerequisite: The app has 3 bugs: a bug named "name1" with 
+    description "des1", a bug named "me12" with description "description" and a bug named "bug12" 
+    with description "description".
     
 1. Test case:
 
     1. Execute `search q/e1`<br>
-       Expected: the bug "name1" and the bug "me12" is listed.
+       Expected: the bug "name1" and the bug "me12" are listed.
     
     1. Execute "search q/w"<br>
-       Expected: no bug is listed.
+       Expected: no bugs are listed.
     
     1. Execute "search q/description"<br>
-       Expected: the bug "me12" and the bug "bug12" is listed.
+       Expected: the bug "me12" and the bug "bug12" are listed.
     
 ### Listing all bugs
 
 1. Listing all bugs using the `list` command.
 
-1. Prerequisite: same prerequisite with the testing for Searching bugs.
+1. Prerequisite: Same prerequisite used above for Searching bugs.
 
 1. Test case:
 
@@ -826,12 +836,10 @@ testers are expected to do more *exploratory* testing.
     1. Switch to List view and ensure that there is at least one bug.
     
     1. Execute `edit 1 t/tag1 pr/low note/some note`<br>
-       Expected: The first bug will have a new tag, priority and note according to the command.
-       Details of the bug is shown in the status message.
+       Expected: The first bug will have a new tag, priority and note according to the command. Details of the bug are shown in the status message.
        
     1. Execute `edit 1 pr/ note/ t/`<br>
-       Expected: The first bug will have its priority, note and tags removed. Details
-       of the bug is shown in the status message.
+       Expected: The first bug will have its priority, note and tags removed. Details of the bug are shown in the status message.
 
     1. Execute `edit n/name c/todo`<br>
        Expected: No bug is edited. The app should response with "Please do not provide column in List view window".
@@ -843,8 +851,7 @@ testers are expected to do more *exploratory* testing.
        Expected: No bug is edited. The app response with "Please provide column in Kanban view window".
        
     1. Execute `edit 1 c/todo d/desc`<br>
-       Expected: The first bug in the `todo` column is edited. Details of the
-       bug is shown in the status message.
+       Expected: The first bug in the `todo` column is edited. Details of the bug are shown in the status message.
        
 ### Appending the tags
 
