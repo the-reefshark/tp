@@ -37,6 +37,8 @@ KanBug Tracker is a lightweight, easy to use bug management tool that aims to em
     * **Documentation**:
         * Wrote sections on `add` and `delete` commands in KanBug Tracker's User Guide.
         * Wrote section on new Kanban board window feature in the Developer Guide.
+    * **Beyond the team**:
+        * Peer testing and Bug reporting for other teams.
 
   
   

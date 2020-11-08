@@ -232,10 +232,10 @@ You may have noticed that some commands require you to provide the column that t
 <br>
 Example: <br>
 <img src="images/ListViewDelete.png"> <br>
-The <b>highlighted bug is deleted</b> when command <code>delete 1</code> is executed <br>
+The <b>highlighted bug is deleted</b> when command <code>delete 1</code> is executed in <b>List View</b>.<br>
 <br>
 <img src="images/KanbanViewDelete.png"> <br>
-The <b>highlighted bug is deleted</b> when command <code>delete 1 c/backlog</code> is executed<br>
+The <b>highlighted bug is deleted</b> when command <code>delete 1 c/backlog</code> is executed in <b>Kanban View</b>.<br>
 </div>
 
 #### Index
@@ -250,8 +250,8 @@ Some commands require the use of prefixes to indicate user input. Every command 
 Eg. <code>edit 1 n/firstname n/secondname</code> will result in the name of Bug 1 being editted to <b>secondname</b>.
 </div>
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: Using a prefix inside another prefix will result in it not being recognised by the application.
-Eg. <code>d/t/Location</code> will result in the description field of the Bug being set to <code>t/Location</code>. 
+<div markdown="span" class="alert alert-warning">:warning: WARNING: A prefix is only valid if it is preceded by a whitespace and is mentioned in the command syntax, otherwise it is treated as a normal string.
+Eg. <code>d/t/Location v/not a prefix</code> will result in the description field of the Bug being set to <code>t/Location v/not a prefix</code> because neither "t/" nor "v/" is considered as a prefix. 
 </div>
 
 ## 5. Features
@@ -260,6 +260,10 @@ Eg. <code>d/t/Location</code> will result in the description field of the Bug be
 - Items in `[...]` are **optional**
 - Items in `(...)` are only required in **KanBan view** and should not be supplied in **List view**
 - `INDEX` **must be a positive integer** 1,2,3...
+
+<div markdown="span" class="alert alert-warning">:warning: WARNING: For the prefixes surrounded by the parentheses in the command format, they are still considered as a valid prefix in List view even if they should not be supplied there.
+Eg. Executing <code>edit 1 d/column c/todo</code> in List view will not result in the description field of the Bug being set to <code>column c/todo</code> but will result in an error because "c/" is considered as a prefix and also which should not be supplied in List view. 
+</div>
 
 ### 5.1 Switching Views : `switch`
 
@@ -286,6 +290,9 @@ Just type `help` and hit `Enter`
 ![HomeFolder](images/HelpExample2.png)
 
 This creates a popup (the Help Window) with a command guide that you can refer to.
+
+<div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the F1 key to open the Help window. Try it!
+</div>
 
 ### 5.3 Listing all bugs : `list`
 
@@ -377,8 +384,13 @@ Format: `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [n
 - **Multiple tags** can be added or edited.
 - The command will fail if the operation results in duplicated bugs (bugs with the same name).
 
-<div markdown="span" class="alert alert-info">:information_source: Note: To remove optional fields such as <code>Priority</code> and <code>Note</code> simply type the prefix without providing anything after.
+<div markdown="span" class="alert alert-info">:information_source: Note: To remove optional fields such as <code>Note</code>, <code>Tags</code> and <code>Priority</code> simply type the prefix without providing anything after.
 Eg. <code>edit 1 pr/</code> will remove the assigned priority of the Bug if there is one present.
+</div>
+
+<div markdown="span" class="alert alert-warning">:warning: WARNING: Watch out! If you use this command to edit Tags you will erase all pre-existing tags from the bug you have selected and replace them with the new tags you have specified! To modify a specific bug without affecting the others use the <a href="#58-editing-a-tag-of-a-bug--edittag">editTag</a> command instead. <br>
+Example: If the Bug at index 1 has tags <code>Ui</code> and <code>List</code> and we execute <code>edit 1 t/Edit</code>, the Bug will then have just 1 tag named <code>Edit</code>.
+<br>
 </div>
 
 Examples:
@@ -432,7 +444,7 @@ Example 1:
 
 You've made a mistake when creating the bug at index **1** of the list and you wish to edit its tag. The tag should be **UserDisplay** instead of **UI**.
 
-![EditTagMain](images/EditTagMain.png)
+![EditTagMain](images/editTagMain.png)
 
 
 
@@ -442,7 +454,7 @@ Since you want to edit the tag of the first bug from **UI** to **UserDisplay**, 
 
 
 
-![EditTagMain](images/EditTagEdited1.png)
+![EditTagMain](images/editTagEdited1.png)
 
 
 
@@ -486,7 +498,7 @@ Example 1:
 
 You've decided that you want to add two new tags, **JavaFx** and **switch** to the bug at index **1** of the list.
 
-![AddTagMain](images/AddTagMain.png)
+![AddTagMain](images/addTagMain.png)
 
 
 
@@ -496,7 +508,7 @@ Since you want to add two tags, **JavaFX** and **switch**, to the bug at index *
 
 
 
-![AddTagAdded](images/AddTagAdded1.png)
+![AddTagAdded](images/addTagAdded1.png)
 
 
 
@@ -549,7 +561,9 @@ Ends and closes the app.
 Format: `exit`
 
 When you are done with managing your tasks, use this command to saves all of the local data and exit from the app. 
-Alternatively, you can also close the window directly or press Esc key, and the app will do the same thing.
+
+<div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the Esc key to close the window. Try it!
+</div>
 
 ### 5.13 Saving the data : automatically
 

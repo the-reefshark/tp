@@ -41,6 +41,7 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed bug list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_COLUMN + "STATE]\n"
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_STATE + "STATE] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
@@ -49,12 +50,12 @@ public class EditCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_STATE + "backlog"
-            + "[" + PREFIX_COLUMN + "STATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_STATE + "todo";
 
     public static final String MESSAGE_EDIT_BUG_SUCCESS = "Edited Bug: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED =
+            "At least one field to edit must be provided and different from the original one.";
     public static final String MESSAGE_DUPLICATE_BUG = "This bug already exists in the KanBug Tracker.";
 
     protected final Index index;
@@ -87,6 +88,10 @@ public class EditCommand extends Command {
 
         Bug bugToEdit = lastShownList.get(index.getZeroBased());
         Bug editedBug = createEditedBug(bugToEdit, editBugDescriptor);
+
+        if (bugToEdit.equals(editedBug)) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        }
 
         if (!bugToEdit.isSameBug(editedBug) && model.hasBug(editedBug)) {
             throw new CommandException(MESSAGE_DUPLICATE_BUG);
