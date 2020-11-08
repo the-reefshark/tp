@@ -542,7 +542,8 @@ Examples:
 
 Example 1:
 
-You are in **Kanban View** and you want to move the second bug in the `backlog` column to the `ongoing` column.
+You are in **Kanban View** and you want to move the second bug in the `backlog` column to the `ongoing` column. This
+is how you can do it:
 
 <br>
 <br>
