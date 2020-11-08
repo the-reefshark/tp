@@ -426,23 +426,15 @@ You can type `edit 6 n/Wrong list numbers when displaying list d/List column pri
 
 Once the command has been entered, the result display shows the result of your command and the KanBug tracker has been updated with the updated name, description as well as priority.
 
-Example 2: Perhaps then you tried some ways to fix it that didn't work so you want to add a `note` of **Tried a fix using iterator, did not work**. This is how you can do it:
-
-![HomeFolder](images/EditExample3.png)
+Example 2 (No walkthrough provided) : Perhaps then you tried some ways to fix it that didn't work so you want to add a `note` of **Tried a fix using iterator, did not work**.
 
 Type `edit 6 note/Tried a fix using iterator, did not work` as input and press `Enter`.
 
-![HomeFolder](images/EditExample4.png)
-
 Once the command has been entered, the result display shows the result of your command and the KanBug Tracker has been updated with the updated note.
 
-Example 3: After toiling away at the bug, you realise that you have solved it! So now you want to remove the `priority` of the Bug. This is how you can do it:
-
-![HomeFolder](images/EditExample5.png)
+Example 3 (No walkthrough provided) : After toiling away at the bug, you realise that you have solved it! So now you want to remove the `priority` of the Bug.
 
 Type `edit 6 pr/` as input and press `Enter`.
-
-![HomeFolder](images/EditExample6.png)
 
 Once the command has been entered, the result display shows the result of your command and the KanBug Tracker has been updated with the priority of the bug removed.
 
