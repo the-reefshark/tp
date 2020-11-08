@@ -585,11 +585,11 @@ Format: `clear`
 
 ### 5.12 Exiting the program : `exit`
 
-Ends and closes the app.
+When you are done with managing your tasks, use this command to saves all of the local data and exit from the app.
 
-Format: `exit`
+Format: `exit` 
 
-When you are done with managing your tasks, use this command to saves all of the local data and exit from the app. 
+- This command is applicable to both Kanban and List views.
 
 <div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the Esc key to close the window. Try it!
 </div>
