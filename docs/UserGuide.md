@@ -220,8 +220,8 @@ You may have noticed that some commands require you to provide the column that t
 
 <div markdown="span" class="alert alert-info">:information_source: Note: You only need to tell us the column when you are in <b>Kanban View</b>.
 <br><br>
-   <p>• <b>List view:</b> You should not supply the <code>COLUMN</code>. The bug at the specified <code>INDEX</code> is edited. The index refers to the index number shown in the displayed list of bugs.<br>
-   • <b>Kanban view:</b> Remember to supply the <code>COLUMN</code> when using this view! The bug you have chosen at <code>INDEX</code> in the <b>chosen column</b> is deleted.</p>
+   • <b>List view:</b> You should not supply the <code>COLUMN</code>. The bug at the specified <code>INDEX</code> is edited. The index refers to the index number shown in the displayed list of bugs.<br>
+   • <b>Kanban view:</b> Remember to supply the <code>COLUMN</code> when using this view! The bug you have chosen at <code>INDEX</code> in the <b>chosen column</b> is deleted.<br>
 <br>
 Example: <br><br>
 <img src="images/ListViewDelete.png"> <br><br>
