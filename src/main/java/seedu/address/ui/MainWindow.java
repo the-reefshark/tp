@@ -74,9 +74,9 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
-        setAccelerators();
-
         helpWindow = new HelpWindow();
+
+        setAccelerators();
 
         toKanbanView();
     }
@@ -89,6 +89,14 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
             if (KeyCode.ESCAPE == event.getCode()) {
                 handleExit();
+                logger.info("Key pressed: ESCAPE in primary stage");
+            }
+        });
+
+        helpWindow.getRoot().addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
+            if (KeyCode.ESCAPE == event.getCode()) {
+                helpWindow.getRoot().close();
+                logger.info("Key pressed: ESCAPE in help window");
             }
         });
 

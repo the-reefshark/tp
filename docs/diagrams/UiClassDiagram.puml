@@ -16,6 +16,8 @@ Class BugCard
 Class StatusBarFooter
 Class CommandBox
 Class KanbanPanel
+Class BugCardKanban
+Class BugListPanelKanban
 }
 
 package Model <<Rectangle>> {
@@ -39,21 +41,27 @@ MainWindow *-down-> KanbanPanel
 MainWindow *-down-> StatusBarFooter
 
 BugListPanel -down-> BugCard
-KanbanPanel -down-> "4" BugListPanel
+BugListPanelKanban -down-> BugCardKanban
+KanbanPanel -down-> "4  " BugListPanelKanban
+
+BugCard -left-|> BugCardKanban
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 BugListPanel --|> UiPart
-BugCard --|> UiPart
+BugCardKanban --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-BugCard ..> Model
+BugCard ...> Model
+BugCardKanban ..> Model
+
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
+BugListPanelKanban -[hidden]left- BugListPanel
 BugListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
