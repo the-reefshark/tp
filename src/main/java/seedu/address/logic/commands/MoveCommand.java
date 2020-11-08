@@ -21,7 +21,7 @@ public class MoveCommand extends Command {
             + "by the index number used in the displayed bug list. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_STATE + "STATE "
-            + "[" + PREFIX_COLUMN + "STATE]"
+            + "[" + PREFIX_COLUMN + "STATE]\n"
             + "Example: " + COMMAND_WORD
             + PREFIX_STATE + "done";
 
