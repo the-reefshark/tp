@@ -1,6 +1,6 @@
 @startuml
 start
-:User executes edit command;
+:User types edit command;
 :EditCommandParser
   splits user input;
 

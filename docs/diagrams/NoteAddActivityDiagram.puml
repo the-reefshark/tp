@@ -1,6 +1,6 @@
 @startuml
 start
-:User executes add command;
+:User types add command;
 :AddCommandParser
   splits user input;
 

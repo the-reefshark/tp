@@ -232,10 +232,10 @@ You may have noticed that some commands require you to provide the column that t
 <br>
 Example: <br>
 <img src="images/ListViewDelete.png"> <br>
-The <b>highlighted bug is deleted</b> when command <code>delete 1</code> is executed <br>
+The <b>highlighted bug is deleted</b> when command <code>delete 1</code> is executed in <b>List View</b>.<br>
 <br>
 <img src="images/KanbanViewDelete.png"> <br>
-The <b>highlighted bug is deleted</b> when command <code>delete 1 c/backlog</code> is executed<br>
+The <b>highlighted bug is deleted</b> when command <code>delete 1 c/backlog</code> is executed in <b>Kanban View</b>.<br>
 </div>
 
 #### Index
@@ -384,8 +384,13 @@ Format: `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [n
 - **Multiple tags** can be added or edited.
 - The command will fail if the operation results in duplicated bugs (bugs with the same name).
 
-<div markdown="span" class="alert alert-info">:information_source: Note: To remove optional fields such as <code>Priority</code> and <code>Note</code> simply type the prefix without providing anything after.
+<div markdown="span" class="alert alert-info">:information_source: Note: To remove optional fields such as <code>Note</code>, <code>Tags</code> and <code>Priority</code> simply type the prefix without providing anything after.
 Eg. <code>edit 1 pr/</code> will remove the assigned priority of the Bug if there is one present.
+</div>
+
+<div markdown="span" class="alert alert-warning">:warning: WARNING: Watch out! If you use this command to edit Tags you will erase all pre-existing tags from the bug you have selected and replace them with the new tags you have specified! To modify a specific bug without affecting the others use the <a href="#58-editing-a-tag-of-a-bug--edittag">editTag</a> command instead. <br>
+Example: If the Bug at index 1 has tags <code>Ui</code> and <code>List</code> and we execute <code>edit 1 t/Edit</code>, the Bug will then have just 1 tag named <code>Edit</code>.
+<br>
 </div>
 
 Examples:
