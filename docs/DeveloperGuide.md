@@ -620,7 +620,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Prefix**: A set of characters placed before a specified parameter when typing a command.
 * **Query-string**: The user keyword input to find matches when the search command is executed.
 
-We provide more glossaries for non-technical terms of KanBug Tracker in [Understanding Kanbug Tracker ](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#4-understanding-kanbug-tracker) section of the User Guide.
+We provide more glossaries for non-technical terms of KanBug Tracker in [Understanding KanBug Tracker ](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#4-understanding-kanbug-tracker) section of the User Guide.
 
 --------------------------------------------------------------------------------------------------------------------
 
