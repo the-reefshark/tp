@@ -31,10 +31,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPONENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LOGIC;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalBugs.BUGELEVEN;
-import static seedu.address.testutil.TypicalBugs.BUGNINE;
-import static seedu.address.testutil.TypicalBugs.BUGTEN;
-import static seedu.address.testutil.TypicalBugs.BUGTWELVE;
+import static seedu.address.testutil.TypicalBugs.BUG_ELEVEN;
+import static seedu.address.testutil.TypicalBugs.BUG_NINE;
+import static seedu.address.testutil.TypicalBugs.BUG_TEN;
+import static seedu.address.testutil.TypicalBugs.BUG_TWELVE;
 
 import org.junit.jupiter.api.Test;
 
@@ -53,7 +53,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Bug expectedBug = new BugBuilder(BUGELEVEN).withTags(VALID_TAG_LOGIC).build();
+        Bug expectedBug = new BugBuilder(BUG_ELEVEN).withTags(VALID_TAG_LOGIC).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE
@@ -81,7 +81,7 @@ public class AddCommandParserTest {
                 new AddCommand(expectedBug));
 
         // multiple tags - all accepted
-        Bug expectedBugMultipleTags = new BugBuilder(BUGELEVEN).withTags(VALID_TAG_LOGIC, VALID_TAG_COMPONENT)
+        Bug expectedBugMultipleTags = new BugBuilder(BUG_ELEVEN).withTags(VALID_TAG_LOGIC, VALID_TAG_COMPONENT)
                 .build();
         assertParseSuccess(parser, NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + PRIORITY_DESC_HOMEPAGE
                 + DESCRIPTION_DESC_HOMEPAGE + NOTE_DESC_HOMEPAGE + TAG_DESC_BACKEND + TAG_DESC_FRONTEND,
@@ -91,23 +91,23 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Bug expectedBug = new BugBuilder(BUGTEN).withTags().build();
+        Bug expectedBug = new BugBuilder(BUG_TEN).withTags().build();
         assertParseSuccess(parser, NAME_DESC_PARSER + STATE_DESC_PARSER
                         + DESCRIPTION_DESC_PARSER + NOTE_DESC_PARSER + PRIORITY_DESC_PARSER,
                 new AddCommand(expectedBug));
 
 
-        expectedBug = new BugBuilder(BUGNINE).withTags().build();
+        expectedBug = new BugBuilder(BUG_NINE).withTags().build();
         assertParseSuccess(parser, NAME_DESC_UI + DESCRIPTION_DESC_UI,
                 new AddCommand(expectedBug));
 
         // no priority
-        expectedBug = new BugBuilder(BUGELEVEN).withPriority().build();
+        expectedBug = new BugBuilder(BUG_ELEVEN).withPriority().build();
         assertParseSuccess(parser, NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + DESCRIPTION_DESC_HOMEPAGE
                 + NOTE_DESC_HOMEPAGE + TAG_DESC_BACKEND + TAG_DESC_FRONTEND, new AddCommand(expectedBug));
 
         // no note
-        expectedBug = new BugBuilder(BUGTWELVE).build();
+        expectedBug = new BugBuilder(BUG_TWELVE).build();
         assertParseSuccess(parser, NAME_DESC_HOMEPAGE + STATE_DESC_HOMEPAGE + DESCRIPTION_DESC_HOMEPAGE
                 + PRIORITY_DESC_HOMEPAGE + TAG_DESC_BACKEND + TAG_DESC_FRONTEND, new AddCommand(expectedBug));
     }

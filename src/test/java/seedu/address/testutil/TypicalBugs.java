@@ -84,7 +84,7 @@ public class TypicalBugs {
     public static final String BUG_NINE_DESCRIPTION = "No input validation for invalid index";
     public static final String BUG_NINE_NOTE = "";
 
-    public static final Bug BUGONE = new BugBuilder()
+    public static final Bug BUG_ONE = new BugBuilder()
             .withName(BUG_ONE_NAME)
             .withDescription(BUG_ONE_DESCRIPTION)
             .withNote(BUG_ONE_NOTE)
@@ -92,7 +92,7 @@ public class TypicalBugs {
             .withPriority(VALID_PRIORITY_LOW)
             .build();
 
-    public static final Bug BUGTWO = new BugBuilder()
+    public static final Bug BUG_TWO = new BugBuilder()
             .withName(BUG_TWO_NAME)
             .withDescription(BUG_TWO_DESCRIPTION)
             .withNote(BUG_TWO_NOTE)
@@ -101,7 +101,7 @@ public class TypicalBugs {
             .withTags(BUG_TWO_TAG)
             .build();
 
-    public static final Bug BUGTHREE = new BugBuilder()
+    public static final Bug BUG_THREE = new BugBuilder()
             .withName(BUG_THREE_NAME)
             .withState(VALID_STATE_VALUE_DONE)
             .withDescription(BUG_THREE_DESCRIPTION)
@@ -110,7 +110,7 @@ public class TypicalBugs {
             .withTags(BUG_THREE_TAG)
             .build();
 
-    public static final Bug BUGFOUR = new BugBuilder()
+    public static final Bug BUG_FOUR = new BugBuilder()
             .withName(BUG_FOUR_NAME)
             .withState(VALID_STATE_VALUE_ONGOING)
             .withDescription(BUG_FOUR_DESCRIPTION)
@@ -119,7 +119,7 @@ public class TypicalBugs {
             .withPriority()
             .build();
 
-    public static final Bug BUGFIVE = new BugBuilder()
+    public static final Bug BUG_FIVE = new BugBuilder()
             .withName(BUG_FIVE_NAME)
             .withState(VALID_STATE_VALUE_DONE)
             .withDescription(BUG_FIVE_DESCRIPTION)
@@ -127,7 +127,7 @@ public class TypicalBugs {
             .withPriority(VALID_PRIORITY_MEDIUM)
             .build();
 
-    public static final Bug BUGSIX = new BugBuilder()
+    public static final Bug BUG_SIX = new BugBuilder()
             .withName(BUG_SIX_NAME)
             .withState(VALID_STATE_VALUE_ONGOING)
             .withDescription(BUG_SIX_DESCRIPTION)
@@ -136,7 +136,7 @@ public class TypicalBugs {
             .withTags(BUG_SIX_TAG)
             .build();
 
-    public static final Bug BUGSEVEN = new BugBuilder()
+    public static final Bug BUG_SEVEN = new BugBuilder()
             .withName(BUG_SEVEN_NAME)
             .withState(VALID_STATE_VALUE_BACKLOG)
             .withDescription(BUG_SEVEN_DESCRIPTION)
@@ -145,13 +145,13 @@ public class TypicalBugs {
             .build();
 
     // Manually added - default state backlog
-    public static final Bug BUGEIGHT = new BugBuilder()
+    public static final Bug BUG_EIGHT = new BugBuilder()
             .withName(BUG_EIGHT_NAME)
             .withState(VALID_STATE_VALUE_BACKLOG)
             .withDescription(BUG_EIGHT_DESCRIPTION)
             .build();
 
-    public static final Bug BUGNINE = new BugBuilder()
+    public static final Bug BUG_NINE = new BugBuilder()
             .withName(BUG_NINE_NAME)
             .withState(VALID_STATE_VALUE_BACKLOG)
             .withDescription(BUG_NINE_DESCRIPTION)
@@ -159,7 +159,7 @@ public class TypicalBugs {
             .build();
 
     // Manually added - Bug's details found in {@code CommandTestUtil}
-    public static final Bug BUGTEN = new BugBuilder()
+    public static final Bug BUG_TEN = new BugBuilder()
             .withName(VALID_NAME_PARSER)
             .withState(VALID_STATE_PARSER)
             .withDescription(VALID_DESCRIPTION_PARSER)
@@ -167,7 +167,7 @@ public class TypicalBugs {
             .withTags(VALID_TAG_LOGIC)
             .withPriority(VALID_PRIORITY_PARSER).build();
 
-    public static final Bug BUGELEVEN = new BugBuilder()
+    public static final Bug BUG_ELEVEN = new BugBuilder()
             .withName(VALID_NAME_HOMEPAGE)
             .withState(VALID_STATE_HOMEPAGE)
             .withDescription(VALID_DESCRIPTION_HOMEPAGE)
@@ -176,7 +176,7 @@ public class TypicalBugs {
             .withTags(VALID_TAG_COMPONENT, VALID_TAG_LOGIC)
             .build();
 
-    public static final Bug BUGTWELVE = new BugBuilder()
+    public static final Bug BUG_TWELVE = new BugBuilder()
             .withName(VALID_NAME_HOMEPAGE)
             .withState(VALID_STATE_HOMEPAGE)
             .withDescription(VALID_DESCRIPTION_HOMEPAGE)
@@ -199,7 +199,7 @@ public class TypicalBugs {
     }
 
     public static List<Bug> getTypicalBugs() {
-        return new ArrayList<>(Arrays.asList(BUGONE, BUGTWO, BUGTHREE, BUGFOUR, BUGFIVE, BUGSIX, BUGSEVEN));
+        return new ArrayList<>(Arrays.asList(BUG_ONE, BUG_TWO, BUG_THREE, BUG_FOUR, BUG_FIVE, BUG_SIX, BUG_SEVEN));
     }
 }
 
