@@ -266,7 +266,6 @@ Eg. <code>d/t/Location</code> will result in the description field of the Bug be
 Want to get a high level overview of the bugs in your program or focus only on a particular column? Just switch views!
 
 Format: `switch`
-(Any parameters entered are ignored)
 
 - Switches between **Kanban view** and **List view**
 
@@ -275,7 +274,6 @@ Format: `switch`
 Not sure what to do next? Don't worry, just ask for help.
 
 Format: `help` 
-(Any parameters entered are ignored)
 
 - Gets all commands’ syntax and the link to this User Guide.
 
@@ -294,7 +292,6 @@ This creates a popup (the Help Window) with a command guide that you can refer t
 After running the search command you might want to see all the bugs you have in your Kanbug Tracker at one glance. Thats where the `list` can be used.
 
 Format: `list`
-(Any parameters entered are ignored)
 
 - Shows all the bugs in your Kanbug Tracker
 
@@ -477,7 +474,6 @@ Examples:
 Imagine the project you just finish ends up with a hundred of bug records in the tracker. How to restart? Don't worry! Clear command is here to help you to clear all bugs to reinitialize the application.
 
 Format: `clear`
-(Any parameters entered are ignored)
 
 - This command is applicable to both Kanban and List views.
 
@@ -486,7 +482,6 @@ Format: `clear`
 Ends and closes the app.
 
 Format: `exit`
-(Any parameters entered are ignored)
 
 When you are done with managing your tasks, use this command to saves all of the local data and exit from the app. 
 Alternatively, you can also close the window directly or press Esc key, and the app will do the same thing.
