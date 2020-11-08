@@ -314,22 +314,23 @@ The result display will then indicate the result of your command, and the Kanbug
 
 ### 5.4 Searching for bugs : `search`
 
-When there are a lot of bugs in the tracker, you might want to look for a particular one, search command is here to help you.
+When there are a lot of bugs in the tracker, you might want to look for a particular one, `search` command is here to help you.
 
 Format: `search q/QUERYSTRING`
 
-<div markdown="span" class="alert alert-info">:information_source: Note: You might be wondering what QUERYSTRING is. QUERYSTRING refers to the user's keyword input (that can be <b>one word</b> or <b>multiple</b> words) to find matches when the search command is executed.
+<div markdown="span" class="alert alert-info">:information_source: Note: You might be wondering what QUERYSTRING is. QUERYSTRING refers to the user's keyword input (that can be <b>one word</b> or <b>multiple</b> words) to find matches when the <code>search</code> command is executed.
 </div>
 
 - This command sorts out bugs based on your given query-string. The tracker returns all the bugs that has either name or description or tags containing this query-string as a substring. 
 
-<div markdown="span" class="alert alert-info">:information_source: Note: Do note that the query-string that you type in is <b>case-insensitive</b>.<br><br>If you accidentally type in more than one <code>q/</code> prefix, only the last one will be used to filter the list.<br><br>The format of <code>Search</code> command in both <b>Kanban</b> window and <b>List</b> window is the same.
+<div markdown="span" class="alert alert-info">:information_source: Note: Do note that the query-string that you type in is <b>case-insensitive</b>.<br><br>If you accidentally type in more than one <code>q/</code> prefix, only the last one will be used to filter the list.<br><br>The format of <code>search</code> command in both <b>Kanban</b> window and <b>List</b> window is the same.
 </div>
 
 <div markdown="span" class="alert alert-warning">:warning: WARNING: Watch out! If you use this command without providing any keywords (i.e. <b>EMPTY</b> query-string), you are expected to receive an error message reminding that Kanbug Tracker will not accept it.
 </div>
  
-Example: In **Kanban** view:  
+Example:   
+In **Kanban** view:  
 Suppose you want to look for `command` bugs in the tracker. Firstly, you will type in the command box as following:  
 ![HomeFolder](images/SearchExample1.png)
 
@@ -339,7 +340,6 @@ Once the command has been entered, the result display shows the total number of 
 
 If either name or description or tag of a bug contains the query-string, it will be included in the resulting list after the command is executed.  
 
-- `search q/frontend`, returns a list of bugs of which either name or description or tags contains query-string **frontend** (case-insensitive) in the words.
 
 ### 5.5 Adding a bug : `add`
 
@@ -597,10 +597,11 @@ Imagine the project you just finish ends up with a hundred of bug records in the
 
 Format: `clear`
 
-<div markdown="span" class="alert alert-info">:information_source: Note: This command is applicable to both Kanban and List views. 
+<div markdown="span" class="alert alert-info">:information_source: Note: This command is applicable to both Kanban and List view. 
 </div>
 
-Example: In **Kanban** view:
+Example:   
+In **Kanban** view:  
 After the project is done, you might want to clear all the bug records that are not relevant in the future anymore. Firstly, I type in the command box as following:
 ![HomeFolder](images/ClearExample1.png)
 
