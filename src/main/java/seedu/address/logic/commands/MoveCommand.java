@@ -43,6 +43,11 @@ public class MoveCommand extends Command {
         this.state = state;
     }
 
+    /**
+     * Returns a list of resulting items.
+     * @param model {@code Model} which the command should operate on.
+     * @throws CommandException if the list is incorrectly updated.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -58,9 +63,7 @@ public class MoveCommand extends Command {
     }
 
     protected CommandResult updateList(List<Bug> lastShownList, Model model) throws CommandException {
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
-        }
+        ensureValidIndexDisplay(lastShownList);
 
         Bug bugToMove = lastShownList.get(index.getZeroBased());
         Bug movedBug = createMovedBug(bugToMove, state);
@@ -91,6 +94,12 @@ public class MoveCommand extends Command {
         MoveCommand e = (MoveCommand) other;
         return index.equals(e.index)
                 && state.equals(e.state);
+    }
+
+    private void ensureValidIndexDisplay(List<Bug> lastShownList) throws CommandException {
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
+        }
     }
 
     private boolean willChangeState(Bug currentBug) {
