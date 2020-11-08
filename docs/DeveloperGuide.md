@@ -127,14 +127,14 @@ This section describes some noteworthy details on how certain features are imple
 ### Kanban view window feature
 
 #### Proposed Implementation
-The kanban view window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a Observerable list that contains only the bugs that belong to their respective state. This observerable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
+The kanban view window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a observable list that contains only the bugs that belong to their respective state. This observable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
 
 <img src="images/Ui.png" width="450" />
 
 Given below is how the KanbanBoard window will create the 4 BugListpanes
 
 Step 1:
-The user lanches the app and the system initalises the UI.
+The user launches the app and the system initialises the UI.
 
 Step 2:
 MainWindow calls fillInnerParts() on KanbanBoard.
@@ -146,7 +146,7 @@ Given below is sequence diagram for the creation of the BugListPanes:
 
 <img src= "images/KanbanBoardUI.png" width = "400">
 
-With the implementation of kanban view window, command such as delete, move and edit that depend on the index would not work as expected. This is because, the Kanban view seperates the bugs and place then in different columns. As such, it would be essential to allow the users to execute these commands in the kanban view as we implement the new window. This can be done by allowing the user to chose which column would be affected by these commands.
+With the implementation of kanban view window, command such as delete, move and edit that depend on the index would not work as expected. This is because, the Kanban view separates the bugs and places in different columns. As such, it would be essential to allow the users to execute these commands in the kanban view as we implement the new window. This can be done by allowing the user to choose which column would be affected by these commands.
 
 This can be done by adding the following classes:
 
@@ -154,15 +154,15 @@ This can be done by adding the following classes:
 - `MoveBystateCommand` which extends `MoveCommand`
 - `EditByStateCommand` which extends `EditCommand`
 
-These command would take in an extra input to specify which column is being targeted. The list of bugs would then be filtered according to the column specified. The respective parsers would also have to be modified such that the new command could be returned if a column is specifed. The following activity diagram summerizes what happens when the user enters a delete command.(edit and move command parser would act in a similar way)
+These command would take in an extra input to specify which column is being targeted. The list of bugs would then be filtered according to the column specified. The respective parsers would also have to be modified such that the new command could be returned if a column is specified. The following activity diagram summarises what happens when the user enters a delete command.(edit and move command parser would act in a similar way)
 
 <img src = "images/DeleteCommandParserActivityDiagram.png" width ="400">
 
 #### Design consideration:
 
-- **Alternative 1**: Use a prefix "/c" to specify which column we are refering to.(Current choice)
+- **Alternative 1**: Use a prefix "/c" to specify which column we are referring to.(Current choice)
     - Pros: Easier to implement
-    - Cons: Adds an additional prefix which the user has to remember to the applicatiom
+    - Cons: Adds an additional prefix which the user has to remember.
 - **Alternative 2**: Allow the users to specify an active column and execute the commands with respect to that column
     - Cons: Need to add an additional command to change the active column.
 
@@ -273,7 +273,7 @@ The design considerations for this feature are the same as the design considerat
 
 The activity diagram that summarizes what happens when a user executes a `addTag INDEX (c/COLUMN) nt/NEW_TAG` command with valid inputs is similar to that of the activity diagram for the edit tag feature which you can see [here](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#summary). Instead of executing an `editTag` command, the user would execute an `addTag` command in this case.
 
-### Bug priority
+### Bug priority feature
 
 Feature description: Each bug will now have a priority level (low, medium, high) that will be shown on the GUI. Users
 can add or edit a bug with the priority using the `pr/` tag. The priority is optional, but each bug must have at most
@@ -300,7 +300,7 @@ Here is a diagram show how an AddCommandParser work with priority:
 Given below is an example usage scenario concerning only the bug's priority when the user add a new
 bug:
 
-Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial Kanbug Tracker state.
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug Tracker state.
 
 Step 2. The user execute the command "add n/Bug name d/Bug description pr/high"
 
@@ -315,9 +315,11 @@ Step 4. The process will continue as shown below, after which an `AddCommand` ob
 Regarding the Priority class:
 - **Alternative 1**: Create `Priority` as a separate class [current implementation]
     - Pros: Adhere OOP principles
-    - Cons: Need to refactor quite a lot in many different places.
+    - Cons: Need to refactor quite a lot in many different places (because we need to change the signature of the
+       `Bug`'s constructor, which appear in many places.
 - **Alternative 2**: Create `Priority` as a subclass of `Tag` [rejected]
-    - Cons: Break the Liskov Substitution Principle.
+    - Cons: Break the Liskov Substitution Principle (Since there can be multiple `Tag`s for each `Bug` but there
+    can only be one `Priority`).
     
 
 Regarding the situation when the bug's priority is not indicated:
@@ -343,9 +345,9 @@ The following class diagram shows the structure of the search command implementa
 ![SearchCommandClassDiagram](images/SearchCommandClassDiagram.png)
 
 Given below is an example usage scenario and how the search feature behaves at each step.  
-Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.  
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug tracker state.  
 
-Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/todo t/Ui.java` command to add a new bug to the kanbug tracker. A new bug with the following information is added:  
+Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/todo t/Ui.java` command to add a new bug to the KanBug tracker. A new bug with the following information is added:  
 
 - name: **Ui bug**
 - description: **Displays wrongly the information**
@@ -356,8 +358,8 @@ Step 3. When there are a lot of bugs in the tracker, it is difficult for the use
 The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`.
 
 Step 4. This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance.
-The predicate is internally passed and used to filter `FilteredList<Bug>`.  
-This results in the information of all the bugs of which name or description or tag contains `Ui bug` as a substring displays in the tracker.
+The predicate is internally passed and used to filter FilteredList<Bug>.  
+This results in the information of all the bugs of which name or description or tag contains <code>Ui bug</code> as a substring displays in the tracker.
 
 The following sequence diagram summarizes what happens when a user executes the search command:
 ![SearchCommandSequenceDiagram](images/SearchCommandSequenceDiagram.png)
@@ -468,16 +470,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `Kanbug Tracker` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `KanBug Tracker` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Delete a bug**
 
 **MSS**
 
 1.  User requests to list bugs
-2.  Kanbug Tracker shows the list of bug
+2.  KanBug Tracker shows the list of bug
 3.  User requests to delete a specific bug in the list
-4.  Kanbug Tracker deletes the bug
+4.  KanBug Tracker deletes the bug
 
     Use case ends.
 
@@ -489,7 +491,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. Kanbug Tracker shows an error message.
+    * 3a1. KanBug Tracker shows an error message.
 
       Use case resumes at step 2.
 
@@ -498,9 +500,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to add bug
-
 2. KanBug Tracker adds the new bug and displays the updated list of bugs
-
    to the user
 
    Use case ends.
@@ -509,7 +509,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - 1a. The bug format is invalid
 
-  - 1a1. Kanbug Tracker shows an error message.
+  - 1a1. KanBug Tracker shows an error message.
 
     Use case resumes at step 1.
 
@@ -518,11 +518,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to list bugs
-
 2. KanBug Tracker shows the list of bugs
-
 3. User requests to edit a specific bug in the list
-
 4. KanBug Tracker edits the bug
 
    Use case ends.
@@ -580,7 +577,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User requests to list bugs  
 2. KanBug Tracker shows the list of bugs  
-3. User requests to search a particular bug in the Kanbug Tracker  
+3. User requests to search a particular bug in the KanBug Tracker  
 4. KanBug Tracker displays the resulting list of bugs
 
     Use case ends.
@@ -593,7 +590,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - 3a. The given query-string is empty.
 
-  - 3a1. Kanbug Tracker shows an error message.
+  - 3a1. KanBug Tracker shows an error message.
   
     Use case resumes at 2.
 
@@ -623,7 +620,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Prefix**: A set of characters placed before a specified parameter when typing a command.
 * **Query-string**: The user keyword input to find matches when the search command is executed.
 
-We provide more glossaries for non-technical terms of KanBug Tracker in [Glossary of the User Guide](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#2-glossary).
+We provide more glossaries for non-technical terms of KanBug Tracker in [Understanding KanBug Tracker ](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#4-understanding-kanbug-tracker) section of the User Guide.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -653,7 +650,7 @@ testers are expected to do more *exploratory* testing.
 
 ### Switching views
 
-1. Switching Kanbug Tracker's view with `switch`.
+1. Switching KanBug Tracker's view with `switch`.
 
 1. Prerequisites: None.
 
@@ -670,9 +667,9 @@ testers are expected to do more *exploratory* testing.
     
 ### Opening the `help` window
 
-1. Opening the Kanbug Tracker's `help` window in two ways.
+1. Opening the KanBug Tracker's `help` window in two ways.
 
-1. Prerequisites: Launch Kanbug Tracker successfully
+1. Prerequisites: Launch KanBug Tracker successfully
 
 1. Test case 1:
 
@@ -703,7 +700,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding a bug using the `add` command.
 
-1. Prerequisites: Launch Kanbug Tracker successfully and clear all the bugs.
+1. Prerequisites: Launch KanBug Tracker successfully and clear all the bugs.
 
 1. Test case 1:
 
@@ -945,7 +942,7 @@ testers are expected to do more *exploratory* testing.
        Expected: No bug is deleted. The app response with "Please remove extra 
        irrelevant arguments!".
 
-### Exiting Kanbug Tracker
+### Exiting KanBug Tracker
 
 1. Exiting the app and closing the window.
 
@@ -980,7 +977,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Close the app.
    
-   1. Edit the `kanbugtracker.json` file by editing the description field of some bug into "bug description".
+   1. Edit the `KanBugtracker.json` file by editing the description field of some bug into "bug description".
    
    1. Open the app again<br>
       Expected: The change should be reflected in the app.
@@ -989,7 +986,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Close the app.
    
-   1. Edit the `kanbugtracker.json` file by editing the name field of some bug into "@".
+   1. Edit the `KanBugtracker.json` file by editing the name field of some bug into "@".
    
    1. Open the app again<br>
       Expected: The app now will have no bugs on it (since "@" is not a valid name for the bugs).
