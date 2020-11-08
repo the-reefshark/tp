@@ -112,15 +112,15 @@ Now you're all set to get started! But where should you begin?
 
 3. Copy the `KanBugTracker.jar` file to a folder you want to use as your _root folder_.
    ![HomeFolder](images/HomeFolder.png)
+   
+   <div markdown="span" class="alert alert-info">:information_source: Note: In this instance, <b>Home Folder</b> acts as our <b>root folder</b>. Users are free to name their <b>root folder</b> however they wish. 
+   </div>
 
-<div markdown="span" class="alert alert-info">:information_source: Note: In this instance, <b>Home Folder</b> acts as our <b>root folder</b>. Users are free to name their <b>root folder</b> however they wish. 
-</div>
-
-
-
-4. Double-click on the `KanBugTracker.jar`file to launch the application. You should see something similar.
+4. Double-click on the `KanBugTracker.jar` file to launch the application. You should see something similar.
 
    ![HomeFolder](images/Ui2.png)
+
+   
 
 5. Now that you're all set up, you're ready to take your bug management to the next level! 
 
@@ -143,7 +143,7 @@ KanBug Tracker provides two different views that the user can switch between. Th
 
 #### Kanban View (default):
 
-![Ui](images/Ui3.png)
+​	![Ui](images/Ui3.png)
 
 1. Command Line Interface for users to enter their commands
 2. Display that the application uses to give feedback on commands to the user
