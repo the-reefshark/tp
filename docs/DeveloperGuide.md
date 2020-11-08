@@ -59,7 +59,7 @@ The sections below give more details of each component.
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BugListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2021S1-CS2103T-W17-1/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2021S1-CS2103T-W17-1/tp/blob/master/src/main/resources/view/MainWindow.fxml)
+DeveloperThe `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2021S1-CS2103T-W17-1/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2021S1-CS2103T-W17-1/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -381,8 +381,9 @@ Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/tod
 
 Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug.
 The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`.
-This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance (**BugContainsQueryStringPredicate** in detail).
-The predicate is internally passed and used to filter **FilteredList<Bug>**.
+
+Step 4. This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance (`BugContainsQueryStringPredicate` in detail).
+The predicate is internally passed and used to filter `FilteredList<Bug>`.
 This results in the information of all the bugs of which name or description or tag contains **Ui bug** as a substring displays in the tracker.
 
 The following sequence diagram summarizes what happens when a user executes the search command:
@@ -570,6 +571,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. User requests to move a specific bug to another state
 4. KanBug Tracker moves the bug
 
+    Use case ends.
+
 **Extensions**
 
 - 2a. The list is empty.
@@ -588,11 +591,41 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case resumes at 2.
 
+**Use case: Search a bug**
+
+**MSS**
+
+1. User requests to list bugs  
+2. KanBug Tracker shows the list of bugs  
+3. User requests to search a particular bug in the Kanbug Tracker  
+4. KanBug Tracker displays the resulting list of bugs
+
+    Use case ends.
+
+**Extensions**
+
+- 2a. The list is empty.  
+
+  Use case ends.
+
+- 3a. The given query-string is empty.
+
+  - 3a1. Kanbug Tracker shows an error message.
+  
+    Use case resumes at 2.
+
+- 3b. The user enters an invalid search command format.
+
+  - 3b1. KanBug Tracker shows an error message.
+  
+    Use case resumes at 2.
+
+
 ### Non-Functional Requirements
 
 1.  KanBug Tracker should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-3.  KanBug Tracker should be able to hold up to 10000 **Bug** items without a remarkable sluggishness in performance for typical usage.
+3.  KanBug Tracker should be able to hold up to **10000** bug items without a remarkable sluggishness in performance for typical usage.
 4.  KanBug Tracker should work on both 32-bit and 64-bit environments.
 5.  The size of the compiled JAR file (KanBugTracker.jar) should be less than 100Mb.
 6.  KanBug Tracker should be intentionally designed for a single-user (i.e. KanBug Tracker should not be a multi-user application).
