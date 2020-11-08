@@ -314,17 +314,32 @@ The result display will then indicate the result of your command, and the KanBug
 
 ### 5.4 Searching for bugs : `search`
 
-When there are a lot of bugs in the tracker, the search command is here to help to find out particular bugs you are looking for.
+When there are a lot of bugs in the tracker, you might want to look for a particular one, `search` command is here to help you.
 
 Format: `search q/QUERYSTRING`
 
+<div markdown="span" class="alert alert-info">:information_source: Note: You might be wondering what QUERYSTRING is. QUERYSTRING refers to the user's keyword input (that can be <b>one word</b> or <b>multiple</b> words) to find matches when the <code>search</code> command is executed.
+</div>
+
 - This command sorts out bugs based on your given query-string. The tracker returns all the bugs that has either name or description or tags containing this query-string as a substring. 
-- The query-string cannot be empty and case-insensitive.
-- If there are repetitive `q/` prefixes, the tracker only considers the last one.
 
-Examples:
+<div markdown="span" class="alert alert-info">:information_source: Note: Do note that the query-string that you type in is <b>case-insensitive</b>.<br><br>If you accidentally type in more than one <code>q/</code> prefix, only the last one will be used to filter the list.<br><br>The format of <code>search</code> command in both <b>Kanban</b> window and <b>List</b> window is the same.
+</div>
 
-- `search q/frontend`, returns a list of bugs of which either name or description or tags contains query-string **frontend** (case-insensitive) in the words.
+<div markdown="span" class="alert alert-warning">:warning: WARNING: Watch out! If you use this command without providing any keywords (i.e. <b>EMPTY</b> query-string), you are expected to receive an error message reminding that Kanbug Tracker will not accept it.
+</div>
+ 
+Example:   
+In **Kanban** view:  
+Suppose you want to look for `command` bugs in the tracker. Firstly, you will type in the command box as following:  
+![HomeFolder](images/SearchExample1.png)
+
+Once the command has been entered, the result display shows the total number of relevant items and Kanbug Tracker will display all these bugs as list in each state.
+
+![HomeFolder](images/SearchExample2.png)
+
+If either name or description or tag of a bug contains the query-string, it will be included in the resulting list after the command is executed.  
+
 
 ### 5.5 Adding a bug : `add`
 
@@ -352,7 +367,7 @@ add the bug to the bottom of the list.
 
 ### A word of caution
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: Do note that for the following commands (Section 5.6 - 5.10) you have to include the <code>c/COLUMN</code> argument when in <b>Kanban View</b>. The <code>c/COLUMN</code> argument should <b>not</b> be used when in <b>List View</b>. <br><br> If you are unsure about what this means, an explanation on columns and how to navigate commands in Kanban view was provided <a href = https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#43-what-are-commands"">here</a>. <br><br> Additionally, all walkthroughs will only be given for command usage in <b>List View</b> as the only difference in <b>Kanban View</b> is the need to supply <code>c/COLUMN</code>.</div>
+<div markdown="span" class="alert alert-warning">:warning: WARNING: Do note that for the following commands (Section 5.6 - 5.10) you have to include the <code>c/COLUMN</code> argument when in <b>Kanban View</b>. The <code>c/COLUMN</code> argument should <b>not</b> be used when in <b>List View</b>. <br><br> If you are unsure about what this means, an explanation on columns and how to navigate commands in Kanban view was provided <a href = "#43-what-are-commands">here</a>. <br><br> Additionally, all walkthroughs will only be given for command usage in <b>List View</b> as the only difference in <b>Kanban View</b> is the need to supply <code>c/COLUMN</code>.</div>
 ### 5.6 Deleting a bug : `delete`
 
 After a bug is fixed and a project is done, its time to remove the bug from the application.
@@ -530,11 +545,8 @@ You would enter the following command:
 Whether you begin to work on a bug, finish fixing one or plan to deal with a bug later, you can use `move` to update the 
 progress on dealing with that bug.
 
-Format: `move INDEX [c/COLUMN] s/STATE`
+Format: `move INDEX (c/COLUMN) s/STATE`
 
-- The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
-  - **Kanban view**: User must supply `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
-  - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
 - Specifically, this command will change the state of the bug.
 - The state field is **mandatory** and must be provided.
 - State can either be **backlog, todo, ongoing** or **done**.
@@ -543,8 +555,41 @@ Format: `move INDEX [c/COLUMN] s/STATE`
 
 Examples:
 
-- `move 1 s/todo`, moves the first bug in the List view from its initial state to the **Todo** state.
-- `move 3 c/ongoing s/done`, moves the bug third bug in the Ongoing column of Kanban view from its initial state (Ongoing) to the **Done** state.
+Example 1:
+
+You are in **Kanban View** and you want to move the second bug in the `backlog` column to the `ongoing` column. This
+is how you can do it:
+
+<br>
+<br>
+<br>
+
+![MoveMain](images/MoveMain.png)
+
+Since the bug originally in the `backlog` column so you must supply `c/backlog`. Since you want to move it 
+to the `ongoing` column so you must supply `s/ongoing`. Since this is the first bug in the column so you must
+supply the index `1`. In short, the command you must execute is `move 1 c/backlog s/ongoing`.
+
+<br>
+<br>
+<br>
+
+![MoveMoved](images/MoveMoved.png)
+
+Here the bug is successfully moved into the new column. The display at the bottom of the screen confirms that
+the command has been executed successfully.
+
+<br>
+<br>
+<br>
+
+Example 2 (No walkthrough provided) :
+
+You are in **List View** and want to move the second bug in your list to `done` state (assuming it's previous state is not `done`).
+
+You would enter the following command:
+
+`move 2 s/done`
 
 ### 5.11 Clearing all bugs : `clear`
 
@@ -552,15 +597,24 @@ Imagine the project you just finish ends up with a hundred of bug records in the
 
 Format: `clear`
 
-- This command is applicable to both Kanban and List views.
+<div markdown="span" class="alert alert-info">:information_source: Note: This command is applicable to both Kanban and List view. 
+</div>
+
+Example:   
+In **Kanban** view:  
+After the project is done, you might want to clear all the bug records that are not relevant in the future anymore. Firstly, I type in the command box as following:
+![HomeFolder](images/ClearExample1.png)
+
+Once the command has been entered, all the bugs are immediately deleted and the result display shows a successful message as following:
+![HomeFolder](images/ClearExample2.png)
 
 ### 5.12 Exiting the program : `exit`
 
-Ends and closes the app.
+When you are done with managing your tasks, use this command to saves all of the local data and exit from the app.
 
-Format: `exit`
+Format: `exit` 
 
-When you are done with managing your tasks, use this command to saves all of the local data and exit from the app. 
+- This command is applicable to both Kanban and List views.
 
 <div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the Esc key to close the window. Try it!
 </div>
