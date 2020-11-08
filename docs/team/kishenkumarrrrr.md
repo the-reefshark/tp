@@ -27,18 +27,13 @@ KanBug Tracker is a lightweight, easy to use bug management tool that aims to em
   
   * Highlights: This enhancement requires and in-depth understanding of the Logic component's architecture and how the different components within it interact and function. 
   
-    
-  
 * **New Feature**: I implemented the ability to edit tags of an already existing bug via the `editTag` command.
 
   * What it does: The feature provides the user with the ability to quickly select a target bug and modify one of its tags.
   * Justification: The feature improves KanBug Tracker significantly because users now have a quick and direct method to update an existing tag of the bug. Without this feature, users will be forced to make use of the existing `edit` command which requires users to retype all of the bug's existing tags in addition to the newly modified tag. This saves the user valuable time, helping them improve their productivity and efficiency. 
   * Highlights: This enhancement requires and in-depth understanding of the Logic component's architecture and how the different components within it interact and function. 
-  * 
-
-* **Code contributed**: You can view my functional code and test code contributions to KanBug Tracker [here](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=&sort=groupTitle&sortWithin=title&since=2020-08-14&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other&tabOpen=true&tabType=authorship&tabAuthor=KishenKumarrrrr&tabRepo=AY2021S1-CS2103T-W17-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code)
-
   
+* **Code contributed**: You can view my functional code and test code contributions to KanBug Tracker [here](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=&sort=groupTitle&sortWithin=title&since=2020-08-14&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other&tabOpen=true&tabType=authorship&tabAuthor=KishenKumarrrrr&tabRepo=AY2021S1-CS2103T-W17-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code)
 
 * **Other contributions:**
   
