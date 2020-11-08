@@ -266,6 +266,19 @@ Format: `switch`
 
 - Switches between **Kanban view** and **List view**
 
+Example: Launched the app and want to jump into **List view**? Do this:
+
+![HomeFolder](images/SwitchExample1.png)
+
+Just type `switch` and hit `Enter`
+
+![HomeFolder](images/SwitchExample2.png)
+
+This switches you from the original **Kanban view** to the **List view**!
+
+<div markdown="span" class="alert alert-success">:bulb: Tip: If you execute this command starting in <b>List view</b> it will run in exactly the same way just in reverse!
+</div>
+
 ### 5.2 Viewing help : `help`
 
 Not sure what to do next? Don't worry, just ask for help.
