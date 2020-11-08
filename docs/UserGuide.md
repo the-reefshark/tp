@@ -55,7 +55,7 @@ title: User Guide
 
 Are you struggling to find an effective way to keep track of and manage the bugs you encounter while programming?
 
-Perhaps you're still relying on the archaic methods of pen and paper? Or you cannot wrap your head around the unnecessarily complex features of existing bug trackers?
+Perhaps you're still relying on the archaic method of pen and paper? Or you cannot wrap your head around the unnecessarily complex features of existing bug trackers?
 
 Do you desire an offline solution that is easy to use yet powerful enough to solve all your bug management problems? Look no further because we have the perfect product for you.
 
@@ -63,13 +63,13 @@ Introducing KanBug Tracker, a revolutionary bug management application!
 
 Let's look at some ways that KanBug Tracker can benefit you:
 
-- **Bug Management**: Store and organise all the bugs you encounter while programming with the press of a button. 
+- **Bug Management**: Store and organise all the bugs you encounter while programming with a few simple commands. 
 - **Visualisation**: Our intuitive layout is designed to give you a high-level overview of your bug fixing progress, giving you the ability to plan your approach like never before.
-- **Incredible Portability**: The application lives on your computer and does not require an internet connection, allowing you to manage your bugs wherever you are.
+- **Incredible Portability**: The application lives entirely on your computer and does not require an internet connection, allowing you to manage your bugs wherever you are.
 - **Powerful features**: Take your bug tracking efforts to the next level with features that will allow you to search for bugs and move them between states.
-- **Performance**: We understand developers. That's why KanBug Tracker is powered by a slick Command Line Interface (CLI) designed to maximise your productivity.
+- **Performance**: KanBug Tracker is powered by a slick Command Line Interface (CLI) designed to maximise your productivity with its high responsiveness.
 
-As you can see, KanBug Tracker was designed for developers like you, with powerful features that help you stay on top of your bug fixing process.
+As you can see, KanBug Tracker was designed with developers like you in mind, with powerful features that help you stay on top of your bug fixing process. Never again will you have to struggle with your bug management!
 
 ## 2. How do I use this User Guide?
 
@@ -349,7 +349,6 @@ add the bug to the bottom of the list.
 ### A word of caution
 
 <div markdown="span" class="alert alert-warning">:warning: WARNING: Do note that for the following commands (Section 5.6 - 5.10) you have to include the <code>c/COLUMN</code> argument when in <b>Kanban View</b>. The <code>c/COLUMN</code> argument should <b>not</b> be used when in <b>List View</b>. <br><br> If you are unsure about what this means, an explanation on columns and how to navigate commands in Kanban view was provided <a href = https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#43-what-are-commands"">here</a>. <br><br> Additionally, all walkthroughs will only be given for command usage in <b>List View</b> as the only difference in <b>Kanban View</b> is the need to supply <code>c/COLUMN</code>.</div>
-
 ### 5.6 Deleting a bug : `delete`
 
 After a bug is fixed and a project is done, its time to remove the bug from the application.
