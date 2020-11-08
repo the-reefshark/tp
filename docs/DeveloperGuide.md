@@ -356,8 +356,8 @@ Step 3. When there are a lot of bugs in the tracker, it is difficult for the use
 The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`.
 
 Step 4. This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance.
-The predicate is internally passed and used to filter `FilteredList<Bug>`.  
-This results in the information of all the bugs of which name or description or tag contains `Ui bug` as a substring displays in the tracker.
+The predicate is internally passed and used to filter <code>FilteredList<Bug></code>.  
+This results in the information of all the bugs of which name or description or tag contains <code>Ui bug</code> as a substring displays in the tracker.
 
 The following sequence diagram summarizes what happens when a user executes the search command:
 ![SearchCommandSequenceDiagram](images/SearchCommandSequenceDiagram.png)
@@ -623,7 +623,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Prefix**: A set of characters placed before a specified parameter when typing a command.
 * **Query-string**: The user keyword input to find matches when the search command is executed.
 
-We provide more glossaries for non-technical terms of KanBug Tracker in [Glossary of the User Guide](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#2-glossary).
+We provide more glossaries for non-technical terms of KanBug Tracker in [Understanding Kanbug Tracker ](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#4-understanding-kanbug-tracker) section of the User Guide.
 
 --------------------------------------------------------------------------------------------------------------------
 
