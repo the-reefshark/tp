@@ -11,7 +11,7 @@ title: User Guide
 
 3. [Getting Started](#3-getting-started)
 
-4. [Understanding KanBug Tracker](#4-understanding-kanbug-tracker)
+4. [Understanding KanBug Tracker](#4-understanding-KanBug-tracker)
 
    4.1 [Understanding the Graphical User Interface](#41-understanding-the-graphical-user-interface)
 
@@ -89,7 +89,7 @@ Before continuing, it would be good to familiarise yourself with a few symbols t
 Now you're all set to get started! But where should you begin?
 
 - If you are a first-time user, start [here](#3-getting-started) by learning how to download and set up KanBug Tracker.
-- If you are confused about the various parts of KanBug Tracker (GUI, what is a bug, etc.), you can learn about them [here](#4-understanding-kanbug-tracker).
+- If you are confused about the various parts of KanBug Tracker (GUI, what is a bug, etc.), you can learn about them [here](#4-understanding-KanBug-tracker).
 - If you are interested to learn about the different exciting features KanBug Tracker has, check out the Features section [here](#5-features).
 - If you are already familiar with KanBug Tracker but have some trouble remembering the command syntax, take a look at the Command Summary section [here](#6-command-summary).
 
@@ -296,11 +296,11 @@ This creates a popup (the Help Window) with a command guide that you can refer t
 
 ### 5.3 Listing all bugs : `list`
 
-After running the search command you might want to see all the bugs you have in your Kanbug Tracker at one glance. Thats where the `list` can be used.
+After running the search command you might want to see all the bugs you have in your KanBug Tracker at one glance. Thats where the `list` can be used.
 
 Format: `list`
 
-- Shows all the bugs in your Kanbug Tracker
+- Shows all the bugs in your KanBug Tracker
 
 Example: Lets say you have just completed a search for bugs related to `list` using the command `search q/list` and now you want to view all your bugs again. Just do this:
 
@@ -310,7 +310,7 @@ Just type `list` and hit `Enter`
 
 ![HomeFolder](images/ListExample2.png)
 
-The result display will then indicate the result of your command, and the Kanbug Tracker will display all your bugs.
+The result display will then indicate the result of your command, and the KanBug Tracker will display all your bugs.
 
 ### 5.4 Searching for bugs : `search`
 
@@ -418,7 +418,7 @@ You can type `edit 6 n/Wrong list numbers when displaying list d/List column pri
 
 ![HomeFolder](images/EditExample2.png)
 
-Once the command has been entered, the result display shows the result of your command and the Kanbug tracker has been updated with the updated name, description as well as priority.
+Once the command has been entered, the result display shows the result of your command and the KanBug tracker has been updated with the updated name, description as well as priority.
 
 Example 2: Perhaps then you tried some ways to fix it that didn't work so you want to add a `note` of **Tried a fix using iterator, did not work**. This is how you can do it:
 
