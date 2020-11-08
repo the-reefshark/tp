@@ -379,7 +379,7 @@ Once the command has been entered, the result display shows the result of your c
 
 Made a mistake when adding in a bug or simply changed your mind on what the description should be? Fret not, that's what the edit command is for.
 
-Format: `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]`
+Format: `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]`
 
 - Edits the specified bug.
 - At least one of the optional fields must be provided.
@@ -515,7 +515,7 @@ Data is saved into the hard disk every time a change is made.
 | **search**  |                      `search q/QUERYSTRING`                  |
 |   **add**   |   `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG] [pr/PRIORITY]`   |
 | **delete**  |                        `delete INDEX (c/COLUMN)`                        |
-|  **edit**   | `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]` |
+|  **edit**   | `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]` |
 | **editTag** |       `editTag INDEX (c/COLUMN) ot/OLD_TAG nt/NEW_TAG`       |
 | **addTag**  |             `addTag INDEX (c/COLUMN) nt/NEW_TAG`             |
 |  **move**   |               `move INDEX (c/COLUMN) s/STATE`                |

@@ -42,7 +42,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_STATE,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME,
                 PREFIX_DESCRIPTION, PREFIX_NOTE, PREFIX_TAG, PREFIX_PRIORITY, PREFIX_COLUMN);
 
         Index index;
