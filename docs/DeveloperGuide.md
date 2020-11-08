@@ -300,7 +300,7 @@ Here is a diagram show how an AddCommandParser work with priority:
 Given below is an example usage scenario concerning only the bug's priority when the user add a new
 bug:
 
-Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial Kanbug Tracker state.
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug Tracker state.
 
 Step 2. The user execute the command "add n/Bug name d/Bug description pr/high"
 
@@ -343,9 +343,9 @@ The following class diagram shows the structure of the search command implementa
 ![SearchCommandClassDiagram](images/SearchCommandClassDiagram.png)
 
 Given below is an example usage scenario and how the search feature behaves at each step.  
-Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.  
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug tracker state.  
 
-Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/todo t/Ui.java` command to add a new bug to the kanbug tracker. A new bug with the following information is added:  
+Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/todo t/Ui.java` command to add a new bug to the KanBug tracker. A new bug with the following information is added:  
 
 - name: **Ui bug**
 - description: **Displays wrongly the information**
@@ -468,16 +468,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `Kanbug Tracker` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `KanBug Tracker` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Delete a bug**
 
 **MSS**
 
 1.  User requests to list bugs
-2.  Kanbug Tracker shows the list of bug
+2.  KanBug Tracker shows the list of bug
 3.  User requests to delete a specific bug in the list
-4.  Kanbug Tracker deletes the bug
+4.  KanBug Tracker deletes the bug
 
     Use case ends.
 
@@ -489,7 +489,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. Kanbug Tracker shows an error message.
+    * 3a1. KanBug Tracker shows an error message.
 
       Use case resumes at step 2.
 
@@ -509,7 +509,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - 1a. The bug format is invalid
 
-  - 1a1. Kanbug Tracker shows an error message.
+  - 1a1. KanBug Tracker shows an error message.
 
     Use case resumes at step 1.
 
@@ -580,7 +580,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User requests to list bugs  
 2. KanBug Tracker shows the list of bugs  
-3. User requests to search a particular bug in the Kanbug Tracker  
+3. User requests to search a particular bug in the KanBug Tracker  
 4. KanBug Tracker displays the resulting list of bugs
 
     Use case ends.
@@ -593,7 +593,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - 3a. The given query-string is empty.
 
-  - 3a1. Kanbug Tracker shows an error message.
+  - 3a1. KanBug Tracker shows an error message.
   
     Use case resumes at 2.
 
@@ -653,7 +653,7 @@ testers are expected to do more *exploratory* testing.
 
 ### Switching views
 
-1. Switching Kanbug Tracker's view with `switch`.
+1. Switching KanBug Tracker's view with `switch`.
 
 1. Prerequisites: None.
 
@@ -670,9 +670,9 @@ testers are expected to do more *exploratory* testing.
     
 ### Opening the `help` window
 
-1. Opening the Kanbug Tracker's `help` window in two ways.
+1. Opening the KanBug Tracker's `help` window in two ways.
 
-1. Prerequisites: Launch Kanbug Tracker successfully
+1. Prerequisites: Launch KanBug Tracker successfully
 
 1. Test case 1:
 
@@ -703,7 +703,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding a bug using the `add` command.
 
-1. Prerequisites: Launch Kanbug Tracker successfully and clear all the bugs.
+1. Prerequisites: Launch KanBug Tracker successfully and clear all the bugs.
 
 1. Test case 1:
 
@@ -945,7 +945,7 @@ testers are expected to do more *exploratory* testing.
        Expected: No bug is deleted. The app response with "Please remove extra 
        irrelevant arguments!".
 
-### Exiting Kanbug Tracker
+### Exiting KanBug Tracker
 
 1. Exiting the app and closing the window.
 
@@ -980,7 +980,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Close the app.
    
-   1. Edit the `kanbugtracker.json` file by editing the description field of some bug into "bug description".
+   1. Edit the `KanBugtracker.json` file by editing the description field of some bug into "bug description".
    
    1. Open the app again<br>
       Expected: The change should be reflected in the app.
@@ -989,7 +989,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Close the app.
    
-   1. Edit the `kanbugtracker.json` file by editing the name field of some bug into "@".
+   1. Edit the `KanBugtracker.json` file by editing the name field of some bug into "@".
    
    1. Open the app again<br>
       Expected: The app now will have no bugs on it (since "@" is not a valid name for the bugs).
