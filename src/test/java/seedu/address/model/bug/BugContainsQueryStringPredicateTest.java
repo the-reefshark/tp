@@ -10,12 +10,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_ON
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_TEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_TWELVE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_TWO;
-import static seedu.address.testutil.TypicalBugs.BUGFOUR;
-import static seedu.address.testutil.TypicalBugs.BUGONE;
-import static seedu.address.testutil.TypicalBugs.BUGSEVEN;
-import static seedu.address.testutil.TypicalBugs.BUGSIX;
-import static seedu.address.testutil.TypicalBugs.BUGTHREE;
-import static seedu.address.testutil.TypicalBugs.BUGTWO;
+import static seedu.address.testutil.TypicalBugs.BUG_FOUR;
+import static seedu.address.testutil.TypicalBugs.BUG_ONE;
+import static seedu.address.testutil.TypicalBugs.BUG_SEVEN;
+import static seedu.address.testutil.TypicalBugs.BUG_SIX;
+import static seedu.address.testutil.TypicalBugs.BUG_THREE;
+import static seedu.address.testutil.TypicalBugs.BUG_TWO;
 
 import org.junit.jupiter.api.Test;
 
@@ -50,43 +50,43 @@ public class BugContainsQueryStringPredicateTest {
     public void test_nameContainsQueryString_returnsTrue() {
         // One keyword query-string
         BugContainsQueryStringPredicate predicate = getQueryStringPredicate(VALID_QUERY_STRING_EIGHT);
-        assertTrue(predicate.test(BUGONE));
+        assertTrue(predicate.test(BUG_ONE));
 
         // Multiple keywords query-string
         predicate = new BugContainsQueryStringPredicate(VALID_QUERY_STRING_NINE);
-        assertTrue(predicate.test(BUGTHREE));
+        assertTrue(predicate.test(BUG_THREE));
     }
 
     @Test
     public void test_descriptionContainsQueryString_returnsTrue() {
         // One keyword query-string
         BugContainsQueryStringPredicate predicate = getQueryStringPredicate(VALID_QUERY_STRING_TEN);
-        assertTrue(predicate.test(BUGSEVEN));
+        assertTrue(predicate.test(BUG_SEVEN));
 
         // Multiple keywords query-string
         predicate = new BugContainsQueryStringPredicate(VALID_QUERY_STRING_ELEVEN);
-        assertTrue(predicate.test(BUGFOUR));
+        assertTrue(predicate.test(BUG_FOUR));
     }
 
     @Test
     public void test_tagContainsQueryString_returnsTrue() {
         // One keyword query-string
         BugContainsQueryStringPredicate predicate = getQueryStringPredicate(VALID_QUERY_STRING_TWELVE);
-        assertTrue(predicate.test(BUGSIX));
+        assertTrue(predicate.test(BUG_SIX));
     }
 
     @Test
     public void test_nameDoesNotContainQueryString_returnsFalse() {
         // Non-matching keyword query-string
         BugContainsQueryStringPredicate predicate = getQueryStringPredicate(VALID_QUERY_STRING_ONE);
-        assertFalse(predicate.test(BUGTWO));
+        assertFalse(predicate.test(BUG_TWO));
     }
 
     @Test
     public void test_descriptionDoesNotContainQueryString_returnsFalse() {
         // Non-matching keyword query-string
         BugContainsQueryStringPredicate predicate = getQueryStringPredicate(VALID_QUERY_STRING_FOUR);
-        assertFalse(predicate.test(BUGFOUR));
+        assertFalse(predicate.test(BUG_FOUR));
     }
 
     /**

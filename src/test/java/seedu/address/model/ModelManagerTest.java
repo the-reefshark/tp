@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUGS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBugs.BUGONE;
-import static seedu.address.testutil.TypicalBugs.BUGTWO;
+import static seedu.address.testutil.TypicalBugs.BUG_ONE;
+import static seedu.address.testutil.TypicalBugs.BUG_TWO;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -77,13 +77,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasBug_bugNotInKanBugTracker_returnsFalse() {
-        assertFalse(modelManager.hasBug(BUGONE));
+        assertFalse(modelManager.hasBug(BUG_ONE));
     }
 
     @Test
     public void hasBug_bugInKanBugTracker_returnsTrue() {
-        modelManager.addBug(BUGONE);
-        assertTrue(modelManager.hasBug(BUGONE));
+        modelManager.addBug(BUG_ONE);
+        assertTrue(modelManager.hasBug(BUG_ONE));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        KanBugTracker kanBugTracker = new KanBugTrackerBuilder().withBug(BUGONE).withBug(BUGTWO).build();
+        KanBugTracker kanBugTracker = new KanBugTrackerBuilder().withBug(BUG_ONE).withBug(BUG_TWO).build();
         KanBugTracker differentKanBugTracker = new KanBugTracker();
         UserPrefs userPrefs = new UserPrefs();
 
