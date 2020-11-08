@@ -69,18 +69,6 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_BUG, new EditBugDescriptor());
-        Bug editedBug = model.getFilteredBugList().get(INDEX_FIRST_BUG.getZeroBased());
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BUG_SUCCESS, editedBug);
-
-        Model expectedModel = new ModelManager(new KanBugTracker(model.getKanBugTracker()), new UserPrefs());
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
     public void execute_filteredList_success() {
         showBugAtIndex(model, INDEX_FIRST_BUG);
 
@@ -142,6 +130,22 @@ public class EditCommandTest {
                 new EditBugDescriptorBuilder().withName(VALID_NAME_HOMEPAGE).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_noFieldSpecified_failure() {
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_BUG, new EditBugDescriptor());
+
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_NOT_EDITED);
+    }
+
+    @Test
+    public void execute_bugUnchanged_failure() {
+        Bug bugInList = model.getFilteredBugList().get(INDEX_FIRST_BUG.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_BUG,
+                new EditBugDescriptorBuilder(bugInList).build());
+
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_NOT_EDITED);
     }
 
     @Test

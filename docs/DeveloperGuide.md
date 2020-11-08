@@ -669,7 +669,7 @@ testers are expected to do more *exploratory* testing.
     1. Close the `help` window using the mouse<br>
        Expected: only the `help` window will be closed.
     
-1. Test case 2 (for Windows users only):
+1. Test case 2:
 
     1. Switch to List View.
     
@@ -732,7 +732,7 @@ testers are expected to do more *exploratory* testing.
     1. Execute "search q/description"<br>
        Expected: the bug "me12" and the bug "bug12" is listed.
     
-## Listing all bugs
+### Listing all bugs
 
 1. Listing all bugs using the `list` command.
 
