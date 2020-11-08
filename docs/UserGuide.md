@@ -430,13 +430,9 @@ Example 2 (No walkthrough provided) : Perhaps then you tried some ways to fix it
 
 Type `edit 6 note/Tried a fix using iterator, did not work` as input and press `Enter`.
 
-Once the command has been entered, the result display shows the result of your command and the KanBug Tracker has been updated with the updated note.
-
 Example 3 (No walkthrough provided) : After toiling away at the bug, you realise that you have solved it! So now you want to remove the `priority` of the Bug.
 
 Type `edit 6 pr/` as input and press `Enter`.
-
-Once the command has been entered, the result display shows the result of your command and the KanBug Tracker has been updated with the priority of the bug removed.
 
 ### 5.8 Editing a tag of a bug : `editTag`
 
