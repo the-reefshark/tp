@@ -214,7 +214,7 @@ Eg. <code>d/t/Location</code> will result in the description field of the Bug be
 
 - Words in `UPPER_CASE` are parameters to be supplied by the user
 - Items in `[...]` are **optional**
-- Items in `(...)` are only required in **KanBan View**
+- Items in `(...)` are only required in **KanBan view** and should not be supplied in **List view**
 - `INDEX` **must be a positive integer** 1,2,3...
 
 ### 3.1 Switching Views : `switch`
