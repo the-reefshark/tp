@@ -273,7 +273,7 @@ The design considerations for this feature are the same as the design considerat
 
 The activity diagram that summarizes what happens when a user executes a `addTag INDEX (c/COLUMN) nt/NEW_TAG` command with valid inputs is similar to that of the activity diagram for the edit tag feature which you can see [here](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#summary). Instead of executing an `editTag` command, the user would execute an `addTag` command in this case.
 
-### Bug priority
+### Bug priority feature
 
 Feature description: Each bug will now have a priority level (low, medium, high) that will be shown on the GUI. Users
 can add or edit a bug with the priority using the `pr/` tag. The priority is optional, but each bug must have at most

@@ -108,7 +108,6 @@ Now you're all set to get started! But where should you begin?
    ![HomeFolder](images/HomeFolder.png)
    
    <div markdown="span" class="alert alert-info">:information_source: Note: In this instance, <b>Home Folder</b> acts as our <b>root folder</b>. Users are free to name their <b>root folder</b> however they wish.<br>
-   <br>
    </div>
 
 4. Double-click on the `KanBugTracker.jar` file to launch the application. You should see something similar.
