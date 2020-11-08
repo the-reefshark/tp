@@ -328,7 +328,7 @@ Suppose you want to look for `command` bugs in the tracker. Firstly, you will ty
 
 ![HomeFolder](images/SearchExample1.png)
 
-Once the command has been entered, the result display shows the total number of relevant items and Kanbug Tracker will display all these bugs as list in each state.
+Once the command has been entered, the result display shows the total number of relevant items and KanBug Tracker will display all these bugs as list in each state.
 
 ![HomeFolder](images/SearchExample2.png)
 
@@ -576,9 +576,6 @@ You would enter the following command: `move 2 s/done`
 Imagine the project you just finish ends up with a hundred of bug records in the tracker. How to restart? Don't worry! Clear command is here to help you to clear all bugs to reinitialize the application.
 
 Format: `clear`
-
-<div markdown="span" class="alert alert-info">:information_source: Note: This command is applicable to both Kanban and List view. 
-</div>
 
 Example:   
 
