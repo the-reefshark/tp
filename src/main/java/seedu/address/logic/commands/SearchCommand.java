@@ -8,15 +8,15 @@ import seedu.address.model.Model;
 import seedu.address.model.bug.BugContainsQueryStringPredicate;
 
 public class SearchCommand extends Command {
-    public static final String COMMAND_WORD = "search";
 
+    public static final String COMMAND_WORD = "search";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Search all bugs of which name/description/tag contains "
             + "the specified query-string (case-insensitive) as a substring and displays them as a list of items.\n"
             + "Parameters: " + PREFIX_QUERYSTRING + "QUERYSTRING\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_QUERYSTRING + "Ui bug";
-
     public static final String MESSAGE_EMPTY_QUERY_STRING = "The query-string cannot be empty!";
+
     private final BugContainsQueryStringPredicate predicate;
 
     public SearchCommand(BugContainsQueryStringPredicate predicate) {
