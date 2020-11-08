@@ -367,7 +367,7 @@ add the bug to the bottom of the list.
 
 ### A word of caution
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: Do note that for the following commands (Section 5.6 - 5.10) you have to include the <code>c/COLUMN</code> argument when in <b>Kanban View</b>. The <code>c/COLUMN</code> argument should <b>not</b> be used when in <b>List View</b>. <br><br> If you are unsure about what this means, an explanation on columns and how to navigate commands in Kanban view was provided <a href = https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#43-what-are-commands"">here</a>. <br><br> Additionally, all walkthroughs will only be given for command usage in <b>List View</b> as the only difference in <b>Kanban View</b> is the need to supply <code>c/COLUMN</code>.</div>
+<div markdown="span" class="alert alert-warning">:warning: WARNING: Do note that for the following commands (Section 5.6 - 5.10) you have to include the <code>c/COLUMN</code> argument when in <b>Kanban View</b>. The <code>c/COLUMN</code> argument should <b>not</b> be used when in <b>List View</b>. <br><br> If you are unsure about what this means, an explanation on columns and how to navigate commands in Kanban view was provided <a href = "#43-what-are-commands">here</a>. <br><br> Additionally, all walkthroughs will only be given for command usage in <b>List View</b> as the only difference in <b>Kanban View</b> is the need to supply <code>c/COLUMN</code>.</div>
 ### 5.6 Deleting a bug : `delete`
 
 After a bug is fixed and a project is done, its time to remove the bug from the application.
