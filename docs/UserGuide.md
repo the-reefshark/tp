@@ -250,8 +250,8 @@ Some commands require the use of prefixes to indicate user input. Every command 
 Eg. <code>edit 1 n/firstname n/secondname</code> will result in the name of Bug 1 being editted to <b>secondname</b>.
 </div>
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: Using a prefix inside another prefix will result in it not being recognised by the application.
-Eg. <code>d/t/Location</code> will result in the description field of the Bug being set to <code>t/Location</code>. 
+<div markdown="span" class="alert alert-warning">:warning: WARNING: A prefix is only valid if it is preceded by a whitespace and is mentioned in the command syntax, otherwise it is treated as a normal string.
+Eg. <code>d/t/Location v/not a prefix</code> will result in the description field of the Bug being set to <code>t/Location v/not a prefix</code> because neither "t/" nor "v/" is considered as a prefix. 
 </div>
 
 ## 5. Features
@@ -260,6 +260,10 @@ Eg. <code>d/t/Location</code> will result in the description field of the Bug be
 - Items in `[...]` are **optional**
 - Items in `(...)` are only required in **KanBan view** and should not be supplied in **List view**
 - `INDEX` **must be a positive integer** 1,2,3...
+
+<div markdown="span" class="alert alert-warning">:warning: WARNING: For the prefixes surrounded by the parentheses in the command format, they are still considered as a valid prefix in List view even if they should not be supplied there.
+Eg. Executing <code>edit 1 d/column c/todo</code> in List view will not result in the description field of the Bug being set to <code>column c/todo</code> but will result in an error because "c/" is considered as a prefix and also which should not be supplied in List view. 
+</div>
 
 ### 5.1 Switching Views : `switch`
 
