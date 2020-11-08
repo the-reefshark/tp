@@ -4,6 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_BUGS_LISTED_OVERVIEW;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_EIGHT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_FIVE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_FOUR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_NINE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_ONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_SEVEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_SIX;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_THREE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_TWO;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBugs.BUGFIVE;
 import static seedu.address.testutil.TypicalBugs.BUGFOUR;
@@ -33,19 +42,14 @@ public class SearchCommandTest {
 
     @Test
     public void equals() {
-        BugContainsQueryStringPredicate firstPredicate =
-                new BugContainsQueryStringPredicate("first");
-        BugContainsQueryStringPredicate secondPredicate =
-                new BugContainsQueryStringPredicate("second");
-
-        SearchCommand searchFirstCommand = new SearchCommand(firstPredicate);
-        SearchCommand searchSecondCommand = new SearchCommand(secondPredicate);
+        SearchCommand searchFirstCommand = getSearchCommand(VALID_QUERY_STRING_ONE);
+        SearchCommand searchSecondCommand = getSearchCommand(VALID_QUERY_STRING_TWO);
 
         // same object -> returns true
         assertTrue(searchFirstCommand.equals(searchFirstCommand));
 
         // same values -> returns true
-        SearchCommand searchFirstCommandCopy = new SearchCommand(firstPredicate);
+        SearchCommand searchFirstCommandCopy = getSearchCommand(VALID_QUERY_STRING_ONE);
         assertTrue(searchFirstCommand.equals(searchFirstCommandCopy));
 
         // different types -> returns false
@@ -61,9 +65,8 @@ public class SearchCommandTest {
     @Test
     public void execute_emptyData_noBugFound() {
         String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 0);
-        BugContainsQueryStringPredicate predicate = preparePredicate("No data");
-        SearchCommand command = new SearchCommand(predicate);
-        expectedModel.updateFilteredBugList(predicate);
+        SearchCommand command = getSearchCommand(VALID_QUERY_STRING_THREE);
+        expectedModel.updateFilteredBugList(getQueryStringPredicate(VALID_QUERY_STRING_THREE));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredBugList());
     }
@@ -71,9 +74,8 @@ public class SearchCommandTest {
     @Test
     public void execute_oneKeywordQueryString_oneBugFound() {
         String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 1);
-        BugContainsQueryStringPredicate predicate = preparePredicate("jar");
-        SearchCommand command = new SearchCommand(predicate);
-        expectedModel.updateFilteredBugList(predicate);
+        SearchCommand command = getSearchCommand(VALID_QUERY_STRING_FOUR);
+        expectedModel.updateFilteredBugList(getQueryStringPredicate(VALID_QUERY_STRING_FOUR));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BUGSEVEN), model.getFilteredBugList());
     }
@@ -81,9 +83,8 @@ public class SearchCommandTest {
     @Test
     public void execute_oneMixedCaseKeywordQueryString_oneBugFound() {
         String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 1);
-        BugContainsQueryStringPredicate predicate = preparePredicate("eXiT");
-        SearchCommand command = new SearchCommand(predicate);
-        expectedModel.updateFilteredBugList(predicate);
+        SearchCommand command = getSearchCommand(VALID_QUERY_STRING_FIVE);
+        expectedModel.updateFilteredBugList(getQueryStringPredicate(VALID_QUERY_STRING_FIVE));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BUGFIVE), model.getFilteredBugList());
     }
@@ -91,9 +92,8 @@ public class SearchCommandTest {
     @Test
     public void execute_multipleKeywordsQueryString_oneBugFound() {
         String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 1);
-        BugContainsQueryStringPredicate predicate = preparePredicate("Note rendering");
-        SearchCommand command = new SearchCommand(predicate);
-        expectedModel.updateFilteredBugList(predicate);
+        SearchCommand command = getSearchCommand(VALID_QUERY_STRING_SIX);
+        expectedModel.updateFilteredBugList(getQueryStringPredicate(VALID_QUERY_STRING_SIX));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BUGSIX), model.getFilteredBugList());
     }
@@ -101,9 +101,8 @@ public class SearchCommandTest {
     @Test
     public void execute_oneKeywordQueryString_multipleBugsFound() {
         String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 4);
-        BugContainsQueryStringPredicate predicate = preparePredicate("command");
-        SearchCommand command = new SearchCommand(predicate);
-        expectedModel.updateFilteredBugList(predicate);
+        SearchCommand command = getSearchCommand(VALID_QUERY_STRING_SEVEN);
+        expectedModel.updateFilteredBugList(getQueryStringPredicate(VALID_QUERY_STRING_SEVEN));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BUGONE, BUGTWO, BUGFOUR, BUGFIVE), model.getFilteredBugList());
     }
@@ -111,9 +110,8 @@ public class SearchCommandTest {
     @Test
     public void execute_oneMixedCaseKeywordQueryString_multipleBugsFound() {
         String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 4);
-        BugContainsQueryStringPredicate predicate = preparePredicate("cOmMaND");
-        SearchCommand command = new SearchCommand(predicate);
-        expectedModel.updateFilteredBugList(predicate);
+        SearchCommand command = getSearchCommand(VALID_QUERY_STRING_EIGHT);
+        expectedModel.updateFilteredBugList(getQueryStringPredicate(VALID_QUERY_STRING_EIGHT));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BUGONE, BUGTWO, BUGFOUR, BUGFIVE), model.getFilteredBugList());
     }
@@ -121,17 +119,24 @@ public class SearchCommandTest {
     @Test
     public void execute_multipleMixedCaseKeywordsQueryString_multipleBugsFound() {
         String expectedMessage = String.format(MESSAGE_BUGS_LISTED_OVERVIEW, 2);
-        BugContainsQueryStringPredicate predicate = preparePredicate("mAiN wINDow");
-        SearchCommand command = new SearchCommand(predicate);
-        expectedModel.updateFilteredBugList(predicate);
+        SearchCommand command = getSearchCommand(VALID_QUERY_STRING_NINE);
+        expectedModel.updateFilteredBugList(getQueryStringPredicate(VALID_QUERY_STRING_NINE));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BUGTHREE, BUGSIX), model.getFilteredBugList());
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code BugContainsQueryStringPredicate}.
      */
-    private BugContainsQueryStringPredicate preparePredicate(String userInput) {
+    private BugContainsQueryStringPredicate getQueryStringPredicate(String userInput) {
         return new BugContainsQueryStringPredicate(userInput);
+    }
+
+    /**
+     * Returns the search command taking in the particular user's input.
+     * @param userInput user's input.
+     */
+    private SearchCommand getSearchCommand(String userInput) {
+        return new SearchCommand(getQueryStringPredicate(userInput));
     }
 }
