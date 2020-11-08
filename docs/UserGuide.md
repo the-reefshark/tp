@@ -55,7 +55,7 @@ title: User Guide
 
 Are you struggling to find an effective way to keep track of and manage the bugs you encounter while programming?
 
-Perhaps you're still relying on the archaic methods of pen and paper? Or you cannot wrap your head around the unnecessarily complex features of existing bug trackers?
+Perhaps you're still relying on the archaic method of pen and paper? Or you cannot wrap your head around the unnecessarily complex features of existing bug trackers?
 
 Do you desire an offline solution that is easy to use yet powerful enough to solve all your bug management problems? Look no further because we have the perfect product for you.
 
@@ -63,13 +63,13 @@ Introducing KanBug Tracker, a revolutionary bug management application!
 
 Let's look at some ways that KanBug Tracker can benefit you:
 
-- **Bug Management**: Store and organise all the bugs you encounter while programming with the press of a button. 
+- **Bug Management**: Store and organise all the bugs you encounter while programming with a few simple commands. 
 - **Visualisation**: Our intuitive layout is designed to give you a high-level overview of your bug fixing progress, giving you the ability to plan your approach like never before.
-- **Incredible Portability**: The application lives on your computer and does not require an internet connection, allowing you to manage your bugs wherever you are.
+- **Incredible Portability**: The application lives entirely on your computer and does not require an internet connection, allowing you to manage your bugs wherever you are.
 - **Powerful features**: Take your bug tracking efforts to the next level with features that will allow you to search for bugs and move them between states.
-- **Performance**: We understand developers. That's why KanBug Tracker is powered by a slick Command Line Interface (CLI) designed to maximise your productivity.
+- **Performance**: KanBug Tracker is powered by a slick Command Line Interface (CLI) designed to maximise your productivity with its high responsiveness.
 
-As you can see, KanBug Tracker was designed for developers like you, with powerful features that help you stay on top of your bug fixing process.
+As you can see, KanBug Tracker was designed with developers like you in mind, with powerful features that help you stay on top of your bug fixing process. Never again will you have to struggle with your bug management!
 
 ## 2. How do I use this User Guide?
 
@@ -112,15 +112,15 @@ Now you're all set to get started! But where should you begin?
 
 3. Copy the `KanBugTracker.jar` file to a folder you want to use as your _root folder_.
    ![HomeFolder](images/HomeFolder.png)
+   
+   <div markdown="span" class="alert alert-info">:information_source: Note: In this instance, <b>Home Folder</b> acts as our <b>root folder</b>. Users are free to name their <b>root folder</b> however they wish. 
+   </div>
 
-<div markdown="span" class="alert alert-info">:information_source: Note: In this instance, <b>Home Folder</b> acts as our <b>root folder</b>. Users are free to name their <b>root folder</b> however they wish. 
-</div>
-
-
-
-4. Double-click on the `KanBugTracker.jar`file to launch the application. You should see something similar.
+4. Double-click on the `KanBugTracker.jar` file to launch the application. You should see something similar.
 
    ![HomeFolder](images/Ui2.png)
+
+   
 
 5. Now that you're all set up, you're ready to take your bug management to the next level! 
 
@@ -143,7 +143,7 @@ KanBug Tracker provides two different views that the user can switch between. Th
 
 #### Kanban View (default):
 
-![Ui](images/Ui3.png)
+​	![Ui](images/Ui3.png)
 
 1. Command Line Interface for users to enter their commands
 2. Display that the application uses to give feedback on commands to the user
@@ -250,8 +250,8 @@ Some commands require the use of prefixes to indicate user input. Every command 
 Eg. <code>edit 1 n/firstname n/secondname</code> will result in the name of Bug 1 being editted to <b>secondname</b>.
 </div>
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: Using a prefix inside another prefix will result in it not being recognised by the application.
-Eg. <code>d/t/Location</code> will result in the description field of the Bug being set to <code>t/Location</code>. 
+<div markdown="span" class="alert alert-warning">:warning: WARNING: A prefix is only valid if it is preceded by a whitespace and is mentioned in the command syntax, otherwise it is treated as a normal string.
+Eg. <code>d/t/Location v/not a prefix</code> will result in the description field of the Bug being set to <code>t/Location v/not a prefix</code> because neither "t/" nor "v/" is considered as a prefix. 
 </div>
 
 ## 5. Features
@@ -261,12 +261,15 @@ Eg. <code>d/t/Location</code> will result in the description field of the Bug be
 - Items in `(...)` are only required in **KanBan view** and should not be supplied in **List view**
 - `INDEX` **must be a positive integer** 1,2,3...
 
+<div markdown="span" class="alert alert-warning">:warning: WARNING: For the prefixes surrounded by the parentheses in the command format, they are still considered as a valid prefix in List view even if they should not be supplied there.
+Eg. Executing <code>edit 1 d/column c/todo</code> in List view will not result in the description field of the Bug being set to <code>column c/todo</code> but will result in an error because "c/" is considered as a prefix and also which should not be supplied in List view. 
+</div>
+
 ### 5.1 Switching Views : `switch`
 
 Want to get a high level overview of the bugs in your program or focus only on a particular column? Just switch views!
 
 Format: `switch`
-(Any parameters entered are ignored)
 
 - Switches between **Kanban view** and **List view**
 
@@ -275,7 +278,6 @@ Format: `switch`
 Not sure what to do next? Don't worry, just ask for help.
 
 Format: `help` 
-(Any parameters entered are ignored)
 
 - Gets all commands’ syntax and the link to this User Guide.
 
@@ -289,12 +291,14 @@ Just type `help` and hit `Enter`
 
 This creates a popup (the Help Window) with a command guide that you can refer to.
 
+<div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the F1 key to open the Help window. Try it!
+</div>
+
 ### 5.3 Listing all bugs : `list`
 
 After running the search command you might want to see all the bugs you have in your Kanbug Tracker at one glance. Thats where the `list` can be used.
 
 Format: `list`
-(Any parameters entered are ignored)
 
 - Shows all the bugs in your Kanbug Tracker
 
@@ -346,9 +350,9 @@ You can type `add n/Ui bug d/Homepage not loading properly s/backlog pr/low` and
 Once the command has been entered, the result display shows the result of your command and KanBug Tracker
 add the bug to the bottom of the list.
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: Do note that for the following commands (Section 5.6 - 5.10) you have to include the <code>c/COLUMN</code> prefix when using it in the <b>Kanban View</b> which should not be added when using it in the <b>List View</b>.
-</div>
+### A word of caution
 
+<div markdown="span" class="alert alert-warning">:warning: WARNING: Do note that for the following commands (Section 5.6 - 5.10) you have to include the <code>c/COLUMN</code> argument when in <b>Kanban View</b>. The <code>c/COLUMN</code> argument should <b>not</b> be used when in <b>List View</b>. <br><br> If you are unsure about what this means, an explanation on columns and how to navigate commands in Kanban view was provided <a href = https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#43-what-are-commands"">here</a>. <br><br> Additionally, all walkthroughs will only be given for command usage in <b>List View</b> as the only difference in <b>Kanban View</b> is the need to supply <code>c/COLUMN</code>.</div>
 ### 5.6 Deleting a bug : `delete`
 
 After a bug is fixed and a project is done, its time to remove the bug from the application.
@@ -419,42 +423,107 @@ Type `edit 6 pr/` as input and press `Enter`.
 
 ![HomeFolder](images/EditExample6.png)
 
-Once the command has been entered, the result display shows the result of your command and the Kanbug tracker has been updated with the priority of the bug removed.
+Once the command has been entered, the result display shows the result of your command and the KanBug Tracker has been updated with the priority of the bug removed.
 
 ### 5.8 Editing a tag of a bug : `editTag`
 
-Made a mistake when adding tags to your bug? With this command, you can easily make amends without having to retype every single tag!
+Made a mistake when adding tags to your bug? With this command, you can easily make amends without having to recreate the bug again!
 
-Format: `editTag INDEX [c/COLUMN] ot/OLD_TAG nt/NEW_TAG`
+<div markdown="span" class="alert alert-success">:bulb: Tip: You might be wondering why you can't just use the <code>edit</code> command. Using the <code>edit</code> command would require you to retype every single existing tag on top of the tag you want to edit. With the <code>editTag</code> command, you only need to concern yourself with the tag you want to edit!
+</div>
 
-- The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
-  - **Kanban view**: User must supply `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
-  - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
+Format: `editTag INDEX (c/COLUMN) ot/OLD_TAG nt/NEW_TAG`
+
 - The `OLD_TAG` supplied must be an existing tag.
 - The `NEW_TAG` supplied must **not** be an existing tag.
 - The `OLD_TAG` will be updated to the `NEW_TAG`
 
 Examples:
 
-- `editTag 1 ot/UI nt/UserDisplay` edits the bug at index **1** and replaces the tag **UI** with the tag **UserDisplay**.
-- `editTag 1 c/backlog ot/CommandResult nt/CommandParser` filters all bugs and only considers those that have a **state** of **backlog**. It then edits the bug at index **1** of this list and replaces the tag **CommandResult** with the tag **CommandParser**.
+Example 1:
+
+You've made a mistake when creating the bug at index **1** of the list and you wish to edit its tag. The tag should be **UserDisplay** instead of **UI**.
+
+![EditTagMain](images/EditTagMain.png)
+
+
+
+Since you want to edit the tag of the first bug from **UI** to **UserDisplay**, you can enter the command:
+
+ `editTag 1 ot/UI nt/UserDisplay`
+
+
+
+![EditTagMain](images/EditTagEdited1.png)
+
+
+
+The **UI** tag of the bug at index **1** is edited and is now **UserDisplay**. The display at the bottom of the screen confirms that the command has been executed successfully.
+
+Example 2 (No walkthrough provided) :
+
+You are in **Kanban View** and want to edit the **CommandResult** tag of the bug at index **1** of the **backlog column** to **CommandParser**.
+
+You would enter the following command:
+
+`editTag 1 c/backlog ot/CommandResult nt/CommandParser`
+
+<div markdown="span" class="alert alert-info">:information_source: Note: Since this example takes place in <b>Kanban View</b>, you need to supply a <code>c/COLUMN</code> value.
+</div>
 
 ### 5.9 Adding a tag to a bug : `addTag`
 
-Forgot to add a tag to one of your bugs? Or perhaps you want to add a new one? With this command, adding tags has never been simpler!
+Oh no! You've forgotten to add a tag to one of your bugs! Or perhaps you want to add a new one? With this command, adding tags has never been simpler!
 
-Format: `addTag INDEX [c/COLUMN] nt/NEW_TAG`
+<div markdown="span" class="alert alert-success">:bulb: Tip: You might be wondering why you can't just use the <code>edit</code> command. Using the <code>edit</code> command would require you to retype every single existing tag on top of the tags you want to add. With the <code>addTag</code> command, you only need to concern yourself with the tags you want to add!
+</div>
 
-- The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
-  - **Kanban view**: User must supply `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
-  - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
+Format: `addTag INDEX (c/COLUMN) nt/NEW_TAG`
+
 - The `NEW_TAG` supplied must **not** be an existing tag.
+
 - The `NEW_TAG` will be added to the bug.
+
+- Users can add **multiple tags** by supplying multiple instances of  `nt/NEW_TAG`.
+
+  <div markdown="span" class="alert alert-warning">:warning: WARNING: Duplicate new tags will only be added once. For instance, suppose the tag <b>UiError</b> is a valid tag that can be added to a particular bug.
+  Executing the following command: <br>
+  <code>addTag 1 nt/UiError nt/UiError</code> <br> <br>
+  Will result in the tag <b>UiError</b> only being added to the bug <b>once</b>.
+  </div>
 
 Examples:
 
-- `addTag 2 nt/UserDisplay` edits the bug at index **2** and adds the tag **UI** to the bug.
-- `addTag 1 c/backlog nt/CommandParser` filters all bugs and only considers those that have a **state** of **backlog**. It then edits the bug at index **1** of this list and adds the tag **CommandParser** to the bug.
+Example 1:
+
+You've decided that you want to add two new tags, **JavaFx** and **switch** to the bug at index **1** of the list.
+
+![AddTagMain](images/AddTagMain.png)
+
+
+
+Since you want to add two tags, **JavaFX** and **switch**, to the bug at index **1**, you can enter the command:
+
+`addTag 1 nt/JavaFX nt/switch`
+
+
+
+![AddTagAdded](images/AddTagAdded1.png)
+
+
+
+Two new tags, **JavaFX** and **switch** have now been added to the bug at index **1**. The display at the bottom of the screen confirms that the command has been executed successfully.
+
+Example 2 (No walkthrough provided) :
+
+You are in **Kanban View** and want to add the tag **CommandParser** to the bug at index **1**  of the **backlog column**.
+
+You would enter the following command:
+
+`addTag 1 c/backlog nt/CommandParser`
+
+<div markdown="span" class="alert alert-info">:information_source: Note: Since this example takes place in <b>Kanban View</b>, you need to supply a <code>c/COLUMN</code> value.
+</div>
 
 ### 5.10 Moving a bug : `move`
 
@@ -482,7 +551,6 @@ Examples:
 Imagine the project you just finish ends up with a hundred of bug records in the tracker. How to restart? Don't worry! Clear command is here to help you to clear all bugs to reinitialize the application.
 
 Format: `clear`
-(Any parameters entered are ignored)
 
 - This command is applicable to both Kanban and List views.
 
@@ -491,10 +559,11 @@ Format: `clear`
 Ends and closes the app.
 
 Format: `exit`
-(Any parameters entered are ignored)
 
 When you are done with managing your tasks, use this command to saves all of the local data and exit from the app. 
-Alternatively, you can also close the window directly or press Esc key, and the app will do the same thing.
+
+<div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the Esc key to close the window. Try it!
+</div>
 
 ### 5.13 Saving the data : automatically
 

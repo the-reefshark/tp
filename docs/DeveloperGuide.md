@@ -59,7 +59,7 @@ The sections below give more details of each component.
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BugListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2021S1-CS2103T-W17-1/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2021S1-CS2103T-W17-1/tp/blob/master/src/main/resources/view/MainWindow.fxml)
+DeveloperThe `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2021S1-CS2103T-W17-1/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2021S1-CS2103T-W17-1/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -124,7 +124,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### FeatureUI kanban view window
+### Kanban view window feature
 
 #### Proposed Implementation
 The kanban view window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a Observerable list that contains only the bugs that belong to their respective state. This observerable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
@@ -381,9 +381,10 @@ Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/tod
 
 Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug.
 The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`.
-This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance (**BugContainsQueryStringPredicate** in detail).
-The predicate is internally passed and used to filter **FilteredList<Bug>**.
-This results in the information of all the bugs of which name or description or tag contains **Ui bug** as a substring displays in the tracker.
+
+Step 4. This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance (`BugContainsQueryStringPredicate` in detail).
+The predicate is internally passed and used to filter `FilteredList<Bug>`.  
+This results in the information of all the bugs of which name or description or tag contains `Ui bug` as a substring displays in the tracker.
 
 The following sequence diagram summarizes what happens when a user executes the search command:
 ![SearchCommandSequenceDiagram](images/SearchCommandSequenceDiagram.png)
@@ -580,6 +581,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. User requests to move a specific bug to another state
 4. KanBug Tracker moves the bug
 
+    Use case ends.
+
 **Extensions**
 
 - 2a. The list is empty.
@@ -598,11 +601,41 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case resumes at 2.
 
+**Use case: Search a bug**
+
+**MSS**
+
+1. User requests to list bugs  
+2. KanBug Tracker shows the list of bugs  
+3. User requests to search a particular bug in the Kanbug Tracker  
+4. KanBug Tracker displays the resulting list of bugs
+
+    Use case ends.
+
+**Extensions**
+
+- 2a. The list is empty.  
+
+  Use case ends.
+
+- 3a. The given query-string is empty.
+
+  - 3a1. Kanbug Tracker shows an error message.
+  
+    Use case resumes at 2.
+
+- 3b. The user enters an invalid search command format.
+
+  - 3b1. KanBug Tracker shows an error message.
+  
+    Use case resumes at 2.
+
+
 ### Non-Functional Requirements
 
 1.  KanBug Tracker should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-3.  KanBug Tracker should be able to hold up to 10000 **Bug** items without a remarkable sluggishness in performance for typical usage.
+3.  KanBug Tracker should be able to hold up to **10000** bug items without a remarkable sluggishness in performance for typical usage.
 4.  KanBug Tracker should work on both 32-bit and 64-bit environments.
 5.  The size of the compiled JAR file (KanBugTracker.jar) should be less than 100Mb.
 6.  KanBug Tracker should be intentionally designed for a single-user (i.e. KanBug Tracker should not be a multi-user application).
@@ -679,7 +712,7 @@ testers are expected to do more *exploratory* testing.
     1. Close the `help` window using the mouse<br>
        Expected: only the `help` window will be closed.
     
-1. Test case 2 (for Windows users only):
+1. Test case 2:
 
     1. Switch to List View.
     
@@ -742,7 +775,7 @@ testers are expected to do more *exploratory* testing.
     1. Execute "search q/description"<br>
        Expected: the bug "me12" and the bug "bug12" are listed.
     
-## Listing all bugs
+### Listing all bugs
 
 1. Listing all bugs using the `list` command.
 
@@ -762,7 +795,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a bug while all bugs are being shown.
 
-1. Prerequisites: List all bugs using the `list` command. Multiple bugs in the list.
+1. Prerequisites: List all bugs using the `list` command. Multiple bugs in the list, at least one is in `todo`.
 
 1. Test case 1:
 
@@ -778,7 +811,7 @@ testers are expected to do more *exploratory* testing.
       Expected: No bug is deleted. The app should response with "The bug index provided is invalid". 
 
    1. Execute `delete 1 c/backlog`<br>
-      Expected: No bug is deleted. The app should response with "Please do not provide column..." 
+      Expected: No bug is deleted. The app should response with "Please do not provide column in List view window" 
 
 1. Test case 2:
     
@@ -790,7 +823,7 @@ testers are expected to do more *exploratory* testing.
        Expected: First bug is deleted from the `todo` column. Details of the deleted bug shown in the status message.
     
     1. Execute `delete 1`<br>
-       Expected: No bug is deleted. The app should response with "Please provide column...".
+       Expected: No bug is deleted. The app should response with "Please provide column in Kanban view window".
 
 ### Editing bugs
 
@@ -800,7 +833,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Test case 1:
 
-    1. Switch to List view.
+    1. Switch to List view and ensure that there is at least one bug.
     
     1. Execute `edit 1 t/tag1 pr/low note/some note`<br>
        Expected: The first bug will have a new tag, priority and note according to the command. Details of the bug are shown in the status message.
@@ -808,12 +841,14 @@ testers are expected to do more *exploratory* testing.
     1. Execute `edit 1 pr/ note/ t/`<br>
        Expected: The first bug will have its priority, note and tags removed. Details of the bug are shown in the status message.
 
+    1. Execute `edit n/name c/todo`<br>
+       Expected: No bug is edited. The app should response with "Please do not provide column in List view window".
 1. Test case 2:
 
-    1. Switch to Kanban view.
+    1. Switch to Kanban view and ensure that there is one bug with state of todo.
     
     1. Execute `edit 1 d/desc`<br>
-       Expected: No bug is edited. The app responds with "Please provide column...".
+       Expected: No bug is edited. The app response with "Please provide column in Kanban view window".
        
     1. Execute `edit 1 c/todo d/desc`<br>
        Expected: The first bug in the `todo` column is edited. Details of the bug are shown in the status message.
@@ -822,18 +857,36 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding tags to a bug without removing the original ones.
 
-1. Prerequisite: The first bug in the List view have at least one tag.
+1. Prerequisite: The first bug in the List view have at least one tag and at least one bug with state of `backlog`.
 
-1. Test case:
+1. Test case 1:
 
-    1. Switch to List view.
+    1. Switch to List view and remove all the tags for index 1.
     
     1. Execute `addTag 1 nt/tag3 nt/tag4`<br>
        Expected: The first bug has two more tags along with the original ones.
        Details of the bug is shown in the status message.
        
-    1. Execute `addTag 1 nt/tag4 nt/tag5`<br>
+    1. Execute `addTag 1 nt/tag4`<br>
        Expected: No tags will be added. The app should response with "The new tag already exists".
+
+    1. Execute `addTag 1 nt/tag5 c/backlog`<br>
+       Expected: No tags will be added. The app should response with "Please do not provide column in List view window".
+
+1. Test case 2:
+    1. Switch to Kanban view.
+
+    1. Ensure that first bug in backlog as no tags.
+       
+    1. Execute `addTag 1 nt/tag5 c/backlog`<br>
+       Expected: First bug in backlog will have an addition tag of "tag5"
+
+    1. Execute `addTag 1 nt/tag5 c/backlog` again<br>
+       Expected: No tags will be added. The app should response with "The new tag already exists".
+
+    1. Execute `addTag 1 nt/tag6`<br>
+       Expected: No tags will be added. The app should response with "Please provide column in Kanban view window".
+    
 
 ### Editing a single tag
 
@@ -841,7 +894,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Prerequisite: The first bug in the List view has two tags "tag1" and "tag2".
 
-1. Test case:
+1. Test case 1:
 
     1. Switch to List view.
     
@@ -853,6 +906,21 @@ testers are expected to do more *exploratory* testing.
        
     1. Execute `editTag 1 ot/tag2 nt/tag3`<br>
        Expected: No tags will be edited. The app should response with "The new tag already exists!".
+
+    1. Execute `editTag 1 ot/tag2 nt/tag4 c/backlog`<br>
+       Expected: No tags will be edited. The app should response with "Please do not provide column in List view window".
+  
+
+1. Test case 2:
+    
+    1. Switch to Kanban view.
+
+    1. Ensure that first bug in backlog has has two tags "tag1".
+
+    1. Execute `editTag 1 ot/tag1 nt/tag2`<br>
+       Expected: No tags will be edited. The app should response with "Please provide column in Kanban view window".
+    1. Execute `editTag 1 ot/tag1 nt/tag2 c/backlog`<br>
+       Expected: The tag "tag1" of the first bug in backlog is rename to "tag2". 
        
 ### Moving a bug to a new state
 

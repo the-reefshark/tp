@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OLDTAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUERYSTRING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -52,6 +53,23 @@ public class CommandTestUtil {
     public static final String VALID_STATE_VALUE_BACKLOG = "backlog";
     public static final String VALID_STATE_VALUE_ONGOING = "ongoing";
     public static final String VALID_STATE_VALUE_DONE = "done";
+    public static final String VALID_PRIORITY_LOW = "low";
+    public static final String VALID_PRIORITY_MEDIUM = "medium";
+    public static final String VALID_PRIORITY_HIGH = "high";
+    public static final String VALID_QUERY_STRING_ONE = "first";
+    public static final String VALID_QUERY_STRING_TWO = "second";
+    public static final String VALID_QUERY_STRING_THREE = "No data";
+    public static final String VALID_QUERY_STRING_FOUR = "jar";
+    public static final String VALID_QUERY_STRING_FIVE = "eXiT";
+    public static final String VALID_QUERY_STRING_SIX = "Note rendering";
+    public static final String VALID_QUERY_STRING_SEVEN = "command";
+    public static final String VALID_QUERY_STRING_EIGHT = "cOmMaND";
+    public static final String VALID_QUERY_STRING_NINE = "mAiN wINDow";
+    public static final String VALID_QUERY_STRING_TEN = "MAC";
+    public static final String VALID_QUERY_STRING_ELEVEN = "all equivalence partition";
+    public static final String VALID_QUERY_STRING_TWELVE = "JAVAfx";
+
+
 
     public static final String NAME_DESC_PARSER = " " + PREFIX_NAME + VALID_NAME_PARSER;
     public static final String NAME_DESC_HOMEPAGE = " " + PREFIX_NAME + VALID_NAME_HOMEPAGE;
@@ -72,6 +90,14 @@ public class CommandTestUtil {
     public static final String PRIORITY_DESC_HOMEPAGE = " " + PREFIX_PRIORITY + VALID_PRIORITY_HOMEPAGE;
     public static final String COLUMN_DESC_TODO = " " + PREFIX_COLUMN + VALID_COLUMN_TODO;
     public static final String COLUMN_DESC_BACKLOG = " " + PREFIX_COLUMN + VALID_COLUMN_BACKLOG;
+    public static final String QUERY_STRING_TYPICAL = " " + PREFIX_QUERYSTRING + VALID_QUERY_STRING_ONE;
+    public static final String QUERY_STRING_TRAILING =
+            "    " + PREFIX_QUERYSTRING + "    " + VALID_QUERY_STRING_ONE + "    ";
+    public static final String QUERY_STRING_REPEAT =
+            " " + PREFIX_QUERYSTRING + VALID_QUERY_STRING_TWO
+            + " " + PREFIX_QUERYSTRING + VALID_QUERY_STRING_THREE
+            + " " + PREFIX_QUERYSTRING + VALID_QUERY_STRING_ONE;
+
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Bug&"; // '&' not allowed in names
     public static final String INVALID_STATE_DESC = " " + PREFIX_STATE + "backklog"; // typo of backog
@@ -82,6 +108,8 @@ public class CommandTestUtil {
     public static final String INVALID_TAG_NEW = " " + PREFIX_NEWTAG + "Javafs("; // '(' not allowed in tags
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "hig"; // typo of high
     public static final String INVALID_COLUMN_DESC = " " + PREFIX_COLUMN + "todos"; // typo of todo
+    public static final String INVALID_QUERY_STRING_DESC = "     "; // empty prefix and argument
+    public static final String INVALID_QUERY_STRING_ARGUMENT_DESC = " " + PREFIX_QUERYSTRING + " "; // empty argument
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
