@@ -634,25 +634,315 @@ testers are expected to do more *exploratory* testing.
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
    1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+      Expected: The most recent window size and location is retained.
 
+### Switching views
+
+1. Switching Kanbug Tracker's view with `switch`.
+
+1. Prerequisites: None.
+
+1. Test case:
+
+    1. Open the app<br>
+       Expected: the default view should be Kanban View.
+
+    1. Execute `switch`<br> 
+       Expected: the view should be switched.
+
+    1. Execute `switch` again<br>
+       Expected: the view should be switched back to the original one.
+    
+### Opening the `help` window
+
+1. Opening the Kanbug Tracker's `help` window in two ways.
+
+1. Prerequisites: Launch Kanbug Tracker successfully
+
+1. Test case 1:
+
+    1. Switch to Kanban View.
+    
+    1. Execute `help`<br>
+       Expected: the `help` window should be opened.
+    
+    1. Close the `help` window using the mouse<br>
+       Expected: only the `help` window will be closed.
+    
+1. Test case 2 (for Windows users only):
+
+    1. Switch to List View.
+    
+    1. Press F1<br>
+       Expected: the `help` window should be opened.
+    
+    1. Focus on the app's main window (either using mouse of Alt + Tab).
+    
+    1. Press F1 again<br>
+       Expected: the `help` window should be focused again.
+    
+    1. Press Esc<br>
+       Expected: only the `help` window will be closed.
+
+### Adding a bug
+
+1. Adding a bug using the `add` command.
+
+1. Prerequisites: Launch Kanbug Tracker successfully and clear all the bugs.
+
+1. Test case 1:
+
+    1. Switch to Kanban View.
+    
+    1. Execute `add n/My bug d/Text`<br>
+       Expected: a new bug with the name "My bug" and description "Text" should be added in the `backlog` column.
+    
+    1. Execute `add n/Bug d/Des t/tag1 t/tag2 pr/low s/done`<br>
+       Expected: a new bug with the correct fields should be added in the `done` column.
+    
+1. Test case 2:
+    
+    1. Execute `add n/bug d/des`<br>
+       Expected: a new bug with the correct fields should be added.
+    
+    1. Execute `add n/b`<br>
+       Expected: No bug is added. The app should response with "Invalid command format! ..."
+       (since the `description` field is missing).
+    
+    1. Execute `add n/bug`<br>
+       Expected: No bug is added. The app should response with "This bug already exists in ..."
+       (since a bug with the same name already exists).
+    
+### Searching bugs
+
+1. Searching bugs using the `search` command.
+
+1. Prerequisite: he app have 3 bugs: a bug name "name1" and 
+    description "des1", a bug name "me12" and description "description", a bug name "bug12" 
+    and description "description".
+    
+1. Test case:
+
+    1. Execute `search q/e1`<br>
+       Expected: the bug "name1" and the bug "me12" is listed.
+    
+    1. Execute "search q/w"<br>
+       Expected: no bug is listed.
+    
+    1. Execute "search q/description"<br>
+       Expected: the bug "me12" and the bug "bug12" is listed.
+    
+## Listing all bugs
+
+1. Listing all bugs using the `list` command.
+
+1. Prerequisite: same prerequisite with the testing for Searching bugs.
+
+1. Test case:
+
+    1. Execute `search q/e1`, now 2 bugs should be listed.
+    
+    1. Execute `list`<br>
+       Expected: all 3 bugs are listed.
+    
+    1. Execute `list` again<br>
+       Expected: all 3 bugs are still listed.
+    
 ### Deleting a bug
 
-1. Deleting a bug while all bugs are being shown
+1. Deleting a bug while all bugs are being shown.
 
-   1. Prerequisites: List all bugs using the `list` command. Multiple bugs in the list.
+1. Prerequisites: List all bugs using the `list` command. Multiple bugs in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First bug is deleted from the list. Details of the deleted bug shown in the status message. Timestamp in the status bar is updated.
+1. Test case 1:
 
-   1. Test case: `delete 0`<br>
-      Expected: No bug is deleted. Error details shown in the status message. Status bar remains the same.
+   1. Switch to List view.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+   1. Execute `delete 1`<br>
+      Expected: First bug is deleted from the list. Details of the deleted bug shown in the status message. 
 
+   1. Execute `delete 0`<br>
+      Expected: No bug is deleted. The app should response with "Invalid command format...". 
+
+   1. Execute `delete x` where x is larger than the number of bug in the list<br>
+      Expected: No bug is deleted. The app should response with "The bug index provided is invalid". 
+
+   1. Execute `delete 1 c/backlog`<br>
+      Expected: No bug is deleted. The app should response with "Please do not provide column..." 
+
+1. Test case 2:
+    
+    1. Switch to Kanban view.
+    
+    1. Add some bugs into the todo column.
+    
+    1. Execute `delete 1 c/todo`<br>
+       Expected: First bug is deleted from the `todo` column. Details of the deleted bug shown in the status message.
+    
+    1. Execute `delete 1`<br>
+       Expected: No bug is deleted. The app should response with "Please provide column...".
+
+### Editing bugs
+
+1. Editing a bug using the `edit` command.
+
+1. Prerequisite: There are multiple bugs, at least one is in `todo`.
+
+1. Test case 1:
+
+    1. Switch to List view.
+    
+    1. Execute `edit 1 t/tag1 pr/low note/some note`<br>
+       Expected: The first bug will have a new tag, priority and note according to the command.
+       Details of the bug is shown in the status message.
+       
+    1. Execute `edit 1 pr/ note/ t/`<br>
+       Expected: The first bug will have its priority, note and tags removed. Details
+       of the bug is shown in the status message.
+
+1. Test case 2:
+
+    1. Switch to Kanban view.
+    
+    1. Execute `edit 1 d/desc`<br>
+       Expected: No bug is edited. The app response with "Please provide column...".
+       
+    1. Execute `edit 1 c/todo d/desc`<br>
+       Expected: The first bug in the `todo` column is edited. Details of the
+       bug is shown in the status message.
+       
+### Appending the tags
+
+1. Adding tags to a bug without removing the original ones.
+
+1. Prerequisite: The first bug in the List view have at least one tag.
+
+1. Test case:
+
+    1. Switch to List view.
+    
+    1. Execute `addTag 1 nt/tag3 nt/tag4`<br>
+       Expected: The first bug has two more tags along with the original ones.
+       Details of the bug is shown in the status message.
+       
+    1. Execute `addTag 1 nt/tag4 nt/tag5`<br>
+       Expected: No tags will be added. The app should response with "The new tag already exists".
+
+### Editing a single tag
+
+1. Editing a tag of some bug without removing the other ones.
+
+1. Prerequisite: The first bug in the List view has two tags "tag1" and "tag2".
+
+1. Test case:
+
+    1. Switch to List view.
+    
+    1. Execute `editTag 1 ot/tag1 nt/tag3`<br>
+       Expected: The tag "tag1" of the first bug is rename to "tag3". 
+       
+    1. Execute `editTag 1 ot/tag1 nt/tag4`<br>
+       Expected: No tags will be edited. The app should response with "A valid existing tag must be supplied.".
+       
+    1. Execute `editTag 1 ot/tag2 nt/tag3`<br>
+       Expected: No tags will be edited. The app should response with "The new tag already exists!".
+       
+### Moving a bug to a new state
+
+1. Moving a bug to a new state using the `move` command.
+
+1. Prerequisite: Successfully opened the app. Clear all bugs.
+
+1. Test case 1:
+
+    1. Switch to List view.
+    
+    1. Add a bug with state `backlog`
+    
+    1. Execute `move 1 s/todo`<br>
+       Expected: The state of the first bug in the list is changed to `todo`. 
+       Details of the bug is shown in the status message.
+       
+    1. Execute `move 1 s/todo` again<br>
+       Expected: No bug has its state edited. The app should response with "Cannot move 
+       bug to the same state...".
+       
+1. Test case 2:
+
+    1. Switch to Kanban view.
+    
+    1. Add a bug with state `backlog`
+    
+    1. Execute `move 1 c/backlog s/todo`<br>
+       Expected: The state of the first bug in the list is changed to `todo`. 
+       Details of the bug is shown in the status message.
+       
+    1. Execute `move 1 c/backlog s/todo` again<br>
+       Expected: No bug has its state edited. The app should response with "The bug
+       index provided is invalid".
+       
+### Clearing all bugs
+
+1. Clearing all current bugs in the list.
+
+1. Prerequisite: The app have some bugs.
+
+1. Test case:
+
+    1. Execute `clear`<br>
+       Expected: All bugs is cleared.
+       
+    1. Add some bugs to the app.
+       
+    1. Execute `clear all`<br>
+       Expected: No bug is deleted. The app response with "Please remove extra 
+       irrelevant arguments!".
+
+### Exiting Kanbug Tracker
+       
+1. Exiting the app and closing the window.
+
+1. Prerequisite: The app is successfully opened.
+
+1. Test case 1:
+
+    1. Execute `exit`<br>
+       Expected: The app's window is closed.
+       
+1. Test case 2:
+
+    1. Press Esc<br>
+       Expected: The app's window is closed.
+       
+1. Test case 3:
+
+    1. Open `help` window.
+    
+    1. Focus on the main window.
+    
+    1. Press Esc<br>
+       Expected: Both the app's window and the `help` window is closed at once.
+       
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing/corrupted data files.
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+1. Prerequisite: The app have some bugs.
+
+1. Test case 1:
+
+   1. Close the app.
+   
+   1. Edit the `kanbugtracker.json` file by editing the description field of some bug into "bug description".
+   
+   1. Open the app again<br>
+      Expected: The change should be reflected in the app.
+      
+1. Test case 2:
+
+   1. Close the app.
+   
+   1. Edit the `kanbugtracker.json` file by editing the name field of some bug into "@".
+   
+   1. Open the app again<br>
+      Expected: The app now will have no bugs on it (since "@" is not a valid name for the bugs).
