@@ -315,9 +315,11 @@ Step 4. The process will continue as shown below, after which an `AddCommand` ob
 Regarding the Priority class:
 - **Alternative 1**: Create `Priority` as a separate class [current implementation]
     - Pros: Adhere OOP principles
-    - Cons: Need to refactor quite a lot in many different places.
+    - Cons: Need to refactor quite a lot in many different places (because we need to change the signature of the
+       `Bug`'s constructor, which appear in many places.
 - **Alternative 2**: Create `Priority` as a subclass of `Tag` [rejected]
-    - Cons: Break the Liskov Substitution Principle.
+    - Cons: Break the Liskov Substitution Principle (Since there can be multiple `Tag`s for each `Bug` but there
+    can only be one `Priority`).
     
 
 Regarding the situation when the bug's priority is not indicated:

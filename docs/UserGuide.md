@@ -545,11 +545,8 @@ You would enter the following command:
 Whether you begin to work on a bug, finish fixing one or plan to deal with a bug later, you can use `move` to update the 
 progress on dealing with that bug.
 
-Format: `move INDEX [c/COLUMN] s/STATE`
+Format: `move INDEX (c/COLUMN) s/STATE`
 
-- The command to be used depends on which view the user is in. The user can either be in **Kanban view** or **List view**.
-  - **Kanban view**: User must supply `COLUMN`. The bugs are filtered such that only bugs that have a `STATE` matching the `COLUMN` selected are considered. The bug at the specified `INDEX` of this filtered list is selected to be edited.
-  - **List view**: `COLUMN` should **not** be supplied. The bug at the specified `INDEX` is edited. The index refers to the index number shown in the displayed list of bugs.
 - Specifically, this command will change the state of the bug.
 - The state field is **mandatory** and must be provided.
 - State can either be **backlog, todo, ongoing** or **done**.
@@ -558,8 +555,41 @@ Format: `move INDEX [c/COLUMN] s/STATE`
 
 Examples:
 
-- `move 1 s/todo`, moves the first bug in the List view from its initial state to the **Todo** state.
-- `move 3 c/ongoing s/done`, moves the bug third bug in the Ongoing column of Kanban view from its initial state (Ongoing) to the **Done** state.
+Example 1:
+
+You are in **Kanban View** and you want to move the second bug in the `backlog` column to the `ongoing` column. This
+is how you can do it:
+
+<br>
+<br>
+<br>
+
+![MoveMain](images/MoveMain.png)
+
+Since the bug originally in the `backlog` column so you must supply `c/backlog`. Since you want to move it 
+to the `ongoing` column so you must supply `s/ongoing`. Since this is the first bug in the column so you must
+supply the index `1`. In short, the command you must execute is `move 1 c/backlog s/ongoing`.
+
+<br>
+<br>
+<br>
+
+![MoveMoved](images/MoveMoved.png)
+
+Here the bug is successfully moved into the new column. The display at the bottom of the screen confirms that
+the command has been executed successfully.
+
+<br>
+<br>
+<br>
+
+Example 2 (No walkthrough provided) :
+
+You are in **List View** and want to move the second bug in your list to `done` state (assuming it's previous state is not `done`).
+
+You would enter the following command:
+
+`move 2 s/done`
 
 ### 5.11 Clearing all bugs : `clear`
 
@@ -580,11 +610,11 @@ Once the command has been entered, all the bugs are immediately deleted and the 
 
 ### 5.12 Exiting the program : `exit`
 
-Ends and closes the app.
+When you are done with managing your tasks, use this command to saves all of the local data and exit from the app.
 
-Format: `exit`
+Format: `exit` 
 
-When you are done with managing your tasks, use this command to saves all of the local data and exit from the app. 
+- This command is applicable to both Kanban and List views.
 
 <div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the Esc key to close the window. Try it!
 </div>
