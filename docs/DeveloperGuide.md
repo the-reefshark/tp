@@ -500,9 +500,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to add bug
-
 2. KanBug Tracker adds the new bug and displays the updated list of bugs
-
    to the user
 
    Use case ends.
@@ -520,11 +518,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to list bugs
-
 2. KanBug Tracker shows the list of bugs
-
 3. User requests to edit a specific bug in the list
-
 4. KanBug Tracker edits the bug
 
    Use case ends.
