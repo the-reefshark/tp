@@ -41,6 +41,7 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed bug list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_COLUMN + "STATE]\n"
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_STATE + "STATE] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
@@ -49,7 +50,6 @@ public class EditCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_STATE + "backlog"
-            + "[" + PREFIX_COLUMN + "STATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_STATE + "todo";
 

@@ -127,14 +127,14 @@ This section describes some noteworthy details on how certain features are imple
 ### Kanban view window feature
 
 #### Proposed Implementation
-The kanban view window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a Observerable list that contains only the bugs that belong to their respective state. This observerable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
+The kanban view window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a observable list that contains only the bugs that belong to their respective state. This observable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
 
 <img src="images/Ui.png" width="450" />
 
 Given below is how the KanbanBoard window will create the 4 BugListpanes
 
 Step 1:
-The user lanches the app and the system initalises the UI.
+The user launches the app and the system initialises the UI.
 
 Step 2:
 MainWindow calls fillInnerParts() on KanbanBoard.
@@ -146,7 +146,7 @@ Given below is sequence diagram for the creation of the BugListPanes:
 
 <img src= "images/KanbanBoardUI.png" width = "400">
 
-With the implementation of kanban view window, command such as delete, move and edit that depend on the index would not work as expected. This is because, the Kanban view seperates the bugs and place then in different columns. As such, it would be essential to allow the users to execute these commands in the kanban view as we implement the new window. This can be done by allowing the user to chose which column would be affected by these commands.
+With the implementation of kanban view window, command such as delete, move and edit that depend on the index would not work as expected. This is because, the Kanban view separates the bugs and places in different columns. As such, it would be essential to allow the users to execute these commands in the kanban view as we implement the new window. This can be done by allowing the user to choose which column would be affected by these commands.
 
 This can be done by adding the following classes:
 
@@ -154,152 +154,124 @@ This can be done by adding the following classes:
 - `MoveBystateCommand` which extends `MoveCommand`
 - `EditByStateCommand` which extends `EditCommand`
 
-These command would take in an extra input to specify which column is being targeted. The list of bugs would then be filtered according to the column specified. The respective parsers would also have to be modified such that the new command could be returned if a column is specifed. The following activity diagram summerizes what happens when the user enters a delete command.(edit and move command parser would act in a similar way)
+These command would take in an extra input to specify which column is being targeted. The list of bugs would then be filtered according to the column specified. The respective parsers would also have to be modified such that the new command could be returned if a column is specified. The following activity diagram summarises what happens when the user enters a delete command.(edit and move command parser would act in a similar way)
 
 <img src = "images/DeleteCommandParserActivityDiagram.png" width ="400">
 
 #### Design consideration:
 
-- **Alternative 1**: Use a prefix "/c" to specify which column we are refering to.(Current choice)
+- **Alternative 1**: Use a prefix "/c" to specify which column we are referring to.(Current choice)
     - Pros: Easier to implement
-    - Cons: Adds an additional prefix which the user has to remember to the applicatiom
+    - Cons: Adds an additional prefix which the user has to remember.
 - **Alternative 2**: Allow the users to specify an active column and execute the commands with respect to that column
     - Cons: Need to add an additional command to change the active column.
 
 ### Edit Tag feature
 
+This feature allows a user to edit an existing tag of a particular bug. Users will only need to specify the specific tag that they want to edit, which saves them the hassle of having to delete all the tags of the bug and add them again. 
+
+The user can make use of this feature by entering the `editTag` command, which follows the following format: `editTag INDEX (c/COLUMN) ot/OLD_TAG nt/NEW_TAG`. 
+
+To understand in greater depth the format of the command, you may refer to our [User Guide](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#58-editing-a-tag-of-a-bug--edittag)
+
+This section explains:
+
+- How the `editTag` command works and the methods that it invokes during execution (Implementation subsection).
+- The various considerations that were weighed when brainstorming the design of the edit tag feature (Design Considerations subsection).
+- A summary that shows a simplified Activity Diagram that captures the essential logic in the execution of the `editTag` command (Summary subsection).
+
 #### Implementation
 
-The edit tag feature is facilitated by `EditTagCommandParser`, `EditTagCommand` and `EditTagByStateCommand`.  The class structure of the implementation is given below.
+The edit tag feature is mainly facilitated by the `EditTagCommand` and `EditTagByStateCommand` objects. 
 
-![EditTagClassStructure](images/EditTagClassStructure.png)
+In understanding how the `editTag` command works, it is crucial to understand the `execute()` method from both the `EditTagCommand` class and `EditTagByStateCommand` class.
 
-`EditTagCommand` extends `Command` and uses **editTag** as its `COMMAND_WORD`  and makes use of the **ot/** and **nt/** prefixes.
+The `EditTagCommand` and `EditTagByStateCommand` classes are largely similar. The only difference is that `EditTagByStateCommand` requires the **state** of a bug to be supplied when creating an instance of `EditTagByStateCommand`. Which object is created depends on the view of the application that the user is in. To understand this in greater depth, you are encouraged to read the following [section](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#featureui-kanban-view-window).
 
-The operations that each class implements is given below:
+The execution of the `execute()` method of  `EditTagCommand` and `EditTagByStateCommand` is largely similar. As such, I will only go through in detail the execution of `execute()` of the `EditTagCommand` for brevity. 
 
-`EditTagCommandParser`
+Refer to the sequence diagram below to understand the top-level execution of the   `execute()` method after the user enters a valid `editTag` command.
 
-- `EditTagCommandParser#parse(String)`— Parses input 
+![EditTagByStateKanBan](images/EditTagSequenceDiagram.png)
 
-`EditTagCommand`
+<div markdown="span" class="alert alert-info">:information_source: Note: The lifeline for the <code>EditTagCommandParser</code> object and <code>ModifyTagUtility</code> object should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
 
-- `EditTagCommand#execute(Model)`  —  Executes the command.
+From the above diagram, editing the **UI** tag of the bug at index 1 in **List View** to **UserDisplay** involves the following steps:
 
-- `EditTagCommand#updateTagInBug(Bug, Tag, Tag)` — Replaces the old Tag in Bug with the new Tag.
+Step 1: User inputs `editTag 1 ot/UI nt/UserDisplay` to achieve the outcome as described above.
 
+Step 2: This input is saved as a `String` and passed into `LogicManager`.
 
+Step 3: The `String` is passed to `KanBugTrackerParser`, which sends the index of the bug, the old tag value and the new tag value to  `EditTagCommandParser`.
 
-#### Usages
+Step 4: The `EditTagCommandParser` checks that the old tag and new tag are valid tags, creates an `EditTagCommand` object with the bug to edit, old tag and new tag and returns it to `LogicManager`.
 
-There are two possible usages of this feature, depending on whether the user is in the **Kanban view** or **List view**. 
+Step 5: `LogicManager` then calls the `execute()` method of `EditTagCommand`.
 
-Given below is an example usage scenario in **Kanban View** and how the edit tag feature behaves at each step.
+Step 6: The `EditTagCommand` object then uses the relevant information (bug to edit) to create an instance of a `ModifyTagUtility` object.
 
-Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug tracker state.
+Step 7: The `EditTagCommand` object calls the `updateTagInBug(oldTag, newTag)` method  to create an updated version of the target bug with the correct new tag.
 
-Step 2. The user executes `add n/Print bug d/prints the wrong message s/todo t/Ui` command to add a new bug to the KanBug tracker. A new bug with the following information is added:
+Step 8:  If the bug is updated successfully, the new state of the target bug is updated in the `Model`. A `CommandResult` object is created and returned to `LogicManager`. The GUI is updated and a success message is displayed to the user. Otherwise, if the bug is not updated. A `CommandResult` object is still created and returned to `LogicManager`. The GUI displays an error message to the user.
 
-- name: **Print bug**
-- description: **prints the wrong message**
-- state: **todo**
-- tag: **Ui**
+#### Design Considerations
 
-This bug is added as the 6th bug in the KanBug tracker.
+- Alternative 1 (Current choice): Create a new `EditTagCommand` to handle this functionality
+  - Pros: This implementation allows for better design as it limits the scope of the `EditTagCommand` and allows it to solely focus on implementing the functionality needed.
+  - Cons: Requires many more supporting classes to be implemented along side the `EditTagCommand` to support the functionality.
+- Alternative 2 : Expand the existing `EditCommand` to handle this functionality
+  - Pros: Easy to implement as it requires just adding new prefixes to the existing `EditCommandParser`.
+  - Cons: This will turn the edit command into a "catch all" command which makes it difficult to use for the user. Internally, it may increase coupling.
 
-**Note that the index 6 is for illustration purposes only**
+#### Summary
 
-Step 3. The user decides that the tag they added is incorrect and would like to modify it. The user executes `editTag 6 c/todo ot/Ui nt/display`. This will result in the tag of the bug at index **6** of the **todo** column being modified such that the new tag is **display** instead of **Ui**.
+The following activity diagram summarizes what happens when a user executes a `editTag INDEX (c/COLUMN) ot/OLD_TAG nt/NEW_TAG` command with valid inputs.
 
-The updated bug is as follows:
-
-- name: **Print bug**
-- description: **prints the wrong message**
-- state: **todo**
-- tag: **display**
-
-The following sequence diagram shows how the edit tag operation works in **Kanban view**:
-
-
-
-![EditTagByStateKanBan](images/EditTagByStateSequenceDiagram.png)
-
-ℹ️ **Note:** The lifeline for `EditTagCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The usage scenario in **List view** is similar to that of **Kanban view** except that the user does not supply a **column** as input. An example of such a command would be `editTag 6 ot/Ui nt/display`. Instead of an `EditTagByStateCommand` , an `EditTagCommand` is returned by `EditTagCommandParser`.
-
-The following sequence diagram shows how the edit tag operation works in **List view**:
-
-![EditTagByStateKanBan](images/EditTagSequence.png)
-
-ℹ️ **Note:** The lifeline for `EditTagCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+![EditTagActivityDiagram](/images/EditTagActivityDiagram.png)
 
 ### Add tag feature
 
+This feature allows a user to add tags to a particular bug. Users will only need to specify the  tags that they want to add, which saves them the hassle of having to delete all the tags of the bug and add them again. 
+
+The user can make use of this feature by entering the `addTag` command, which follows the following format: `addTag INDEX (c/COLUMN) nt/NEW_TAG`. 
+
+To understand in greater depth the format of the command, you may refer to our [User Guide](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#59-adding-a-tag-to-a-bug--addtag)
+
+This section explains:
+
+- How the `addTag` command works and the methods that it invokes during execution (Implementation subsection).
+- The various considerations that were weighed when brainstorming the design of the add tag feature (Design Considerations subsection).
+- A summary that shows a simplified Activity Diagram that captures the essential logic in the execution of the `addTag` command (Summary subsection).
+
 #### Implementation
 
-The add tag feature is facilitated by `AddTagCommandParser`, `AddTagCommand` and `AddTagByStateCommand`.  The class structure of the implementation is given below.
+The implementation of the add tag feature is greatly similar to that of the edit tag feature. The  difference is that instead of `EditTagCommand` and `EditTagByStateCommand` objects, the add tag feature is facilitated by `AddTagCommand` and `AddTagByStateCommand` objects. As such, to understand the implementation of this feature, it is sufficient to read the introduction of the [implementation of previous section](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#implementation-1).
 
-![AddTagClassStructure](images/AddTagClassStructure.png)
-
-
-
-`AddTagCommand` extends `Command` and uses **addTag** as its `COMMAND_WORD`  and makes use of the **nt/** prefix.
-
-The operations that each class implements is given below:
-
-`AddTagCommandParser`
-
-- `AddTagCommandParser#parse(String)`— Parses input 
-
-`AddTagCommand`
-
-- `AddTagCommand#execute(Model)`  —  Executes the command.
-- `AddTagCommand#updateTagInBug(Bug, Tag)` — Adds the new Tag to the Bug.
-
-
-
-#### Usages
-
-There are two possible usages of this feature, depending on whether the user is in the **Kanban view** or **List view**. 
-
-Given below is an example usage scenario in **Kanban View** and how the edit tag feature behaves at each step.
-
-Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug tracker state.
-
-Step 2. The user executes `add n/Print bug d/prints the wrong message s/todo t/Ui` command to add a new bug to the KanBug tracker. A new bug with the following information is added:
-
-- name: **Print bug**
-- description: **prints the wrong message**
-- state: **todo**
-- tag: **Ui**
-
-This bug is added as the 6th bug in the KanBug tracker.
-
-**Note that the index 6 is for illustration purposes only**
-
-Step 3. The user decides that they would like to add an additional tag to the bug. The user executes `addTag 6 c/todo nt/wrongPrinting`. This will result in a new tag **wrongPrinting** being added to the bug at index **6** of the **todo** column.
-
-The updated bug is as follows:
-
-- name: **Print bug**
-- description: **prints the wrong message**
-- state: **todo**
-- tag: **Ui**, **wrongPrinting**
-
-The following sequence diagram shows how the edit tag operation works in **Kanban view**:
-
-![AddTagByStateKanBan](images/AddTagByStateSequenceDiagram.png)
-
-ℹ️ **Note:** The lifeline for `AddTagCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The usage scenario in **List view** is similar to that of **Kanban view** except that the user does not supply a **column** as input. An example of such a command would be `addTag 6 nt/display`. Instead of an `AddTagByStateCommand` , an `AddTagCommand` is returned by `AddTagCommandParser`.
-
-The following sequence diagram shows how the edit tag operation works in **List view**:
+Refer to the sequence diagram below to understand the top-level execution of the   `execute()` method after the user enters a valid `addTag` command. While the execution is similar to that of the `editTag` command, it differs in some key areas which I will point out. For brevity and to reduce duplicate text, I will redirect you to the steps of the execution of the `editTag` command when necessary.
 
 ![AddTagKanBan](images/AddTagSequenceDiagram.png)
 
-ℹ️ **Note:** The lifeline for `AddTagCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: Note: The lifeline for the <code>AddTagCommandParser</code> object and <code>ModifyTagUtility</code> object should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
+From the above diagram, add a **UserDisplay** tag to the bug at index 1 in **List View** to involves the following steps:
+
+Step 1: User inputs `addTag 1 nt/UserDisplay` to achieve the outcome as described above.
+
+Steps 2 - 6 are similar to those of the `editTag` command. **AddTag** variants of objects are called instead of the **EditTag** variants used in the execution of the `editTag` Command.
+
+Step 7: The `AddTagCommand` object calls the `addTagsToBug(newTags)` method  to create an updated version of the target bug with the newly added tags. 
+
+Step 8 is the same as in the `editTag` command.
+
+#### Design Considerations
+
+The design considerations for this feature are the same as the design considerations for the edit tag feature. As such, you can refer to that section of the Developer Guide [here](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#design-consideration-1).
+
+#### Summary
+
+The activity diagram that summarizes what happens when a user executes a `addTag INDEX (c/COLUMN) nt/NEW_TAG` command with valid inputs is similar to that of the activity diagram for the edit tag feature which you can see [here](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#summary). Instead of executing an `editTag` command, the user would execute an `addTag` command in this case.
 
 ### Bug priority
 
@@ -328,7 +300,7 @@ Here is a diagram show how an AddCommandParser work with priority:
 Given below is an example usage scenario concerning only the bug's priority when the user add a new
 bug:
 
-Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial Kanbug Tracker state.
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug Tracker state.
 
 Step 2. The user execute the command "add n/Bug name d/Bug description pr/high"
 
@@ -343,10 +315,13 @@ Step 4. The process will continue as shown below, after which an `AddCommand` ob
 Regarding the Priority class:
 - **Alternative 1**: Create `Priority` as a separate class [current implementation]
     - Pros: Adhere OOP principles
-    - Cons: Need to refactor quite a lot in many different places.
+    - Cons: Need to refactor quite a lot in many different places (because we need to change the signature of the
+       `Bug`'s constructor, which appear in many places.
 - **Alternative 2**: Create `Priority` as a subclass of `Tag` [rejected]
-    - Cons: Break the Liskov Substitution Principle.
+    - Cons: Break the Liskov Substitution Principle (Since there can be multiple `Tag`s for each `Bug` but there
+    can only be one `Priority`).
     
+
 Regarding the situation when the bug's priority is not indicated:
 - **Alternative 1**: Create a special type called "empty" Priority [current implementation]
     - Pros: Implementation will be similar to other existing fields.
@@ -370,9 +345,9 @@ The following class diagram shows the structure of the search command implementa
 ![SearchCommandClassDiagram](images/SearchCommandClassDiagram.png)
 
 Given below is an example usage scenario and how the search feature behaves at each step.  
-Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial kanbug tracker state.  
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug tracker state.  
 
-Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/todo t/Ui.java` command to add a new bug to the kanbug tracker. A new bug with the following information is added:  
+Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/todo t/Ui.java` command to add a new bug to the KanBug tracker. A new bug with the following information is added:  
 
 - name: **Ui bug**
 - description: **Displays wrongly the information**
@@ -383,8 +358,8 @@ Step 3. When there are a lot of bugs in the tracker, it is difficult for the use
 The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`.
 
 Step 4. This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance.
-The predicate is internally passed and used to filter `FilteredList<Bug>`.  
-This results in the information of all the bugs of which name or description or tag contains `Ui bug` as a substring displays in the tracker.
+The predicate is internally passed and used to filter FilteredList<Bug>.  
+This results in the information of all the bugs of which name or description or tag contains <code>Ui bug</code> as a substring displays in the tracker.
 
 The following sequence diagram summarizes what happens when a user executes the search command:
 ![SearchCommandSequenceDiagram](images/SearchCommandSequenceDiagram.png)
@@ -495,16 +470,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `Kanbug Tracker` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `KanBug Tracker` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Delete a bug**
 
 **MSS**
 
 1.  User requests to list bugs
-2.  Kanbug Tracker shows the list of bug
+2.  KanBug Tracker shows the list of bug
 3.  User requests to delete a specific bug in the list
-4.  Kanbug Tracker deletes the bug
+4.  KanBug Tracker deletes the bug
 
     Use case ends.
 
@@ -516,7 +491,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. Kanbug Tracker shows an error message.
+    * 3a1. KanBug Tracker shows an error message.
 
       Use case resumes at step 2.
 
@@ -525,9 +500,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to add bug
-
 2. KanBug Tracker adds the new bug and displays the updated list of bugs
-
    to the user
 
    Use case ends.
@@ -536,7 +509,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - 1a. The bug format is invalid
 
-  - 1a1. Kanbug Tracker shows an error message.
+  - 1a1. KanBug Tracker shows an error message.
 
     Use case resumes at step 1.
 
@@ -545,11 +518,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to list bugs
-
 2. KanBug Tracker shows the list of bugs
-
 3. User requests to edit a specific bug in the list
-
 4. KanBug Tracker edits the bug
 
    Use case ends.
@@ -607,7 +577,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User requests to list bugs  
 2. KanBug Tracker shows the list of bugs  
-3. User requests to search a particular bug in the Kanbug Tracker  
+3. User requests to search a particular bug in the KanBug Tracker  
 4. KanBug Tracker displays the resulting list of bugs
 
     Use case ends.
@@ -620,7 +590,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - 3a. The given query-string is empty.
 
-  - 3a1. Kanbug Tracker shows an error message.
+  - 3a1. KanBug Tracker shows an error message.
   
     Use case resumes at 2.
 
@@ -650,8 +620,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Prefix**: A set of characters placed before a specified parameter when typing a command.
 * **Query-string**: The user keyword input to find matches when the search command is executed.
 
-We provide more glossaries for non-technical terms of KanBug Tracker in [Glossary of the User Guide](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#2-glossary).
-
+We provide more glossaries for non-technical terms of KanBug Tracker in [Understanding KanBug Tracker ](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#4-understanding-kanbug-tracker) section of the User Guide.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -681,7 +650,7 @@ testers are expected to do more *exploratory* testing.
 
 ### Switching views
 
-1. Switching Kanbug Tracker's view with `switch`.
+1. Switching KanBug Tracker's view with `switch`.
 
 1. Prerequisites: None.
 
@@ -698,9 +667,9 @@ testers are expected to do more *exploratory* testing.
     
 ### Opening the `help` window
 
-1. Opening the Kanbug Tracker's `help` window in two ways.
+1. Opening the KanBug Tracker's `help` window in two ways.
 
-1. Prerequisites: Launch Kanbug Tracker successfully
+1. Prerequisites: Launch KanBug Tracker successfully
 
 1. Test case 1:
 
@@ -731,7 +700,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding a bug using the `add` command.
 
-1. Prerequisites: Launch Kanbug Tracker successfully and clear all the bugs.
+1. Prerequisites: Launch KanBug Tracker successfully and clear all the bugs.
 
 1. Test case 1:
 
@@ -744,7 +713,7 @@ testers are expected to do more *exploratory* testing.
        Expected: a new bug with the correct fields should be added in the `done` column.
     
 1. Test case 2:
-    
+   
     1. Execute `add n/bug d/des`<br>
        Expected: a new bug with the correct fields should be added.
     
@@ -814,7 +783,7 @@ testers are expected to do more *exploratory* testing.
       Expected: No bug is deleted. The app should response with "Please do not provide column in List view window" 
 
 1. Test case 2:
-    
+   
     1. Switch to Kanban view.
     
     1. Add some bugs into the todo column.
@@ -909,10 +878,10 @@ testers are expected to do more *exploratory* testing.
 
     1. Execute `editTag 1 ot/tag2 nt/tag4 c/backlog`<br>
        Expected: No tags will be edited. The app should response with "Please do not provide column in List view window".
-  
+
 
 1. Test case 2:
-    
+   
     1. Switch to Kanban view.
 
     1. Ensure that first bug in backlog has has two tags "tag1".
@@ -941,7 +910,7 @@ testers are expected to do more *exploratory* testing.
     1. Execute `move 1 s/todo` again<br>
        Expected: No bug has its state edited. The app should response with "Cannot move 
        bug to the same state...".
-       
+    
 1. Test case 2:
 
     1. Switch to Kanban view.
@@ -973,8 +942,8 @@ testers are expected to do more *exploratory* testing.
        Expected: No bug is deleted. The app response with "Please remove extra 
        irrelevant arguments!".
 
-### Exiting Kanbug Tracker
-       
+### Exiting KanBug Tracker
+
 1. Exiting the app and closing the window.
 
 1. Prerequisite: The app is successfully opened.
@@ -983,12 +952,12 @@ testers are expected to do more *exploratory* testing.
 
     1. Execute `exit`<br>
        Expected: The app's window is closed.
-       
+    
 1. Test case 2:
 
     1. Press Esc<br>
        Expected: The app's window is closed.
-       
+    
 1. Test case 3:
 
     1. Open `help` window.
@@ -1008,16 +977,16 @@ testers are expected to do more *exploratory* testing.
 
    1. Close the app.
    
-   1. Edit the `kanbugtracker.json` file by editing the description field of some bug into "bug description".
+   1. Edit the `KanBugtracker.json` file by editing the description field of some bug into "bug description".
    
    1. Open the app again<br>
       Expected: The change should be reflected in the app.
-      
+   
 1. Test case 2:
 
    1. Close the app.
    
-   1. Edit the `kanbugtracker.json` file by editing the name field of some bug into "@".
+   1. Edit the `KanBugtracker.json` file by editing the name field of some bug into "@".
    
    1. Open the app again<br>
       Expected: The app now will have no bugs on it (since "@" is not a valid name for the bugs).

@@ -60,4 +60,8 @@ This helps the users to gain high efficiency in the process of tracking bugs.
     * **Documentation**:
          * Wrote the sections for `search` and `clear` commands in KanBug Tracker's User Guide.
          * Wrote the section for `search` command, Non-Functional Requirements and Glossary sections in KanBug Tracker's Developer Guide.
-  
+    
+    * **Beyond the team**:
+         * Peer testing and Bug reporting for other teams.
+
+
