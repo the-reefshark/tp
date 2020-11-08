@@ -11,7 +11,7 @@ title: User Guide
 
 3. [Getting Started](#3-getting-started)
 
-4. [Understanding KanBug Tracker](#4-understanding-KanBug-tracker)
+4. [Understanding KanBug Tracker](#4-understanding-kanbug-tracker)
 
    4.1 [Understanding the Graphical User Interface](#41-understanding-the-graphical-user-interface)
 
