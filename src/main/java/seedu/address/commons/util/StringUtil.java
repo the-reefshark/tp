@@ -70,7 +70,7 @@ public class StringUtil {
         assert isNumber(trimmedIndex);
 
         // remove leading zeroes
-        //trimmedIndex = trimmedIndex.replaceFirst("^0+(?!$)", "");
+        trimmedIndex = trimmedIndex.replaceFirst("^0+(?!$)", "");
 
         return trimmedIndex.length() >= Integer.toString(Integer.MAX_VALUE).length();
     }
