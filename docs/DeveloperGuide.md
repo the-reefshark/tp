@@ -127,14 +127,14 @@ This section describes some noteworthy details on how certain features are imple
 ### Kanban view window feature
 
 #### Proposed Implementation
-The kanban view window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a Observerable list that contains only the bugs that belong to their respective state. This observerable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
+The kanban view window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a observable list that contains only the bugs that belong to their respective state. This observable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
 
 <img src="images/Ui.png" width="450" />
 
 Given below is how the KanbanBoard window will create the 4 BugListpanes
 
 Step 1:
-The user lanches the app and the system initalises the UI.
+The user launches the app and the system initialises the UI.
 
 Step 2:
 MainWindow calls fillInnerParts() on KanbanBoard.
@@ -146,7 +146,7 @@ Given below is sequence diagram for the creation of the BugListPanes:
 
 <img src= "images/KanbanBoardUI.png" width = "400">
 
-With the implementation of kanban view window, command such as delete, move and edit that depend on the index would not work as expected. This is because, the Kanban view seperates the bugs and place then in different columns. As such, it would be essential to allow the users to execute these commands in the kanban view as we implement the new window. This can be done by allowing the user to chose which column would be affected by these commands.
+With the implementation of kanban view window, command such as delete, move and edit that depend on the index would not work as expected. This is because, the Kanban view separates the bugs and places in different columns. As such, it would be essential to allow the users to execute these commands in the kanban view as we implement the new window. This can be done by allowing the user to choose which column would be affected by these commands.
 
 This can be done by adding the following classes:
 
@@ -154,15 +154,15 @@ This can be done by adding the following classes:
 - `MoveBystateCommand` which extends `MoveCommand`
 - `EditByStateCommand` which extends `EditCommand`
 
-These command would take in an extra input to specify which column is being targeted. The list of bugs would then be filtered according to the column specified. The respective parsers would also have to be modified such that the new command could be returned if a column is specifed. The following activity diagram summerizes what happens when the user enters a delete command.(edit and move command parser would act in a similar way)
+These command would take in an extra input to specify which column is being targeted. The list of bugs would then be filtered according to the column specified. The respective parsers would also have to be modified such that the new command could be returned if a column is specified. The following activity diagram summarises what happens when the user enters a delete command.(edit and move command parser would act in a similar way)
 
 <img src = "images/DeleteCommandParserActivityDiagram.png" width ="400">
 
 #### Design consideration:
 
-- **Alternative 1**: Use a prefix "/c" to specify which column we are refering to.(Current choice)
+- **Alternative 1**: Use a prefix "/c" to specify which column we are referring to.(Current choice)
     - Pros: Easier to implement
-    - Cons: Adds an additional prefix which the user has to remember to the applicatiom
+    - Cons: Adds an additional prefix which the user has to remember.
 - **Alternative 2**: Allow the users to specify an active column and execute the commands with respect to that column
     - Cons: Need to add an additional command to change the active column.
 
