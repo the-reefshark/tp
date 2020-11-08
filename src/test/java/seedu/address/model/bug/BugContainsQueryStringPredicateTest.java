@@ -2,29 +2,38 @@ package seedu.address.model.bug;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_EIGHT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_ELEVEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_FOUR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_NINE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_ONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_TEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_TWELVE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUERY_STRING_TWO;
+import static seedu.address.testutil.TypicalBugs.BUGFOUR;
+import static seedu.address.testutil.TypicalBugs.BUGONE;
+import static seedu.address.testutil.TypicalBugs.BUGSEVEN;
+import static seedu.address.testutil.TypicalBugs.BUGSIX;
+import static seedu.address.testutil.TypicalBugs.BUGTHREE;
+import static seedu.address.testutil.TypicalBugs.BUGTWO;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.address.testutil.BugBuilder;
 
 public class BugContainsQueryStringPredicateTest {
 
     @Test
     public void equals() {
-        String firstPredicateQueryString = "first";
-        String secondPredicateQueryString = "second";
+        String firstPredicateQueryString = VALID_QUERY_STRING_ONE;
+        String secondPredicateQueryString = VALID_QUERY_STRING_TWO;
 
-        BugContainsQueryStringPredicate firstPredicate =
-                new BugContainsQueryStringPredicate(firstPredicateQueryString);
-        BugContainsQueryStringPredicate secondPredicate =
-                new BugContainsQueryStringPredicate(secondPredicateQueryString);
+        BugContainsQueryStringPredicate firstPredicate = getQueryStringPredicate(firstPredicateQueryString);
+        BugContainsQueryStringPredicate secondPredicate = getQueryStringPredicate(secondPredicateQueryString);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        BugContainsQueryStringPredicate firstPredicateCopy =
-                new BugContainsQueryStringPredicate(firstPredicateQueryString);
+        BugContainsQueryStringPredicate firstPredicateCopy = getQueryStringPredicate(firstPredicateQueryString);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -40,71 +49,50 @@ public class BugContainsQueryStringPredicateTest {
     @Test
     public void test_nameContainsQueryString_returnsTrue() {
         // One keyword query-string
-        BugContainsQueryStringPredicate predicate = new BugContainsQueryStringPredicate("message");
-        assertTrue(predicate.test(new BugBuilder().withName("Print wrong messages").build()));
+        BugContainsQueryStringPredicate predicate = getQueryStringPredicate(VALID_QUERY_STRING_EIGHT);
+        assertTrue(predicate.test(BUGONE));
 
         // Multiple keywords query-string
-        predicate = new BugContainsQueryStringPredicate("Ui display");
-        assertTrue(predicate.test(new BugBuilder().withName("Ui display").build()));
-
-        // One mixed-case keyword query-string
-        predicate = new BugContainsQueryStringPredicate("ui");
-        assertTrue(predicate.test(new BugBuilder().withName("Ui Bug").build()));
-
-        // Multiple mixed-case keywords query-string
-        predicate = new BugContainsQueryStringPredicate("uI bUG");
-        assertTrue(predicate.test(new BugBuilder().withName("Ui Bug").build()));
+        predicate = new BugContainsQueryStringPredicate(VALID_QUERY_STRING_NINE);
+        assertTrue(predicate.test(BUGTHREE));
     }
 
     @Test
     public void test_descriptionContainsQueryString_returnsTrue() {
         // One keyword query-string
-        BugContainsQueryStringPredicate predicate = new BugContainsQueryStringPredicate("message");
-        assertTrue(predicate.test(new BugBuilder().withDescription("Print wrong messages").build()));
+        BugContainsQueryStringPredicate predicate = getQueryStringPredicate(VALID_QUERY_STRING_TEN);
+        assertTrue(predicate.test(BUGSEVEN));
 
         // Multiple keywords query-string
-        predicate = new BugContainsQueryStringPredicate("Ui display");
-        assertTrue(predicate.test(new BugBuilder().withDescription("Ui display").build()));
-
-        // One mixed-case keyword query-string
-        predicate = new BugContainsQueryStringPredicate("ui");
-        assertTrue(predicate.test(new BugBuilder().withDescription("Ui Bug").build()));
-
-        // Multiple mixed-case keywords query-string
-        predicate = new BugContainsQueryStringPredicate("uI bUG");
-        assertTrue(predicate.test(new BugBuilder().withDescription("Ui Bug").build()));
+        predicate = new BugContainsQueryStringPredicate(VALID_QUERY_STRING_ELEVEN);
+        assertTrue(predicate.test(BUGFOUR));
     }
 
     @Test
     public void test_tagContainsQueryString_returnsTrue() {
         // One keyword query-string
-        String[] tags = {"Ui", "frontend", "JavaFX"};
-        BugContainsQueryStringPredicate predicate = new BugContainsQueryStringPredicate("frontend");
-        assertTrue(predicate.test(new BugBuilder().withTags(tags).build()));
-
-        // Multiple keywords query-string
-        predicate = new BugContainsQueryStringPredicate("uI");
-        assertTrue(predicate.test(new BugBuilder().withTags(tags).build()));
-
-        predicate = new BugContainsQueryStringPredicate("Java");
-        assertTrue(predicate.test(new BugBuilder().withTags(tags).build()));
-
-        predicate = new BugContainsQueryStringPredicate("fx");
-        assertTrue(predicate.test(new BugBuilder().withTags(tags).build()));
+        BugContainsQueryStringPredicate predicate = getQueryStringPredicate(VALID_QUERY_STRING_TWELVE);
+        assertTrue(predicate.test(BUGSIX));
     }
 
     @Test
     public void test_nameDoesNotContainQueryString_returnsFalse() {
         // Non-matching keyword query-string
-        BugContainsQueryStringPredicate predicate = new BugContainsQueryStringPredicate("Ui");
-        assertFalse(predicate.test(new BugBuilder().withName("Print wrong messages").build()));
+        BugContainsQueryStringPredicate predicate = getQueryStringPredicate(VALID_QUERY_STRING_ONE);
+        assertFalse(predicate.test(BUGTWO));
     }
 
     @Test
     public void test_descriptionDoesNotContainQueryString_returnsFalse() {
         // Non-matching keyword query-string
-        String[] tags = {"Ui", "frontend", "JavaFX"};
-        BugContainsQueryStringPredicate predicate = new BugContainsQueryStringPredicate("backend");
-        assertFalse(predicate.test(new BugBuilder().withTags(tags).build()));
+        BugContainsQueryStringPredicate predicate = getQueryStringPredicate(VALID_QUERY_STRING_FOUR);
+        assertFalse(predicate.test(BUGFOUR));
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code BugContainsQueryStringPredicate}.
+     */
+    private BugContainsQueryStringPredicate getQueryStringPredicate(String userInput) {
+        return new BugContainsQueryStringPredicate(userInput);
     }
 }

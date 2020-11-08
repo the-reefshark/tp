@@ -65,6 +65,10 @@ public class CommandTestUtil {
     public static final String VALID_QUERY_STRING_SEVEN = "command";
     public static final String VALID_QUERY_STRING_EIGHT = "cOmMaND";
     public static final String VALID_QUERY_STRING_NINE = "mAiN wINDow";
+    public static final String VALID_QUERY_STRING_TEN = "MAC";
+    public static final String VALID_QUERY_STRING_ELEVEN = "all equivalence partition";
+    public static final String VALID_QUERY_STRING_TWELVE = "JAVAfx";
+
 
 
     public static final String NAME_DESC_PARSER = " " + PREFIX_NAME + VALID_NAME_PARSER;

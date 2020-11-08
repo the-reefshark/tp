@@ -186,7 +186,7 @@ public class TypicalBugs {
             .build();
 
     private TypicalBugs() {} // prevents instantiation
-
+    
     /**
      * Returns an {@code KanBugTracker} with all the typical bugs.
      */
