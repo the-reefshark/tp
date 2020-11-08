@@ -7,8 +7,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_REMOVE_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLUMN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATE;
 
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -22,6 +24,9 @@ import seedu.address.model.bug.State;
  * Parses input arguments and creates a new MoveCommand object
  */
 public class MoveCommandParser implements Parser<MoveCommand> {
+
+    private static final Logger LOGGER = LogsCenter.getLogger(SearchCommandParser.class);
+
     /**
      * Parses the given {@code String} of arguments in the context of the MoveCommand
      * and returns an MoveCommand object for execution.
@@ -29,43 +34,91 @@ public class MoveCommandParser implements Parser<MoveCommand> {
      */
     public MoveCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_STATE, PREFIX_COLUMN);
+        LOGGER.info("---[MOVE COMMAND PARSER][Parse: " + args + "]---");
 
-        Index index;
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STATE, PREFIX_COLUMN);
+
         String preambleIndex = argMultimap.getPreamble();
-        if (!StringUtil.isNumber(preambleIndex)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MoveCommand.MESSAGE_USAGE));
-        }
-        if (StringUtil.isIndexOverflow(preambleIndex)) {
-            throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
-        }
+        ensureValidIndex(preambleIndex);
 
-        try {
-            index = ParserUtil.parseIndex(preambleIndex);
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MoveCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = getIndex(preambleIndex);
+        State state = getState(argMultimap, PREFIX_STATE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_STATE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MoveCommand.MESSAGE_USAGE));
-        }
-
-        State state = ParserUtil.parseState(argMultimap.getValue(PREFIX_STATE).get());
 
         if (argMultimap.getValue(PREFIX_COLUMN).isPresent()) {
-            if (!ModelManager.isKanban()) {
-                throw new ParseException(MESSAGE_REMOVE_COLUMN);
-            }
-            State targetState = ParserUtil.parseState(argMultimap.getValue(PREFIX_COLUMN).get());
+            ensureKanbanView();
+            State targetState = getState(argMultimap, PREFIX_COLUMN);
             return new MoveByStateCommand(index, state, targetState);
         }
 
+        ensureListView();
+        return new MoveCommand(index, state);
+    }
+
+    /**
+     * Ensures the current window is List view.
+     * @throws ParseException if it is the Kanban view.
+     */
+    private void ensureListView() throws ParseException {
         if (ModelManager.isKanban()) {
             throw new ParseException(MESSAGE_PROVIDE_COLUMN);
         }
+    }
 
-        return new MoveCommand(index, state);
+    /**
+     * Ensures the current window is Kanban view.
+     * @throws ParseException if it is the List view.
+     */
+    private void ensureKanbanView() throws ParseException {
+        if (!ModelManager.isKanban()) {
+            throw new ParseException(MESSAGE_REMOVE_COLUMN);
+        }
+    }
+
+    /**
+     * Returns the valid state value.
+     * @param argMultimap argument multimap is used to get the arguments of the prefix.
+     * @param prefix the prefix type.
+     * @throws ParseException if the state is invalid.
+     */
+    private State getState(ArgumentMultimap argMultimap, Prefix prefix) throws ParseException {
+        if (!arePrefixesPresent(argMultimap, prefix)) {
+            LOGGER.info("---[MOVE COMMAND PARSER][Cannot find sufficient number of prefixes]---");
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MoveCommand.MESSAGE_USAGE));
+        }
+
+        return ParserUtil.parseState(argMultimap.getValue(prefix).get());
+    }
+
+    /**
+     * Returns valid index.
+     * @param preambleIndex the preamble parsed for index.
+     * @throws ParseException if the {@code preambleIndex} is not a valid index.
+     */
+    private Index getIndex(String preambleIndex) throws ParseException {
+        try {
+            return ParserUtil.parseIndex(preambleIndex);
+        } catch (ParseException pe) {
+            LOGGER.info("---[MOVE COMMAND PARSER][The index is invalid]---");
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MoveCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    /**
+     * Ensures the preamble index is a number and not overflowed.
+     * @param preambleIndex the preamble parsed for index.
+     * @throws ParseException if the {@code preambleIndex} is not a number or overflowed.
+     */
+    private void ensureValidIndex(String preambleIndex) throws ParseException {
+        if (!StringUtil.isNumber(preambleIndex)) {
+            LOGGER.info("---[MOVE COMMAND PARSER][The preamble index is not a number]---");
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MoveCommand.MESSAGE_USAGE));
+        }
+
+        if (StringUtil.isIndexOverflow(preambleIndex)) {
+            LOGGER.info("---[MOVE COMMAND PARSER][The preamble index is overflowed]---");
+            throw new ParseException(Messages.MESSAGE_INVALID_BUG_DISPLAYED_INDEX);
+        }
     }
 
     /**
