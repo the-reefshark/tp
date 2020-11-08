@@ -62,11 +62,16 @@ public class StringUtil {
     }
 
     /**
-     * Returns true if the {@code index} is over MAX_INT.
-     * @param index cannot be null.
+     * Returns true if the {@code index} is too large (when the length is at least equals to that of Integer.MAX_VALUE).
+     * @param index cannot be null and must be a number.
      */
     public static boolean isIndexOverflow(String index) {
         String trimmedIndex = index.trim();
+        assert isNumber(trimmedIndex);
+
+        // remove leading zeroes
+        //trimmedIndex = trimmedIndex.replaceFirst("^0+(?!$)", "");
+
         return trimmedIndex.length() >= Integer.toString(Integer.MAX_VALUE).length();
     }
 
