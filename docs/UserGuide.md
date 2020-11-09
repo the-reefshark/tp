@@ -89,7 +89,7 @@ Before continuing, it would be good to familiarise yourself with a few symbols t
 Now you're all set to get started! But where should you begin?
 
 - If you are a first-time user, start [here](#3-getting-started) by learning how to download and set up KanBug Tracker.
-- If you are confused about the various parts of KanBug Tracker (GUI, what is a bug, etc.), you can learn about them [here](#4-understanding-KanBug-tracker).
+- If you are confused about the various parts of KanBug Tracker (Graphical user interface, what is a bug, etc.), you can learn about them [here](#4-understanding-KanBug-tracker).
 - If you are interested to learn about the different exciting features KanBug Tracker has, check out the Features section [here](#5-features).
 - If you are already familiar with KanBug Tracker but have some trouble remembering the command syntax, take a look at the Command Summary section [here](#6-command-summary).
 
@@ -127,7 +127,7 @@ Now you're all set to get started! But where should you begin?
 
 We're sure that you're excited to start using KanBug Tracker! Before that however, there are some terms and parts of the application that you need to be familiar with to make the best out of your KanBug Tracker experience.
 
-We have divided this section into three. The first section introduces the various aspects of KanBug Tracker's **Graphical User Interface (GUI)**. The second section explains what a **bug is and explains its various parts**. The third section focuses on how the **user interacts with the application** and introduces some key ideas that users need to know.
+We have divided this section into three. The first subsection introduces the various aspects of KanBug Tracker's **Graphical User Interface (GUI)**. The second subsection explains what a **bug is and explains its various parts**. The third subsection focuses on how the **user interacts with the application** and introduces some key ideas that users need to know.
 
 ### 4.1 Understanding the Graphical User Interface
 
@@ -215,12 +215,12 @@ Commands are how you interact with the KanBug Tracker. The various commands will
 
 #### Columns
 
-You may have noticed that some commands require you to provide the column that the bug is in. Don't fret, columns in the Kanban View simply refer to the state of a particular bug.
+You may notice that some commands require you to provide the column that the bug is in. Don't fret, columns in the Kanban View simply refer to the state of a particular bug.
 
-<div markdown="span" class="alert alert-info">:information_source: Note: You only need to tell us the column when you are in <b>Kanban View</b>.
+<div markdown="span" class="alert alert-info">:information_source: Note: You only need to supply the column when you are in <b>Kanban View</b>.
 <br><br>
-   • <b>List view:</b> You should not supply the <code>COLUMN</code>. The bug at the specified <code>INDEX</code> is edited. The index refers to the index number shown in the displayed list of bugs.<br>
-   • <b>Kanban view:</b> Remember to supply the <code>COLUMN</code> when using this view! The bug you have chosen at <code>INDEX</code> in the <b>chosen column</b> is deleted.<br>
+   • <b>List view:</b> You should not supply <code>COLUMN</code>. The bug at the specified <code>INDEX</code> is edited. The index refers to the index number shown in the displayed list of bugs.<br>
+   • <b>Kanban view:</b> Remember to supply <code>COLUMN</code> when using this view! The bug you have chosen at <code>INDEX</code> in the <b>chosen column</b> is deleted.<br>
 <br>
 Example: <br><br>
 <img src="images/ListViewDelete.png"> <br><br>
@@ -232,7 +232,7 @@ The <b>highlighted bug is deleted</b> when command <code>delete 1 c/backlog</cod
 
 #### Index
 
-The index of a bug is the position of that bug in the list.
+The **index** of a bug is the position of that bug in the list.
 
 #### Prefixes
 
@@ -242,7 +242,7 @@ Some commands require the use of prefixes to indicate user input. Every command 
 Eg. <code>edit 1 n/firstname n/secondname</code> will result in the name of Bug 1 being edited to <b>secondname</b>.
 </div>
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: A prefix is only valid if it is preceded by a whitespace and is mentioned in the command syntax, otherwise it is treated as a normal string.
+<div markdown="span" class="alert alert-warning">:warning: WARNING: A prefix is only valid if it is preceded by a whitespace and is mentioned in the command syntax, otherwise it is treated as a normal word.
 Eg. <code>d/t/Location v/not a prefix</code> will result in the description field of the Bug being set to <code>t/Location v/not a prefix</code> because neither "t/" nor "v/" is considered as a prefix. 
 </div>
 
@@ -250,11 +250,11 @@ Eg. <code>d/t/Location v/not a prefix</code> will result in the description fiel
 
 - Words in `UPPER_CASE` are parameters to be supplied by the user
 - Items in `[...]` are **optional**
-- Items in `(...)` are only required in **KanBan view** and should not be supplied in **List view**
+- Items in `(...)` are only required in **Kanban view** and should not be supplied in **List view**
 - `INDEX` **must be a positive integer** 1,2,3...
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: For the prefixes surrounded by the parentheses in the command format, they are still considered as a valid prefix in List view even if they should not be supplied there.
-Eg. Executing <code>edit 1 d/column c/todo</code> in List view will not result in the description field of the Bug being set to <code>column c/todo</code> but will result in an error because "c/" is considered as a prefix and also which should not be supplied in List view. 
+<div markdown="span" class="alert alert-warning">:warning: WARNING: For the prefixes surrounded by the parentheses in the command format, they are considered as an invalid prefix in List view.
+Eg. Executing <code>edit 1 d/column c/todo</code> in List view will not result in the description field of the Bug being set to <code>column c/todo</code> but will result in an error because "c/" is considered as a prefix which should not be supplied in List view. 
 </div>
 
 ### 5.1 Switching Views : `switch`
@@ -307,7 +307,7 @@ Format: `list`
 
 - Shows all the bugs in your KanBug Tracker
 
-Example: Lets say you have just completed a search for bugs related to `list` using the command `search q/list` and now you want to view all your bugs again. Just do this:
+Example: Lets say you have just completed a search for bugs related to `Parser` using the command `search q/Parser` and now you want to view all your bugs again. Just do this:
 
 ![HomeFolder](images/ListExample1.png)
 
@@ -349,7 +349,7 @@ If either name or description or tag of a bug contains the query-string, it will
 
 ### 5.5 Adding a bug : `add`
 
-When a bug is encountered, the add command is here to help keep track of the bug for future reference.
+Noticed a bug while coding? The add command is here to help keep track of the bug for future reference.
 
 Format: `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG] [pr/PRIORITY]`
 
@@ -369,7 +369,7 @@ You can type `add n/Ui bug d/Homepage not loading properly s/backlog pr/low` and
 ![HomeFolder](images/addExample2.png)
 
 Once the command has been entered, the result display shows the result of your command and KanBug Tracker
-add the bug to the bottom of the list.
+adds the bug to the bottom of the list.
 
 ### A word of caution
 
@@ -405,7 +405,7 @@ Format: `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [n
 - **Multiple tags** can be added or edited.
 - The command will fail if the operation results in duplicated bugs (bugs with the same name).
 
-<div markdown="span" class="alert alert-info">:information_source: Note: To remove optional fields such as <code>Note</code>, <code>Tags</code> and <code>Priority</code> simply type the prefix without providing anything after.
+<div markdown="span" class="alert alert-info">:information_source: Note: To remove optional fields such as <code>Note</code>, <code>Tags</code> and <code>Priority</code> from a bug simply type the prefix without providing anything after.
 Eg. <code>edit 1 pr/</code> will remove the assigned priority of the Bug if there is one present.
 </div>
 
@@ -416,7 +416,7 @@ Example: If the Bug at index 1 has tags <code>Ui</code> and <code>List</code> an
 
 Examples:
 
-Example 1: Suppose you incorrectly named a bug and provided it with an inaccurate description as well as priority and want to change the name of the bug to **Wrong list numbers when displaying list**, the description to **List column printed as all 1's** and priority to **high**:
+Example 1: Suppose you incorrectly named a bug and provided it with an inaccurate description as well as priority and want to change the name of the bug to **Wrong list numbers when displaying list**, the description to **List column printed as all 1's** and priority to **HIGH**:
 
 ![HomeFolder](images/EditExample1.png)
 
@@ -424,7 +424,7 @@ You can type `edit 6 n/Wrong list numbers when displaying list d/List column pri
 
 ![HomeFolder](images/EditExample2.png)
 
-Once the command has been entered, the result display shows the result of your command and the KanBug tracker has been updated with the updated name, description as well as priority.
+Once the command has been entered, the result display shows the result of your command and the KanBug tracker has updated the name, description as well as priority.
 
 Example 2 (No walkthrough provided) : Perhaps then you tried some ways to fix it that didn't work so you want to add a `note` of **Tried a fix using iterator, did not work**.
 
@@ -567,7 +567,7 @@ the command has been executed successfully.
 
 Example 2 (No walkthrough provided) :
 
-You are in **List View** and want to move the second bug in your list to `done` state (assuming it's previous state is not `done`).
+You are in **List View** and want to move the second bug in your list to `done` state (assuming its previous state is not `done`).
 
 You would enter the following command: `move 2 s/done`
 
@@ -600,7 +600,9 @@ Format: `exit`
 
 ### 5.13 Saving the data : automatically
 
-Data is saved into the hard disk every time a change is made.
+The app data is saved at `./data/kanbugtracker.json` every time the app is closed. You could also directly
+make changes to that JSON file, but it may cause the data file to be unreadable so we not recommend you to do this.
+Instead, use the app itself so we can guide you along the way! 
 
 ------
 

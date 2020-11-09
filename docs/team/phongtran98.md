@@ -64,5 +64,29 @@ KanBug Tracker is a lightweight, easy to use bug management tool that aims to em
         * Thoroughly rename instances and classes name that were misses in previous refactoring.
 
     * **Documentation**:
-        * Wrote sections on `move` and `exit` command in the User Guide.
-        * Wrote section on the implementation of `Priority` in the Developer Guide.
+        * Wrote sections on `move`, `exit` commands and `Saving the data` feature; made sure that the warnings regarding the use of prefixes is correct in the User Guide:
+        [#163](https://github.com/AY2021S1-CS2103T-W17-1/tp/pull/163),
+        [#262](https://github.com/AY2021S1-CS2103T-W17-1/tp/pull/262),
+        [#273](https://github.com/AY2021S1-CS2103T-W17-1/tp/pull/273),
+        [#282](https://github.com/AY2021S1-CS2103T-W17-1/tp/pull/282).
+        * Wrote section on the implementation of `Priority` and most of the Manual Testing Guide; made sure that the class diagrams of components is updated in the Developer Guide:
+        [#121](https://github.com/AY2021S1-CS2103T-W17-1/tp/pull/121),
+        [#237](https://github.com/AY2021S1-CS2103T-W17-1/tp/pull/237),
+        [#253](https://github.com/AY2021S1-CS2103T-W17-1/tp/pull/253).
+     
+    * **Beyond the team**:
+        * Peer testing and Bug reporting for other teams:
+        [#1](https://github.com/PhongTran98/ped/issues/1),
+        [#2](https://github.com/PhongTran98/ped/issues/2),
+        [#3](https://github.com/PhongTran98/ped/issues/3),
+        [#4](https://github.com/PhongTran98/ped/issues/4),
+        [#5](https://github.com/PhongTran98/ped/issues/5),
+        [#6](https://github.com/PhongTran98/ped/issues/6),
+        [#7](https://github.com/PhongTran98/ped/issues/7),
+        [#8](https://github.com/PhongTran98/ped/issues/8),
+        [#9](https://github.com/PhongTran98/ped/issues/9).
+        
+        
+           
+     
+        
