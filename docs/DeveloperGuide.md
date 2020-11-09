@@ -158,7 +158,7 @@ These command would take in an extra input to specify which column is being targ
 
 <img src = "images/DeleteCommandParserActivityDiagram.png" width ="400">
 
-#### Design consideration:
+#### Design considerations
 
 - **Alternative 1**: Use a prefix "c/" to specify which column we are referring to.(Current choice)
     - Pros: Easier to implement.
@@ -310,7 +310,7 @@ Step 4. The process will continue as shown below, after which an `AddCommand` ob
 
 ![PriorityExample](images/PriorityExampleSequenceDiagram.png)
 
-#### Design consideration:
+#### Design considerations
 
 Regarding the Priority class:
 - **Alternative 1**: Create `Priority` as a separate class [current implementation]
@@ -336,16 +336,18 @@ Regarding the situation when the bug's priority is not indicated:
 ### Search feature
 
 #### Implementation
-The proposed search command is facilitated by `ModelManager`. It generates a filtered list (updated by a specified `Predicate<Bug>` as an argument), stored internally as `FilteredList<Bug>`. It should have its own class named `SearchCommand` and inherits from the abstract class `Command`. The command then returns an instance of `CommandResult` upon success and prints feedback to the users.
+The `search` command is facilitated by `ModelManager`. It generates a filtered list (updated by a specified `Predicate<Bug>` as an argument), stored internally as `FilteredList<Bug>`. It should have its own class named `SearchCommand` and inherits from the abstract class `Command`. The command then returns an instance of `CommandResult` upon success and prints feedback to the users.
 Additionally, it implements the following operations:  
-* `SearchCommand#execute()` - Executes the search command.  
+* `SearchCommand#execute()` - Executes the `search` command.  
 * `ModelManager#updateFilteredBugList(Predicate<Bug>)` - Filters internal data storage via its argument `Predicate<Bug>`   
 
-The following class diagram shows the structure of the search command implementation:
+The following class diagram shows the structure of the `search` command implementation:  
+
 ![SearchCommandClassDiagram](images/SearchCommandClassDiagram.png)
 
-Given below is an example usage scenario and how the search feature behaves at each step.  
-Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug tracker state.  
+Given below is an example usage scenario and how the `search` feature behaves at each step:  
+  
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug Tracker state.  
 
 Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/todo t/Ui.java` command to add a new bug to the KanBug tracker. A new bug with the following information is added:  
 
@@ -354,27 +356,28 @@ Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/tod
 - state: **todo**
 - tag: **Ui.java**
 
-Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug.
+Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for a particular bug.
 The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`.
 
 Step 4. This `search` command checks if the input is valid and then parses before using it to create a `BugContainsQueryStringPredicate` instance.
 The predicate is internally passed and used to filter `FilteredList`.
-This results in the information of all the bugs of which name or description or tag contains <code>Ui bug</code> as a substring displays in the tracker.
+This results in the information of all the bugs of which the name, description or tags contain <code>Ui bug</code> as a substring displays in the tracker.
 
-The following sequence diagram summarizes what happens when a user executes the search command:
+The following sequence diagram summarizes what happens when a user executes the search command:  
+
 ![SearchCommandSequenceDiagram](images/SearchCommandSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: Note: The query-string given by the user cannot be empty and is case-insensitive.
+<div markdown="span" class="alert alert-info">:information_source: Note: The query-string given by the user is <b>case-insensitive</b> and cannot be <b>empty</b>.
 </div>
 
-#### Design consideration:
-**Alternative 1 (current choice)**: Use `q/` new prefix as a query-string to search
-- Pro: Flexible search
-- Con: Might be a long list of relevant bugs
+#### Design considerations
+**Alternative 1 (current choice)**: Use new prefix `q/` to take query-string from the users.
+- Pros: Easier for the users to search for the bug they want.
+- Cons: Might have a lot of relevant bugs shown in the filtered list of records.
 
-**Alternative 2**: Use current field prefixes to search
-- Pro: Might be complicated because the user needs to remember exactly some information of a particular field
-- Con: Restricted search
+**Alternative 2**: Use current field prefixes such as `n/`, `d/` or `t/` to search.
+- Pros: No need to create a new prefix.
+- Cons: Difficult for the users to search for the bug they want. 
 
 
 
@@ -406,7 +409,7 @@ The following activity diagram summarizes what happens when a user executes the 
 
 <img src="images/NoteEditActivityDiagram.png" width="400">
 
-#### Design consideration:
+#### Design considerations
 
 ##### Aspect: How notes are stored and accessed
 
@@ -620,9 +623,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Graphical User Interface (GUI)**: A visual way of interacting with a device using a variety of items (e.g. windows, tables, icons, etc.).
 * **OOP**: Object-Oriented Programming.
 * **Prefix**: A set of characters placed before a specified parameter when typing a command.
-* **Query-string**: The user keyword input to find matches when the search command is executed.
+* **Query-string**: The user keyword input (that can be one word or multiple words) to find matches when the search command is executed.
 
-We provide more glossaries for non-technical terms of KanBug Tracker in [Understanding KanBug Tracker ](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#4-understanding-kanbug-tracker) section of the User Guide.
+We also provide a glossary for non-technical terms of KanBug Tracker in [Understanding KanBug Tracker ](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#4-understanding-kanbug-tracker) section of the User Guide.
 
 --------------------------------------------------------------------------------------------------------------------
 
