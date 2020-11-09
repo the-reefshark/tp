@@ -567,7 +567,7 @@ the command has been executed successfully.
 
 Example 2 (No walkthrough provided) :
 
-You are in **List View** and want to move the second bug in your list to `done` state (assuming it's previous state is not `done`).
+You are in **List View** and want to move the second bug in your list to `done` state (assuming its previous state is not `done`).
 
 You would enter the following command: `move 2 s/done`
 
@@ -600,7 +600,9 @@ Format: `exit`
 
 ### 5.13 Saving the data : automatically
 
-Data is saved into the hard disk every time a change is made.
+The app data is saved at `./data/kanbugtracker.json` every time the app is closed. You could also directly
+make changes to that JSON file, but it may cause the data file to be unreadable so we not recommend you to do this.
+Instead, use the app itself so we can guide you along the way! 
 
 ------
 
