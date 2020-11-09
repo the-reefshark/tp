@@ -232,7 +232,7 @@ The <b>highlighted bug is deleted</b> when command <code>delete 1 c/backlog</cod
 
 #### Index
 
-The index of a bug is the position of that bug in the list.
+The **index** of a bug is the position of that bug in the list.
 
 #### Prefixes
 
@@ -242,7 +242,7 @@ Some commands require the use of prefixes to indicate user input. Every command 
 Eg. <code>edit 1 n/firstname n/secondname</code> will result in the name of Bug 1 being edited to <b>secondname</b>.
 </div>
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: A prefix is only valid if it is preceded by a whitespace and is mentioned in the command syntax, otherwise it is treated as a normal string.
+<div markdown="span" class="alert alert-warning">:warning: WARNING: A prefix is only valid if it is preceded by a whitespace and is mentioned in the command syntax, otherwise it is treated as a normal word.
 Eg. <code>d/t/Location v/not a prefix</code> will result in the description field of the Bug being set to <code>t/Location v/not a prefix</code> because neither "t/" nor "v/" is considered as a prefix. 
 </div>
 
@@ -250,11 +250,11 @@ Eg. <code>d/t/Location v/not a prefix</code> will result in the description fiel
 
 - Words in `UPPER_CASE` are parameters to be supplied by the user
 - Items in `[...]` are **optional**
-- Items in `(...)` are only required in **KanBan view** and should not be supplied in **List view**
+- Items in `(...)` are only required in **Kanban view** and should not be supplied in **List view**
 - `INDEX` **must be a positive integer** 1,2,3...
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: For the prefixes surrounded by the parentheses in the command format, they are still considered as a valid prefix in List view even if they should not be supplied there.
-Eg. Executing <code>edit 1 d/column c/todo</code> in List view will not result in the description field of the Bug being set to <code>column c/todo</code> but will result in an error because "c/" is considered as a prefix and also which should not be supplied in List view. 
+<div markdown="span" class="alert alert-warning">:warning: WARNING: For the prefixes surrounded by the parentheses in the command format, they are considered as an invalid prefix in List view.
+Eg. Executing <code>edit 1 d/column c/todo</code> in List view will not result in the description field of the Bug being set to <code>column c/todo</code> but will result in an error because "c/" is considered as a prefix which should not be supplied in List view. 
 </div>
 
 ### 5.1 Switching Views : `switch`
@@ -349,7 +349,7 @@ If either name or description or tag of a bug contains the query-string, it will
 
 ### 5.5 Adding a bug : `add`
 
-When a bug is encountered, the add command is here to help keep track of the bug for future reference.
+Noticed a bug while coding? The add command is here to help keep track of the bug for future reference.
 
 Format: `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG] [pr/PRIORITY]`
 
@@ -369,7 +369,7 @@ You can type `add n/Ui bug d/Homepage not loading properly s/backlog pr/low` and
 ![HomeFolder](images/addExample2.png)
 
 Once the command has been entered, the result display shows the result of your command and KanBug Tracker
-add the bug to the bottom of the list.
+adds the bug to the bottom of the list.
 
 ### A word of caution
 
@@ -405,7 +405,7 @@ Format: `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [n
 - **Multiple tags** can be added or edited.
 - The command will fail if the operation results in duplicated bugs (bugs with the same name).
 
-<div markdown="span" class="alert alert-info">:information_source: Note: To remove optional fields such as <code>Note</code>, <code>Tags</code> and <code>Priority</code> simply type the prefix without providing anything after.
+<div markdown="span" class="alert alert-info">:information_source: Note: To remove optional fields such as <code>Note</code>, <code>Tags</code> and <code>Priority</code> from a bug simply type the prefix without providing anything after.
 Eg. <code>edit 1 pr/</code> will remove the assigned priority of the Bug if there is one present.
 </div>
 
@@ -416,7 +416,7 @@ Example: If the Bug at index 1 has tags <code>Ui</code> and <code>List</code> an
 
 Examples:
 
-Example 1: Suppose you incorrectly named a bug and provided it with an inaccurate description as well as priority and want to change the name of the bug to **Wrong list numbers when displaying list**, the description to **List column printed as all 1's** and priority to **high**:
+Example 1: Suppose you incorrectly named a bug and provided it with an inaccurate description as well as priority and want to change the name of the bug to **Wrong list numbers when displaying list**, the description to **List column printed as all 1's** and priority to **HIGH**:
 
 ![HomeFolder](images/EditExample1.png)
 
@@ -424,7 +424,7 @@ You can type `edit 6 n/Wrong list numbers when displaying list d/List column pri
 
 ![HomeFolder](images/EditExample2.png)
 
-Once the command has been entered, the result display shows the result of your command and the KanBug tracker has been updated with the updated name, description as well as priority.
+Once the command has been entered, the result display shows the result of your command and the KanBug tracker has updated the name, description as well as priority.
 
 Example 2 (No walkthrough provided) : Perhaps then you tried some ways to fix it that didn't work so you want to add a `note` of **Tried a fix using iterator, did not work**.
 
