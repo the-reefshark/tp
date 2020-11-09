@@ -8,7 +8,7 @@ title: Developer Guide
 
 ## **Setting up, getting started**
 
-Refer to the guide [_Setting up and getting started_](SettingUp.md).
+Refer to the guide [Setting up and getting started](SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -44,7 +44,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The **Sequence Diagram** below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -608,7 +608,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  KanBug Tracker should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+1.  KanBug Tracker should work on any **mainstream OS** as long as it has Java `11` or above installed.
 2.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 3.  KanBug Tracker should be able to hold up to **10000** bug items without a remarkable sluggishness in performance for typical usage.
 4.  KanBug Tracker should work on both 32-bit and 64-bit environments.
@@ -634,7 +634,7 @@ We also provide a glossary for non-technical terms of KanBug Tracker in [Underst
 Given below are instructions to test the app manually.
 
 <div markdown="span" class="alert alert-info">:information_source: Note: These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
+    testers are expected to do more <b>exploratory</b> testing.
 
 </div>
 
