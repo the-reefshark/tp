@@ -323,7 +323,7 @@ When there are a lot of bugs in the tracker, you might want to look for a partic
 
 Format: `search q/QUERYSTRING`
 
-<div markdown="span" class="alert alert-info">:information_source: Note: You might be wondering what QUERYSTRING is. QUERYSTRING refers to the user's keyword input (that can be <b>one word</b> or <b>multiple</b> words) to find matches when the <code>search</code> command is executed.
+<div markdown="span" class="alert alert-info">:information_source: Note: You might be wondering what <code>QUERYSTRING</code> is. <code>QUERYSTRING</code> refers to the user's keyword input (that can be <b>one</b> word or <b>multiple</b> words) to find matches when the <code>search</code> command is executed.
 </div>
 
 - This command sorts out bugs based on your given query-string. The tracker returns all the bugs that has either name or description or tags containing this query-string as a substring. 
@@ -336,15 +336,15 @@ Format: `search q/QUERYSTRING`
  
 Example:
 
-Suppose you want to look for `command` bugs in the tracker. Firstly, you will type in the command box as following:
+Suppose you want to look for `command` bugs in the tracker. Firstly, you type in the command box as following:
 
 ![HomeFolder](images/SearchExample1.png)
 
-Once the command has been entered, the result display shows the total number of relevant items and KanBug Tracker will display all these bugs as list in each state.
+Once the command has been entered, the result display shows the total number of relevant items and KanBug Tracker will display all these bugs as a list in each state.
 
 ![HomeFolder](images/SearchExample2.png)
 
-If either name or description or tag of a bug contains the query-string, it will be included in the resulting list after the command is executed.  
+If either the name, description or tags of a bug contain the query-string, it will be included in the resulting list after the command is executed.  
 
 
 ### 5.5 Adding a bug : `add`
@@ -573,13 +573,13 @@ You would enter the following command: `move 2 s/done`
 
 ### 5.11 Clearing all bugs : `clear`
 
-Imagine the project you just finish ends up with a hundred of bug records in the tracker. How to restart? Don't worry! Clear command is here to help you to clear all bugs to reinitialize the application.
+Imagine the project you just finish ends up with a hundred of bug records in the tracker. How to restart? Don't worry! The `clear` command is here to help you to clear all bugs to reinitialize the application.
 
 Format: `clear`
 
 Example:   
 
-After the project is done, you might want to clear all the bug records that are not relevant in the future anymore. Firstly, I type in the command box as following:
+After the project is done, you might want to clear all the bug records that are not relevant in the future anymore. Firstly, you type in the command box as following:
 
 ![HomeFolder](images/ClearExample1.png)
 
