@@ -357,8 +357,8 @@ Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/tod
 Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug.
 The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`.
 
-Step 4. This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance.
-The predicate is internally passed and used to filter FilteredList<Bug>.  
+Step 4. This `search` command checks if the input is valid and then parses before using it to create a `BugContainsQueryStringPredicate` instance.
+The predicate is internally passed and used to filter `FilteredList`.
 This results in the information of all the bugs of which name or description or tag contains <code>Ui bug</code> as a substring displays in the tracker.
 
 The following sequence diagram summarizes what happens when a user executes the search command:
