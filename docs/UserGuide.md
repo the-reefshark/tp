@@ -238,7 +238,7 @@ The **index** of a bug is the position of that bug in the list.
 
 Some commands require the use of prefixes to indicate user input. Every command will have its own specific format so do pay close attention to the command's requirements!
 
-<div markdown="span" class="alert alert-info">:information_source: Note: If you accidentally include multiple copies of the same prefix, the programme will consider only the prefix that appears last and ignore all previous one, 
+<div markdown="span" class="alert alert-info">:information_source: Note: If you accidentally include multiple copies of the same prefix, the programme will consider only the prefix that appears last and ignore all previous ones, 
 even if they are of the wrong format, e.g. <code>edit 1 n/@wrong format n/firstname n/secondname</code> will result in the name of Bug 1 being edited to <b>secondname</b>.
 </div>
 
@@ -598,9 +598,9 @@ Format: `exit`
 <div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the <code>Esc</code> key to close the window. Try it!
 </div>
 
-### 5.13 Saving the data : automatically
+### 5.13 Saving the data : 
 
-The app data is saved at `./data/kanbugtracker.json` every time the app is closed. You could also directly
+The app data is automatically saved at `./data/kanbugtracker.json` every time the app is closed. You could also directly
 make changes to that JSON file, but it may cause the data file to be unreadable so we not recommend you to do this.
 Instead, use the app itself so we can guide you along the way! 
 
