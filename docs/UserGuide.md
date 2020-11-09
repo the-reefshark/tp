@@ -307,7 +307,7 @@ Format: `list`
 
 - Shows all the bugs in your KanBug Tracker
 
-Example: Lets say you have just completed a search for bugs related to `list` using the command `search q/list` and now you want to view all your bugs again. Just do this:
+Example: Lets say you have just completed a search for bugs related to `Parser` using the command `search q/Parser` and now you want to view all your bugs again. Just do this:
 
 ![HomeFolder](images/ListExample1.png)
 
