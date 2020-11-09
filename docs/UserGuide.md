@@ -600,7 +600,7 @@ Format: `exit`
 
 ### 5.13 Saving the data : 
 
-The app data is automatically saved at `./data/kanbugtracker.json` every time the app is closed. You could also directly
+The app data is automatically saved at `./data/kanbugtracker.json` every time a change is made. You could also directly
 make changes to that JSON file, but it may cause the data file to be unreadable so we not recommend you to do this.
 Instead, use the app itself so we can guide you along the way! 
 
