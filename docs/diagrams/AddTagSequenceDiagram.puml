@@ -6,6 +6,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":KanBugTrackerParser" as KanBugTrackerParser LOGIC_COLOR
 participant ":AddTagCommandParser" as AddTagCommandParser LOGIC_COLOR
 participant "a:AddTagCommand" as AddTagCommand LOGIC_COLOR
+participant ":ModifyTagUtility" as ModifyTagUtility LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -48,6 +49,25 @@ deactivate KanBugTrackerParser
 LogicManager -> AddTagCommand : execute()
 activate AddTagCommand
 
+AddTagCommand -> AddTagCommand : updateList(lastShownList, Model)
+activate AddTagCommand
+
+create ModifyTagUtility
+AddTagCommand -> ModifyTagUtility
+activate ModifyTagUtility
+
+ModifyTagUtility --> AddTagCommand
+deactivate ModifyTagUtility
+
+AddTagCommand -> ModifyTagUtility : addTagsToBug(newTags)
+activate ModifyTagUtility
+
+ModifyTagUtility --> AddTagCommand : updatedBug
+deactivate ModifyTagUtility
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ModifyTagUtility -[hidden]-> AddTagCommand
+destroy ModifyTagUtility
+
 AddTagCommand -> Model : setBug(bugToEdit, EditedBug)
 activate Model
 
@@ -66,6 +86,9 @@ activate CommandResult
 
 CommandResult --> AddTagCommand
 deactivate CommandResult
+
+AddTagCommand --> AddTagCommand
+deactivate AddTagCommand
 
 AddTagCommand --> LogicManager : result
 deactivate AddTagCommand
