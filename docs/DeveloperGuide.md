@@ -461,7 +461,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user             | add notes to specific bugs        | quickly remember details about the bug                       |
 | `* * *`  | user             | add tags to specific bugs         | easily find related bugs                                     |
 | `* * *`  | user             | add a priority to specific bugs   | see which bugs I need to fix first                           |
-| `* * *`  | user             | keep track of the number of bugs  | keep track of the number of bugs in my code                  |
 | `* * *`  | user             | see all the bugs                  | know what the bugs in my program are                         |
 | `* * *`  | user             | search for bugs                   | find the bug(s) that I am looking for                        |
 | `* * *`  | user             | change the state of a bug         | track my bug fixing progress                                 |
