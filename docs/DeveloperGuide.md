@@ -126,27 +126,27 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Kanban view window feature
 
-#### Proposed Implementation
-The kanban view window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 BugListPane in a horizontal box. The 4 BugListPanes would be constructed using a observable list that contains only the bugs that belong to their respective state. This observable list would be provided by the logic manager. These 4 BugListPanes would be filled when the method fillInnerParts() is called by MainWindow.
+#### Implementation
+The Kanban view window would comprise of 4 columns that would divide the list of bug by their states. This would be implemented by putting 4 `BugListPane` in a horizontal box. The 4 `BugListPane` objects would be constructed using a `ObservableList` that contains only the bugs that belong to their respective state. This observable list would be provided by the `LogicManager`. These 4 `BugListPane` objects would be filled when the method `fillInnerParts()` is called by `MainWindow`.
 
 <img src="images/Ui.png" width="450" />
 
-Given below is how the KanbanBoard window will create the 4 BugListpanes
+Given below is how the `KanbanPanel` window will create the 4 `BugListPane` objects
 
 Step 1:
-The user launches the app and the system initialises the UI.
+The user launches the app and the system initialises the User Interface.
 
 Step 2:
-MainWindow calls fillInnerParts() on KanbanBoard.
+`MainWindow` calls `fillInnerParts()` on `KanbanPanel` .
 
 Step 3:
-For each of the 4 states, KanbanBoard would call getFilteredBugListByState on logic manager to get the appropriate lists and create the BugListPane.
+For each of the 4 states, `KanbanPanel` would call `getFilteredBugListByState()` on logic manager to get the appropriate lists and create the `BugListPane`.
 
-Given below is sequence diagram for the creation of the BugListPanes:
+Given below is sequence diagram for the creation of the `BugListPane` objects:
 
 <img src= "images/KanbanBoardUI.png" width = "400">
 
-With the implementation of kanban view window, command such as delete, move and edit that depend on the index would not work as expected. This is because, the Kanban view separates the bugs and places in different columns. As such, it would be essential to allow the users to execute these commands in the kanban view as we implement the new window. This can be done by allowing the user to choose which column would be affected by these commands.
+With the implementation of Kanban view window, commands such as delete, move and edit that depend on the index would not work as expected. This is because Kanban view separates the bugs and places them in different columns. As such, it would be essential to allow the users to execute these commands in Kanban view as we implement the new window. This can be done by allowing the user to choose which column would be affected by these commands.
 
 This can be done by adding the following classes:
 
@@ -154,14 +154,14 @@ This can be done by adding the following classes:
 - `MoveBystateCommand` which extends `MoveCommand`
 - `EditByStateCommand` which extends `EditCommand`
 
-These command would take in an extra input to specify which column is being targeted. The list of bugs would then be filtered according to the column specified. The respective parsers would also have to be modified such that the new command could be returned if a column is specified. The following activity diagram summarises what happens when the user enters a delete command.(edit and move command parser would act in a similar way)
+These command would take in an extra input to specify which column is being targeted. The list of bugs would then be filtered according to the column specified. The respective parsers would also have to be modified such that a new command could be returned if a column is specified. The following activity diagram summarises what happens when the user enters a delete command.(edit and move command parser would act in a similar way)
 
 <img src = "images/DeleteCommandParserActivityDiagram.png" width ="400">
 
 #### Design consideration:
 
-- **Alternative 1**: Use a prefix "/c" to specify which column we are referring to.(Current choice)
-    - Pros: Easier to implement
+- **Alternative 1**: Use a prefix "c/" to specify which column we are referring to.(Current choice)
+    - Pros: Easier to implement.
     - Cons: Adds an additional prefix which the user has to remember.
 - **Alternative 2**: Allow the users to specify an active column and execute the commands with respect to that column
     - Cons: Need to add an additional command to change the active column.
@@ -211,7 +211,7 @@ Step 5: `LogicManager` then calls the `execute()` method of `EditTagCommand`.
 
 Step 6: The `EditTagCommand` object then uses the relevant information (bug to edit) to create an instance of a `ModifyTagUtility` object.
 
-Step 7: The `EditTagCommand` object calls the `updateTagInBug(oldTag, newTag)` method  to create an updated version of the target bug with the correct new tag.
+Step 7: The `EditTagCommand` object calls the `updateTagInBug(oldTag, newTag)` method of `ModiftTagUtility` to create an updated version of the target bug with the correct new tag.
 
 Step 8:  If the bug is updated successfully, the new state of the target bug is updated in the `Model`. A `CommandResult` object is created and returned to `LogicManager`. The GUI is updated and a success message is displayed to the user. Otherwise, if the bug is not updated. A `CommandResult` object is still created and returned to `LogicManager`. The GUI displays an error message to the user.
 
@@ -226,13 +226,13 @@ Step 8:  If the bug is updated successfully, the new state of the target bug is 
 
 #### Summary
 
-The following activity diagram summarizes what happens when a user executes a `editTag INDEX (c/COLUMN) ot/OLD_TAG nt/NEW_TAG` command with valid inputs.
+The following activity diagram summarizes what happens when a user executes a `editTag INDEX (c/COLUMN) ot/OLD_TAG nt/NEW_TAG` command with the correct format.
 
 ![EditTagActivityDiagram](/images/EditTagActivityDiagram.png)
 
 ### Add tag feature
 
-This feature allows a user to add tags to a particular bug. Users will only need to specify the  tags that they want to add, which saves them the hassle of having to delete all the tags of the bug and add them again. 
+This feature allows a user to add tags to a particular bug. Users will only need to specify the  tags that they want to add, which saves them the hassle of having to delete all the tags of the bug and adding them again. 
 
 The user can make use of this feature by entering the `addTag` command, which follows the following format: `addTag INDEX (c/COLUMN) nt/NEW_TAG`. 
 
@@ -261,7 +261,7 @@ Step 1: User inputs `addTag 1 nt/UserDisplay` to achieve the outcome as describe
 
 Steps 2 - 6 are similar to those of the `editTag` command. **AddTag** variants of objects are called instead of the **EditTag** variants used in the execution of the `editTag` Command.
 
-Step 7: The `AddTagCommand` object calls the `addTagsToBug(newTags)` method  to create an updated version of the target bug with the newly added tags. 
+Step 7: The `AddTagCommand` object calls the `addTagsToBug(newTags)` method of `ModifyTagUtility` to create an updated version of the target bug with the newly added tags. 
 
 Step 8 is the same as in the `editTag` command.
 
@@ -271,7 +271,7 @@ The design considerations for this feature are the same as the design considerat
 
 #### Summary
 
-The activity diagram that summarizes what happens when a user executes a `addTag INDEX (c/COLUMN) nt/NEW_TAG` command with valid inputs is similar to that of the activity diagram for the edit tag feature which you can see [here](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#summary). Instead of executing an `editTag` command, the user would execute an `addTag` command in this case.
+The activity diagram that summarizes what happens when a user executes a `addTag INDEX (c/COLUMN) nt/NEW_TAG` command with the correct format is similar to that of the activity diagram for the edit tag feature which you can see [here](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#summary). Instead of executing an `editTag` command, the user would execute an `addTag` command in this case.
 
 ### Bug priority feature
 
@@ -387,7 +387,7 @@ The added operations by `Note` are internal operations that are handled by the `
 
 Given below is an example usage scenario and how the `Note` mechanism behaves at each step when used with `AddCommandParser` and `EditCommandParser`.
 
-Step 1: The user launches the application and executes the add command and provides a `Note` input using the `note/` prefix. The `AddCommandParser` then executes and splits the input String into its respective components asccording to the given prefix.
+Step 1: The user launches the application and executes the add command and provides a `Note` input using the `note/` prefix. The `AddCommandParser` then executes and splits the input String into its respective components according to the given prefix.
 
 Step 2: The `AddCommandParser` then wraps the string following the `note/` prefix in an `Optional<Note>` object which is then stored inside the new `Bug` that has been created.
 
@@ -398,7 +398,7 @@ The following activity diagram summarizes what happens when a user executes the 
 <div markdown="span" class="alert alert-info">:information_source: <b>Note:</b> If the <code>note/</code> command is not followed by a String, it will result in a message to the user that their input should not be blank.
 </div>
 
-Step 3: The user then decides to change the `Note` in the bug that he has just added using the `edit` commmand accompanied with the `note/` prefix. The `EditCommandParser` then executes and splits the input String into its respective components according to the given prefix.
+Step 3: The user then decides to change the `Note` in the bug that he has just added using the `edit` command accompanied with the `note/` prefix. The `EditCommandParser` then executes and splits the input String into its respective components according to the given prefix.
 
 Step 4: The `EditCommandParser` then copies the unchanged information from the original `Bug` into a new `Bug` while also modifying the `Note` state by wrapping the given input String into an `Optional<Note>` object and storing it in the new `Bug` that has been created. This new `Bug` object then replaces the original object in the KanBug Tracker.
 
@@ -411,12 +411,12 @@ The following activity diagram summarizes what happens when a user executes the 
 ##### Aspect: How notes are stored and accessed
 
 * **Alternative 1 (current choice):** Saves the Note object as an Optional<Note> object in Bug.
-  * Pros: Prevents a null pointer exception and is a safer implementation while allowing the note field to be optional
-  * Cons: Difficult to implement
+  * Pros: Prevents a null pointer exception and is a safer implementation while allowing the note field to be optional.
+  * Cons: Difficult to implement.
 
 * **Alternative 2:** Saves the Note object directly in Bug
   * Pros: Easy to implement.
-  * Cons: Will run into null pointer exceptions that are hard to trace if the user chooses not to add a note
+  * Cons: Will run into null pointer exceptions that are hard to trace if the user chooses not to add a note.
 
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -437,36 +437,38 @@ The following activity diagram summarizes what happens when a user executes the 
 
 * Has a need to manage a significant number of bugs
 * Prefers desktop apps over other types
+* Prefers offline solutions
+* Currently uses pen and paper to manage their bugs
 * Can type fast
 * Prefers typing to mouse interactions
 * Is reasonably comfortable using CLI apps
 
-**Value proposition**: Providing a command line interface for software engineering students to manage and track the bug fixing process faster than a typical mouse/GUI driven app
+**Value proposition**: Providing a lightweight yet powerful application that allows software engineering students to effectively manage and track the bugs they encounter faster than a typical mouse/GUI driven application. Students will interact with the application through a Command Line Interface. The application also presents itself as a portable offline solution. 
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​            | I want to …​                        | So that I can…​                                                          |
-| -------- | ------------------| ---------------------------------- | ----------------------------------------------------------------------- |
-| `* * *`  | new user          | see usage instructions             | refer to instructions when I forget how to use the App                  |
-| `* * *`  | user              | add a new bug                      | keep track of the bugs in my code                                       |
-| `* * *`  | user              | delete a bug                       | remove entries that I no longer need                                    |
-| `* * *`  | user              | add notes to specific bugs         | quickly remeber details about the bug                                   |
-| `* * *`  | user              | add tags to specific bugs          | easily find related bugs                                                |
-| `* * *`  | user              | add a priority to specific bugs    | see which bugs I need to fix first                                      |
-| `* * *`  | user              | keep track of the number of bugs   | keep track of the number of bugs in my code                             |
-| `* * *`  | user              | see all the bugs                   | know what the bugs in my program are                                    |
-| `* * *`  | user              | search for bugs                    | find the bug(s) that I am looking for                                   |
-| `* * *`  | user              | change the state of a bug          | track my bug fixing progress                                            |
-|  `* *`   | user              | add deadlines to bugs              | know which bugs I need to fix before the deadline                       |
-|  `* *`   | experienced user  | import and export my bugs          | bring my bug tracking data over to a different computer                 |
-|  `* *`   | experienced user  | switch between different projects  | track bugs for multiple projects simultaneously                         |
-|  `* *`   | experienced user  | link bugs together                 | understand interconnected problems in my code                           | 
-|   `*`    | experienced user  | customise commands freely          | change the name of the commands to make them easier to remember and use |
-|   `*`    | experienced user  | perform actions on multiple bugs   | update multiple bugs at the same time                                   |
-|   `*`    | experienced user  | generate bug reports               | review the process I used to fix the bugs                               |
+| Priority | As a …​           | I want to …​                       | So that I can…​                                               |
+| -------- | ---------------- | --------------------------------- | ------------------------------------------------------------ |
+| `* * *`  | new user         | see usage instructions            | refer to instructions when I forget how to use the App       |
+| `* * *`  | user             | add a new bug                     | keep track of the bugs in my code                            |
+| `* * *`  | user             | delete a bug                      | remove entries that I no longer need                         |
+| `* * *`  | user             | add notes to specific bugs        | quickly remember details about the bug                       |
+| `* * *`  | user             | add tags to specific bugs         | easily find related bugs                                     |
+| `* * *`  | user             | add a priority to specific bugs   | see which bugs I need to fix first                           |
+| `* * *`  | user             | keep track of the number of bugs  | keep track of the number of bugs in my code                  |
+| `* * *`  | user             | see all the bugs                  | know what the bugs in my program are                         |
+| `* * *`  | user             | search for bugs                   | find the bug(s) that I am looking for                        |
+| `* * *`  | user             | change the state of a bug         | track my bug fixing progress                                 |
+| `* *`    | user             | add deadlines to bugs             | know which bugs I need to fix before the deadline            |
+| `* *`    | experienced user | import and export my bugs         | bring my bug tracking data over to a different computer      |
+| `* *`    | experienced user | switch between different projects | track bugs for multiple projects simultaneously              |
+| `* *`    | experienced user | link bugs together                | understand interconnected problems in my code                |
+| `*`      | experienced user | customise commands freely         | change the name of the commands to make them easier to remember and use |
+| `*`      | experienced user | perform actions on multiple bugs  | update multiple bugs at the same time                        |
+| `*`      | experienced user | generate bug reports              | review the process I used to fix the bugs                    |
 
 ### Use cases
 
@@ -822,7 +824,7 @@ testers are expected to do more *exploratory* testing.
     1. Execute `edit 1 c/todo d/desc`<br>
        Expected: The first bug in the `todo` column is edited. Details of the bug are shown in the status message.
        
-### Appending the tags
+### Adding tags to an existing bug
 
 1. Adding tags to a bug without removing the original ones.
 
@@ -857,7 +859,7 @@ testers are expected to do more *exploratory* testing.
        Expected: No tags will be added. The app should response with "Please provide column in Kanban view window".
     
 
-### Editing a single tag
+### Editing a single tag of a bug
 
 1. Editing a tag of some bug without removing the other ones.
 
