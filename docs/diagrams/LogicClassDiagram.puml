@@ -21,6 +21,7 @@ package Command {
 Class XYZCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
+Class ModifyTagUtility
 }
 
 Interface Logic <<Interface>>
@@ -49,6 +50,8 @@ XYZCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
+XYZCommand .down.> ModifyTagUtility : creates >
+note right of ModifyTagUtility: Only EditTagCommand, EditTagByStateCommand, AddTagCommand and AddTagByStateCommand creates ModifyTagUtility
 LogicManager .left.> Command : executes >
 
 LogicManager --> Model
