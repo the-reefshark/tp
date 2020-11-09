@@ -495,11 +495,11 @@ Format: `addTag INDEX (c/COLUMN) nt/NEW_TAG`
 
 - Users can add **multiple tags** by supplying multiple instances of  `nt/NEW_TAG`.
 
-  <div markdown="span" class="alert alert-warning">:warning: WARNING: Duplicate new tags will only be added once. For instance, suppose the tag <b>UiError</b> is a valid tag that can be added to a particular bug.
-  Executing the following command: <br>
-  <code>addTag 1 nt/UiError nt/UiError</code> <br> <br>
-  Will result in the tag <b>UiError</b> only being added to the bug <b>once</b>.
-  </div>
+ <div markdown="span" class="alert alert-warning">:warning: WARNING: Duplicate new tags will only be added once. For instance, suppose the tag <b>UiError</b> is a valid tag that can be added to a particular bug.
+ Executing the following command: <br>
+ <code>addTag 1 nt/UiError nt/UiError</code> <br> <br>
+ Will result in the tag <b>UiError</b> only being added to the bug <b>once</b>.
+ </div>
 
 Examples:
 
@@ -589,7 +589,7 @@ Once the command has been entered, all the bugs are immediately deleted and the 
 
 ### 5.12 Exiting the program : `exit`
 
-When you are done with managing your tasks, use this command to saves all of the local data and exit from the app.
+When you are done with managing your tasks, use this command to save all of the local data and exit from the app.
 
 Format: `exit` 
 
