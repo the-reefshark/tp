@@ -158,7 +158,7 @@ These command would take in an extra input to specify which column is being targ
 
 <img src = "images/DeleteCommandParserActivityDiagram.png" width ="400">
 
-#### Design consideration:
+#### Design considerations
 
 - **Alternative 1**: Use a prefix "c/" to specify which column we are referring to.(Current choice)
     - Pros: Easier to implement.
@@ -275,25 +275,25 @@ The activity diagram that summarizes what happens when a user executes a `addTag
 
 ### Bug priority feature
 
-Feature description: Each bug will now have a priority level (low, medium, high) that will be shown on the GUI. Users
+Feature description: Each bug will now have a priority level (`low`, `medium`, `high`) that will be shown on the GUI. Users
 can add or edit a bug with the priority using the `pr/` tag. The priority is optional, but each bug must have at most
 one priority only.
 
-#### Proposed Implementation
+#### Implementation
 
 The followings are notable differences between `Priority` and other fields of `Bug`:
-- The `VALIDATION_REGEX` of `PRIORITY` will be set such that its constructor can only accept the `String` `"low"`, 
-`"medium"`, `"higher"` (either uppercase or lowercase)
-- Aside from the 3 possible states of `Priority` (`"low"`, `"medium"` or `"high"`), it will also have the state `""` 
+- The `VALIDATION_REGEX` of `PRIORITY` will be set such that its constructor can only accept the strings `low`, 
+`medium`, `higher` (case-insensitive)
+- Aside from the 3 possible states of `Priority` (`low`, `medium` or `high`), it will also have the state ` ` 
 that represent when the bug have no priority indicated. This type of `Priority` will be create using an overload 
 version of the constructor that accept no argument: `new Priority("low")` will create a low priority, but 
 `new Priority()` will create an "empty" priority. 
 - We will check if the `Priority` is "empty" before showing it on the UI.
 
-<div markdown="span" class="alert alert-info">:information_source: Note: This is to simplified the code so that every instance of `Bug` is mandatory and also avoid using `null` (which could cause `NullPointerException` and break the app) at the same time.
+<div markdown="span" class="alert alert-info">:information_source: Note: This is to simplify the code so that every instance of `Bug` is mandatory and also avoid using `null` (which could cause `NullPointerException` and break the app) at the same time.
 </div>
 
-Here is a diagram show how an AddCommandParser work with priority:
+Here is a diagram showing how an `AddCommandParser` works with the priorities:
 
 ![Priority](images/PrioritySequenceDiagram.png)
 
@@ -306,46 +306,48 @@ Step 2. The user execute the command "add n/Bug name d/Bug description pr/high"
 
 Step 3. Through `LogicManager` and `KanBugTrackerParser`, an `AddCommandParser` will eventually have to parse `"n/Bug name d/Bug description pr/high"`
 
-Step 4. The process will continue as shown below, after which an `AddCommand` object will be returned and executed:
+Step 4. The process will continue, after which an `AddCommand` object will be returned and executed as shown below:
 
 ![PriorityExample](images/PriorityExampleSequenceDiagram.png)
 
-#### Design consideration:
+#### Design considerations
 
-Regarding the Priority class:
-- **Alternative 1**: Create `Priority` as a separate class [current implementation]
+Regarding the `Priority` class:
+- **Alternative 1** (current choice): Create `Priority` as a separate class
     - Pros: Adhere OOP principles
     - Cons: Need to refactor quite a lot in many different places (because we need to change the signature of the
        `Bug`'s constructor, which appear in many places.
-- **Alternative 2**: Create `Priority` as a subclass of `Tag` [rejected]
+- **Alternative 2**: Create `Priority` as a subclass of `Tag` 
     - Cons: Break the Liskov Substitution Principle (Since there can be multiple `Tag`s for each `Bug` but there
     can only be one `Priority`).
     
 
 Regarding the situation when the bug's priority is not indicated:
-- **Alternative 1**: Create a special type called "empty" Priority [current implementation]
+- **Alternative 1** (current choice): Create a special type called "empty" Priority 
     - Pros: Implementation will be similar to other existing fields.
     - Cons: Need to make sure that this special type will not be shown to users.
-- **Alternative 2**: Use `Optional` [rejected]
+- **Alternative 2**: Use `Optional` 
     - Pros: Use imperative programming style, code look neater.
     - Cons: Harder to implement correctly.
-- **Alternative 3**: Use `null` [rejected]
+- **Alternative 3**: Use `null` 
     - Pros: Easiest to implement.
     - Cons: Risky because of possible `NullPointerException`, also code will look complicated because of the need to check whether the object is `null`.
 
 ### Search feature
 
 #### Implementation
-The proposed search command is facilitated by `ModelManager`. It generates a filtered list (updated by a specified `Predicate<Bug>` as an argument), stored internally as `FilteredList<Bug>`. It should have its own class named `SearchCommand` and inherits from the abstract class `Command`. The command then returns an instance of `CommandResult` upon success and prints feedback to the users.
+The `search` command is facilitated by `ModelManager`. It generates a filtered list (updated by a specified `Predicate<Bug>` as an argument), stored internally as `FilteredList<Bug>`. It should have its own class named `SearchCommand` and inherits from the abstract class `Command`. The command then returns an instance of `CommandResult` upon success and prints feedback to the users.
 Additionally, it implements the following operations:  
-* `SearchCommand#execute()` - Executes the search command.  
+* `SearchCommand#execute()` - Executes the `search` command.  
 * `ModelManager#updateFilteredBugList(Predicate<Bug>)` - Filters internal data storage via its argument `Predicate<Bug>`   
 
-The following class diagram shows the structure of the search command implementation:
+The following class diagram shows the structure of the `search` command implementation:  
+
 ![SearchCommandClassDiagram](images/SearchCommandClassDiagram.png)
 
-Given below is an example usage scenario and how the search feature behaves at each step.  
-Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug tracker state.  
+Given below is an example usage scenario and how the `search` feature behaves at each step:  
+  
+Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug Tracker state.  
 
 Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/todo t/Ui.java` command to add a new bug to the KanBug tracker. A new bug with the following information is added:  
 
@@ -354,27 +356,28 @@ Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/tod
 - state: **todo**
 - tag: **Ui.java**
 
-Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for the particular bug.
+Step 3. When there are a lot of bugs in the tracker, it is difficult for the user to look for a particular bug.
 The user wants to see the information of the above bug. Then, the user executes `search q/Ui bug`.
 
-Step 4. This `search` command checks if the input is valid and then parses before using it to create a Predicate<Bug> instance.
-The predicate is internally passed and used to filter FilteredList<Bug>.  
-This results in the information of all the bugs of which name or description or tag contains <code>Ui bug</code> as a substring displays in the tracker.
+Step 4. This `search` command checks if the input is valid and then parses before using it to create a `BugContainsQueryStringPredicate` instance.
+The predicate is internally passed and used to filter `FilteredList`.
+This results in the information of all the bugs of which the name, description or tags contain <code>Ui bug</code> as a substring displays in the tracker.
 
-The following sequence diagram summarizes what happens when a user executes the search command:
+The following sequence diagram summarizes what happens when a user executes the search command:  
+
 ![SearchCommandSequenceDiagram](images/SearchCommandSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: Note: The query-string given by the user cannot be empty and is case-insensitive.
+<div markdown="span" class="alert alert-info">:information_source: Note: The query-string given by the user is <b>case-insensitive</b> and cannot be <b>empty</b>.
 </div>
 
-#### Design consideration:
-**Alternative 1 (current choice)**: Use `q/` new prefix as a query-string to search
-- Pro: Flexible search
-- Con: Might be a long list of relevant bugs
+#### Design considerations
+**Alternative 1 (current choice)**: Use new prefix `q/` to take query-string from the users.
+- Pros: Easier for the users to search for the bug they want.
+- Cons: Might have a lot of relevant bugs shown in the filtered list of records.
 
-**Alternative 2**: Use current field prefixes to search
-- Pro: Might be complicated because the user needs to remember exactly some information of a particular field
-- Con: Restricted search
+**Alternative 2**: Use current field prefixes such as `n/`, `d/` or `t/` to search.
+- Pros: No need to create a new prefix.
+- Cons: Difficult for the users to search for the bug they want. 
 
 
 
@@ -406,7 +409,7 @@ The following activity diagram summarizes what happens when a user executes the 
 
 <img src="images/NoteEditActivityDiagram.png" width="400">
 
-#### Design consideration:
+#### Design considerations
 
 ##### Aspect: How notes are stored and accessed
 
@@ -620,9 +623,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Graphical User Interface (GUI)**: A visual way of interacting with a device using a variety of items (e.g. windows, tables, icons, etc.).
 * **OOP**: Object-Oriented Programming.
 * **Prefix**: A set of characters placed before a specified parameter when typing a command.
-* **Query-string**: The user keyword input to find matches when the search command is executed.
+* **Query-string**: The user keyword input (that can be one word or multiple words) to find matches when the search command is executed.
 
-We provide more glossaries for non-technical terms of KanBug Tracker in [Understanding KanBug Tracker ](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#4-understanding-kanbug-tracker) section of the User Guide.
+We also provide a glossary for non-technical terms of KanBug Tracker in [Understanding KanBug Tracker ](https://ay2021s1-cs2103t-w17-1.github.io/tp/UserGuide.html#4-understanding-kanbug-tracker) section of the User Guide.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -690,7 +693,7 @@ testers are expected to do more *exploratory* testing.
     1. Press `F1`<br>
        Expected: the `help` window should have opened.
     
-    1. Select the app's main window (either using your `mouse` or by pressing `Alt + Tab` on your keyboard).
+    1. Select the app's main window (either using your mouse or by pressing `Alt` + `Tab` on your keyboard).
     
     1. Press `F1` again<br>
        Expected: the `help` window should be selected again.
@@ -709,10 +712,10 @@ testers are expected to do more *exploratory* testing.
     1. Switch to Kanban View.
     
     1. Execute `add n/My bug d/Text`<br>
-       Expected: a new bug with the name "My bug" and description "Text" should be added in the `backlog` column.
+       Expected: a new bug with the name "My bug" and description "Text" should be added in the `Backlog` column.
     
     1. Execute `add n/Bug d/Des t/tag1 t/tag2 pr/low s/done`<br>
-       Expected: a new bug with the correct fields should be added in the `done` column.
+       Expected: a new bug with the correct fields should be added in the `Done` column.
     
 1. Test case 2:
    
@@ -791,7 +794,7 @@ testers are expected to do more *exploratory* testing.
     1. Add some bugs into the todo column.
     
     1. Execute `delete 1 c/todo`<br>
-       Expected: First bug is deleted from the `todo` column. Details of the deleted bug shown in the status message.
+       Expected: First bug is deleted from the `Todo` column. Details of the deleted bug shown in the status message.
     
     1. Execute `delete 1`<br>
        Expected: No bug is deleted. The app should response with "Please provide column in Kanban view window".
@@ -822,7 +825,7 @@ testers are expected to do more *exploratory* testing.
        Expected: No bug is edited. The app response with "Please provide column in Kanban view window".
        
     1. Execute `edit 1 c/todo d/desc`<br>
-       Expected: The first bug in the `todo` column is edited. Details of the bug are shown in the status message.
+       Expected: The first bug in the `Todo` column is edited. Details of the bug are shown in the status message.
        
 ### Adding tags to an existing bug
 
