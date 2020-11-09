@@ -53,7 +53,8 @@ public class KanbanPanel extends UiPart<Region> {
     }
 
     private void fillColumn(VBox column, String state) {
-        Label label = new Label(state);
+        String capitalizedState = state.substring(0, 1).toUpperCase() + state.substring(1);
+        Label label = new Label(capitalizedState);
         label.getStyleClass().add("state");
 
         BugListPanelKanban bugListPanel = new BugListPanelKanban(logic.getFilteredBugListByState(state));
