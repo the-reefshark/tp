@@ -73,4 +73,20 @@ KanBug Tracker is a lightweight, easy to use bug management tool that aims to em
         [#121](https://github.com/AY2021S1-CS2103T-W17-1/tp/pull/121),
         [#237](https://github.com/AY2021S1-CS2103T-W17-1/tp/pull/237),
         [#253](https://github.com/AY2021S1-CS2103T-W17-1/tp/pull/253)
+     
+    * **Beyond the team**:
+        * Peer testing and Bug reporting for other teams:
+        [#1](https://github.com/PhongTran98/ped/issues/1),
+        [#2](https://github.com/PhongTran98/ped/issues/2),
+        [#3](https://github.com/PhongTran98/ped/issues/3),
+        [#4](https://github.com/PhongTran98/ped/issues/4),
+        [#5](https://github.com/PhongTran98/ped/issues/5),
+        [#6](https://github.com/PhongTran98/ped/issues/6),
+        [#7](https://github.com/PhongTran98/ped/issues/7),
+        [#8](https://github.com/PhongTran98/ped/issues/8),
+        [#9](https://github.com/PhongTran98/ped/issues/9),
+        
+        
+           
+     
         
