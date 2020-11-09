@@ -238,12 +238,12 @@ The **index** of a bug is the position of that bug in the list.
 
 Some commands require the use of prefixes to indicate user input. Every command will have its own specific format so do pay close attention to the command's requirements!
 
-<div markdown="span" class="alert alert-info">:information_source: Note: If you accidentally include multiple copies of the same prefix, the programme will use the prefix that appears last.
-Eg. <code>edit 1 n/firstname n/secondname</code> will result in the name of Bug 1 being edited to <b>secondname</b>.
+<div markdown="span" class="alert alert-info">:information_source: Note: If you accidentally include multiple copies of the same prefix, the programme will consider only the prefix that appears last and ignore all previous one, 
+even if they are of the wrong format, e.g. <code>edit 1 n/@wrong format n/firstname n/secondname</code> will result in the name of Bug 1 being edited to <b>secondname</b>.
 </div>
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: A prefix is only valid if it is preceded by a whitespace and is mentioned in the command syntax, otherwise it is treated as a normal word.
-Eg. <code>d/t/Location v/not a prefix</code> will result in the description field of the Bug being set to <code>t/Location v/not a prefix</code> because neither "t/" nor "v/" is considered as a prefix. 
+<div markdown="span" class="alert alert-warning">:warning: WARNING: A prefix is only valid if it is preceded by a whitespace and is mentioned in the command syntax, otherwise it is treated as a normal word, 
+e.g. <code>d/t/Location v/not a prefix</code> will result in the description field of the Bug being set to <code>t/Location v/not a prefix</code> because neither "t/" nor "v/" is considered as a prefix. 
 </div>
 
 ## 5. Features
@@ -253,8 +253,8 @@ Eg. <code>d/t/Location v/not a prefix</code> will result in the description fiel
 - Items in `(...)` are only required in **Kanban view** and should not be supplied in **List view**
 - `INDEX` **must be a positive integer** 1,2,3...
 
-<div markdown="span" class="alert alert-warning">:warning: WARNING: For the prefixes surrounded by the parentheses in the command format, they are considered as an invalid prefix in List view.
-Eg. Executing <code>edit 1 d/column c/todo</code> in List view will not result in the description field of the Bug being set to <code>column c/todo</code> but will result in an error because "c/" is considered as a prefix which should not be supplied in List view. 
+<div markdown="span" class="alert alert-warning">:warning: WARNING: For the prefixes surrounded by the parentheses in the command format, they are considered as an invalid prefix in List view, 
+e.g. executing <code>edit 1 d/column c/todo</code> in List view will not result in the description field of the Bug being set to <code>column c/todo</code> but will result in an error because "c/" is considered as a prefix which should not be supplied in List view. 
 </div>
 
 ### 5.1 Switching Views : `switch`
@@ -296,7 +296,7 @@ Just type `help` and hit `Enter`
 
 This creates a popup (the Help Window) with a command guide that you can refer to.
 
-<div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the F1 key to open the Help window. Try it!
+<div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the <code>F1</code> key to open the Help window. Try it!
 </div>
 
 ### 5.3 Listing all bugs : `list`
@@ -405,8 +405,8 @@ Format: `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [n
 - **Multiple tags** can be added or edited.
 - The command will fail if the operation results in duplicated bugs (bugs with the same name).
 
-<div markdown="span" class="alert alert-info">:information_source: Note: To remove optional fields such as <code>Note</code>, <code>Tags</code> and <code>Priority</code> from a bug simply type the prefix without providing anything after.
-Eg. <code>edit 1 pr/</code> will remove the assigned priority of the Bug if there is one present.
+<div markdown="span" class="alert alert-info">:information_source: Note: To remove optional fields such as <code>Note</code>, <code>Tags</code> and <code>Priority</code> from a bug simply type the prefix without providing anything after, 
+e.g. <code>edit 1 pr/</code> will remove the assigned priority of the Bug if there is one present.
 </div>
 
 <div markdown="span" class="alert alert-warning">:warning: WARNING: Watch out! If you use this command to edit Tags you will erase all pre-existing tags from the bug you have selected and replace them with the new tags you have specified! To modify a specific bug without affecting the others use the <a href="#58-editing-a-tag-of-a-bug--edittag">editTag</a> command instead. <br>
@@ -536,34 +536,34 @@ You would enter the following command:
 
 ### 5.10 Moving a bug : `move`
 
-Whether you begin to work on a bug, finish fixing one or plan to deal with a bug later, you can use `move` to update the 
+Whether you begin to work on a bug, finish fixing one or plan to solve it later, you can use `move` command to update your 
 progress on dealing with that bug.
 
 Format: `move INDEX (c/COLUMN) s/STATE`
 
 - Specifically, this command will change the state of the bug.
-- The state field is **mandatory** and must be provided.
-- State can either be **backlog, todo, ongoing** or **done**.
-- If the **destination** state is the same with the initial state of the bug, no change will be made.
-- The bug must exist to be moved (e.g. we cannot move the fifth bug in the List view if there are only four bugs).
+- The `STATE` is **mandatory**.
+- State can only be **backlog, todo, ongoing** or **done** (case-insensitive).
+- If the `STATE` is the same with the initial state of the bug, no change will be made.
+- The `INDEX` must refer to an existing bug (e.g. we cannot move the fifth bug in the List view if there are only four bugs).
 
 Examples:
 
 Example 1:
 
-You are in **Kanban View** and you want to move the second bug in the `backlog` column to the `ongoing` column. This
+You are in **Kanban View** and you want to move the second bug in the `Backlog` column to the `Ongoing` column. This
 is how you can do it:
 
 ![MoveMain](images/MoveMain.png)
 
-Since the bug originally in the `backlog` column so you must supply `c/backlog`. Since you want to move it 
-to the `ongoing` column so you must supply `s/ongoing`. Since this is the first bug in the column so you must
+Since the bug is originally in the `Backlog` column, you must supply `c/backlog`. Since you want to move it 
+to the `Ongoing` column, you must supply `s/ongoing`. This is the first bug in the column so you must
 supply the index `1`. In short, the command you must execute is `move 1 c/backlog s/ongoing`.
 
 ![MoveMoved](images/MoveMoved.png)
 
 Here the bug is successfully moved into the new column. The display at the bottom of the screen confirms that
-the command has been executed successfully.
+the command has been successfully executed.
 
 Example 2 (No walkthrough provided) :
 
@@ -595,7 +595,7 @@ Format: `exit`
 
 - This command is applicable to both Kanban and List views.
 
-<div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the Esc key to close the window. Try it!
+<div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the <code>Esc</code> key to close the window. Try it!
 </div>
 
 ### 5.13 Saving the data : automatically
