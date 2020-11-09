@@ -89,7 +89,7 @@ Before continuing, it would be good to familiarise yourself with a few symbols t
 Now you're all set to get started! But where should you begin?
 
 - If you are a first-time user, start [here](#3-getting-started) by learning how to download and set up KanBug Tracker.
-- If you are confused about the various parts of KanBug Tracker (GUI, what is a bug, etc.), you can learn about them [here](#4-understanding-KanBug-tracker).
+- If you are confused about the various parts of KanBug Tracker (Graphical user interface, what is a bug, etc.), you can learn about them [here](#4-understanding-KanBug-tracker).
 - If you are interested to learn about the different exciting features KanBug Tracker has, check out the Features section [here](#5-features).
 - If you are already familiar with KanBug Tracker but have some trouble remembering the command syntax, take a look at the Command Summary section [here](#6-command-summary).
 
@@ -127,7 +127,7 @@ Now you're all set to get started! But where should you begin?
 
 We're sure that you're excited to start using KanBug Tracker! Before that however, there are some terms and parts of the application that you need to be familiar with to make the best out of your KanBug Tracker experience.
 
-We have divided this section into three. The first section introduces the various aspects of KanBug Tracker's **Graphical User Interface (GUI)**. The second section explains what a **bug is and explains its various parts**. The third section focuses on how the **user interacts with the application** and introduces some key ideas that users need to know.
+We have divided this section into three. The first subsection introduces the various aspects of KanBug Tracker's **Graphical User Interface (GUI)**. The second subsection explains what a **bug is and explains its various parts**. The third subsection focuses on how the **user interacts with the application** and introduces some key ideas that users need to know.
 
 ### 4.1 Understanding the Graphical User Interface
 
@@ -215,12 +215,12 @@ Commands are how you interact with the KanBug Tracker. The various commands will
 
 #### Columns
 
-You may have noticed that some commands require you to provide the column that the bug is in. Don't fret, columns in the Kanban View simply refer to the state of a particular bug.
+You may notice that some commands require you to provide the column that the bug is in. Don't fret, columns in the Kanban View simply refer to the state of a particular bug.
 
-<div markdown="span" class="alert alert-info">:information_source: Note: You only need to tell us the column when you are in <b>Kanban View</b>.
+<div markdown="span" class="alert alert-info">:information_source: Note: You only need to supply the column when you are in <b>Kanban View</b>.
 <br><br>
-   • <b>List view:</b> You should not supply the <code>COLUMN</code>. The bug at the specified <code>INDEX</code> is edited. The index refers to the index number shown in the displayed list of bugs.<br>
-   • <b>Kanban view:</b> Remember to supply the <code>COLUMN</code> when using this view! The bug you have chosen at <code>INDEX</code> in the <b>chosen column</b> is deleted.<br>
+   • <b>List view:</b> You should not supply <code>COLUMN</code>. The bug at the specified <code>INDEX</code> is edited. The index refers to the index number shown in the displayed list of bugs.<br>
+   • <b>Kanban view:</b> Remember to supply <code>COLUMN</code> when using this view! The bug you have chosen at <code>INDEX</code> in the <b>chosen column</b> is deleted.<br>
 <br>
 Example: <br><br>
 <img src="images/ListViewDelete.png"> <br><br>
