@@ -2,7 +2,7 @@
 !include style.puml
 
 box UI LOGIC_COLOR_T1
-participant ":KanbanBoard" as KanbanBoard LOGIC_COLOR
+participant ":KanbanPanel" as KanbanBoard LOGIC_COLOR
 participant "todo:BugListPane" as BugListPane LOGIC_COLOR
 participant "ongoing:BugListPane" as BugListPane2 LOGIC_COLOR
 participant "done:BugListPane" as BugListPane3 LOGIC_COLOR
