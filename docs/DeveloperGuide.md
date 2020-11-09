@@ -186,7 +186,7 @@ The edit tag feature is mainly facilitated by the `EditTagCommand` and `EditTagB
 
 In understanding how the `editTag` command works, it is crucial to understand the `execute()` method from both the `EditTagCommand` class and `EditTagByStateCommand` class.
 
-The `EditTagCommand` and `EditTagByStateCommand` classes are largely similar. The only difference is that `EditTagByStateCommand` requires the **state** of a bug to be supplied when creating an instance of `EditTagByStateCommand`. Which object is created depends on the view of the application that the user is in. To understand this in greater depth, you are encouraged to read the following [section](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#featureui-kanban-view-window).
+The `EditTagCommand` and `EditTagByStateCommand` classes are largely similar. The only difference is that `EditTagByStateCommand` requires the **state** of a bug to be supplied when creating an instance of `EditTagByStateCommand`. Which object is created depends on the view of the application that the user is in. To understand this in greater depth, you are encouraged to read the following [section](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#kanban-view-window-feature).
 
 The execution of the `execute()` method of  `EditTagCommand` and `EditTagByStateCommand` is largely similar. As such, I will only go through in detail the execution of `execute()` of the `EditTagCommand` for brevity. 
 
@@ -246,7 +246,7 @@ This section explains:
 
 #### Implementation
 
-The implementation of the add tag feature is greatly similar to that of the edit tag feature. The  difference is that instead of `EditTagCommand` and `EditTagByStateCommand` objects, the add tag feature is facilitated by `AddTagCommand` and `AddTagByStateCommand` objects. As such, to understand the implementation of this feature, it is sufficient to read the introduction of the [implementation of previous section](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#implementation-1).
+The implementation of the add tag feature is greatly similar to that of the edit tag feature. The  difference is that instead of `EditTagCommand` and `EditTagByStateCommand` objects, the add tag feature is facilitated by `AddTagCommand` and `AddTagByStateCommand` objects. As such, to understand the implementation of this feature, it is sufficient to read the introduction of the [implementation of previous section](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#implementation-2).
 
 Refer to the sequence diagram below to understand the top-level execution of the   `execute()` method after the user enters a valid `addTag` command. While the execution is similar to that of the `editTag` command, it differs in some key areas which I will point out. For brevity and to reduce duplicate text, I will redirect you to the steps of the execution of the `editTag` command when necessary.
 
@@ -267,7 +267,7 @@ Step 8 is the same as in the `editTag` command.
 
 #### Design Considerations
 
-The design considerations for this feature are the same as the design considerations for the edit tag feature. As such, you can refer to that section of the Developer Guide [here](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#design-consideration-1).
+The design considerations for this feature are the same as the design considerations for the edit tag feature. As such, you can refer to that section of the Developer Guide [here](https://ay2021s1-cs2103t-w17-1.github.io/tp/DeveloperGuide.html#design-considerations-1).
 
 #### Summary
 
@@ -346,7 +346,7 @@ The following class diagram shows the structure of the `search` command implemen
 ![SearchCommandClassDiagram](images/SearchCommandClassDiagram.png)
 
 Given below is an example usage scenario and how the `search` feature behaves at each step:  
-  
+
 Step 1. The user launches the application for the first time. The `KanBugTracker` will be initialized with the initial KanBug Tracker state.  
 
 Step 2. The user executes `add n/Ui bug d/Displays wrongly the information s/todo t/Ui.java` command to add a new bug to the KanBug tracker. A new bug with the following information is added:  
