@@ -34,7 +34,7 @@ KanBug Tracker is a lightweight, easy to use bug management tool that aims to em
         * Contributed to the project ideation, product name, brainstorming user stories as well as key features.
         * Ensured that the workload regarding the documentation was split evenly between the group members.
     * **Documentation**:
-        * Wrote sections on `help`, `list` and `edit` commands in KanBug Tracker's User Guide
+        * Wrote sections on `switch`, `help`, `list` and `edit` commands in KanBug Tracker's User Guide
         * Created Ui screenshots used under the "What can users expect?" section of the User Guide
         * Added warning and information boxes in multiple sections of the User Guide
         * Wrote section on Note feature and User Stories in the Developer Guide.  
