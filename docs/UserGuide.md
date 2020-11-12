@@ -25,9 +25,9 @@ title: User Guide
 
    5.2 [Viewing help : **`help`**](#52-viewing-help--help)
 
-   5.3 [Listing all bugs : **`list`**](#53-listing-all-bugs--list)
+   5.3 [Searching for bugs: **`search`**](#53-searching-for-bugs--search)
 
-   5.4 [Searching for bugs: **`search`**](#54-searching-for-bugs--search)
+   5.4 [Listing all bugs : **`list`**](#54-listing-all-bugs--list)
 
    5.5 [Adding a bug : **`add`**](#55-adding-a-bug--add)
 
@@ -301,26 +301,7 @@ This creates a popup (the Help Window) with a command guide that you can refer t
 <div markdown="span" class="alert alert-success">:bulb: Tip: You can also press the <code>F1</code> key to open the Help window. Try it!
 </div>
 
-### 5.3 Listing all bugs : `list`
-(by Rishabh)
-
-After running the search command you might want to see all the bugs you have in your KanBug Tracker at one glance. Thats where `list` can be used.
-
-Format: `list`
-
-- Shows all the bugs in your KanBug Tracker
-
-Example: Lets say you have just completed a search for bugs related to `Parser` using the command `search q/Parser` and now you want to view all your bugs again. Just do this:
-
-![HomeFolder](images/ListExample1.png)
-
-Just type `list` and hit `Enter`
-
-![HomeFolder](images/ListExample2.png)
-
-The result display will then indicate the result of your command, and the KanBug Tracker will display all your bugs.
-
-### 5.4 Searching for bugs : `search`
+### 5.3 Searching for bugs : `search`
 (by Duy)
 
 When there are a lot of bugs in the tracker, you might want to look for a particular one, `search` command is here to help you with that!
@@ -350,6 +331,25 @@ Once the command has been entered, the result display will show the total number
 
 If either the name, description or tag of a bug contains the `QUERYSTRING`, it will be included in the resulting list after the command has been executed.
 
+
+### 5.4 Listing all bugs : `list`
+(by Rishabh)
+
+After running the search command you might want to see all the bugs you have in your KanBug Tracker at one glance. Thats where `list` can be used.
+
+Format: `list`
+
+- Shows all the bugs in your KanBug Tracker
+
+Example: Lets say you have just completed a search for bugs related to `Parser` using the command `search q/Parser` and now you want to view all your bugs again. Just do this:
+
+![HomeFolder](images/ListExample1.png)
+
+Just type `list` and hit `Enter`
+
+![HomeFolder](images/ListExample2.png)
+
+The result display will then indicate the result of your command, and the KanBug Tracker will display all your bugs.
 
 ### 5.5 Adding a bug : `add`
 (by Roger)
@@ -624,8 +624,8 @@ Instead, use the KanBug Tracker itself so it can guide you along the way!
 |   Action    |                            Format                            |
 | :---------: | :----------------------------------------------------------: |
 |  **help**   |                            `help`                            |
-|  **list**   |                            `list`                            |
 | **search**  |                      `search q/QUERYSTRING`                  |
+|  **list**   |                            `list`                            |
 |   **add**   |   `add n/NAME d/DESCRIPTION [s/STATE] [note/NOTE] [t/TAG] [pr/PRIORITY]`   |
 | **delete**  |                        `delete INDEX (c/COLUMN)`                        |
 |  **edit**   | `edit INDEX (c/COLUMN) [n/NEW_NAME] [d/NEW_DESCRIPTION] [s/NEW_STATE] [note/NEW_NOTE] [t/NEW_TAG] [pr/NEW_PRIORITY]` |
